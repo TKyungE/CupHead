@@ -3,6 +3,8 @@
 #include "Image.h"
 #include "MissileManager.h"
 #include "Missile.h"
+#include "Collider.h"
+#include "CollisionManager.h"
 
 /*
 	STL (Standard Template Library) : Vector
@@ -28,7 +30,7 @@ void Enemy::Init(float posX, float posY)
 	elapsedTime = 0.0f;
 
 	image = ImageManager::GetInstance()->AddImage(
-		"Normal_Enemy", TEXT("Image/ufo.bmp"), 530, 32, 10, 1,
+		"Normal_Enemy", TEXT("Image/Test/blimp_dash.bmp"), 21168, 415, 24, 1,
 		true, RGB(255, 0, 255));
 
 	//image = new Image();
@@ -43,6 +45,9 @@ void Enemy::Init(float posX, float posY)
 	missile->SetPos(pos);
 	missile->SetAngle(-135);
 	missile->SetIsActived(true);
+
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0, }, { 30.f,30.f});
+	CollisionManager::GetInstance()->AddCollider(collider,OBJ_MONSTER);
 }
 
 void Enemy::Release()

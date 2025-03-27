@@ -4,19 +4,19 @@
 class Timer;
 class Image;
 class EnemyManager;
+class CollisionManager;
 class MainGame : public GameObject
 {
 private:
 	HDC hdc;
 	PAINTSTRUCT ps;
-	int mousePosX = 0, mousePosY = 0;
 	FPOINT mousePos;
 	wchar_t szText[128];
 
 	Image* backBuffer;
 	Image* backGround;
 	EnemyManager* enemyManager;
-
+	CollisionManager* collisionManager;
 	Timer* timer;
 
 public:

@@ -66,6 +66,15 @@
     <ClCompile Include="TimerManager.cpp">
       <Filter>2D Framework\Timer</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -109,6 +118,15 @@
     </ClInclude>
     <ClInclude Include="TimerManager.h">
       <Filter>2D Framework\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

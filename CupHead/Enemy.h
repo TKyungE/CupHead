@@ -7,7 +7,6 @@ class MissileManager;
 class Enemy : public GameObject	// is-a
 {
 private:
-	FPOINT pos;
 	float moveSpeed;		// 5.0f (초당 이동속도) 물리에서의 속도 : 거리와 시간
 	float angle;
 	bool isAlive;
@@ -29,7 +28,6 @@ public:
 
 	inline void SetIsAlive(bool isAlive) { this->isAlive = isAlive; }
 	inline bool GetIsAlive() { return isAlive; }
-	inline FPOINT GetPos() { return pos; }
 	inline int GetSize() { return size; }
 
 	Enemy();

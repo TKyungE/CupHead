@@ -3,7 +3,7 @@
 #include "Image.h"
 #include "EnemyManager.h"
 #include "Timer.h"
-
+#include "CollisionManager.h"
 /*
 	실습1. 이오리 집에 보내기
 	실습2. 배경 바꾸기 (킹오파 애니메이션 배경)
@@ -32,6 +32,8 @@ void MainGame::Init()
 	enemyManager = new EnemyManager();
 	enemyManager->Init();
 
+	collisionManager = CollisionManager::GetInstance();
+	collisionManager->Init();
 }
 
 void MainGame::Release()
@@ -57,6 +59,12 @@ void MainGame::Release()
 		backBuffer = nullptr;
 	}
 
+	if (collisionManager)
+	{
+		collisionManager->Release();
+		collisionManager = nullptr;
+	}
+
 	ReleaseDC(g_hWnd, hdc);
 
 	KeyManager::GetInstance()->Release();
@@ -66,7 +74,7 @@ void MainGame::Release()
 void MainGame::Update()
 {
 	enemyManager->Update();
-	InvalidateRect(g_hWnd, NULL, false);
+	collisionManager->Update();
 }
 
 void MainGame::Render()
@@ -76,10 +84,11 @@ void MainGame::Render()
 
 	backGround->Render(hBackBufferDC);
 
-	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), mousePosX, mousePosY);
+	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), mousePos.x, mousePos.y);
 	TextOut(hBackBufferDC, 20, 60, szText, wcslen(szText));
 
 	enemyManager->Render(hBackBufferDC);
+	collisionManager->Render(hBackBufferDC);
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 
@@ -91,26 +100,7 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 {
 	switch (iMessage)
 	{
-	case WM_KEYDOWN:
-		switch (wParam)
-		{
-		case 'a': case 'A':
-			break;
-		case 'd': case 'D':
-			break;
-		}
-		break;
-	case WM_LBUTTONDOWN:
-		mousePosX = LOWORD(lParam);
-		mousePosY = HIWORD(lParam);
-
-		break;
-	case WM_LBUTTONUP:
-		break;
 	case WM_MOUSEMOVE:
-		mousePosX = LOWORD(lParam);
-		mousePosY = HIWORD(lParam);
-
 		mousePos.x = LOWORD(lParam);
 		mousePos.y = HIWORD(lParam);
 		break;

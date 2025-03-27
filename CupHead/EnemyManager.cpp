@@ -27,18 +27,22 @@ void EnemyManager::Init()
 	//	vecEnemys[i]->Init();
 	//}
 
-	vecEnemys.resize(10);
-	for (int i = 0; i < 10; i++)
+	//vecEnemys.resize(10);
+	Enemy* enemy = new Enemy();
+	enemy->Init(310.f, 200.f);
+	vecEnemys.push_back(enemy);
+
+	/*for (int i = 0; i < 10; i++)
 	{
 		vecEnemys[i] = new Enemy();
 		vecEnemys[i]->Init(310.0f + 130.0f * (i % 5) , 
 			80.0f + 90.0f * (i / 5));
-	}
+	}*/
 }
 
 void EnemyManager::Release()
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < vecEnemys.size(); i++)
 	{
 		vecEnemys[i]->Release();
 		delete vecEnemys[i];

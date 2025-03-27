@@ -9,7 +9,15 @@ public:
 	void Update();		// 프레임 단위로 게임 로직 실행(데이터 계산)
 	void Render(HDC hdc);	// 프레임 단위로 출력(이미지, 텍스트 등)
 
+	FPOINT GetPos() const { return pos; }
+	bool IsDead() const { return bDead; }
+
 	GameObject();
 	~GameObject();
+
+protected:
+	FPOINT pos;
+	FPOINT size;
+	bool bDead;
 };
 
