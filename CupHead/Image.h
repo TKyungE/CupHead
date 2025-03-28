@@ -89,5 +89,8 @@ public:
 
 	inline int GetMaxFrameX() { return imageInfo->maxFrameX; }
 	inline int GetMaxFrameY() { return imageInfo->maxFrameY; }
+
+	inline int GetFrameWidth() { return imageInfo->frameWidth; }
+	inline int GetFrameHeight() { return imageInfo->frameHeight; }
 };
 
