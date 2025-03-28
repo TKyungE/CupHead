@@ -30,6 +30,7 @@ public:
 
 	void SetSize(FPOINT size) { Size = size; }
 	void SetHit(bool bhit) { this->bHit = bhit; }
+	void SetPivot(FPOINT pivot) { PivotPos = pivot; }
 	
 private:
 	void DrawRectLine(HDC hdc, FPOINT HalfSize);

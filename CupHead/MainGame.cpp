@@ -110,7 +110,7 @@ void MainGame::Render()
 
 	backGround->Render(hBackBufferDC);
 
-	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), mousePos.x, mousePos.y);
+	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), (int)mousePos.x, (int)mousePos.y);
 	TextOut(hBackBufferDC, 20, 60, szText, (int)wcslen(szText));
 
 

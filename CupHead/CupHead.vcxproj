@@ -143,6 +143,7 @@
     <ClCompile Include="MissileManager.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Orb.cpp" />
+    <ClCompile Include="OrbBullet.cpp" />
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="MissileManager.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Orb.h" />
+    <ClInclude Include="OrbBullet.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Singleton.h" />

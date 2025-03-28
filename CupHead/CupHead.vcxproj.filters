@@ -34,6 +34,12 @@
     <Filter Include="2D Framework\GameObject">
       <UniqueIdentifier>{ed8aa66f-8972-4254-b0e8-1744769043ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\Orb">
+      <UniqueIdentifier>{bb21ad02-9417-436a-9346-0340c6e27233}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Orb\OrbBullet">
+      <UniqueIdentifier>{d37474c8-f7aa-4cbb-bc72-f8b21c14cfb7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -92,6 +98,12 @@
     </ClCompile>
     <ClCompile Include="Character.cpp">
       <Filter>2D Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Orb.cpp">
+      <Filter>MainGame\Enemy\Orb</Filter>
+    </ClCompile>
+    <ClCompile Include="OrbBullet.cpp">
+      <Filter>MainGame\Enemy\Orb\OrbBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -157,6 +169,12 @@
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>2D Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Orb.h">
+      <Filter>MainGame\Enemy\Orb</Filter>
+    </ClInclude>
+    <ClInclude Include="OrbBullet.h">
+      <Filter>MainGame\Enemy\Orb\OrbBullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

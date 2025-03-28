@@ -11,10 +11,13 @@ enum class OrbState : uint8_t
 	End
 };
 
+class Collider;
 class Orb : public Pawn
 {
+private:
+	enum DIRECTION {DIRECTION_LEFT, DIRECTION_RIGHT, DIRECTION_END};
 public:
-	Orb(FPOINT InPos, FPOINT InSize);
+	Orb(FPOINT InPos, float InSize);
 	virtual ~Orb() = default;
 
 	virtual void Init() override;
@@ -22,8 +25,9 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	virtual void Move();
+	virtual void Move() override;
 
+	void SetState(OrbState InState) { State = InState; }
 private:
 	void Idle();
 	void MoveUp();
@@ -31,9 +35,17 @@ private:
 	void Attack();
 	void Dead();
 
-	void SetState(OrbState InState) { State = InState; }
+	void InitRandom();
+	void RandomAttackPosition();
+	void RandomDir();
+
+	void ResetFrame();
 private:
 	OrbState State;
+	Collider* OrbCollider;
 	float StateChangeTime;
+	FPOINT AttackPosition;
+	DIRECTION Dir;
+	bool bFlip;
 };
 
