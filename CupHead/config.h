@@ -7,6 +7,7 @@
 #include <string>
 #include <iostream>
 #include <bitset>
+#include <vector>
 #include <map>
 
 using namespace std;
