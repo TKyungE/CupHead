@@ -1,16 +1,28 @@
 #pragma once
 #include "Character.h"
-#include <unordered_map>
 
-enum class BlimpEnemyState
+namespace BlimpEnemyInfo
 {
-	Idle,
-	Attack,
-	Turn,
-	length
-};
+	enum EState
+	{
+		IDLE,
+		ATTACK,
+		TURN,
+		STATE_END
+	};
 
-class Image;
+	extern string states[EState::STATE_END];
+
+	enum EColor
+	{
+		PURPLE,
+		GREEN,
+		COLOR_END,
+	};
+
+	extern string colors[EColor::COLOR_END];
+}
+
 class BlimpEnemy : public Character
 {
 public:
@@ -22,9 +34,18 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-private:
-	BlimpEnemyState CurState;
-	unordered_map<BlimpEnemyState, pair<string, float>> AnimData;
+	inline void SetColor(string _Color) { Color = _Color; }
+	inline string GetColor() const { return Color; }
 
+	inline void SetBulletNum(int _BulletNum) { BulletNum = _BulletNum; }
+	inline int GetBulletNum() const { return BulletNum; }
+
+	void SetState(BlimpEnemyInfo::EState NewState);
+
+private:
+	string Color;
+	int BulletNum;
+	BlimpEnemyInfo::EState CurState;
+	vector<pair<string, float>> AnimData;
 };
 
