@@ -73,7 +73,7 @@
       <Filter>2D Framework</Filter>
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>2D Framework</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -126,7 +126,7 @@
       <Filter>2D Framework</Filter>
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framework</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

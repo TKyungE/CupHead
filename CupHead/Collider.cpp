@@ -1,8 +1,8 @@
 #include "Collider.h"
 #include "GameObject.h"
 
-Collider::Collider(GameObject* owner, COLLIDERTYPE colliderType, FPOINT pivot, FPOINT size)
-	:Owner(owner),ColliderType(colliderType), Pos(), PivotPos(pivot), Size(size),bHit(false)
+Collider::Collider(GameObject* owner, COLLIDERTYPE colliderType, FPOINT pivot, FPOINT size, bool bDebugDraw)
+	:Owner(owner),ColliderType(colliderType), PivotPos(pivot), Size(size), bDebugDraw(bDebugDraw), Pos(), bHit(false)
 {
 }
 
@@ -26,13 +26,10 @@ void Collider::Render(HDC hdc)
 	HPEN hPen;
 
 	if (!bHit)
-	{
-		hPen = CreatePen(PS_SOLID, 2, RGB(0, 255, 0)); // RGB(0, 255, 0) -> 초록색
-	}
+		hPen = CreatePen(PS_SOLID, 2, RGB(0, 255, 0)); // 초록
 	else
-	{
-		hPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0)); // RGB(0, 255, 0) -> 초록색
-	}
+		hPen = CreatePen(PS_SOLID, 2, RGB(255, 0, 0)); // 빨강
+
 	HPEN hOldPen = (HPEN)SelectObject(hdc, hPen); // 현재 DC에 펜을 설정
 
 	switch (ColliderType)
@@ -57,9 +54,9 @@ void Collider::Release()
 
 void Collider::DrawRectLine(HDC hdc, FPOINT HalfSize)
 {
-	MoveToEx(hdc, Pos.x - HalfSize.x, Pos.y - HalfSize.y, NULL);
-	LineTo(hdc, Pos.x + HalfSize.x, Pos.y - HalfSize.y);
-	LineTo(hdc, Pos.x + HalfSize.x, Pos.y + HalfSize.y);
-	LineTo(hdc, Pos.x - HalfSize.x, Pos.y + HalfSize.y);
-	LineTo(hdc, Pos.x - HalfSize.x, Pos.y - HalfSize.y);
+	MoveToEx(hdc, int(Pos.x - HalfSize.x), int(Pos.y - HalfSize.y), NULL);
+	LineTo(hdc, int(Pos.x + HalfSize.x), int(Pos.y - HalfSize.y));
+	LineTo(hdc, int(Pos.x + HalfSize.x), int(Pos.y + HalfSize.y));
+	LineTo(hdc, int(Pos.x - HalfSize.x), int(Pos.y + HalfSize.y));
+	LineTo(hdc, int(Pos.x - HalfSize.x), int(Pos.y - HalfSize.y));
 }

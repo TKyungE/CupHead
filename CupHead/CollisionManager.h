@@ -22,17 +22,17 @@ struct Line
 
 	void Render(HDC hdc)
 	{
-		MoveToEx(hdc, start.x, start.y, NULL);
-		LineTo(hdc, end.x, end.y);
+		MoveToEx(hdc, (int)start.x, (int)start.y, NULL);
+		LineTo(hdc, (int)end.x, (int)end.y);
 	}
 	void Update()
 	{
-
-		/*if (CurrentTime >= DebugDuration)
+		CurrentTime += TimerManager::GetInstance()->GetDeltaTime();
+		if (CurrentTime >= DebugDuration)
 		{
 			CurrentTime = 0.f;
 			bDebugDraw = false;
-		}*/
+		}
 	}
 	FPOINT start;
 	FPOINT end;
@@ -42,9 +42,6 @@ struct Line
 	bool bDebugDraw;
 	COLORREF DebugColor;
 };
-
-
-
 
 class CollisionManager : public Singleton<CollisionManager>
 {
@@ -57,7 +54,18 @@ public:
 
 	void AddCollider(Collider* collider, OBJTYPE objType) { CollisionList[objType].push_back(collider); }
 
-	bool LineTraceByObject(FHitResult& hitResult, OBJTYPE objType, FPOINT start, FPOINT end, GameObject* owner,bool bIgnoreSelf, bool bDebugDraw, float DebugDuration, COLORREF DebugColor);
+	void PlayerMonsterCollision();
+	void PlayerMonsterWeaponCollision();
+	void PlayerWeaponMonsterCollision();
+
+	bool CollisionAABB(Collider* collider1, Collider* collider2);
+	bool CollisionSphere(Collider* collider1, Collider* collider2);
+
+
+
+
+
+	bool LineTraceByObject(FHitResult& hitResult, OBJTYPE objType, FPOINT start, FPOINT end, GameObject* owner, bool bIgnoreSelf, bool bDebugDraw, float DebugDuration, COLORREF DebugColor);
 	bool CheckLineTrace(FPOINT p1, FPOINT p2, FPOINT p3, FPOINT p4);
 	int ccw(FPOINT p1, FPOINT p2, FPOINT p3);
 private:

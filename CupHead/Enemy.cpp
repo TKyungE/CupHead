@@ -46,7 +46,7 @@ void Enemy::Init(float posX, float posY)
 	missile->SetAngle(-135);
 	missile->SetIsActived(true);
 
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0, }, { 30.f,30.f});
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0, }, { 30.f,30.f},true);
 	CollisionManager::GetInstance()->AddCollider(collider,OBJ_MONSTER);
 }
 
@@ -95,7 +95,7 @@ void Enemy::Render(HDC hdc)
 {
 	if (isAlive)
 	{
-		image->FrameRender(hdc, pos.x, pos.y, animationFrame, 0);
+		image->FrameRender(hdc, (int)pos.x, (int)pos.y, animationFrame, 0);
 		//RenderRectAtCenter(hdc, pos.x, pos.y, size, size);
 	}
 

@@ -11,18 +11,6 @@
 
 using namespace std;
 
-#define _CRTDBG_MAP_ALLOC
-#include <cstdlib>
-#include <crtdbg.h>
-
-#ifdef _DEBUG
-#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
-// Replace _NORMAL_BLOCK with _CLIENT_BLOCK if you want the
-// allocations to be of _CLIENT_BLOCK type
-#else
-#define DBG_NEW new
-#endif
-
 #include "KeyManager.h"
 #include "ImageManager.h"
 #include "TimerManager.h"
@@ -36,7 +24,7 @@ using namespace std;
 #define RAD_TO_DEG(radian) ((180.0 / 3.14) * radian)
 
 
-enum OBJTYPE { OBJ_PLAYER,OBJ_MONSTER, OBJ_END };
+enum OBJTYPE { OBJ_PLAYER,OBJ_MONSTER,OBJ_PLAYER_WEAPON,OBJ_MONSTER_WEAPON, OBJ_END };
 
 typedef struct tagFPOINT
 {
@@ -50,3 +38,18 @@ typedef struct tagFPOINT
 */
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
+
+#ifdef _DEBUG
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+#ifndef DBG_NEW 
+
+#define DBG_NEW new ( _NORMAL_BLOCK , __FILE__ , __LINE__ ) 
+#define new DBG_NEW 
+
+#endif
+
+#endif // _DEBUG

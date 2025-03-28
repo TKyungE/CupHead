@@ -88,10 +88,10 @@ inline void UpdateRect(RECT& rc, FPOINT pt)
 	int width = rc.right - rc.left;
 	int height = rc.bottom - rc.top;
 
-	rc.left = pt.x - (width / 2);
-	rc.right = rc.left + width;
-	rc.top = pt.y - (height / 2);
-	rc.bottom = rc.top + height;
+	rc.left = LONG(pt.x - (width / 2));
+	rc.right = LONG(rc.left + width);
+	rc.top = LONG(pt.y - (height / 2));
+	rc.bottom = LONG(rc.top + height);
 }
 
 inline float GetAngle(FPOINT start, FPOINT end)
@@ -112,7 +112,7 @@ inline float GetDistance(FPOINT p1, FPOINT p2)
 
 inline FPOINT RotatePoint(const FPOINT& p, double angleRad) {
 	FPOINT rotated;
-	rotated.x = p.x * std::cos(angleRad) - p.y * std::sin(angleRad);
-	rotated.y = p.x * std::sin(angleRad) + p.y * std::cos(angleRad);
+	rotated.x = float(p.x * std::cos(angleRad) - p.y * std::sin(angleRad));
+	rotated.y = float(p.x * std::sin(angleRad) + p.y * std::cos(angleRad));
 	return rotated;
 }

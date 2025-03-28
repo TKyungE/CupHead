@@ -12,7 +12,7 @@ class GameObject;
 class Collider
 {
 public:
-	Collider(GameObject* owner, COLLIDERTYPE colliderType, FPOINT pivot, FPOINT size);
+	Collider(GameObject* owner, COLLIDERTYPE colliderType, FPOINT pivot, FPOINT size, bool debugDraw);
 	~Collider() = default;
 
 	void Init();
@@ -23,8 +23,13 @@ public:
 	GameObject* GetOwner() const { return Owner; }
 	FPOINT GetPos() const { return Pos; }
 	FPOINT GetSize() const { return Size; }
-	void SetHit(bool bhit) { this->bHit = bhit; }
+	COLLIDERTYPE GetColliderType() const { return ColliderType; }
 
+	bool CanDebugDraw() const { return bDebugDraw; }
+
+	void SetSize(FPOINT size) { Size = size; }
+	void SetHit(bool bhit) { this->bHit = bhit; }
+	
 private:
 	void DrawRectLine(HDC hdc, FPOINT HalfSize);
 private:
@@ -36,5 +41,6 @@ private:
 	FPOINT Size;
 
 	bool bHit;
+	bool bDebugDraw;
 };
 

@@ -38,11 +38,11 @@ void Missile::Render(HDC hdc)
 {
 	if (image)
 	{
-		image->Render(hdc, pos.x, pos.y);
+		image->Render(hdc, (int)pos.x, (int)pos.y);
 	}
 	if (isActived)
 	{
-		RenderEllipseAtCenter(hdc, pos.x, pos.y, size, size);
+		RenderEllipseAtCenter(hdc, (int)pos.x, (int)pos.y, size, size);
 	}
 }
 
@@ -71,9 +71,9 @@ void Missile::Move()
 		//pos.y -= addPos.y;
 
 		pos.x += moveSpeed * TimerManager::GetInstance()->GetDeltaTime()
-			* cosf(DEG_TO_RAD(-90));
+			* cosf((float)DEG_TO_RAD(-90));
 		pos.y -= moveSpeed * TimerManager::GetInstance()->GetDeltaTime()
-			* sinf(DEG_TO_RAD(-90));
+			* sinf((float)DEG_TO_RAD(-90));
 	}
 }
 

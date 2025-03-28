@@ -1,5 +1,7 @@
 #include "CollisionManager.h"
 #include "Collider.h"
+#include "GameObject.h"
+#include "CommonFunction.h"
 #include <cmath>
 
 void CollisionManager::Init()
@@ -10,11 +12,39 @@ void CollisionManager::Update()
 {
 	for (int objType= 0; objType < OBJ_END; ++objType)
 	{
-		for (auto& iter : CollisionList[objType])
+		for (auto iter = CollisionList[objType].begin(); iter != CollisionList[objType].end();)
 		{
-			iter->Update();
+			if (!(*iter)->GetOwner())
+			{
+				(*iter)->Release();
+				delete (*iter);
+				iter = CollisionList[objType].erase(iter);
+			}
+			else
+			{
+				(*iter)->Update();
+				++iter;
+			}
 		}
 	}	
+
+	for (auto iter = LineList.begin(); iter != LineList.end();)
+	{
+		(*iter)->Update();
+		if (!(*iter)->bDebugDraw)
+		{
+			delete (*iter);
+			iter = LineList.erase(iter);
+		}
+		else
+			++iter;
+	}
+
+	// 콜라이더 업데이트 후 충돌 검사
+	// 기본적으로 네모와 원 충돌은 그냥 원 충돌로 퉁침.
+	PlayerMonsterCollision();
+	PlayerMonsterWeaponCollision();
+	PlayerWeaponMonsterCollision();
 }
 
 void CollisionManager::Render(HDC hdc)
@@ -23,6 +53,9 @@ void CollisionManager::Render(HDC hdc)
 	{
 		for (auto& iter : CollisionList[objType])
 		{
+			if (!iter->CanDebugDraw())
+				continue;
+
 			iter->Render(hdc);
 		}
 	}
@@ -36,7 +69,7 @@ void CollisionManager::DebugLineRender(HDC hdc)
 	{
 		if (iter->bDebugDraw)
 		{
-			HPEN hPen = CreatePen(PS_SOLID, 4, iter->DebugColor); // RGB(0, 255, 0) -> 초록색
+			HPEN hPen = CreatePen(PS_SOLID, 4, iter->DebugColor);
 			HPEN hOldPen = (HPEN)SelectObject(hdc, hPen); // 현재 DC에 펜을 설정
 
 			iter->Render(hdc);
@@ -54,35 +87,156 @@ void CollisionManager::Release()
 {
 	for (int objType = 0; objType < OBJ_END; ++objType)
 	{
-		for (auto iter = CollisionList[objType].begin(); iter != CollisionList[objType].end();)
+		for (auto& iter : CollisionList[objType])
 		{
-			(*iter)->Release();
-			delete (*iter);
-			iter = CollisionList[objType].erase(iter);
+			iter->Release();
+			delete iter;
 		}
-
 		CollisionList[objType].clear();
 	}
 
-	for (auto iter = LineList.begin(); iter != LineList.end();)
-	{
-		delete (*iter);
-		iter = LineList.erase(iter);
-	}	
+	for (auto& iter : LineList)
+		delete iter;
+	
+	LineList.clear();
 
 	ReleaseInstance();
+}
+
+void CollisionManager::PlayerMonsterCollision()
+{
+	for (auto& player : CollisionList[OBJ_PLAYER])
+	{
+		for (auto& monster : CollisionList[OBJ_MONSTER])
+		{
+			const COLLIDERTYPE colliderType = player->GetColliderType() == monster->GetColliderType() ? player->GetColliderType() : COLLIDERTYPE::Sphere;
+
+			bool bCollision = false;
+			switch (colliderType)
+			{
+			case COLLIDERTYPE::Sphere:
+				bCollision = CollisionSphere(player, monster);
+				break;
+			case COLLIDERTYPE::Rect:
+				bCollision = CollisionAABB(player, monster);
+				break;
+			default:
+				break;
+			}
+
+			if (bCollision)
+			{
+				player->GetOwner()->TakeDamage();
+				monster->GetOwner()->TakeDamage();
+			}
+		}
+	}
+}
+
+void CollisionManager::PlayerMonsterWeaponCollision()
+{
+	for (auto& player : CollisionList[OBJ_PLAYER])
+	{
+		for (auto& monsterWeapon : CollisionList[OBJ_MONSTER_WEAPON])
+		{
+			const COLLIDERTYPE colliderType = player->GetColliderType() == monsterWeapon->GetColliderType() ? player->GetColliderType() : COLLIDERTYPE::Sphere;
+
+			bool bCollision = false;
+			switch (colliderType)
+			{
+			case COLLIDERTYPE::Sphere:
+				bCollision = CollisionSphere(player, monsterWeapon);
+				break;
+			case COLLIDERTYPE::Rect:
+				bCollision = CollisionAABB(player, monsterWeapon);
+				break;
+			default:
+				break;
+			}
+
+			if (bCollision)
+			{
+				player->GetOwner()->TakeDamage();
+				monsterWeapon->GetOwner()->TakeDamage();
+			}
+		}
+	}
+}
+
+void CollisionManager::PlayerWeaponMonsterCollision()
+{
+	for (auto& monster : CollisionList[OBJ_MONSTER])
+	{
+		for (auto& playerWeapon : CollisionList[OBJ_PLAYER_WEAPON])
+		{
+			const COLLIDERTYPE colliderType = monster->GetColliderType() == playerWeapon->GetColliderType() ? monster->GetColliderType() : COLLIDERTYPE::Sphere;
+
+			bool bCollision = false;
+			switch (colliderType)
+			{
+			case COLLIDERTYPE::Sphere:
+				bCollision = CollisionSphere(monster, playerWeapon);
+				break;
+			case COLLIDERTYPE::Rect:
+				bCollision = CollisionAABB(monster, playerWeapon);
+				break;
+			default:
+				break;
+			}
+
+			if (bCollision)
+			{
+				playerWeapon->GetOwner()->TakeDamage();
+				monster->GetOwner()->TakeDamage();
+			}
+		}
+	}	
+}
+
+bool CollisionManager::CollisionAABB(Collider* collider1, Collider* collider2)
+{
+	FPOINT collider1Pos = collider1->GetPos();
+	FPOINT Collider1HalfSize = { collider1->GetSize().x * 0.5f,collider1->GetSize().y * 0.5f };
+
+	FPOINT collider2Pos = collider2->GetPos();
+	FPOINT Collider2HalfSize = { collider2->GetSize().x * 0.5f,collider2->GetSize().y * 0.5f };
+
+	RECT rc1;
+	rc1.left = LONG(collider1Pos.x - Collider1HalfSize.x);
+	rc1.right = LONG(collider1Pos.x + Collider1HalfSize.x);
+	rc1.top = LONG(collider1Pos.y - Collider1HalfSize.y);
+	rc1.bottom = LONG(collider1Pos.y + Collider1HalfSize.y);
+
+	RECT rc2;
+	rc2.left = LONG(collider2Pos.x - Collider2HalfSize.x);
+	rc2.right = LONG(collider2Pos.x + Collider2HalfSize.x);
+	rc2.top = LONG(collider2Pos.y - Collider2HalfSize.y);
+	rc2.bottom = LONG(collider2Pos.y + Collider2HalfSize.y);
+	
+	return RectInRect(rc1,rc2);
+}
+
+bool CollisionManager::CollisionSphere(Collider* collider1, Collider* collider2)
+{
+	// 원은 사이즈가 x,y가 같다. 타원 불가
+	float radius = (collider1->GetSize().x + collider2->GetSize().x) * 0.5f;
+	float distance = GetDistance(collider1->GetPos(), collider2->GetPos());
+
+	return distance <= radius;
 }
 
 bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType, FPOINT start, FPOINT end, GameObject* owner, bool bIgnoreSelf, bool bDebugDraw, float DebugDuration, COLORREF DebugColor)
 {
 	// 네 변을 다 검사해야 한다
 	// ccw 알고리즘 사용
-
-	Line* line = new Line(start, end);
-	line->bDebugDraw = bDebugDraw;
-	line->DebugDuration = DebugDuration;
-	line->DebugColor = DebugColor;
-	LineList.push_back(line);
+	if (bDebugDraw)
+	{
+		Line* line = new Line(start, end);
+		line->bDebugDraw = bDebugDraw;
+		line->DebugDuration = DebugDuration;
+		line->DebugColor = DebugColor;
+		LineList.push_back(line);
+	}
 
 	for (auto& iter : CollisionList[objType])
 	{
@@ -111,9 +265,13 @@ bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType,
 
 		if (bCollision)
 		{
+			iter->SetHit(true);
+
 			hitResult.HitObj = iter->GetOwner();
 			return true;
-		}	
+		}
+		else
+			iter->SetHit(false);
 	}
 
 	return false;

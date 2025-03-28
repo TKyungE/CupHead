@@ -9,6 +9,8 @@
 	실습2. 배경 바꾸기 (킹오파 애니메이션 배경)
 */
 
+
+
 void MainGame::Init()
 {
 	ImageManager::GetInstance()->Init();
@@ -19,7 +21,7 @@ void MainGame::Init()
 	backBuffer = new Image();
 	if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
 	{
-		MessageBox(g_hWnd, 
+		MessageBox(g_hWnd,
 			TEXT("백버퍼 생성 실패"), TEXT("경고"), MB_OK);
 	}
 	backGround = new Image();
@@ -29,8 +31,9 @@ void MainGame::Init()
 			TEXT("Image/backGround.bmp 생성 실패"), TEXT("경고"), MB_OK);
 	}
 
-	enemyManager = new EnemyManager();
-	enemyManager->Init();
+	// 선생님의 에너미매니저.. 주석풀면 릭 발생 
+	//enemyManager = new EnemyManager();
+	//enemyManager->Init();
 
 	collisionManager = CollisionManager::GetInstance();
 	collisionManager->Init();
@@ -73,8 +76,18 @@ void MainGame::Release()
 
 void MainGame::Update()
 {
-	enemyManager->Update();
-	collisionManager->Update();
+	if (enemyManager)
+		enemyManager->Update();
+	if (collisionManager)
+	{
+		collisionManager->Update();
+
+		FHitResult HitResult;
+		collisionManager->LineTraceByObject(HitResult, OBJTYPE::OBJ_MONSTER, { 0.f,0.f }, mousePos, nullptr, true, true, 0.f, 100);
+	}
+
+	//  레이캐스트 테스트용 코드
+
 }
 
 void MainGame::Render()
@@ -85,10 +98,12 @@ void MainGame::Render()
 	backGround->Render(hBackBufferDC);
 
 	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), mousePos.x, mousePos.y);
-	TextOut(hBackBufferDC, 20, 60, szText, wcslen(szText));
+	TextOut(hBackBufferDC, 20, 60, szText, (int)wcslen(szText));
 
-	enemyManager->Render(hBackBufferDC);
-	collisionManager->Render(hBackBufferDC);
+	if (enemyManager)
+		enemyManager->Render(hBackBufferDC);
+	if (collisionManager)
+		collisionManager->Render(hBackBufferDC);
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 
