@@ -4,6 +4,7 @@
 #include "EnemyManager.h"
 #include "Timer.h"
 #include "CollisionManager.h"
+#include "ObjectManager.h"
 /*
 	실습1. 이오리 집에 보내기
 	실습2. 배경 바꾸기 (킹오파 애니메이션 배경)
@@ -34,6 +35,9 @@ void MainGame::Init()
 	// 선생님의 에너미매니저.. 주석풀면 릭 발생 
 	//enemyManager = new EnemyManager();
 	//enemyManager->Init();
+
+	Objectmanager = ObjectManager::GetInstance();
+	Objectmanager->Init();
 
 	collisionManager = CollisionManager::GetInstance();
 	collisionManager->Init();
@@ -68,6 +72,12 @@ void MainGame::Release()
 		collisionManager = nullptr;
 	}
 
+	if (Objectmanager)
+	{
+		Objectmanager->Release();
+		Objectmanager = nullptr;
+	}
+
 	ReleaseDC(g_hWnd, hdc);
 
 	KeyManager::GetInstance()->Release();
@@ -76,6 +86,9 @@ void MainGame::Release()
 
 void MainGame::Update()
 {
+	if (Objectmanager)
+		Objectmanager->Update();
+
 	if (enemyManager)
 		enemyManager->Update();
 	if (collisionManager)
@@ -99,6 +112,10 @@ void MainGame::Render()
 
 	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), mousePos.x, mousePos.y);
 	TextOut(hBackBufferDC, 20, 60, szText, (int)wcslen(szText));
+
+
+	if (Objectmanager)
+		Objectmanager->Render(hBackBufferDC);
 
 	if (enemyManager)
 		enemyManager->Render(hBackBufferDC);

@@ -61,10 +61,6 @@ public:
 	bool CollisionAABB(Collider* collider1, Collider* collider2);
 	bool CollisionSphere(Collider* collider1, Collider* collider2);
 
-
-
-
-
 	bool LineTraceByObject(FHitResult& hitResult, OBJTYPE objType, FPOINT start, FPOINT end, GameObject* owner, bool bIgnoreSelf, bool bDebugDraw, float DebugDuration, COLORREF DebugColor);
 	bool CheckLineTrace(FPOINT p1, FPOINT p2, FPOINT p3, FPOINT p4);
 	int ccw(FPOINT p1, FPOINT p2, FPOINT p3);

@@ -5,6 +5,7 @@ class Timer;
 class Image;
 class EnemyManager;
 class CollisionManager;
+class ObjectManager;
 class MainGame : public GameObject
 {
 private:
@@ -17,6 +18,7 @@ private:
 	Image* backGround;
 	EnemyManager* enemyManager;
 	CollisionManager* collisionManager;
+	ObjectManager* Objectmanager;
 	Timer* timer;
 
 public:

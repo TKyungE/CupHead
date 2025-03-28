@@ -1,8 +1,13 @@
 #include "ObjectManager.h"
 #include "GameObject.h"
+#include "Player.h"
 
 void ObjectManager::Init()
 {
+	// 테스트 코드 플레이어 생성
+	Player* player = new Player();
+	player->Init({100.f,100.f},{30.f,30.f});
+	AddObject(player, OBJTYPE::OBJ_PLAYER);
 }
 
 void ObjectManager::Update()

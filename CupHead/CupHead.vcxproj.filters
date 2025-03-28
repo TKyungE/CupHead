@@ -28,6 +28,9 @@
     <Filter Include="2D Framework\Timer">
       <UniqueIdentifier>{30f93bd0-8426-46a5-8a65-4d84027ae64f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Player">
+      <UniqueIdentifier>{86043c8a-dceb-4e3d-a56d-376787ac89ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -74,6 +77,9 @@
     </ClCompile>
     <ClCompile Include="ObjectManager.cpp">
       <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>MainGame\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -127,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="ObjectManager.h">
       <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>MainGame\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
