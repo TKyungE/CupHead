@@ -31,13 +31,13 @@
     <Filter Include="MainGame\Player">
       <UniqueIdentifier>{86043c8a-dceb-4e3d-a56d-376787ac89ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\GameObject">
+      <UniqueIdentifier>{ed8aa66f-8972-4254-b0e8-1744769043ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>2D Framework</Filter>
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
       <Filter>MainGame</Filter>
@@ -81,6 +81,18 @@
     <ClCompile Include="Player.cpp">
       <Filter>MainGame\Player</Filter>
     </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -88,9 +100,6 @@
     </ClInclude>
     <ClInclude Include="CommonFunction.h">
       <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObject.h">
-      <Filter>2D Framework</Filter>
     </ClInclude>
     <ClInclude Include="MainGame.h">
       <Filter>MainGame</Filter>
@@ -136,6 +145,18 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>MainGame\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Pawn.h">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>2D Framework\GameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
