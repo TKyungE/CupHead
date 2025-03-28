@@ -6,6 +6,11 @@ Collider::Collider(GameObject* owner, COLLIDERTYPE colliderType, FPOINT pivot, F
 {
 }
 
+Collider::Collider(GameObject* owner, COLLIDERTYPE colliderType, FPOINT pivot, float size, bool debugDraw)
+	:Owner(owner), ColliderType(colliderType), PivotPos(pivot), Size({ size,size }), bDebugDraw(bDebugDraw), Pos(), bHit(false)
+{
+}
+
 void Collider::Init()
 {
 }

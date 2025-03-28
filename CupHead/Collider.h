@@ -13,6 +13,7 @@ class Collider
 {
 public:
 	Collider(GameObject* owner, COLLIDERTYPE colliderType, FPOINT pivot, FPOINT size, bool debugDraw);
+	Collider(GameObject* owner, COLLIDERTYPE colliderType, FPOINT pivot, float size, bool debugDraw);
 	~Collider() = default;
 
 	void Init();

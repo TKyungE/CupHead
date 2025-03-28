@@ -16,9 +16,10 @@ void Player::Init(FPOINT pos, FPOINT size)
 {
 	this->pos = pos;
 	this->size = size;
-	image = ImageManager::GetInstance()->AddImage(
+	image = nullptr;
+	/*image = ImageManager::GetInstance()->AddImage(
 		"Normal_Enemy", TEXT("Image/Test/blimp_dash.bmp"), 21168, 415, 24, 1,
-		true, RGB(255, 0, 255));
+		true, RGB(255, 0, 255));*/
 
 	// 콜라이더 삽입 방법				// Pivot = (이미지 가로 / 가로 프레임 수) / 2 , (이미지 세로 / 세로 프레임 수) / 2
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { (21168 / 24) * 0.5f, 415 * 0.5f }, { 30.f,30.f }, true);
@@ -55,8 +56,8 @@ void Player::Update()
 			position.y /= size;
 		}
 
-		pos.x += position.x * 10 * TimerManager::GetInstance()->GetDeltaTime();
-		pos.y += position.y * 10 * TimerManager::GetInstance()->GetDeltaTime();
+		pos.x += position.x * 200 * TimerManager::GetInstance()->GetDeltaTime();
+		pos.y += position.y * 200 * TimerManager::GetInstance()->GetDeltaTime();
 	}
 }
 
