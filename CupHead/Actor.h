@@ -15,7 +15,7 @@ public:
 	virtual void Render(HDC hdc) override;				
 
 	virtual void UpdateFrame();
-	virtual void TakeDamage(float damage = 0.f) override;
+	virtual void TakeDamage(int damage = 0) override;
 	
 public:
 	inline void SetImage(Image* _Image) { image = _Image; }

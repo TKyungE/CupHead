@@ -18,29 +18,20 @@ void SagittariusStar::Init()
 	State = EStarState::Fire;
 	Speed = 250.f;
 	FrameSpeed = 20.f;
-	
+
 	MaxHp = 2;
 	Hp = MaxHp;
 
 	image = ImageManager::GetInstance()->AddImage("sagg_star", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/sagg_star.bmp", 1157, 90, 13, 1, true, RGB(255, 0, 255));
 
-	Collider* collider = new Collider(this, COLLIDERTYPE::Sphere, {0.f,0.f}, 30.f, true,1.f);
+	Collider* collider = new Collider(this, COLLIDERTYPE::Sphere, { 0.f,0.f }, 30.f, true, 1.f);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER_WEAPON);
 }
 
 void SagittariusStar::Update()
 {
-	FrameTime += FrameSpeed * TimerManager::GetInstance()->GetDeltaTime();
-	CurFrameIndex = (int)FrameTime;
-
-	if (CurFrameIndex >= image->GetMaxFrameX())
-	{
-		if (true == IsStayMaxFrame)
-			CurFrameIndex = image->GetMaxFrameX() - 1;
-		else
-			CurFrameIndex = FrameTime = 0.f;
-	}
+	UpdateFrame();
 
 	Move();
 }
@@ -48,7 +39,7 @@ void SagittariusStar::Update()
 void SagittariusStar::Render(HDC hdc)
 {
 	if (image != nullptr)
-		image->Render(hdc, pos.x - (image->GetFrameWidth() * 0.5f), pos.y - (image->GetFrameHeight() * 0.5f), CurFrameIndex);
+		image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0);
 }
 
 void SagittariusStar::Move()
@@ -76,8 +67,8 @@ void SagittariusStar::Move()
 
 void SagittariusStar::Fire()
 {
-	pos.x += Speed * cosf(DEG_TO_RAD(Angle)) * TimerManager::GetInstance()->GetDeltaTime();
-	pos.y += Speed * sinf(DEG_TO_RAD(Angle)) * TimerManager::GetInstance()->GetDeltaTime();
+	pos.x += Speed * cosf((float)DEG_TO_RAD(Angle)) * TimerManager::GetInstance()->GetDeltaTime();
+	pos.y += Speed * sinf((float)DEG_TO_RAD(Angle)) * TimerManager::GetInstance()->GetDeltaTime();
 
 	const float distance = sqrtf(powf(pos.x - StartPos.x, 2) + powf(pos.y - StartPos.y, 2));
 
@@ -94,24 +85,24 @@ void SagittariusStar::Guided()
 	{
 		GameObject* player = playerList.front();
 		const float targetAngle = atan2f(player->GetPos().y - pos.y, player->GetPos().x - pos.x);
-		const float angleDiff = NoramlizeAngle(targetAngle - DEG_TO_RAD(Angle));
-	
+		const float angleDiff = NoramlizeAngle(targetAngle - (float)DEG_TO_RAD(Angle));
+
 		//각 가속도
 		float angularAcceleration = maxAngularAcceleration * (angleDiff > 0 ? 1 : -1);
 		AngularVelocity += angularAcceleration;
 
-		if (AngularVelocity > maxAngularVelocity) 
+		if (AngularVelocity > maxAngularVelocity)
 			AngularVelocity = maxAngularVelocity;
-		else if (AngularVelocity < -maxAngularVelocity)  
+		else if (AngularVelocity < -maxAngularVelocity)
 			AngularVelocity = -maxAngularVelocity;
 
 		AngularVelocity *= friction;
 
 		Angle += AngularVelocity;
-		Angle = RAD_TO_DEG(NoramlizeAngle(DEG_TO_RAD(Angle)));
+		Angle = (float)RAD_TO_DEG(NoramlizeAngle((float)DEG_TO_RAD(Angle)));
 
-		pos.x += cosf(DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
-		pos.y += sinf(DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
+		pos.x += cosf((float)DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
+		pos.y += sinf((float)DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
 	}
 	else
 		State = EStarState::Done;
@@ -119,8 +110,8 @@ void SagittariusStar::Guided()
 
 void SagittariusStar::Done()
 {
-	pos.x += cosf(DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
-	pos.y += sinf(DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
+	pos.x += cosf((float)DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
+	pos.y += sinf((float)DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
 
 	if (OutOfScreen(pos, image->GetFrameWidth(), image->GetFrameHeight()))
 		bDead = true;
@@ -146,14 +137,14 @@ float SagittariusStar::SmoothAngle(float currentAngle, float targetAngle, float 
 float SagittariusStar::NoramlizeAngle(float angle)
 {
 	while (angle > PI)
-		angle -= 2 * PI;
+		angle -= 2.f * PI;
 	while (angle < -PI)
-		angle += 2 * PI;
+		angle += 2.f * PI;
 
 	return angle;
 }
 
-void SagittariusStar::TakeDamage(float damage)
+void SagittariusStar::TakeDamage(int damage)
 {
 	Hp -= damage;
 

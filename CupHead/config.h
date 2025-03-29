@@ -25,7 +25,7 @@ using namespace std;
 #define WINSIZE_Y	500
 #define DEG_TO_RAD(degree) ((3.14 / 180.0) * degree)
 #define RAD_TO_DEG(radian) ((180.0 / 3.14) * radian)
-#define PI 3.141592
+#define PI 3.141592f
 
 enum OBJTYPE { OBJ_PLAYER,OBJ_MONSTER,OBJ_PLAYER_WEAPON,OBJ_MONSTER_WEAPON, OBJ_END };
 

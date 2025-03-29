@@ -30,6 +30,6 @@ void Character::Move()
 {
 }
 
-void Character::TakeDamage(float damage)
+void Character::TakeDamage(int damage)
 {
 }

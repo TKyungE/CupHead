@@ -26,6 +26,6 @@ void Pawn::Render(HDC hdc)
 	__super::Render(hdc);
 }
 
-void Pawn::TakeDamage(float damage)
+void Pawn::TakeDamage(int damage)
 {
 }

@@ -14,7 +14,7 @@ public:
 	virtual void Render(HDC hdc) override;
 
 	virtual void Move() {}; 
-	virtual void TakeDamage(float damage = 0.f) override;
+	virtual void TakeDamage(int damage = 0) override;
 
 	inline void SetSpeed(int _Speed) { Speed = _Speed; }
 	inline int GetSpeed() const { return Speed; }

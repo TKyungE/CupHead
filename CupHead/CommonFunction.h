@@ -122,7 +122,7 @@ inline float Lerp(float a, float b, float alpha)
 	return a + (b - a) * alpha;
 }
 
-static bool OutOfScreen(POINT pt, float width, float height)
+static bool OutOfScreen(FPOINT pt, float width, float height)
 {
 	if (pt.x + (width / 2) <= 0 || pt.x - (width / 2) >= WINSIZE_X ||
 		pt.y + (height / 2) <= 0 || pt.y - (height / 2) >= WINSIZE_Y)
@@ -131,7 +131,7 @@ static bool OutOfScreen(POINT pt, float width, float height)
 	return false;
 }
 
-static bool OutOfScreen(FPOINT pt, float width, float height)
+static bool OutOfScreen(FPOINT pt, int width, int height)
 {
 	if (pt.x + (width / 2) <= 0 || pt.x - (width / 2) >= WINSIZE_X ||
 		pt.y + (height / 2) <= 0 || pt.y - (height / 2) >= WINSIZE_Y)

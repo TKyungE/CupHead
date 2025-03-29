@@ -6,6 +6,7 @@
 #include "LaughProjectile.h"
 #include "StarProjectile.h"
 #include "EffectManager.h"
+#include "CommonFunction.h"
 
 Player::Player()
 {
@@ -25,7 +26,7 @@ void Player::Init(FPOINT pos, FPOINT size)
 		true, RGB(255, 0, 255));*/
 
 	// �ݶ��̴� ���� ���				// Pivot = (�̹��� ���� / ���� ������ ��) / 2 , (�̹��� ���� / ���� ������ ��) / 2
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, {0.f,0.f}/*{ (21168 / 24) * 0.5f, 415 * 0.5f }*/, { 30.f,30.f }, true);
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, {0.f,0.f}/*{ (21168 / 24) * 0.5f, 415 * 0.5f }*/, this->size, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER);
 
@@ -36,10 +37,6 @@ void Player::Init(FPOINT pos, FPOINT size)
 
 	Star = new StarProjectile();
 	Star->Init();
-
-	
-
-
 }
 
 void Player::Release()
@@ -100,6 +97,10 @@ void Player::Update()
 
 		pos.x += position.x * 300 * TimerManager::GetInstance()->GetDeltaTime();
 		pos.y += position.y * 300 * TimerManager::GetInstance()->GetDeltaTime();
+
+		// 플레이어 화면 밖 못나가잉
+		pos.x = ClampValue<float>(pos.x, 0.f + (this->size.x * 0.5f), WINSIZE_X - (this->size.x * 0.5f));
+		pos.y = ClampValue<float>(pos.y, 0.f + (this->size.y * 0.5f), WINSIZE_Y - (this->size.y * 0.5f));
 	}
 }
 

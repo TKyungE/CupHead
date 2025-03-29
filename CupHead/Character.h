@@ -13,7 +13,7 @@ public:
 	virtual void Render(HDC hdc) override;
 
 	virtual void Move() override;
-	virtual void TakeDamage(float damage = 0.f) override;
+	virtual void TakeDamage(int damage = 0) override;
 
 	
 	inline void SetHp(int _Hp) { Hp = _Hp; }
