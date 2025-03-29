@@ -18,12 +18,18 @@ void Character::Release()
 
 void Character::Update()
 {
+	__super::Update();
 }
 
 void Character::Render(HDC hdc)
 {
+	__super::Render(hdc);
 }
 
 void Character::Move()
+{
+}
+
+void Character::TakeDamage(float damage)
 {
 }

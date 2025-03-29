@@ -13,14 +13,16 @@ public:
 	virtual void Render(HDC hdc) override;
 
 	virtual void Move() override;
+	virtual void TakeDamage(float damage = 0.f) override;
 
+	
 	inline void SetHp(int _Hp) { Hp = _Hp; }
 	inline int GetHp() const { return Hp; }
 
 	inline void SetMaxHp(int _MaxHp) { MaxHp = _MaxHp; }
 	inline int GetMaxHp() const { return MaxHp; }
 
-private:
+protected:
 	int Hp;
 	int MaxHp;
 	
