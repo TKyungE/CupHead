@@ -14,10 +14,11 @@ void CollisionManager::Update()
 	{
 		for (auto iter = CollisionList[objType].begin(); iter != CollisionList[objType].end();)
 		{
-			if (!(*iter)->GetOwner() || (*iter)->GetOwner()->IsDead())
+			if ((*iter)->GetOwner() == nullptr || (*iter)->GetOwner()->IsDead())
 			{
 				(*iter)->Release();
 				delete (*iter);
+				(*iter) = nullptr;
 				iter = CollisionList[objType].erase(iter);
 			}
 			else
@@ -34,6 +35,7 @@ void CollisionManager::Update()
 		if (!(*iter)->bDebugDraw)
 		{
 			delete (*iter);
+			(*iter) = nullptr;
 			iter = LineList.erase(iter);
 		}
 		else
@@ -91,6 +93,7 @@ void CollisionManager::Release()
 		{
 			iter->Release();
 			delete iter;
+			iter = nullptr;
 		}
 		CollisionList[objType].clear();
 	}

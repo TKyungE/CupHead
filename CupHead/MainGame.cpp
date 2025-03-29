@@ -115,10 +115,10 @@ void MainGame::Update()
 		collisionManager->Update();
 
 		//  레이캐스트 사용법		
-		FHitResult HitResult;
-		bool bCheck = collisionManager->LineTraceByObject(HitResult, OBJTYPE::OBJ_MONSTER, { 0.f,0.f }, mousePos, nullptr, true, true, 0.f, 100);
-		if (bCheck)		// 맞았다.
-			HitResult.HitObj->TakeDamage();
+		//FHitResult HitResult;
+		//bool bCheck = collisionManager->LineTraceByObject(HitResult, OBJTYPE::OBJ_MONSTER, { 0.f,0.f }, mousePos, nullptr, true, true, 0.f, 100);
+		//if (bCheck)		// 맞았다.
+		//	HitResult.HitObj->TakeDamage();
 	}
 }
 

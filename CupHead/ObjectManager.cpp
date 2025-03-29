@@ -21,6 +21,7 @@ void ObjectManager::Update()
 			{
 				(*iter)->Release();
 				delete (*iter);
+				(*iter) = nullptr;
 				iter = ObjectList[i].erase(iter);
 			}
 			else
@@ -48,6 +49,7 @@ void ObjectManager::Release()
 		{
 			iter->Release();
 			delete iter;
+			iter = nullptr;
 		}
 		ObjectList[i].clear();
 	}
