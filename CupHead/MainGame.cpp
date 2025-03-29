@@ -25,14 +25,14 @@ void MainGame::Init()
 	backBuffer = new Image();
 	if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
 	{
-		MessageBox(g_hWnd,
-			TEXT("����� ���� ����"), TEXT("���"), MB_OK);
+		/*MessageBox(g_hWnd,
+			TEXT("����� ���� ����"), TEXT("���"), MB_OK);*/
 	}
 	backGround = new Image();
 	if (FAILED(backGround->Init(TEXT("Image/BackGround.bmp"), WINSIZE_X, WINSIZE_Y)))
 	{
-		MessageBox(g_hWnd,
-			TEXT("Image/backGround.bmp ���� ����"), TEXT("���"), MB_OK);
+		/*MessageBox(g_hWnd,
+			TEXT("Image/backGround.bmp ���� ����"), TEXT("���"), MB_OK);*/
 	}
 
 	// �������� ���ʹ̸Ŵ���.. �ּ�Ǯ�� �� �߻� 

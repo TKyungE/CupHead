@@ -17,9 +17,9 @@ public:
 	void Render(HDC hdc);
 
 	void EffectTestInit();
-	void EffectTest();
+	//void EffectTest();
 
-	virtual void TakeDamage(float damage = 0.f);
+	//virtual void TakeDamage(float damage = 0.f);
 
 private:
 	Image* image;

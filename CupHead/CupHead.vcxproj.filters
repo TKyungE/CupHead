@@ -137,6 +137,8 @@
     </ClCompile>
     <ClCompile Include="UFOBeam.cpp">
       <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
+    </ClCompile>
+
     <ClCompile Include="LaughProjectile.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -237,6 +239,8 @@
     </ClInclude>
     <ClInclude Include="UFOBeam.h">
       <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
+    </ClInclude>
+
     <ClInclude Include="LaughProjectile.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
