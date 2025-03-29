@@ -217,6 +217,12 @@ void BlimpEnemy::UpdateState()
 	}
 }
 
+void BlimpEnemy::SetColor(string _Color)
+{
+	Color = _Color;
+	image = ImageManager::GetInstance()->FindImage(AnimData[CurState].first + Color);
+}
+
 void BlimpEnemy::SetState(BlimpEnemyInfo::EState NewState, bool AnimReverse)
 {
 	if ((CurState == NewState) and (IsAnimReverse == AnimReverse)) return;

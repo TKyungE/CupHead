@@ -40,7 +40,7 @@ public:
 
 	void UpdateState();
 
-	inline void SetColor(string _Color) { Color = _Color; }
+	void SetColor(string _Color);
 	inline string GetColor() const { return Color; }
 
 	inline void SetBulletNum(int _BulletNum) { BulletNum = _BulletNum; }
