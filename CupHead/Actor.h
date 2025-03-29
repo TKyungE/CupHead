@@ -14,7 +14,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;				
 
-	void UpdateFrame();
+	virtual void UpdateFrame();
 	virtual void TakeDamage(float damage = 0.f) override;
 	
 public:

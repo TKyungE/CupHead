@@ -1,6 +1,7 @@
 #include "LaughProjectile.h"
 #include "Image.h"
 #include "ImageManager.h"
+#include "EffectManager.h"
 
 LaughProjectile::LaughProjectile() : LookAngle(0.f), MoveValue(0.f)
 {

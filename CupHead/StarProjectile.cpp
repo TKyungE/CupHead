@@ -1,6 +1,8 @@
 #include "StarProjectile.h"
 #include "Image.h"
 #include "ImageManager.h"
+#include "CommonFunction.h"
+#include "EffectManager.h"
 
 StarProjectile::StarProjectile() : LookAngle(180.f), MoveValue(0.f)
 {
@@ -33,7 +35,7 @@ StarProjectile::~StarProjectile()
 
 void StarProjectile::Init()
 {
-
+	EffectManager::GetInstance()->AddEffect("blimp_star_fx", pos, 30.f, { 100.f, 0.f }, 30, true, this); // Trace는 되는데 생각해보니 버그 생길듯 수정 필요.
 }
 
 void StarProjectile::Release()
@@ -45,6 +47,7 @@ void StarProjectile::Update()
 {
 	UpdateFrame();
 	Move();
+	
 }
 
 void StarProjectile::Render(HDC hdc)
@@ -76,8 +79,10 @@ void StarProjectile::Move()
 	pos.x += (Speed * DeltaTime) * BaseDirX + PerDirX * WaveOffset;
 	pos.y += (Speed * DeltaTime) * BaseDirY + PerDirY * WaveOffset;
 
+	//if(OutOfScreen)
 	if (pos.x < 0) // Debug
 	{
-		pos.x = 1000;
+		bDead = true;
+		//pos.x = 1000;
 	}
 }

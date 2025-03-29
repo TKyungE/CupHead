@@ -5,10 +5,12 @@ class Image;
 struct EffectInfo
 {
 	float CurLifeTime;
+	FPOINT OffsetPos;
 	float MaxLifeTime;
 	int LoopCnt;
 	int MaxLoopCnt;
 	bool IsTraceTarget;
+	
 	GameObject* TraceTarget;
 }typedef EffectDesc;
 
@@ -16,13 +18,19 @@ class Effect : public Actor
 {
 public:
 	Effect();
-	Effect(float _MaxLifeTime, int _MaxLoopCnt = 1, bool _IsTraceTarget = false, GameObject* TraceTarget = nullptr);
-	Effect(EffectInfo _Desc);
+	Effect(float _MaxLifeTime, FPOINT _Pos, FPOINT _Offset = { 0.f, 0.f }, int _MaxLoopCnt = 1, bool _IsTraceTarget = false, GameObject* TraceTarget = nullptr);
+	Effect(FPOINT _Pos, EffectInfo _Desc);
 
-	void Init();
-	void Update();
+	virtual void UpdateFrame() override;
+
+
+	virtual void Init() override;
+	virtual void Release() override;
+	virtual void Update() override;
+	virtual void Render(HDC hdc) override;
+
+	void UpdateTime();
 	void PosUpdate();
-	void Release();
 
 	inline EffectDesc& GetDesc() { return m_EffectDesc; }
 	inline void SetDesc(EffectDesc _Desc){ m_EffectDesc = _Desc; }

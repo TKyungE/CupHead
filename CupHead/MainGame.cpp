@@ -5,6 +5,7 @@
 #include "Timer.h"
 #include "CollisionManager.h"
 #include "ObjectManager.h"
+#include "EffectManager.h"
 /*
 	실습1. 이오리 집에 보내기
 	실습2. 배경 바꾸기 (킹오파 애니메이션 배경)
@@ -41,6 +42,9 @@ void MainGame::Init()
 
 	collisionManager = CollisionManager::GetInstance();
 	collisionManager->Init();
+
+	EffectManager = EffectManager::GetInstance();
+	EffectManager->Init();
 }
 
 void MainGame::Release()
@@ -78,10 +82,17 @@ void MainGame::Release()
 		Objectmanager = nullptr;
 	}
 
+	if (EffectManager)
+	{
+		EffectManager->Release();
+		EffectManager = nullptr;
+	}
+
 	ReleaseDC(g_hWnd, hdc);
 
 	KeyManager::GetInstance()->Release();
 	ImageManager::GetInstance()->Release();
+
 }
 
 void MainGame::Update()
@@ -100,6 +111,11 @@ void MainGame::Update()
 		bool bCheck = collisionManager->LineTraceByObject(HitResult, OBJTYPE::OBJ_MONSTER, { 0.f,0.f }, mousePos, nullptr, true, true, 0.f, 100);
 		if (bCheck)		// 맞았다.
 			HitResult.HitObj->TakeDamage();
+	}
+
+	if (nullptr != EffectManager)
+	{
+		EffectManager->Update();
 	}
 }
 
@@ -121,6 +137,12 @@ void MainGame::Render()
 		enemyManager->Render(hBackBufferDC);
 	if (collisionManager)
 		collisionManager->Render(hBackBufferDC);
+
+	if (EffectManager)
+	{
+		EffectManager->Render(hBackBufferDC);
+	}
+		
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 

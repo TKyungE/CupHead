@@ -16,6 +16,9 @@ public:
 	void Update();		
 	void Render(HDC hdc);
 
+	void EffectTestInit();
+	void EffectTest();
+
 	virtual void TakeDamage(float damage = 0.f);
 
 private:
