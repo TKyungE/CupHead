@@ -13,6 +13,8 @@ namespace BlimpEnemyInfo
 }
 
 BlimpEnemy::BlimpEnemy()
+	: Dx{}, Dy{}, Color{ "GREEN" }, BulletNum{ 1 }, IsFired{},
+	CurState{ BlimpEnemyInfo::EState::STATE_END }, AnimData{}, IsAnimEnd{}, IsAnimReverse{}
 {
 }
 
