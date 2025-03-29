@@ -61,7 +61,6 @@ private:
 	string Color;
 	int BulletNum;
 	bool IsFired;
-	GameObject* target;
 
 	BlimpEnemyInfo::EState CurState;
 	vector<pair<string, float>> AnimData;

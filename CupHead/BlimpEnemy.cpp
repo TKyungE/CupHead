@@ -82,7 +82,6 @@ void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum)
 	Color = BlimpEnemyInfo::colors[_Color];
 	BulletNum = _BulletNum;
 	IsFired = false;
-	target = NULL;
 
 	CurState = BlimpEnemyInfo::EState::STATE_END;
 	
@@ -218,10 +217,21 @@ void BlimpEnemy::UpdateState()
 void BlimpEnemy::FireBullet()
 {
 	float defaultAngle{ 180.f };
+
+	GameObject* target{};
+	list<GameObject*> playerList = ObjectManager::GetInstance()->GetObjectList(OBJTYPE::OBJ_PLAYER);
+	if (!playerList.empty())
+	{
+		target = playerList.front();
+	}
+
 	if (target)
 	{
 		defaultAngle = RAD_TO_DEG(GetAngle(pos, target->GetPos()));
 	}
+
+	// [-180, 180] -> [0, 360]
+	defaultAngle = fmod((defaultAngle + 360.f), 360.f);
 	defaultAngle = ClampValue(defaultAngle, 90.f, 270.f);
 
 	for (int i = 0; i < BulletNum; ++i)
