@@ -3,6 +3,8 @@
 #include "ImageManager.h"
 #include "Collider.h"
 #include "CollisionManager.h"
+#include "LaughProjectile.h"
+#include "StarProjectile.h"
 
 Player::Player()
 {
@@ -24,14 +26,36 @@ void Player::Init(FPOINT pos, FPOINT size)
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { (21168 / 24) * 0.5f, 415 * 0.5f }, { 30.f,30.f }, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER);
+
+	Laugh = new LaughProjectile();
+	Laugh->Init();
+
+	Star = new StarProjectile();
+	Star->Init();
 }
 
 void Player::Release()
 {
+	if (Laugh)
+	{
+		Laugh->Release();
+		delete Laugh;
+		Laugh = nullptr;
+	}
+
+	if (Star)
+	{
+		Star->Release();
+		delete Star;
+		Star = nullptr;
+	}
 }
 
 void Player::Update()
 {
+	//Laugh->Update();
+	//Star->Update();
+
 	KeyManager* keyManager = KeyManager::GetInstance();
 	if (keyManager)
 	{
@@ -64,6 +88,9 @@ void Player::Render(HDC hdc)
 {
 	if (image)
 		image->Render(hdc,pos.x,pos.y,1);
+
+	//Laugh->Render(hdc);
+	//Star->Render(hdc);
 }
 
 void Player::TakeDamage(float damage)

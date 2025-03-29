@@ -2,6 +2,9 @@
 #include "GameObject.h"
 
 class Image;
+class LaughProjectile;
+class StarProjectile;
+
 class Player : public GameObject
 {
 public:
@@ -17,5 +20,7 @@ public:
 
 private:
 	Image* image;
+	LaughProjectile* Laugh;
+	StarProjectile* Star;
 };
 
