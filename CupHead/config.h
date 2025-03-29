@@ -9,6 +9,7 @@
 #include <bitset>
 #include <vector>
 #include <map>
+#include <random>
 
 using namespace std;
 
@@ -24,7 +25,7 @@ using namespace std;
 #define WINSIZE_Y	500
 #define DEG_TO_RAD(degree) ((3.14 / 180.0) * degree)
 #define RAD_TO_DEG(radian) ((180.0 / 3.14) * radian)
-
+#define PI 3.141592
 
 enum OBJTYPE { OBJ_PLAYER,OBJ_MONSTER,OBJ_PLAYER_WEAPON,OBJ_MONSTER_WEAPON, OBJ_END };
 
@@ -55,3 +56,8 @@ extern HINSTANCE g_hInstance;
 #endif
 
 #endif // _DEBUG
+
+// random
+extern random_device rd;
+extern default_random_engine dre;
+extern uniform_int_distribution<int> uid;

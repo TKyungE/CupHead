@@ -7,11 +7,13 @@
 #include "ObjectManager.h"
 #include "EffectManager.h"
 /*
-	½Ç½À1. ÀÌ¿À¸® Áý¿¡ º¸³»±â
-	½Ç½À2. ¹è°æ ¹Ù²Ù±â (Å·¿ÀÆÄ ¾Ö´Ï¸ÞÀÌ¼Ç ¹è°æ)
+	ï¿½Ç½ï¿½1. ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	ï¿½Ç½ï¿½2. ï¿½ï¿½ï¿½ ï¿½Ù²Ù±ï¿½ (Å·ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½)
 */
 
 
+#include "SagittariusStar.h"
+#include "SagittariusArrow.h"
 
 void MainGame::Init()
 {
@@ -24,16 +26,16 @@ void MainGame::Init()
 	if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
 	{
 		MessageBox(g_hWnd,
-			TEXT("¹é¹öÆÛ »ý¼º ½ÇÆÐ"), TEXT("°æ°í"), MB_OK);
+			TEXT("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"), TEXT("ï¿½ï¿½ï¿½"), MB_OK);
 	}
 	backGround = new Image();
 	if (FAILED(backGround->Init(TEXT("Image/BackGround.bmp"), WINSIZE_X, WINSIZE_Y)))
 	{
 		MessageBox(g_hWnd,
-			TEXT("Image/backGround.bmp »ý¼º ½ÇÆÐ"), TEXT("°æ°í"), MB_OK);
+			TEXT("Image/backGround.bmp ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"), TEXT("ï¿½ï¿½ï¿½"), MB_OK);
 	}
 
-	// ¼±»ý´ÔÀÇ ¿¡³Ê¹Ì¸Å´ÏÀú.. ÁÖ¼®Ç®¸é ¸¯ ¹ß»ý 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¹Ì¸Å´ï¿½ï¿½ï¿½.. ï¿½Ö¼ï¿½Ç®ï¿½ï¿½ ï¿½ï¿½ ï¿½ß»ï¿½ 
 	//enemyManager = new EnemyManager();
 	//enemyManager->Init();
 
@@ -97,6 +99,28 @@ void MainGame::Release()
 
 void MainGame::Update()
 {
+	// ï¿½ï¿½ï¿½Â°ï¿½ ï¿½×½ï¿½Æ® ï¿½Úµï¿½
+	{
+		if (KeyManager::GetInstance()->IsOnceKeyDown(VK_LBUTTON))
+		{
+			SagittariusStar* star = new SagittariusStar(mousePos, 10.f, 180.f);
+			star->Init();
+			Objectmanager->AddObject(star, OBJTYPE::OBJ_MONSTER_WEAPON);
+
+			SagittariusStar* star1 = new SagittariusStar(mousePos, 10.f, 125.f);
+			star1->Init();
+			Objectmanager->AddObject(star1, OBJTYPE::OBJ_MONSTER_WEAPON);
+
+			SagittariusStar* star2 = new SagittariusStar(mousePos, 10.f, 225.f);
+			star2->Init();
+			Objectmanager->AddObject(star2, OBJTYPE::OBJ_MONSTER_WEAPON);
+
+			SagittariusArrow* arrow = new SagittariusArrow(mousePos, { 50.f,50.f });
+			arrow->Init();
+			Objectmanager->AddObject(arrow, OBJTYPE::OBJ_MONSTER_WEAPON);
+		}
+	}
+
 	if (Objectmanager)
 		Objectmanager->Update();
 
@@ -106,11 +130,11 @@ void MainGame::Update()
 	{
 		collisionManager->Update();
 
-		//  ·¹ÀÌÄ³½ºÆ® »ç¿ë¹ý		
-		FHitResult HitResult;
-		bool bCheck = collisionManager->LineTraceByObject(HitResult, OBJTYPE::OBJ_MONSTER, { 0.f,0.f }, mousePos, nullptr, true, true, 0.f, 100);
-		if (bCheck)		// ¸Â¾Ò´Ù.
-			HitResult.HitObj->TakeDamage();
+		//  ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½		
+		//FHitResult HitResult;
+		//bool bCheck = collisionManager->LineTraceByObject(HitResult, OBJTYPE::OBJ_MONSTER, { 0.f,0.f }, mousePos, nullptr, true, true, 0.f, 100);
+		//if (bCheck)		// ï¿½Â¾Ò´ï¿½.
+		//	HitResult.HitObj->TakeDamage();
 	}
 
 	if (nullptr != EffectManager)
@@ -121,12 +145,12 @@ void MainGame::Update()
 
 void MainGame::Render()
 {
-	// ¹é¹öÆÛ¿¡ ¸ÕÀú º¹»ç
+	// ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
 	backGround->Render(hBackBufferDC);
 
-	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), mousePos.x, mousePos.y);
+	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), (int)mousePos.x, (int)mousePos.y);
 	TextOut(hBackBufferDC, 20, 60, szText, (int)wcslen(szText));
 
 
@@ -146,7 +170,7 @@ void MainGame::Render()
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 
-	// ¹é¹öÆÛ¿¡ ÀÖ´Â ³»¿ëÀ» ¸ÞÀÎ hdc¿¡ º¹»ç
+	// ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ hdcï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	backBuffer->Render(hdc);
 }
 

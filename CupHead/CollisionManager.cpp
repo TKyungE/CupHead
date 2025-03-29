@@ -14,10 +14,11 @@ void CollisionManager::Update()
 	{
 		for (auto iter = CollisionList[objType].begin(); iter != CollisionList[objType].end();)
 		{
-			if (!(*iter)->GetOwner())
+			if ((*iter)->IsDead() || (*iter)->GetOwner() == nullptr || (*iter)->GetOwner()->IsDead())
 			{
 				(*iter)->Release();
 				delete (*iter);
+				(*iter) = nullptr;
 				iter = CollisionList[objType].erase(iter);
 			}
 			else
@@ -34,6 +35,7 @@ void CollisionManager::Update()
 		if (!(*iter)->bDebugDraw)
 		{
 			delete (*iter);
+			(*iter) = nullptr;
 			iter = LineList.erase(iter);
 		}
 		else
@@ -91,6 +93,7 @@ void CollisionManager::Release()
 		{
 			iter->Release();
 			delete iter;
+			iter = nullptr;
 		}
 		CollisionList[objType].clear();
 	}
@@ -109,6 +112,9 @@ void CollisionManager::PlayerMonsterCollision()
 	{
 		for (auto& monster : CollisionList[OBJ_MONSTER])
 		{
+			if (!player->CanHit() || !monster->CanHit())
+				continue;
+
 			const COLLIDERTYPE colliderType = player->GetColliderType() == monster->GetColliderType() ? player->GetColliderType() : COLLIDERTYPE::Sphere;
 
 			bool bCollision = false;
@@ -126,8 +132,10 @@ void CollisionManager::PlayerMonsterCollision()
 
 			if (bCollision)
 			{
-				player->GetOwner()->TakeDamage();
-				monster->GetOwner()->TakeDamage();
+				player->GetOwner()->TakeDamage(1.f);
+				monster->GetOwner()->TakeDamage(1.f);
+				player->SetHit(true);
+				monster->SetHit(true);
 			}
 		}
 	}
@@ -139,6 +147,9 @@ void CollisionManager::PlayerMonsterWeaponCollision()
 	{
 		for (auto& monsterWeapon : CollisionList[OBJ_MONSTER_WEAPON])
 		{
+			if (!player->CanHit() || !monsterWeapon->CanHit())
+				continue;
+
 			const COLLIDERTYPE colliderType = player->GetColliderType() == monsterWeapon->GetColliderType() ? player->GetColliderType() : COLLIDERTYPE::Sphere;
 
 			bool bCollision = false;
@@ -156,8 +167,11 @@ void CollisionManager::PlayerMonsterWeaponCollision()
 
 			if (bCollision)
 			{
-				player->GetOwner()->TakeDamage();
-				monsterWeapon->GetOwner()->TakeDamage();
+				player->GetOwner()->TakeDamage(1.f);
+				monsterWeapon->GetOwner()->TakeDamage(1.f);
+
+				player->SetHit(true);
+				monsterWeapon->SetHit(true);
 			}
 		}
 	}
@@ -169,6 +183,9 @@ void CollisionManager::PlayerWeaponMonsterCollision()
 	{
 		for (auto& playerWeapon : CollisionList[OBJ_PLAYER_WEAPON])
 		{
+			if (!monster->CanHit() || !playerWeapon->CanHit())
+				continue;
+
 			const COLLIDERTYPE colliderType = monster->GetColliderType() == playerWeapon->GetColliderType() ? monster->GetColliderType() : COLLIDERTYPE::Sphere;
 
 			bool bCollision = false;
@@ -186,8 +203,10 @@ void CollisionManager::PlayerWeaponMonsterCollision()
 
 			if (bCollision)
 			{
-				playerWeapon->GetOwner()->TakeDamage();
-				monster->GetOwner()->TakeDamage();
+				playerWeapon->GetOwner()->TakeDamage(1.f);
+				monster->GetOwner()->TakeDamage(1.f);
+				playerWeapon->SetHit(true);
+				monster->SetHit(true);
 			}
 		}
 	}	
@@ -240,6 +259,9 @@ bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType,
 
 	for (auto& iter : CollisionList[objType])
 	{
+		if (!iter->CanHit())
+			continue;
+
 		const FPOINT collPos = iter->GetPos();
 		const FPOINT collSize = iter->GetSize();
 		const FPOINT collHalfSize = { collSize.x * 0.5f, collSize.y * 0.5f };
@@ -270,8 +292,6 @@ bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType,
 			hitResult.HitObj = iter->GetOwner();
 			return true;
 		}
-		else
-			iter->SetHit(false);
 	}
 
 	return false;
