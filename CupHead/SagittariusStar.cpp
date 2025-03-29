@@ -120,7 +120,7 @@ void SagittariusStar::Done()
 	pos.x += cosf(DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
 	pos.y += sinf(DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
 
-	if (OutofScreen(pos, image->GetWidth() / image->GetMaxFrameX(), image->GetHeight()))
+	if (OutOfScreen(pos, image->GetWidth() / image->GetMaxFrameX(), image->GetHeight()))
 		bDead = true;
 }
 

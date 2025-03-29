@@ -89,7 +89,12 @@ public:
 
 	inline int GetMaxFrameX() { return imageInfo->maxFrameX; }
 	inline int GetMaxFrameY() { return imageInfo->maxFrameY; }
+
 	inline int GetWidth() const { return imageInfo->width; }
 	inline int GetHeight() const { return imageInfo->height; }
+
+	inline int GetFrameWidth() { return imageInfo->frameWidth; }
+	inline int GetFrameHeight() { return imageInfo->frameHeight; }
+
 };
 

@@ -37,7 +37,7 @@ void SagittariusArrow::Update()
 
 	Move();
 
-	if (OutofScreen(FPOINT{ pos.x + image->GetWidth() / image->GetMaxFrameX() * 0.5f, pos.y }, image->GetWidth() / image->GetMaxFrameX(), image->GetHeight()))
+	if (OutOfScreen(FPOINT{ pos.x + image->GetWidth() / image->GetMaxFrameX() * 0.5f, pos.y }, image->GetWidth() / image->GetMaxFrameX(), image->GetHeight()))
 		bDead = true;
 }
 
