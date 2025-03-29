@@ -56,8 +56,8 @@ void Player::Update()
 			position.y /= size;
 		}
 
-		pos.x += position.x * 200 * TimerManager::GetInstance()->GetDeltaTime();
-		pos.y += position.y * 200 * TimerManager::GetInstance()->GetDeltaTime();
+		pos.x += position.x * 300 * TimerManager::GetInstance()->GetDeltaTime();
+		pos.y += position.y * 300 * TimerManager::GetInstance()->GetDeltaTime();
 	}
 }
 

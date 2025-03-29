@@ -1,15 +1,23 @@
 #pragma once
 #include "Pawn.h"
-class OrbBullet : public Pawn
+
+class UFOBeam;
+class UFO : public Pawn
 {
 public:
-	OrbBullet(FPOINT InPos);
-	virtual ~OrbBullet() = default;
+	UFO();
+	virtual ~UFO() = default;
 
-	virtual void Init() override;
+	void Init(FPOINT pos);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
 	virtual void Move() override;
+
+	void Attack();
+private:
+	UFOBeam* UFOBeamWeapon;
+	bool bAttack;
 };
+

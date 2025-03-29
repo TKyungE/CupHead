@@ -152,6 +152,8 @@
     <ClCompile Include="SagittariusStar.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
+    <ClCompile Include="UFO.cpp" />
+    <ClCompile Include="UFOBeam.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -181,6 +183,8 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="UFO.h" />
+    <ClInclude Include="UFOBeam.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

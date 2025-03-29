@@ -48,7 +48,7 @@ void SagittariusStar::Update()
 void SagittariusStar::Render(HDC hdc)
 {
 	if (image != nullptr)
-		image->Render(hdc, pos.x - (image->GetWidth() / image->GetMaxFrameX() * 0.5f), pos.y - (image->GetHeight() / image->GetMaxFrameY() * 0.5f), CurFrameIndex);
+		image->Render(hdc, pos.x - (image->GetFrameWidth() * 0.5f), pos.y - (image->GetFrameHeight() * 0.5f), CurFrameIndex);
 }
 
 void SagittariusStar::Move()
@@ -100,8 +100,10 @@ void SagittariusStar::Guided()
 		float angularAcceleration = maxAngularAcceleration * (angleDiff > 0 ? 1 : -1);
 		AngularVelocity += angularAcceleration;
 
-		if (AngularVelocity > maxAngularVelocity) AngularVelocity = maxAngularVelocity;
-		if (AngularVelocity < -maxAngularVelocity)  AngularVelocity = -maxAngularVelocity;
+		if (AngularVelocity > maxAngularVelocity) 
+			AngularVelocity = maxAngularVelocity;
+		else if (AngularVelocity < -maxAngularVelocity)  
+			AngularVelocity = -maxAngularVelocity;
 
 		AngularVelocity *= friction;
 
@@ -120,12 +122,13 @@ void SagittariusStar::Done()
 	pos.x += cosf(DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
 	pos.y += sinf(DEG_TO_RAD(Angle)) * Speed * TimerManager::GetInstance()->GetDeltaTime();
 
-	if (OutOfScreen(pos, image->GetWidth() / image->GetMaxFrameX(), image->GetHeight()))
+	if (OutOfScreen(pos, image->GetFrameWidth(), image->GetFrameHeight()))
 		bDead = true;
 }
 
 void SagittariusStar::Dead()
 {
+	bDead = true;
 }
 
 float SagittariusStar::SmoothAngle(float currentAngle, float targetAngle, float maxAngleSpeed)
@@ -155,7 +158,7 @@ void SagittariusStar::TakeDamage(float damage)
 	Hp -= damage;
 
 	if (Hp <= 0)
-		bDead = true;
+		State = EStarState::Dead;
 }
 
 void SagittariusStar::Release()
