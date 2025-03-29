@@ -1,8 +1,6 @@
 #include "ObjectManager.h"
 #include "GameObject.h"
 #include "Player.h"
-#include "Orb.h"
-#include "OrbBullet.h"
 
 void ObjectManager::Init()
 {
@@ -10,15 +8,6 @@ void ObjectManager::Init()
 	Player* player = new Player();
 	player->Init({100.f,100.f},{30.f,30.f});
 	AddObject(player, OBJTYPE::OBJ_PLAYER);
-
-
-	//Orb* orb = new Orb({700.f,300.f},30.f);
-	//orb->Init();
-	//AddObject(orb, OBJTYPE::OBJ_MONSTER);
-
-	OrbBullet* orbBullet = new OrbBullet({ 100.f,300.f });
-	orbBullet->Init();
-	AddObject(orbBullet, OBJTYPE::OBJ_MONSTER_WEAPON);
 }
 
 void ObjectManager::Update()

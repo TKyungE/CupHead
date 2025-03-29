@@ -15,6 +15,9 @@ public:
 	void AddObject(GameObject* object, OBJTYPE objType) {
 		ObjectList[objType].push_back(object);
 	}
+	
+	list<GameObject*> GetObjectList(OBJTYPE objType) const {
+		return ObjectList[objType]; }
 private:
 	list<GameObject*> ObjectList[OBJ_END];
 };

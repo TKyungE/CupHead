@@ -40,6 +40,15 @@
     <Filter Include="MainGame\Enemy\Orb\OrbBullet">
       <UniqueIdentifier>{d37474c8-f7aa-4cbb-bc72-f8b21c14cfb7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\Sagittarius">
+      <UniqueIdentifier>{1c9f6f8a-b46f-4eb0-b816-8c395a4b5792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Sagittarius\Star">
+      <UniqueIdentifier>{99e44530-ff94-4759-aed0-e187658010f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Sagittarius\Arrow">
+      <UniqueIdentifier>{b86ab429-09c3-4945-af67-14ee279b735b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -104,6 +113,12 @@
     </ClCompile>
     <ClCompile Include="OrbBullet.cpp">
       <Filter>MainGame\Enemy\Orb\OrbBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="SagittariusStar.cpp">
+      <Filter>MainGame\Enemy\Sagittarius\Star</Filter>
+    </ClCompile>
+    <ClCompile Include="SagittariusArrow.cpp">
+      <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="OrbBullet.h">
       <Filter>MainGame\Enemy\Orb\OrbBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="SagittariusStar.h">
+      <Filter>MainGame\Enemy\Sagittarius\Star</Filter>
+    </ClInclude>
+    <ClInclude Include="SagittariusArrow.h">
+      <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

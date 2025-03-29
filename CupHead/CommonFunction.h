@@ -116,3 +116,27 @@ inline FPOINT RotatePoint(const FPOINT& p, double angleRad) {
 	rotated.y = float(p.x * std::sin(angleRad) + p.y * std::cos(angleRad));
 	return rotated;
 }
+
+inline float Lerp(float a, float b, float alpha)
+{
+	return a + (b - a) * alpha;
+}
+
+static bool OutofScreen(POINT pt, float width, float height)
+{
+	if (pt.x + (width / 2) <= 0 || pt.x - (width / 2) >= WINSIZE_X ||
+		pt.y + (height / 2) <= 0 || pt.y - (height / 2) >= WINSIZE_Y)
+		return true;
+
+	return false;
+}
+
+static bool OutofScreen(FPOINT pt, float width, float height)
+{
+	if (pt.x + (width / 2) <= 0 || pt.x - (width / 2) >= WINSIZE_X ||
+		pt.y + (height / 2) <= 0 || pt.y - (height / 2) >= WINSIZE_Y)
+		return true;
+
+	return false;
+}
+

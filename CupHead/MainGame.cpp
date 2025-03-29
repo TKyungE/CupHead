@@ -5,12 +5,9 @@
 #include "Timer.h"
 #include "CollisionManager.h"
 #include "ObjectManager.h"
-/*
-	실습1. 이오리 집에 보내기
-	실습2. 배경 바꾸기 (킹오파 애니메이션 배경)
-*/
 
-
+#include "SagittariusStar.h"
+#include "SagittariusArrow.h"
 
 void MainGame::Init()
 {
@@ -86,6 +83,28 @@ void MainGame::Release()
 
 void MainGame::Update()
 {
+	// 김태경 테스트 코드
+	{
+		if (KeyManager::GetInstance()->IsOnceKeyDown(VK_LBUTTON))
+		{
+			SagittariusStar* star = new SagittariusStar(mousePos, 10.f, 180.f);
+			star->Init();
+			Objectmanager->AddObject(star, OBJTYPE::OBJ_MONSTER_WEAPON);
+
+			SagittariusStar* star1 = new SagittariusStar(mousePos, 10.f, 125.f);
+			star1->Init();
+			Objectmanager->AddObject(star1, OBJTYPE::OBJ_MONSTER_WEAPON);
+
+			SagittariusStar* star2 = new SagittariusStar(mousePos, 10.f, 225.f);
+			star2->Init();
+			Objectmanager->AddObject(star2, OBJTYPE::OBJ_MONSTER_WEAPON);
+
+			SagittariusArrow* arrow = new SagittariusArrow(mousePos, { 50.f,50.f });
+			arrow->Init();
+			Objectmanager->AddObject(arrow, OBJTYPE::OBJ_MONSTER_WEAPON);
+		}
+	}
+
 	if (Objectmanager)
 		Objectmanager->Update();
 

@@ -146,6 +146,8 @@
     <ClCompile Include="OrbBullet.cpp" />
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="SagittariusArrow.cpp" />
+    <ClCompile Include="SagittariusStar.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
   </ItemGroup>
@@ -170,6 +172,8 @@
     <ClInclude Include="OrbBullet.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="SagittariusArrow.h" />
+    <ClInclude Include="SagittariusStar.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />

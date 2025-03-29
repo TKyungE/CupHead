@@ -22,7 +22,7 @@ void Player::Init(FPOINT pos, FPOINT size)
 		true, RGB(255, 0, 255));*/
 
 	// 콜라이더 삽입 방법				// Pivot = (이미지 가로 / 가로 프레임 수) / 2 , (이미지 세로 / 세로 프레임 수) / 2
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { (21168 / 24) * 0.5f, 415 * 0.5f }, { 30.f,30.f }, true);
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, {0.f,0.f}/*{ (21168 / 24) * 0.5f, 415 * 0.5f }*/, { 30.f,30.f }, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER);
 }

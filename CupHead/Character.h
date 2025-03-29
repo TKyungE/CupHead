@@ -20,7 +20,7 @@ public:
 	inline void SetMaxHp(int _MaxHp) { MaxHp = _MaxHp; }
 	inline int GetMaxHp() const { return MaxHp; }
 
-private:
+protected:
 	int Hp;
 	int MaxHp;
 	
