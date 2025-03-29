@@ -32,8 +32,8 @@ void BlimpEnemy::Init()
 	ImageManager::GetInstance()->AddImage(
 		stateStr + colorStr,
 		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\EnemyGreen\\a_blimp_enemy_attack.bmp"),
-		1690, 90,
-		10, 1,
+		1352, 95,
+		8, 1,
 		true, RGB(255, 0, 255));
 
 	stateStr = BlimpEnemyInfo::states[BlimpEnemyInfo::EState::TURN];
@@ -59,8 +59,8 @@ void BlimpEnemy::Init()
 	ImageManager::GetInstance()->AddImage(
 		stateStr + colorStr,
 		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\EnemyPurple\\b_blimp_enemy_attack.bmp"),
-		1680, 97,
-		10, 1,
+		1344, 97,
+		8, 1,
 		true, RGB(255, 0, 255));
 
 	stateStr = BlimpEnemyInfo::states[BlimpEnemyInfo::EState::TURN];
@@ -72,16 +72,21 @@ void BlimpEnemy::Init()
 		true, RGB(255, 0, 255));
 #pragma endregion
 
+	Dx = -1.f;
+	Dy = 0.f;
+
 	Color = BlimpEnemyInfo::colors[BlimpEnemyInfo::EColor::PURPLE];
 	BulletNum = 1;
+	IsFired = false;
 	CurState = BlimpEnemyInfo::EState::STATE_END;
 	
-	// 일단 애니메이션 속도 전부 0.5f
-	for (int state = BlimpEnemyInfo::EState::IDLE; state < BlimpEnemyInfo::EState::STATE_END; ++state) {
+	// 일단 애니메이션 속도 전부 10.f
+	for (int state = BlimpEnemyInfo::EState::IDLE; state < BlimpEnemyInfo::EState::STATE_END; ++state)
+	{
 		AnimData.push_back({ BlimpEnemyInfo::states[state], 10.f });
 	}
 
-	SetState(BlimpEnemyInfo::EState::IDLE);
+	SetState(BlimpEnemyInfo::EState::IDLE, false);
 
 	Speed = 200.f;
 	IsFlip = false;
@@ -96,31 +101,7 @@ void BlimpEnemy::Release()
 
 void BlimpEnemy::Update()
 {
-	// 화면 중앙 쯤까지 Idle 이미지로 이동 dx < 0
-	// 잠시 멈췄다가
-	// Attack 재생
-	// 재생 끝나면 총알 발사
-	// Attack 역재생
-	// Turn
-	// Idle 화면 밖으로 이동 flip = true, dx > 0
-	switch (CurState)
-	{
-	case BlimpEnemyInfo::EState::IDLE:
-	{
-		if (pos.x > WINSIZE_X / 2) {
-			pos.x -= Speed * TimerManager::GetInstance()->GetDeltaTime();
-		}
-		break;
-	}
-	case BlimpEnemyInfo::EState::ATTACK:
-	{
-		break;
-	}
-	case BlimpEnemyInfo::EState::TURN:
-	{
-		break;
-	}
-	}
+	UpdateState();
 
 	Move();
 
@@ -140,13 +121,116 @@ void BlimpEnemy::Render(HDC hdc)
 	if (image) image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, IsFlip);
 }
 
-void BlimpEnemy::SetState(BlimpEnemyInfo::EState NewState)
+void BlimpEnemy::UpdateFrame()
 {
-	if (CurState == NewState) return;
+	FrameTime += FrameSpeed * TimerManager::GetInstance()->GetDeltaTime();
+
+	int tempIndex = CurFrameIndex;
+	int maxFrame = 1;
+	if (image)
+		maxFrame = image->GetMaxFrameX() * image->GetMaxFrameY();
+	
+	if (IsAnimReverse)
+	{
+		CurFrameIndex = maxFrame - (int)FrameTime % maxFrame;
+	}
+	else
+	{
+		CurFrameIndex = (int)FrameTime % maxFrame;
+	}
+
+	// IsAnimEnd
+	if ((!IsAnimReverse and CurFrameIndex < tempIndex) or
+		(IsAnimReverse and CurFrameIndex > tempIndex))
+	{
+		if (true == IsStayMaxFrame)
+		{
+			CurFrameIndex = IsAnimReverse ? 0 : maxFrame - 1;
+		}
+
+		else
+		{
+			IsAnimEnd = true;
+		}
+	}
+}
+
+void BlimpEnemy::Move()
+{
+	pos.x += Dx * Speed * TimerManager::GetInstance()->GetDeltaTime();
+	pos.y += Dy * Speed * TimerManager::GetInstance()->GetDeltaTime();
+}
+
+void BlimpEnemy::UpdateState()
+{
+	if (!IsAnimEnd) return;
+
+	switch (CurState)
+	{
+	case BlimpEnemyInfo::EState::IDLE:
+	{
+		if (!IsFired)
+		{
+			if (pos.x <= WINSIZE_X / 2)
+			{
+				Dx = 0.f;
+				SetState(BlimpEnemyInfo::EState::ATTACK, false);
+			}
+		}
+		else
+		{
+			float imgSize{};
+			if (image)
+			{
+				imgSize = image->GetFrameWidth();
+			}
+
+			if (pos.x > WINSIZE_X + imgSize / 2)
+			{
+				bDead = true;
+			}
+		}
+		break;
+	}
+	case BlimpEnemyInfo::EState::ATTACK:
+	{
+		if (!IsAnimReverse)
+		{
+			// FireBullet use BulletNum
+			IsFired = true;
+
+			SetState(BlimpEnemyInfo::EState::ATTACK, true);
+		}
+		else
+		{
+			SetState(BlimpEnemyInfo::EState::TURN, false);
+		}
+		break;
+	}
+	case BlimpEnemyInfo::EState::TURN:
+	{
+		IsFlip = true;
+		Dx = 1.f;
+		SetState(BlimpEnemyInfo::EState::IDLE, false);
+		break;
+	}
+	}
+}
+
+void BlimpEnemy::SetState(BlimpEnemyInfo::EState NewState, bool AnimReverse)
+{
+	if ((CurState == NewState) and (IsAnimReverse == AnimReverse)) return;
 
 	CurState = NewState;
+	IsAnimReverse = AnimReverse;
 	image = ImageManager::GetInstance()->FindImage(AnimData[CurState].first + Color);
-	CurFrameIndex = 0;
+	int maxFrame{};
+	if (image)
+	{
+		maxFrame = image->GetMaxFrameX() * image->GetMaxFrameY();
+	}
+	CurFrameIndex = IsAnimReverse ? maxFrame - 1 : 0;
 	FrameSpeed = AnimData[CurState].second;
 	FrameTime = 0.f;
+	IsAnimEnd = false;
 }

@@ -34,18 +34,30 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
+	virtual void UpdateFrame() override;
+
+	virtual void Move() override;
+
+	void UpdateState();
+
 	inline void SetColor(string _Color) { Color = _Color; }
 	inline string GetColor() const { return Color; }
 
 	inline void SetBulletNum(int _BulletNum) { BulletNum = _BulletNum; }
 	inline int GetBulletNum() const { return BulletNum; }
 
-	void SetState(BlimpEnemyInfo::EState NewState);
+	void SetState(BlimpEnemyInfo::EState NewState, bool AnimReverse);
 
 private:
+	float Dx;
+	float Dy;
+
 	string Color;
 	int BulletNum;
+	bool IsFired;
 	BlimpEnemyInfo::EState CurState;
 	vector<pair<string, float>> AnimData;
+	bool IsAnimEnd;
+	bool IsAnimReverse;
 };
 

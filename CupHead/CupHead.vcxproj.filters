@@ -94,7 +94,7 @@
       <Filter>2D Framework\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="BlimpEnemy.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>MainGame\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +162,7 @@
       <Filter>2D Framework\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="BlimpEnemy.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>MainGame\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
