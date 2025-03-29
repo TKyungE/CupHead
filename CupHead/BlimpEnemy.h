@@ -29,7 +29,7 @@ public:
 	BlimpEnemy();
 	virtual ~BlimpEnemy();
 
-	virtual void Init() override;
+	void Init(BlimpEnemyInfo::EColor _Color, int _BulletNum);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
@@ -40,6 +40,8 @@ public:
 
 	void UpdateState();
 
+	void FireBullet();
+
 	void SetColor(string _Color);
 	inline string GetColor() const { return Color; }
 
@@ -48,6 +50,10 @@ public:
 
 	void SetState(BlimpEnemyInfo::EState NewState, bool AnimReverse);
 
+	// 나중에 옮기든지..
+	float GetWidth();
+	float GetHeight();
+
 private:
 	float Dx;
 	float Dy;
@@ -55,6 +61,8 @@ private:
 	string Color;
 	int BulletNum;
 	bool IsFired;
+	GameObject* target;
+
 	BlimpEnemyInfo::EState CurState;
 	vector<pair<string, float>> AnimData;
 	bool IsAnimEnd;

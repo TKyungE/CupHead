@@ -1,5 +1,8 @@
 #include "BlimpEnemy.h"
 #include "Image.h"
+#include "CommonFunction.h"
+#include "ObjectManager.h"
+#include "Bullet.h"
 
 namespace BlimpEnemyInfo
 {
@@ -15,10 +18,11 @@ BlimpEnemy::~BlimpEnemy()
 {
 }
 
-void BlimpEnemy::Init()
+void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum)
 {
 #pragma region Image Load
 	// Image 나중에 다른데서 한꺼번에 Load
+	// GreenEnemy
 	string stateStr = BlimpEnemyInfo::states[BlimpEnemyInfo::EState::IDLE];
 	string colorStr = BlimpEnemyInfo::colors[BlimpEnemyInfo::EColor::GREEN];
 	ImageManager::GetInstance()->AddImage(
@@ -45,7 +49,7 @@ void BlimpEnemy::Init()
 		true, RGB(255, 0, 255));
 
 	////////////////////////////////////////////////////
-
+	// PurpleEnemy
 	stateStr = BlimpEnemyInfo::states[BlimpEnemyInfo::EState::IDLE];
 	colorStr = BlimpEnemyInfo::colors[BlimpEnemyInfo::EColor::PURPLE];
 	ImageManager::GetInstance()->AddImage(
@@ -75,9 +79,11 @@ void BlimpEnemy::Init()
 	Dx = -1.f;
 	Dy = 0.f;
 
-	Color = BlimpEnemyInfo::colors[BlimpEnemyInfo::EColor::PURPLE];
-	BulletNum = 1;
+	Color = BlimpEnemyInfo::colors[_Color];
+	BulletNum = _BulletNum;
 	IsFired = false;
+	target = NULL;
+
 	CurState = BlimpEnemyInfo::EState::STATE_END;
 	
 	// 일단 애니메이션 속도 전부 10.f
@@ -112,8 +118,8 @@ void BlimpEnemy::Render(HDC hdc)
 {
 	//1. 배경
 	//2. 배경오브젝트 back
-	//3. BlimpEnemy			<--- 
-	//4. Boss
+	//3. Boss
+	//4. BlimpEnemy			<--- 
 	//5. Player
 	//6. 이펙트
 	//7. 배경오브젝트 front
@@ -179,13 +185,7 @@ void BlimpEnemy::UpdateState()
 		}
 		else
 		{
-			float imgSize{};
-			if (image)
-			{
-				imgSize = image->GetFrameWidth();
-			}
-
-			if (pos.x > WINSIZE_X + imgSize / 2)
+			if (IsOutOfScreen(pos, GetWidth(), GetHeight()))
 			{
 				bDead = true;
 			}
@@ -196,9 +196,7 @@ void BlimpEnemy::UpdateState()
 	{
 		if (!IsAnimReverse)
 		{
-			// FireBullet use BulletNum
-			IsFired = true;
-
+			FireBullet();
 			SetState(BlimpEnemyInfo::EState::ATTACK, true);
 		}
 		else
@@ -215,6 +213,34 @@ void BlimpEnemy::UpdateState()
 		break;
 	}
 	}
+}
+
+void BlimpEnemy::FireBullet()
+{
+	float defaultAngle{ 180.f };
+	if (target)
+	{
+		defaultAngle = RAD_TO_DEG(GetAngle(pos, target->GetPos()));
+	}
+	defaultAngle = ClampValue(defaultAngle, 90.f, 270.f);
+
+	for (int i = 0; i < BulletNum; ++i)
+	{
+		float bulletAngle = defaultAngle;
+		if (BulletNum > 1)
+		{
+			bulletAngle = defaultAngle + 45.f - 90.f / (float)(BulletNum - 1) * i;
+		}
+
+		Bullet* bullet = new Bullet;
+		FPOINT bulletPos = { pos.x - GetWidth() / 2, pos.y };
+		Image* bulletImage = ImageManager::GetInstance()->FindImage("EnemyBulletA");
+		bullet->Init(bulletPos, bulletAngle, BulletInfo::EBulletType::BLIMP_ENEMY);
+
+		ObjectManager::GetInstance()->AddObject(bullet, OBJTYPE::OBJ_MONSTER_WEAPON);
+	}
+
+	IsFired = true;
 }
 
 void BlimpEnemy::SetColor(string _Color)
@@ -239,4 +265,22 @@ void BlimpEnemy::SetState(BlimpEnemyInfo::EState NewState, bool AnimReverse)
 	FrameSpeed = AnimData[CurState].second;
 	FrameTime = 0.f;
 	IsAnimEnd = false;
+}
+
+float BlimpEnemy::GetWidth()
+{
+	if (image)
+	{
+		return image->GetFrameWidth();
+	}
+	return 0.0f;
+}
+
+float BlimpEnemy::GetHeight()
+{
+	if (image)
+	{
+		return image->GetFrameHeight();
+	}
+	return 0.0f;
 }

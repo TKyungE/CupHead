@@ -12,8 +12,7 @@ void ObjectManager::Init()
 
 	// 테스트 코드 BlimpEnemy 생성
 	BlimpEnemy* blimpEnemy = new BlimpEnemy();
-	blimpEnemy->Init();
-	blimpEnemy->SetColor(BlimpEnemyInfo::colors[BlimpEnemyInfo::EColor::GREEN]);
+	blimpEnemy->Init(BlimpEnemyInfo::EColor::GREEN, 5);
 	AddObject(blimpEnemy, OBJTYPE::OBJ_MONSTER);
 }
 

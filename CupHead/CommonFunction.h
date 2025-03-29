@@ -116,3 +116,23 @@ inline FPOINT RotatePoint(const FPOINT& p, double angleRad) {
 	rotated.y = float(p.x * std::sin(angleRad) + p.y * std::cos(angleRad));
 	return rotated;
 }
+
+inline bool IsOutOfScreen(FPOINT pos, float width, float height)
+{
+	if (pos.x - width / 2 > WINSIZE_X) return true;
+	if (pos.x + width / 2 < 0) return true;
+	if (pos.y - height / 2 > WINSIZE_Y) return true;
+	if (pos.y + height / 2 < 0) return true;
+	return false;
+}
+
+template<typename T>
+inline T ClampValue(T val, T low, T high)
+{
+	T result;
+	if (val < low) result = low;
+	else if (val > high) result = high;
+	else result = val;
+
+	return result;
+}

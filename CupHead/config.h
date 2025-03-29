@@ -9,6 +9,7 @@
 #include <bitset>
 #include <vector>
 #include <map>
+#include <random>
 
 using namespace std;
 
@@ -54,3 +55,8 @@ extern HINSTANCE g_hInstance;
 #endif
 
 #endif // _DEBUG
+
+// random
+extern random_device rd;
+extern default_random_engine dre;
+extern uniform_int_distribution<int> uid;
