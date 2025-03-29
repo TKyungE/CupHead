@@ -34,16 +34,7 @@ void Orb::Release()
 
 void Orb::Update()
 {
-	FrameTime += FrameSpeed * TimerManager::GetInstance()->GetDeltaTime();
-	CurFrameIndex = (int)FrameTime;
-
-	if (CurFrameIndex >= image->GetMaxFrameX())
-	{
-		if (true == IsStayMaxFrame)
-			CurFrameIndex = image->GetMaxFrameX() - 1;
-		else
-			CurFrameIndex = FrameTime = 0.f;
-	}
+	UpdateFrame();
 
 	Move();
 }

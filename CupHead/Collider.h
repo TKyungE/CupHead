@@ -25,9 +25,9 @@ public:
 	FPOINT GetPos() const { return Pos; }
 	FPOINT GetSize() const { return Size; }
 	COLLIDERTYPE GetColliderType() const { return ColliderType; }
+	bool IsDead() const { return bDead; }
 
 	bool CanDebugDraw() const { return bDebugDraw; }
-
 	bool CanHit() const { return bCanHit; }
 
 	void SetSize(FPOINT size) { Size = size; }
@@ -37,6 +37,7 @@ public:
 	}
 	void SetPivot(FPOINT pivot) { PivotPos = pivot; }
 	void SetHitDelayTime(float hitDelayTime) { HitDelayTime = hitDelayTime; }
+	void SetDead(bool bDead) { this->bDead = bDead; }
 private:
 	void DrawRectLine(HDC hdc, FPOINT HalfSize);
 private:
@@ -50,6 +51,7 @@ private:
 	bool bHit;
 	bool bCanHit;
 	bool bDebugDraw;
+	bool bDead;
 
 	float CurrentDelayTime;
 	float HitDelayTime;
