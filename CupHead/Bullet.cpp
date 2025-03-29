@@ -1,7 +1,8 @@
 #include "Bullet.h"
-#include "CommonFunction.h"
 #include "Image.h"
-#include <random>
+#include "CommonFunction.h"
+#include "Collider.h"
+#include "CollisionManager.h"
 
 namespace BulletInfo
 {
@@ -63,6 +64,12 @@ void Bullet::Init(FPOINT _pos, float _Angle, BulletInfo::EBulletType imageType)
 	pos = _pos;
 	size = { 1.f,1.f };
 	bDead = false;
+
+	int sizeX = GetWidth();
+	int sizeY = GetHeight();
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true);
+	collider->Init();
+	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER_WEAPON);
 }
 
 void Bullet::Release()
