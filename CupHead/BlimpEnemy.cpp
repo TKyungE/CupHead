@@ -103,8 +103,8 @@ void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum)
 	size = { 1.f,1.f };
 	bDead = false;
 
-	int sizeX = GetWidth();
-	int sizeY = GetHeight();
+	float sizeX = GetWidth();
+	float sizeY = GetHeight();
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER);
@@ -133,7 +133,7 @@ void BlimpEnemy::Render(HDC hdc)
 	//6. 이펙트
 	//7. 배경오브젝트 front
 
-	if (image) image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, IsFlip);
+	if (image) image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
 }
 
 void BlimpEnemy::UpdateFrame()
@@ -237,7 +237,7 @@ void BlimpEnemy::FireBullet()
 
 	if (target)
 	{
-		defaultAngle = RAD_TO_DEG(GetAngle(pos, target->GetPos()));
+		defaultAngle = (float)RAD_TO_DEG(GetAngle(pos, target->GetPos()));
 	}
 
 	// [-180, 180] -> [0, 360]
@@ -291,7 +291,7 @@ float BlimpEnemy::GetWidth()
 {
 	if (image)
 	{
-		return image->GetFrameWidth();
+		return (float)image->GetFrameWidth();
 	}
 	return 0.0f;
 }
@@ -300,7 +300,7 @@ float BlimpEnemy::GetHeight()
 {
 	if (image)
 	{
-		return image->GetFrameHeight();
+		return (float)image->GetFrameHeight();
 	}
 	return 0.0f;
 }

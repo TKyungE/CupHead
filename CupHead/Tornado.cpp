@@ -73,7 +73,7 @@ void Tornado::Update()
 
 void Tornado::Render(HDC hdc)
 {
-	if (image) image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, IsFlip);
+	if (image) image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
 }
 
 void Tornado::UpdateFrame()
@@ -127,8 +127,8 @@ void Tornado::UpdateState()
 		{
 			SetState(TornadoInfo::EState::ATTACK, false);
 
-			int sizeX = GetWidth();
-			int sizeY = GetHeight();
+			float sizeX = GetWidth();
+			float sizeY = GetHeight();
 
 			Collider* collider1 = new Collider(this, COLLIDERTYPE::Rect, { 0.f,-sizeY * 0.2f }, { sizeX * 0.7f, sizeY * 0.5f }, true);
 			collider1->Init();
@@ -162,7 +162,7 @@ void Tornado::UpdateState()
 			{
 				if (pos.x - GetWidth() / 2 > target->GetPos().x + MaxChaseDistance)
 				{
-					float deltaAngle = RAD_TO_DEG(GetAngle(pos, target->GetPos()));
+					float deltaAngle = (float)RAD_TO_DEG(GetAngle(pos, target->GetPos()));
 					// [-180, 180] -> [0, 360]
 					deltaAngle = fmod((deltaAngle + 360.f), 360.f);
 
@@ -199,7 +199,7 @@ float Tornado::GetWidth()
 {
 	if (image)
 	{
-		return image->GetFrameWidth();
+		return (float)image->GetFrameWidth();
 	}
 	return 0.0f;
 }
@@ -208,7 +208,7 @@ float Tornado::GetHeight()
 {
 	if (image)
 	{
-		return image->GetFrameHeight();
+		return (float)image->GetFrameHeight();
 	}
 	return 0.0f;
 }
