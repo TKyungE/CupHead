@@ -30,9 +30,15 @@ void Player::Init(FPOINT pos, FPOINT size)
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER);
 
+	//
 	EffectTestInit();
 	StarTestInit();
 	LaughTestInit();
+											
+	//EffectManager::GetInstance()->AddEffect("blimp_star_fx", pos, 30.f, { 100.f, 0.f }, 30, true, this);
+	//image이름, 초기 위치, 몇 초 동안 보일건지, 초기 위치 기준 offset 위치, 몇 번 반복하고 싶은지, GameObj Trece 여부, Trace할거면 포인터 넣기
+	// EffectManager::GetInstance()->AddEffectDefault("blimp_star_fx", pos, 30.f);
+	// 그냥 그 위치에 한 번 터트리기만 할 거면 Default 쓰기
 }
 
 void Player::Release()
