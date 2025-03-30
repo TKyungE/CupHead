@@ -55,6 +55,15 @@
     <Filter Include="MainGame\BackGround">
       <UniqueIdentifier>{3cc5650b-eaac-4d13-9cd1-703e14f33d42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\Tornado">
+      <UniqueIdentifier>{76c9ad01-65a9-476d-9997-496341aa633b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\BlimpEnemy">
+      <UniqueIdentifier>{00e05589-fc95-43cb-aec8-ee0128f94b6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Bullet">
+      <UniqueIdentifier>{cab526ce-9e22-44b3-bd55-d808e22b696d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -120,12 +129,6 @@
     <ClCompile Include="SagittariusArrow.cpp">
       <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
     </ClCompile>
-    <ClCompile Include="BlimpEnemy.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="UFO.cpp">
       <Filter>MainGame\Enemy\UFO</Filter>
     </ClCompile>
@@ -152,6 +155,15 @@
     </ClCompile>
     <ClCompile Include="BackGround.cpp">
       <Filter>MainGame\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Tornado.cpp">
+      <Filter>MainGame\Enemy\Tornado</Filter>
+    </ClCompile>
+    <ClCompile Include="BlimpEnemy.cpp">
+      <Filter>MainGame\Enemy\BlimpEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>MainGame\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,12 +236,6 @@
     <ClInclude Include="SagittariusArrow.h">
       <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
     </ClInclude>
-    <ClInclude Include="BlimpEnemy.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="UFO.h">
       <Filter>MainGame\Enemy\UFO</Filter>
     </ClInclude>
@@ -256,6 +262,15 @@
     </ClInclude>
     <ClInclude Include="BackGround.h">
       <Filter>MainGame\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Tornado.h">
+      <Filter>MainGame\Enemy\Tornado</Filter>
+    </ClInclude>
+    <ClInclude Include="BlimpEnemy.h">
+      <Filter>MainGame\Enemy\BlimpEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>MainGame\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
