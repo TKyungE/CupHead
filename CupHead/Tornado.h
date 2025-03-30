@@ -39,8 +39,7 @@ private:
 	float Dx;
 	float Angle;
 
-	float ChaseTime;
-	float MaxChaseTime;
+	float MaxChaseDistance;
 
 	TornadoInfo::EState CurState;
 	vector<pair<string, float>> AnimData;

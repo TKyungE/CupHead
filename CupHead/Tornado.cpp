@@ -11,7 +11,7 @@ namespace TornadoInfo
 }
 
 Tornado::Tornado()
-	:Dx{}, Angle{ 180.f }, ChaseTime{}, MaxChaseTime{ 2.5f },
+	:Dx{}, Angle{ 180.f }, MaxChaseDistance{ 150.f },
 	CurState{ TornadoInfo::EState::INTRO }, AnimData{}, IsAnimEnd{}, IsAnimReverse{}
 {
 }
@@ -151,16 +151,16 @@ void Tornado::UpdateState()
 		}
 		else
 		{
-			ChaseTime += TimerManager::GetInstance()->GetDeltaTime();
-			if (ChaseTime < MaxChaseTime) {
-				GameObject* target{};
-				list<GameObject*> playerList = ObjectManager::GetInstance()->GetObjectList(OBJTYPE::OBJ_PLAYER);
-				if (!playerList.empty())
-				{
-					target = playerList.front();
-				}
+			GameObject* target{};
+			list<GameObject*> playerList = ObjectManager::GetInstance()->GetObjectList(OBJTYPE::OBJ_PLAYER);
+			if (!playerList.empty())
+			{
+				target = playerList.front();
+			}
 
-				if (target)
+			if (target)
+			{
+				if (pos.x - GetWidth() / 2 > target->GetPos().x + MaxChaseDistance)
 				{
 					float deltaAngle = RAD_TO_DEG(GetAngle(pos, target->GetPos()));
 					// [-180, 180] -> [0, 360]
