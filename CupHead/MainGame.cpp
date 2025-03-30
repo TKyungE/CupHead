@@ -99,27 +99,11 @@ void MainGame::Release()
 
 void MainGame::Update()
 {
-	// ���°� �׽�Ʈ �ڵ�
-	{
-		if (KeyManager::GetInstance()->IsOnceKeyDown(VK_LBUTTON))
-		{
-			SagittariusStar* star = new SagittariusStar(mousePos, 10.f, 180.f);
-			star->Init();
-			Objectmanager->AddObject(star, OBJTYPE::OBJ_MONSTER_WEAPON);
+	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_SPACE))
+		bPause = !bPause;
 
-			SagittariusStar* star1 = new SagittariusStar(mousePos, 10.f, 125.f);
-			star1->Init();
-			Objectmanager->AddObject(star1, OBJTYPE::OBJ_MONSTER_WEAPON);
-
-			SagittariusStar* star2 = new SagittariusStar(mousePos, 10.f, 225.f);
-			star2->Init();
-			Objectmanager->AddObject(star2, OBJTYPE::OBJ_MONSTER_WEAPON);
-
-			SagittariusArrow* arrow = new SagittariusArrow(mousePos, { 50.f,50.f });
-			arrow->Init();
-			Objectmanager->AddObject(arrow, OBJTYPE::OBJ_MONSTER_WEAPON);
-		}
-	}
+	if (bPause)
+		return;
 
 	if (Objectmanager)
 		Objectmanager->Update();
@@ -127,15 +111,7 @@ void MainGame::Update()
 	if (enemyManager)
 		enemyManager->Update();
 	if (collisionManager)
-	{
 		collisionManager->Update();
-
-		//  ����ĳ��Ʈ ����		
-		//FHitResult HitResult;
-		//bool bCheck = collisionManager->LineTraceByObject(HitResult, OBJTYPE::OBJ_MONSTER, { 0.f,0.f }, mousePos, nullptr, true, true, 0.f, 100);
-		//if (bCheck)		// �¾Ҵ�.
-		//	HitResult.HitObj->TakeDamage();
-	}
 
 	if (nullptr != EffectManager)
 	{
@@ -191,6 +167,7 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 }
 
 MainGame::MainGame()
+	:bPause(false)
 {
 }
 

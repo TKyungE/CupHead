@@ -13,7 +13,7 @@ SagittariusArrow::SagittariusArrow(FPOINT pos, FPOINT size)
 
 void SagittariusArrow::Init()
 {
-	Speed = 500.f;
+	Speed = 700.f;
 	FrameSpeed = 10.f;
 
 	image = ImageManager::GetInstance()->AddImage("sagg_arrow", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Arrow/sagg_arrow.bmp", 3376, 72, 8, 1, true, RGB(255, 0, 255));

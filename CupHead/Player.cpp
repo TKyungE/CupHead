@@ -25,8 +25,8 @@ void Player::Init(FPOINT pos, FPOINT size)
 		"Normal_Enemy", TEXT("Image/Test/blimp_dash.bmp"), 21168, 415, 24, 1,
 		true, RGB(255, 0, 255));*/
 
-	// �ݶ��̴� ���� ���				// Pivot = (�̹��� ���� / ���� ������ ��) / 2 , (�̹��� ���� / ���� ������ ��) / 2
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, {0.f,0.f}/*{ (21168 / 24) * 0.5f, 415 * 0.5f }*/, this->size, true);
+		// �ݶ��̴� ���� ���				// Pivot = (�̹��� ���� / ���� ������ ��) / 2 , (�̹��� ���� / ���� ������ ��) / 2
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }/*{ (21168 / 24) * 0.5f, 415 * 0.5f }*/, this->size, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER);
 
@@ -64,9 +64,6 @@ void Player::Update()
 	KeyManager* keyManager = KeyManager::GetInstance();
 	if (keyManager)
 	{
-		FPOINT position = { 0.f,0.f };
-
-		
 		if (keyManager->IsOnceKeyDown('Q'))
 		{
 			//EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 3.f);
@@ -76,38 +73,14 @@ void Player::Update()
 			EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 1.f);
 		}
 
-		if (keyManager->IsStayKeyDown('W'))
-			position.y = -1;
-
-		else if (keyManager->IsStayKeyDown('S'))
-			position.y = 1;
-
-		if (keyManager->IsStayKeyDown('A'))
-			position.x = -1;
-
-		else if (keyManager->IsStayKeyDown('D'))
-			position.x = 1;
-
-		const float size = sqrtf(position.x * position.x + position.y * position.y);
-		if (size)
-		{
-			position.x /= size;
-			position.y /= size;
-		}
-
-		pos.x += position.x * 300 * TimerManager::GetInstance()->GetDeltaTime();
-		pos.y += position.y * 300 * TimerManager::GetInstance()->GetDeltaTime();
-
-		// 플레이어 화면 밖 못나가잉
-		pos.x = ClampValue<float>(pos.x, 0.f + (this->size.x * 0.5f), WINSIZE_X - (this->size.x * 0.5f));
-		pos.y = ClampValue<float>(pos.y, 0.f + (this->size.y * 0.5f), WINSIZE_Y - (this->size.y * 0.5f));
+		Move();
 	}
 }
 
 void Player::Render(HDC hdc)
 {
 	if (image)
-		image->Render(hdc,pos.x,pos.y,1);
+		image->Render(hdc, pos.x, pos.y, 1);
 
 	//Laugh->Render(hdc);
 	Star->Render(hdc);
@@ -124,6 +97,38 @@ void Player::EffectTestInit()
 
 	// C:\Programming\Git\CupHead\CupHead\CupHead\Image\CupHead\Hilda Berg\Sagittarius\Arrow\Smoke
 	ImageManager::GetInstance()->AddImage("sagg_arrow_fx", TEXT("Image/CupHead/Hilda Berg/Sagittarius/Arrow/Smoke/sagg_arrow_fx.bmp"), 1045, 203, 5, 1, true, RGB(255, 0, 255)); // ����Ʈ �׽�Ʈ
+}
+
+void Player::Move()
+{
+	KeyManager* keyManager = KeyManager::GetInstance();
+	FPOINT position = { 0.f,0.f };
+
+	if (keyManager->IsStayKeyDown('W'))
+		position.y = -1;
+
+	else if (keyManager->IsStayKeyDown('S'))
+		position.y = 1;
+
+	if (keyManager->IsStayKeyDown('A'))
+		position.x = -1;
+
+	else if (keyManager->IsStayKeyDown('D'))
+		position.x = 1;
+
+	const float size = sqrtf(position.x * position.x + position.y * position.y);
+	if (size)
+	{
+		position.x /= size;
+		position.y /= size;
+	}
+
+	pos.x += position.x * 300 * TimerManager::GetInstance()->GetDeltaTime();
+	pos.y += position.y * 300 * TimerManager::GetInstance()->GetDeltaTime();
+
+	// 플레이어 화면 밖 못나가잉
+	pos.x = ClampValue<float>(pos.x, 0.f + (this->size.x * 0.5f), WINSIZE_X - (this->size.x * 0.5f));
+	pos.y = ClampValue<float>(pos.y, 0.f + (this->size.y * 0.5f), WINSIZE_Y - (this->size.y * 0.5f));
 }
 
 //void Player::EffectTest()

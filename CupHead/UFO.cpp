@@ -18,7 +18,11 @@ void UFO::Init(FPOINT pos)
 	Speed = 200.f;
 	FrameSpeed = 15.f;
 
-	image = ImageManager::GetInstance()->AddImage("blimp_moon_ufo", L"Image/CupHead/Hilda Berg/Moon/Attack/blimp_moon_ufo.bmp", 3360, 75, 16,1,true,RGB(255,0,255));
+	const bool UFOBronze = bool(uid(dre) % 2);
+	if (UFOBronze)
+		image = ImageManager::GetInstance()->AddImage("bronze_blimp_moon_ufo", L"Image/CupHead/Hilda Berg/Moon/Attack/bronze_blimp_moon_ufo.bmp", 3360, 75, 16, 1, true, RGB(255, 0, 255));
+	else
+		image = ImageManager::GetInstance()->AddImage("blimp_moon_ufo", L"Image/CupHead/Hilda Berg/Moon/Attack/blimp_moon_ufo.bmp", 3360, 75, 16, 1, true, RGB(255, 0, 255));
 
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, {0.f,0.f}, { (float)image->GetFrameWidth(),(float)image->GetFrameHeight() }, true, 2.f);
 	collider->Init();

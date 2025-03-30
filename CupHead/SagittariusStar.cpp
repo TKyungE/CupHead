@@ -5,12 +5,14 @@
 #include "CollisionManager.h"
 #include "ObjectManager.h"
 #include "CommonFunction.h"
+#include "EffectManager.h"
 
 SagittariusStar::SagittariusStar(FPOINT InPos, float InGuidedTime, float InAngle)
-	: State(EStarState::End), GuidedTime(InGuidedTime), Angle(InAngle), CurrentTime(0.f), AngularVelocity(0.f), maxAngularAcceleration(0.2f), maxAngularVelocity(0.1f), friction(0.3f)
+	: State(EStarState::End), GuidedTime(InGuidedTime), Angle(InAngle), CurrentTime(0.f), AngularVelocity(0.f), maxAngularAcceleration(0.2f), maxAngularVelocity(0.1f), friction(0.3f), TrailPos()
 {
 	pos = InPos;
 	StartPos = InPos;
+	TrailPos = InPos;
 }
 
 void SagittariusStar::Init()
@@ -23,10 +25,13 @@ void SagittariusStar::Init()
 	Hp = MaxHp;
 
 	image = ImageManager::GetInstance()->AddImage("sagg_star", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/sagg_star.bmp", 1157, 90, 13, 1, true, RGB(255, 0, 255));
+	ImageSize = sqrtf(powf(image->GetFrameWidth(), 2) + powf(image->GetFrameHeight(), 2));
 
 	Collider* collider = new Collider(this, COLLIDERTYPE::Sphere, { 0.f,0.f }, 30.f, true, 1.f);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER_WEAPON);
+
+	EffectInit();
 }
 
 void SagittariusStar::Update()
@@ -34,6 +39,7 @@ void SagittariusStar::Update()
 	UpdateFrame();
 
 	Move();
+	TrailUpdate();
 }
 
 void SagittariusStar::Render(HDC hdc)
@@ -120,6 +126,8 @@ void SagittariusStar::Done()
 void SagittariusStar::Dead()
 {
 	bDead = true;
+
+	EffectManager::GetInstance()->AddEffect("sagg_star_death", pos, 1.f);
 }
 
 float SagittariusStar::SmoothAngle(float currentAngle, float targetAngle, float maxAngleSpeed)
@@ -142,6 +150,30 @@ float SagittariusStar::NoramlizeAngle(float angle)
 		angle += 2.f * PI;
 
 	return angle;
+}
+
+void SagittariusStar::EffectInit()
+{
+	ImageManager::GetInstance()->AddImage("sagg_star_death", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Death/sagg_star_death.bmp", 3870, 249, 15, 1, true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage("a_sagg_star_trail", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Trail/a_sagg_star_trail.bmp", 552, 46, 12, 1, true, RGB(255, 0, 255));
+	ImageManager::GetInstance()->AddImage("b_sagg_star_trail", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Trail/b_sagg_star_trail.bmp", 564, 46, 12, 1, true, RGB(255, 0, 255));
+	ImageManager::GetInstance()->AddImage("c_sagg_star_trail", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Trail/c_sagg_star_trail.bmp", 528, 45, 12, 1, true, RGB(255, 0, 255));
+	TrailImages[0] = "a_sagg_star_trail";
+	TrailImages[1] = "b_sagg_star_trail";
+	TrailImages[2] = "c_sagg_star_trail";
+}
+
+void SagittariusStar::TrailUpdate()
+{
+	const float distance = sqrtf(powf(pos.x - TrailPos.x, 2) + powf(pos.y - TrailPos.y, 2));
+	
+	if (!bDead && distance >= ImageSize * 0.3f)
+	{
+		const int ImageIndex = uid(dre) % 3;
+		EffectManager::GetInstance()->AddEffect(TrailImages[ImageIndex], TrailPos, 0.75f);
+		TrailPos = pos;
+	}
 }
 
 void SagittariusStar::TakeDamage(int damage)

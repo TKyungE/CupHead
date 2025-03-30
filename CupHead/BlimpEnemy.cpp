@@ -131,7 +131,7 @@ void BlimpEnemy::Render(HDC hdc)
 	//6. 이펙트
 	//7. 배경오브젝트 front
 
-	if (image) image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, IsFlip);
+	if (image) image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
 }
 
 void BlimpEnemy::UpdateFrame()
@@ -235,7 +235,7 @@ void BlimpEnemy::FireBullet()
 
 	if (target)
 	{
-		defaultAngle = RAD_TO_DEG(GetAngle(pos, target->GetPos()));
+		defaultAngle = (float)RAD_TO_DEG(GetAngle(pos, target->GetPos()));
 	}
 
 	// [-180, 180] -> [0, 360]

@@ -31,16 +31,23 @@ private:
 
 	float SmoothAngle(float currentAngle, float targetAngle, float maxAngleSpeed);
 	float NoramlizeAngle(float angle);
+
+	void EffectInit();
+	void TrailUpdate();
 private:
 	EStarState State;
 	float CurrentTime;
 	float GuidedTime;
 	float Angle;
 	FPOINT StartPos;
+	FPOINT TrailPos;
 
 	float AngularVelocity;
 	float maxAngularAcceleration;
 	float maxAngularVelocity;
 	float friction;
+
+	float ImageSize;
+	string TrailImages[3];
 };
 

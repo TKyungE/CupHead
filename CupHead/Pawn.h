@@ -20,6 +20,5 @@ public:
 	inline int GetSpeed() const { return Speed; }
 
 protected:
-	float Speed;
+	int Speed;
 };
-

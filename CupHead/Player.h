@@ -21,6 +21,8 @@ public:
 
 	//virtual void TakeDamage(int damage = 0);
 
+	void Move();
+
 private:
 	Image* image;
 	LaughProjectile* Laugh;
