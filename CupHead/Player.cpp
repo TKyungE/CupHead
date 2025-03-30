@@ -49,7 +49,7 @@ void Player::Release()
 
 void Player::Update()
 {
-	EffectTest();
+	//EffectTest();
 	KeyManager* keyManager = KeyManager::GetInstance();
 	if (keyManager)
 	{
@@ -119,29 +119,25 @@ void Player::EffectTest()
 
 	if (keyManager->IsOnceKeyDown('Q')) // Default Test
 	{
-		//EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 1.f); // 1�ʵ��� �� �� �����ְ� �������
+
 	}
 
 	if (keyManager->IsOnceKeyDown('W')) // OffsetPos Test
 	{
-		//EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f);
-		//EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f, { -100.f,-100.f }); // 0.5�� ���� �� �� �����ִµ� pos + offset ��ġ�� ����
-		//EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f, { -100.f, +100.f }); // 0.5�� ���� �� �� �����ִµ� pos + offset ��ġ�� ����
-		//EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f, { +100.f, -100.f }); // 0.5�� ���� �� �� �����ִµ� pos + offset ��ġ�� ����
-		//EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f, { +100.f, +100.f }); // 0.5�� ���� �� �� �����ִµ� pos + offset ��ġ�� ����
+
 	}
 
 	if (keyManager->IsOnceKeyDown('E')) // MaxLoopTest
 	{
-		//EffectManager::GetInstance()->AddEffect("sagg_arrow_fx", pos, 3.f, { 0.f, 0.f }, 5); // MaxLoopTest, 3�ʵ��� 5�� ���� �� ����
+
 	}
 
 	if (keyManager->IsOnceKeyDown('R')) // TraceTest 
 	{
-		//EffectManager::GetInstance()->AddEffect("blimp_star_fx", pos, 10.f , { 0.f, 0.f }, 30, true, this); // Trace�� �Ǵµ� �����غ��� ���� ����� ���� �ʿ�.
-	}
 
+	}
 }
+
 void Player::Move()
 {
 	KeyManager* keyManager = KeyManager::GetInstance();
@@ -173,59 +169,3 @@ void Player::Move()
 	pos.x = ClampValue<float>(pos.x, 0.f + (this->size.x * 0.5f), WINSIZE_X - (this->size.x * 0.5f));
 	pos.y = ClampValue<float>(pos.y, 0.f + (this->size.y * 0.5f), WINSIZE_Y - (this->size.y * 0.5f));
 }
-
-//void Player::EffectTest()
-//{
-//	KeyManager* keyManager = KeyManager::GetInstance();
-//
-//	if (keyManager->IsOnceKeyDown('Q')) // Default Test
-//	{
-//		EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 1.f); // 1�ʵ��� �� �� �����ְ� �������
-//	}
-//
-//	if (keyManager->IsOnceKeyDown('W')) // OffsetPos Test
-//	{
-//		//EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f);
-//		EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f, { -100.f,-100.f }); // 0.5�� ���� �� �� �����ִµ� pos + offset ��ġ�� ����
-//		EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f, { -100.f, +100.f }); // 0.5�� ���� �� �� �����ִµ� pos + offset ��ġ�� ����
-//		EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f, { +100.f, -100.f }); // 0.5�� ���� �� �� �����ִµ� pos + offset ��ġ�� ����
-//		EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f, { +100.f, +100.f }); // 0.5�� ���� �� �� �����ִµ� pos + offset ��ġ�� ����
-//	}
-//
-//	if (keyManager->IsOnceKeyDown('E')) // MaxLoopTest
-//	{
-//		EffectManager::GetInstance()->AddEffect("sagg_arrow_fx", pos, 3.f, { 0.f, 0.f }, 5); // MaxLoopTest, 3�ʵ��� 5�� ���� �� ����
-//	}
-//
-//	if (keyManager->IsOnceKeyDown('R')) // TraceTest 
-//	{
-//		EffectManager::GetInstance()->AddEffect("blimp_star_fx", pos, 10.f , { 0.f, 0.f }, 30, true, this); // Trace�� �Ǵµ� �����غ��� ���� ����� ���� �ʿ�.
-//	}
-//
-//	if (keyManager->IsOnceKeyDown('T'))
-//	{
-//		//EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 3.f);
-//		//EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 3.f);
-//		EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 1.f);
-//		EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f);
-//		EffectManager::GetInstance()->AddEffect("blimp_star_fx", pos, 0.5f);
-//	}
-//
-//	if (keyManager->IsOnceKeyDown('Y'))
-//	{
-//		//EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 3.f);
-//		//EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 3.f);
-//		EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 1.f);
-//		EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f);
-//		EffectManager::GetInstance()->AddEffect("blimp_star_fx", pos, 0.5f);
-//	}
-//
-//	if (keyManager->IsOnceKeyDown('U'))
-//	{
-//		//EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 3.f);
-//		//EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 3.f);
-//		EffectManager::GetInstance()->AddEffect("blimp_enemy_explode", pos, 1.f);
-//		EffectManager::GetInstance()->AddEffect("blimp_enemy_spark", pos, 0.5f);
-//		EffectManager::GetInstance()->AddEffect("blimp_star_fx", pos, 0.5f);
-//	}
-//}
