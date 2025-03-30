@@ -6,6 +6,7 @@ class Image;
 class EnemyManager;
 class CollisionManager;
 class ObjectManager;
+class EffectManager;
 class MainGame : public GameObject
 {
 private:
@@ -19,6 +20,7 @@ private:
 	EnemyManager* enemyManager;
 	CollisionManager* collisionManager;
 	ObjectManager* Objectmanager;
+	EffectManager* EffectManager;
 	Timer* timer;
 
 public:

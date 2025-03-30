@@ -2,6 +2,9 @@
 #include "GameObject.h"
 
 class Image;
+class LaughProjectile;
+class StarProjectile;
+
 class Player : public GameObject
 {
 public:
@@ -13,9 +16,14 @@ public:
 	void Update();		
 	void Render(HDC hdc);
 
-	virtual void TakeDamage(float damage = 0.f);
+	void EffectTestInit();
+	//void EffectTest();
+
+	//virtual void TakeDamage(float damage = 0.f);
 
 private:
 	Image* image;
+	LaughProjectile* Laugh;
+	StarProjectile* Star;
 };
 

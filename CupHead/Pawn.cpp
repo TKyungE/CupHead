@@ -18,8 +18,14 @@ void Pawn::Release()
 
 void Pawn::Update()
 {
+	__super::Update();
 }
 
 void Pawn::Render(HDC hdc)
+{
+	__super::Render(hdc);
+}
+
+void Pawn::TakeDamage(float damage)
 {
 }

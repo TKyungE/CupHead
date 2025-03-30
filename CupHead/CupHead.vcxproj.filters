@@ -49,6 +49,12 @@
     <Filter Include="MainGame\Enemy\Sagittarius\Arrow">
       <UniqueIdentifier>{b86ab429-09c3-4945-af67-14ee279b735b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\UFO">
+      <UniqueIdentifier>{ca75984f-dd6e-4d43-8394-f9d6bdafbf35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\UFO\UFOBeam">
+      <UniqueIdentifier>{f44c96b0-9e2d-4250-9a86-d359bbb9f5b7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -119,6 +125,31 @@
     </ClCompile>
     <ClCompile Include="SagittariusArrow.cpp">
       <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="BlimpEnemy.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UFO.cpp">
+      <Filter>MainGame\Enemy\UFO</Filter>
+    </ClCompile>
+    <ClCompile Include="UFOBeam.cpp">
+      <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
+    </ClCompile>
+
+    <ClCompile Include="LaughProjectile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="StarProjectile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +227,31 @@
     </ClInclude>
     <ClInclude Include="SagittariusArrow.h">
       <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="BlimpEnemy.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UFO.h">
+      <Filter>MainGame\Enemy\UFO</Filter>
+    </ClInclude>
+    <ClInclude Include="UFOBeam.h">
+      <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
+    </ClInclude>
+
+    <ClInclude Include="LaughProjectile.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="StarProjectile.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

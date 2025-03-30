@@ -14,7 +14,7 @@ void CollisionManager::Update()
 	{
 		for (auto iter = CollisionList[objType].begin(); iter != CollisionList[objType].end();)
 		{
-			if ((*iter)->GetOwner() == nullptr || (*iter)->GetOwner()->IsDead())
+			if ((*iter)->IsDead() || (*iter)->GetOwner() == nullptr || (*iter)->GetOwner()->IsDead())
 			{
 				(*iter)->Release();
 				delete (*iter);
@@ -259,6 +259,9 @@ bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType,
 
 	for (auto& iter : CollisionList[objType])
 	{
+		if (!iter->CanHit())
+			continue;
+
 		const FPOINT collPos = iter->GetPos();
 		const FPOINT collSize = iter->GetSize();
 		const FPOINT collHalfSize = { collSize.x * 0.5f, collSize.y * 0.5f };
@@ -289,8 +292,6 @@ bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType,
 			hitResult.HitObj = iter->GetOwner();
 			return true;
 		}
-		else
-			iter->SetHit(false);
 	}
 
 	return false;

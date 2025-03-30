@@ -5,6 +5,12 @@
 #include "Timer.h"
 #include "CollisionManager.h"
 #include "ObjectManager.h"
+#include "EffectManager.h"
+/*
+	ï¿½Ç½ï¿½1. ï¿½Ì¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	ï¿½Ç½ï¿½2. ï¿½ï¿½ï¿½ ï¿½Ù²Ù±ï¿½ (Å·ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½)
+*/
+
 
 #include "SagittariusStar.h"
 #include "SagittariusArrow.h"
@@ -19,17 +25,17 @@ void MainGame::Init()
 	backBuffer = new Image();
 	if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
 	{
-		MessageBox(g_hWnd,
-			TEXT("¹é¹öÆÛ »ý¼º ½ÇÆÐ"), TEXT("°æ°í"), MB_OK);
+		/*MessageBox(g_hWnd,
+			TEXT("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"), TEXT("ï¿½ï¿½ï¿½"), MB_OK);*/
 	}
 	backGround = new Image();
 	if (FAILED(backGround->Init(TEXT("Image/BackGround.bmp"), WINSIZE_X, WINSIZE_Y)))
 	{
-		MessageBox(g_hWnd,
-			TEXT("Image/backGround.bmp »ý¼º ½ÇÆÐ"), TEXT("°æ°í"), MB_OK);
+		/*MessageBox(g_hWnd,
+			TEXT("Image/backGround.bmp ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"), TEXT("ï¿½ï¿½ï¿½"), MB_OK);*/
 	}
 
-	// ¼±»ý´ÔÀÇ ¿¡³Ê¹Ì¸Å´ÏÀú.. ÁÖ¼®Ç®¸é ¸¯ ¹ß»ý 
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê¹Ì¸Å´ï¿½ï¿½ï¿½.. ï¿½Ö¼ï¿½Ç®ï¿½ï¿½ ï¿½ï¿½ ï¿½ß»ï¿½ 
 	//enemyManager = new EnemyManager();
 	//enemyManager->Init();
 
@@ -38,6 +44,9 @@ void MainGame::Init()
 
 	collisionManager = CollisionManager::GetInstance();
 	collisionManager->Init();
+
+	EffectManager = EffectManager::GetInstance();
+	EffectManager->Init();
 }
 
 void MainGame::Release()
@@ -75,15 +84,22 @@ void MainGame::Release()
 		Objectmanager = nullptr;
 	}
 
+	if (EffectManager)
+	{
+		EffectManager->Release();
+		EffectManager = nullptr;
+	}
+
 	ReleaseDC(g_hWnd, hdc);
 
 	KeyManager::GetInstance()->Release();
 	ImageManager::GetInstance()->Release();
+
 }
 
 void MainGame::Update()
 {
-	// ±èÅÂ°æ Å×½ºÆ® ÄÚµå
+	// ï¿½ï¿½ï¿½Â°ï¿½ ï¿½×½ï¿½Æ® ï¿½Úµï¿½
 	{
 		if (KeyManager::GetInstance()->IsOnceKeyDown(VK_LBUTTON))
 		{
@@ -114,17 +130,22 @@ void MainGame::Update()
 	{
 		collisionManager->Update();
 
-		//  ·¹ÀÌÄ³½ºÆ® »ç¿ë¹ý		
+		//  ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½		
 		//FHitResult HitResult;
 		//bool bCheck = collisionManager->LineTraceByObject(HitResult, OBJTYPE::OBJ_MONSTER, { 0.f,0.f }, mousePos, nullptr, true, true, 0.f, 100);
-		//if (bCheck)		// ¸Â¾Ò´Ù.
+		//if (bCheck)		// ï¿½Â¾Ò´ï¿½.
 		//	HitResult.HitObj->TakeDamage();
+	}
+
+	if (nullptr != EffectManager)
+	{
+		EffectManager->Update();
 	}
 }
 
 void MainGame::Render()
 {
-	// ¹é¹öÆÛ¿¡ ¸ÕÀú º¹»ç
+	// ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
 	backGround->Render(hBackBufferDC);
@@ -141,9 +162,15 @@ void MainGame::Render()
 	if (collisionManager)
 		collisionManager->Render(hBackBufferDC);
 
+	if (EffectManager)
+	{
+		EffectManager->Render(hBackBufferDC);
+	}
+		
+
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 
-	// ¹é¹öÆÛ¿¡ ÀÖ´Â ³»¿ëÀ» ¸ÞÀÎ hdc¿¡ º¹»ç
+	// ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ hdcï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	backBuffer->Render(hdc);
 }
 

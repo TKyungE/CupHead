@@ -17,6 +17,10 @@ public:
 	virtual void UpdateFrame();
 	virtual void TakeDamage(float damage = 0.f) override;
 	
+public:
+	inline void SetImage(Image* _Image) { image = _Image; }
+	inline Image* GetImage() const { return image; }
+
 protected:
 	Image* image;
 	int CurFrameIndex;
