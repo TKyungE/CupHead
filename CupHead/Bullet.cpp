@@ -11,6 +11,7 @@ namespace BulletInfo
 }
 
 Bullet::Bullet()
+	: Angle{}
 {
 }
 
