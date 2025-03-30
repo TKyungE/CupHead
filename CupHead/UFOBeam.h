@@ -8,13 +8,15 @@ public:
 	UFOBeam();
 	virtual ~UFOBeam() = default;
 
-	virtual void Init() override;
+	void Init(GameObject* InOwner, FPOINT InPivot);
 	virtual void Release() override;
-	void Update(FPOINT parentPos);
+	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
 	void Attack();
 private:
+	GameObject* Owner;
 	Collider* Collider;
+	FPOINT Pivot;
 };
 

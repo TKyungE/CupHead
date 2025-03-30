@@ -132,8 +132,8 @@ void CollisionManager::PlayerMonsterCollision()
 
 			if (bCollision)
 			{
-				player->GetOwner()->TakeDamage(1.f);
-				monster->GetOwner()->TakeDamage(1.f);
+				player->GetOwner()->TakeDamage(1);
+				monster->GetOwner()->TakeDamage(1);
 				player->SetHit(true);
 				monster->SetHit(true);
 			}
@@ -167,8 +167,8 @@ void CollisionManager::PlayerMonsterWeaponCollision()
 
 			if (bCollision)
 			{
-				player->GetOwner()->TakeDamage(1.f);
-				monsterWeapon->GetOwner()->TakeDamage(1.f);
+				player->GetOwner()->TakeDamage(1);
+				monsterWeapon->GetOwner()->TakeDamage(1);
 
 				player->SetHit(true);
 				monsterWeapon->SetHit(true);
@@ -203,8 +203,8 @@ void CollisionManager::PlayerWeaponMonsterCollision()
 
 			if (bCollision)
 			{
-				playerWeapon->GetOwner()->TakeDamage(1.f);
-				monster->GetOwner()->TakeDamage(1.f);
+				playerWeapon->GetOwner()->TakeDamage(1);
+				monster->GetOwner()->TakeDamage(1);
 				playerWeapon->SetHit(true);
 				monster->SetHit(true);
 			}

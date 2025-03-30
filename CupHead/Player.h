@@ -19,7 +19,9 @@ public:
 	void EffectTestInit();
 	//void EffectTest();
 
-	//virtual void TakeDamage(float damage = 0.f);
+	//virtual void TakeDamage(int damage = 0);
+
+	void Move();
 
 private:
 	Image* image;
