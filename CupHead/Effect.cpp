@@ -79,6 +79,11 @@ void Effect::PosUpdate()
 	{
 		pos.x = m_EffectDesc.TraceTarget->GetPos().x + m_EffectDesc.OffsetPos.x;
 		pos.y = m_EffectDesc.TraceTarget->GetPos().y + m_EffectDesc.OffsetPos.y;
+
+		if (true == m_EffectDesc.TraceTarget->IsDead())
+		{
+			bDead = true;
+		}
 	}
 }
 
