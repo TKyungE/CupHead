@@ -8,6 +8,7 @@ public:
 	virtual ~LaughProjectile();
 
 public:
+	void Init(FPOINT _Pos);
 	virtual void Init() override;
 	virtual void Release() override;
 	virtual void Update() override;
