@@ -14,7 +14,7 @@ namespace BlimpEnemyInfo
 
 BlimpEnemy::BlimpEnemy()
 	: Dx{}, Dy{}, Color{ "GREEN" }, BulletNum{ 1 }, IsFired{},
-	CurState{ BlimpEnemyInfo::EState::STATE_END }, AnimData{}, IsAnimEnd{}, IsAnimReverse{}
+	CurState{ BlimpEnemyInfo::EState::IDLE }, AnimData{}, IsAnimEnd{}, IsAnimReverse{}
 {
 }
 
@@ -178,8 +178,6 @@ void BlimpEnemy::Move()
 
 void BlimpEnemy::UpdateState()
 {
-	if (!IsAnimEnd) return;
-
 	switch (CurState)
 	{
 	case BlimpEnemyInfo::EState::IDLE:
@@ -203,6 +201,7 @@ void BlimpEnemy::UpdateState()
 	}
 	case BlimpEnemyInfo::EState::ATTACK:
 	{
+		if (!IsAnimEnd) return;
 		if (!IsAnimReverse)
 		{
 			FireBullet();
@@ -216,6 +215,7 @@ void BlimpEnemy::UpdateState()
 	}
 	case BlimpEnemyInfo::EState::TURN:
 	{
+		if (!IsAnimEnd) return;
 		IsFlip = true;
 		Dx = 1.f;
 		SetState(BlimpEnemyInfo::EState::IDLE, false);
@@ -276,7 +276,7 @@ void BlimpEnemy::SetState(BlimpEnemyInfo::EState NewState, bool AnimReverse)
 	CurState = NewState;
 	IsAnimReverse = AnimReverse;
 	image = ImageManager::GetInstance()->FindImage(AnimData[CurState].first + Color);
-	int maxFrame{};
+	int maxFrame{ 1 };
 	if (image)
 	{
 		maxFrame = image->GetMaxFrameX() * image->GetMaxFrameY();

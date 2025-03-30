@@ -15,6 +15,8 @@
 #include "SagittariusStar.h"
 #include "SagittariusArrow.h"
 
+#include "Tornado.h"
+
 void MainGame::Init()
 {
 	ImageManager::GetInstance()->Init();
@@ -119,6 +121,14 @@ void MainGame::Update()
 			arrow->Init();
 			Objectmanager->AddObject(arrow, OBJTYPE::OBJ_MONSTER_WEAPON);
 		}
+	}
+
+	// Test. Tornado
+	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_RBUTTON))
+	{
+		Tornado* tornado = new Tornado();
+		tornado->Init(mousePos);
+		Objectmanager->AddObject(tornado, OBJTYPE::OBJ_MONSTER_WEAPON);
 	}
 
 	if (Objectmanager)
