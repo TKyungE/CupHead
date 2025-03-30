@@ -49,6 +49,12 @@
     <Filter Include="MainGame\Enemy\UFO\UFOBeam">
       <UniqueIdentifier>{f44c96b0-9e2d-4250-9a86-d359bbb9f5b7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\Sagittarius\Cloud">
+      <UniqueIdentifier>{50d00f88-f519-4df4-87f0-48bc4b2d320d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\BackGround">
+      <UniqueIdentifier>{3cc5650b-eaac-4d13-9cd1-703e14f33d42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -140,6 +146,12 @@
     </ClCompile>
     <ClCompile Include="Sagittarius.cpp">
       <Filter>MainGame\Enemy\Sagittarius</Filter>
+    </ClCompile>
+    <ClCompile Include="SagittariusCloud.cpp">
+      <Filter>MainGame\Enemy\Sagittarius\Cloud</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>MainGame\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +250,12 @@
     </ClInclude>
     <ClInclude Include="Sagittarius.h">
       <Filter>MainGame\Enemy\Sagittarius</Filter>
+    </ClInclude>
+    <ClInclude Include="SagittariusCloud.h">
+      <Filter>MainGame\Enemy\Sagittarius\Cloud</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>MainGame\BackGround</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

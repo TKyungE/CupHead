@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BlimpEnemy.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sagittarius.cpp" />
+    <ClCompile Include="SagittariusCloud.cpp" />
     <ClCompile Include="StarProjectile.cpp" />
     <ClCompile Include="SagittariusArrow.cpp" />
     <ClCompile Include="SagittariusStar.cpp" />
@@ -160,6 +162,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="BlimpEnemy.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Character.h" />
@@ -184,6 +187,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Sagittarius.h" />
     <ClInclude Include="SagittariusArrow.h" />
+    <ClInclude Include="SagittariusCloud.h" />
     <ClInclude Include="SagittariusStar.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StarProjectile.h" />

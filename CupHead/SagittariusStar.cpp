@@ -8,7 +8,7 @@
 #include "EffectManager.h"
 
 SagittariusStar::SagittariusStar(FPOINT InPos, float InGuidedTime, float InAngle)
-	: State(EStarState::End), GuidedTime(InGuidedTime), Angle(InAngle), CurrentTime(0.f), AngularVelocity(0.f), maxAngularAcceleration(0.2f), maxAngularVelocity(0.1f), friction(0.3f), TrailPos()
+	: State(EStarState::End), GuidedTime(InGuidedTime), Angle(InAngle), CurrentTime(0.f), AngularVelocity(0.f), maxAngularAcceleration(0.f), maxAngularVelocity(0.f), friction(0.f), TrailPos()
 {
 	pos = InPos;
 	StartPos = InPos;
@@ -18,11 +18,15 @@ SagittariusStar::SagittariusStar(FPOINT InPos, float InGuidedTime, float InAngle
 void SagittariusStar::Init()
 {
 	State = EStarState::Fire;
-	Speed = 250.f;
+	Speed = 300.f;
 	FrameSpeed = 20.f;
 
 	MaxHp = 2;
 	Hp = MaxHp;
+
+	maxAngularAcceleration = 0.3f;
+	maxAngularVelocity = 0.1f;
+	friction = 0.9f;
 
 	image = ImageManager::GetInstance()->AddImage("sagg_star", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/sagg_star.bmp", 1157, 90, 13, 1, true, RGB(255, 0, 255));
 	ImageSize = sqrtf(powf(image->GetFrameWidth(), 2) + powf(image->GetFrameHeight(), 2));

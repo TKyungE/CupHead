@@ -37,8 +37,6 @@ void ObjectManager::Update()
 	{
 		for (auto iter = ObjectList[i].begin(); iter != ObjectList[i].end();)
 		{
-			(*iter)->Update();
-
 			if ((*iter)->IsDead())
 			{
 				(*iter)->Release();
@@ -47,7 +45,10 @@ void ObjectManager::Update()
 				iter = ObjectList[i].erase(iter);
 			}
 			else
-				++iter;						
+			{
+				(*iter)->Update();
+				++iter;
+			}				
 		}
 	}
 }

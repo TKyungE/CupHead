@@ -6,9 +6,10 @@
 #include "SagittariusArrow.h"
 #include "SagittariusStar.h"
 #include "ObjectManager.h"
+#include "SagittariusCloud.h"
 
 Sagittarius::Sagittarius()
-	:Angle(0.f), AngleSpeed(0.f), CurrnetTime(0.f), AttackTime(0.f), bAttack(false)
+	:Angle(0.f), AngleSpeed(0.f), CurrnetTime(0.f), AttackTime(0.f), bAttack(false), Cloud(nullptr)
 {
 }
 
@@ -22,6 +23,14 @@ void Sagittarius::Init(FPOINT InPos)
 	AttackTime = 5.f;
 
 	image = ImageManager::GetInstance()->AddImage("sagg_idle", L"Image/CupHead/Hilda Berg/Sagittarius/Sagittarius/Idle/sagg_idle.bmp", 5580, 362, 12, 1, true, RGB(255, 0, 255));
+
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { (float)image->GetFrameWidth(), (float)image->GetFrameHeight() }, true, 1.f);
+	collider->Init();
+	CollisionManager::GetInstance()->AddCollider(collider, OBJ_MONSTER);
+
+	Cloud = new SagittariusCloud();
+	Cloud->Init(this, { image->GetFrameWidth() * 0.35f, image->GetFrameHeight() * 0.5f });
+	ObjectManager::GetInstance()->AddObject(Cloud, OBJ_MONSTER_WEAPON);
 }
 
 
@@ -44,6 +53,9 @@ void Sagittarius::Update()
 	UpdateFrame();
 
 	Move();
+
+	if (bDead && Cloud != nullptr)
+		Cloud->SetDead(true);
 }
 
 void Sagittarius::Render(HDC hdc)
@@ -85,21 +97,23 @@ void Sagittarius::Attack()
 	if (!bAttack && CurFrameIndex >= 6)
 	{
 		bAttack = true;
-		
-		FPOINT newPos = { pos.x, pos.y - 40.f };
-		SagittariusStar* star = new SagittariusStar(newPos, 10.f, 180.f);
+
+		FPOINT StarPos = { pos.x - image->GetFrameHeight() * 0.5f, pos.y - 40.f};
+		FPOINT ArrowPos = { pos.x, pos.y - 40.f };
+
+		SagittariusStar* star = new SagittariusStar(StarPos, 10.f, 180.f);
 		star->Init();
 		ObjectManager::GetInstance()->AddObject(star, OBJTYPE::OBJ_MONSTER_WEAPON);
 
-		SagittariusStar* star1 = new SagittariusStar(newPos, 10.f, 125.f);
+		SagittariusStar* star1 = new SagittariusStar(StarPos, 10.f, 125.f);
 		star1->Init();
 		ObjectManager::GetInstance()->AddObject(star1, OBJTYPE::OBJ_MONSTER_WEAPON);
 
-		SagittariusStar* star2 = new SagittariusStar(newPos, 10.f, 225.f);
+		SagittariusStar* star2 = new SagittariusStar(StarPos, 10.f, 225.f);
 		star2->Init();
 		ObjectManager::GetInstance()->AddObject(star2, OBJTYPE::OBJ_MONSTER_WEAPON);
 
-		SagittariusArrow* arrow = new SagittariusArrow(newPos, { 50.f,50.f });
+		SagittariusArrow* arrow = new SagittariusArrow(ArrowPos, { 50.f,50.f });
 		arrow->Init();
 		ObjectManager::GetInstance()->AddObject(arrow, OBJTYPE::OBJ_MONSTER_WEAPON);
 	}
@@ -111,7 +125,7 @@ void Sagittarius::Attack()
 
 		bAttack = false;
 		State = ESagittariusState::Idle;
-		
+
 		image = ImageManager::GetInstance()->AddImage("sagg_idle", L"Image/CupHead/Hilda Berg/Sagittarius/Sagittarius/Idle/sagg_idle.bmp", 5580, 362, 12, 1, true, RGB(255, 0, 255));
 	}
 }

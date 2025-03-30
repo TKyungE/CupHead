@@ -6,14 +6,6 @@
 #include "CollisionManager.h"
 #include "ObjectManager.h"
 #include "EffectManager.h"
-/*
-	�ǽ�1. �̿��� ���� ������
-	�ǽ�2. ��� �ٲٱ� (ŷ���� �ִϸ��̼� ���)
-*/
-
-
-#include "SagittariusStar.h"
-#include "SagittariusArrow.h"
 
 void MainGame::Init()
 {

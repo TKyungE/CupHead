@@ -1,5 +1,8 @@
 #pragma once
 #include "Character.h"
+
+class Image;
+class SagittariusCloud;
 class Sagittarius : public Character
 {
 private:
@@ -25,6 +28,7 @@ private:
 	void Idle();
 	void Attack();
 private:
+	SagittariusCloud* Cloud;
 	ESagittariusState State;
 	float Angle;
 	float AngleSpeed;
