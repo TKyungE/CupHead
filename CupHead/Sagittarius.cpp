@@ -62,6 +62,8 @@ void Sagittarius::Render(HDC hdc)
 {
 	if (image)
 		image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0);
+	//image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0);
+	
 }
 
 void Sagittarius::Move()
