@@ -13,6 +13,8 @@ namespace BlimpEnemyInfo
 }
 
 BlimpEnemy::BlimpEnemy()
+	: Dx{}, Dy{}, Color{ "GREEN" }, BulletNum{ 1 }, IsFired{},
+	CurState{ BlimpEnemyInfo::EState::IDLE }, AnimData{}, IsAnimEnd{}, IsAnimReverse{}
 {
 }
 
@@ -131,7 +133,7 @@ void BlimpEnemy::Render(HDC hdc)
 	//6. 이펙트
 	//7. 배경오브젝트 front
 
-	if (image) image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, IsFlip);
+	if (image) image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
 }
 
 void BlimpEnemy::UpdateFrame()
@@ -176,8 +178,6 @@ void BlimpEnemy::Move()
 
 void BlimpEnemy::UpdateState()
 {
-	if (!IsAnimEnd) return;
-
 	switch (CurState)
 	{
 	case BlimpEnemyInfo::EState::IDLE:
@@ -201,6 +201,7 @@ void BlimpEnemy::UpdateState()
 	}
 	case BlimpEnemyInfo::EState::ATTACK:
 	{
+		if (!IsAnimEnd) return;
 		if (!IsAnimReverse)
 		{
 			FireBullet();
@@ -214,6 +215,7 @@ void BlimpEnemy::UpdateState()
 	}
 	case BlimpEnemyInfo::EState::TURN:
 	{
+		if (!IsAnimEnd) return;
 		IsFlip = true;
 		Dx = 1.f;
 		SetState(BlimpEnemyInfo::EState::IDLE, false);
@@ -235,7 +237,7 @@ void BlimpEnemy::FireBullet()
 
 	if (target)
 	{
-		defaultAngle = RAD_TO_DEG(GetAngle(pos, target->GetPos()));
+		defaultAngle = (float)RAD_TO_DEG(GetAngle(pos, target->GetPos()));
 	}
 
 	// [-180, 180] -> [0, 360]
@@ -274,7 +276,7 @@ void BlimpEnemy::SetState(BlimpEnemyInfo::EState NewState, bool AnimReverse)
 	CurState = NewState;
 	IsAnimReverse = AnimReverse;
 	image = ImageManager::GetInstance()->FindImage(AnimData[CurState].first + Color);
-	int maxFrame{};
+	int maxFrame{ 1 };
 	if (image)
 	{
 		maxFrame = image->GetMaxFrameX() * image->GetMaxFrameY();

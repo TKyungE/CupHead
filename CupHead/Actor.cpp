@@ -45,6 +45,6 @@ void Actor::UpdateFrame()
 	}
 }
 
-void Actor::TakeDamage(float damage)
+void Actor::TakeDamage(int damage)
 {
 }

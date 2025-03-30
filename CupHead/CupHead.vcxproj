@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BlimpEnemy.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -147,20 +148,22 @@
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="MissileManager.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
-    <ClCompile Include="Orb.cpp" />
-    <ClCompile Include="OrbBullet.cpp" />
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Sagittarius.cpp" />
+    <ClCompile Include="SagittariusCloud.cpp" />
     <ClCompile Include="StarProjectile.cpp" />
     <ClCompile Include="SagittariusArrow.cpp" />
     <ClCompile Include="SagittariusStar.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
+    <ClCompile Include="Tornado.cpp" />
     <ClCompile Include="UFO.cpp" />
     <ClCompile Include="UFOBeam.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="BackGround.h" />
     <ClInclude Include="BlimpEnemy.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Character.h" />
@@ -181,16 +184,17 @@
     <ClInclude Include="Missile.h" />
     <ClInclude Include="MissileManager.h" />
     <ClInclude Include="ObjectManager.h" />
-    <ClInclude Include="Orb.h" />
-    <ClInclude Include="OrbBullet.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Sagittarius.h" />
     <ClInclude Include="SagittariusArrow.h" />
+    <ClInclude Include="SagittariusCloud.h" />
     <ClInclude Include="SagittariusStar.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StarProjectile.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="Tornado.h" />
     <ClInclude Include="UFO.h" />
     <ClInclude Include="UFOBeam.h" />
   </ItemGroup>

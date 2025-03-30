@@ -42,7 +42,7 @@ void Effect::Update()
 
 void Effect::Render(HDC hdc)
 {
-	image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0);
+	image->FrameRender(hdc,pos.x,pos.y, CurFrameIndex, 0);
 }
 
 void Effect::UpdateTime()

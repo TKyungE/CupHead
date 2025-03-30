@@ -34,12 +34,6 @@
     <Filter Include="2D Framework\GameObject">
       <UniqueIdentifier>{ed8aa66f-8972-4254-b0e8-1744769043ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Enemy\Orb">
-      <UniqueIdentifier>{bb21ad02-9417-436a-9346-0340c6e27233}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame\Enemy\Orb\OrbBullet">
-      <UniqueIdentifier>{d37474c8-f7aa-4cbb-bc72-f8b21c14cfb7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainGame\Enemy\Sagittarius">
       <UniqueIdentifier>{1c9f6f8a-b46f-4eb0-b816-8c395a4b5792}</UniqueIdentifier>
     </Filter>
@@ -54,6 +48,12 @@
     </Filter>
     <Filter Include="MainGame\Enemy\UFO\UFOBeam">
       <UniqueIdentifier>{f44c96b0-9e2d-4250-9a86-d359bbb9f5b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Sagittarius\Cloud">
+      <UniqueIdentifier>{50d00f88-f519-4df4-87f0-48bc4b2d320d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\BackGround">
+      <UniqueIdentifier>{3cc5650b-eaac-4d13-9cd1-703e14f33d42}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -114,12 +114,6 @@
     <ClCompile Include="Character.cpp">
       <Filter>2D Framework\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Orb.cpp">
-      <Filter>MainGame\Enemy\Orb</Filter>
-    </ClCompile>
-    <ClCompile Include="OrbBullet.cpp">
-      <Filter>MainGame\Enemy\Orb\OrbBullet</Filter>
-    </ClCompile>
     <ClCompile Include="SagittariusStar.cpp">
       <Filter>MainGame\Enemy\Sagittarius\Star</Filter>
     </ClCompile>
@@ -138,7 +132,6 @@
     <ClCompile Include="UFOBeam.cpp">
       <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
     </ClCompile>
-
     <ClCompile Include="LaughProjectile.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -150,6 +143,15 @@
     </ClCompile>
     <ClCompile Include="EffectManager.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Sagittarius.cpp">
+      <Filter>MainGame\Enemy\Sagittarius</Filter>
+    </ClCompile>
+    <ClCompile Include="SagittariusCloud.cpp">
+      <Filter>MainGame\Enemy\Sagittarius\Cloud</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>MainGame\BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,12 +218,6 @@
     <ClInclude Include="Character.h">
       <Filter>2D Framework\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Orb.h">
-      <Filter>MainGame\Enemy\Orb</Filter>
-    </ClInclude>
-    <ClInclude Include="OrbBullet.h">
-      <Filter>MainGame\Enemy\Orb\OrbBullet</Filter>
-    </ClInclude>
     <ClInclude Include="SagittariusStar.h">
       <Filter>MainGame\Enemy\Sagittarius\Star</Filter>
     </ClInclude>
@@ -240,7 +236,6 @@
     <ClInclude Include="UFOBeam.h">
       <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
     </ClInclude>
-
     <ClInclude Include="LaughProjectile.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -252,6 +247,15 @@
     </ClInclude>
     <ClInclude Include="EffectManager.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Sagittarius.h">
+      <Filter>MainGame\Enemy\Sagittarius</Filter>
+    </ClInclude>
+    <ClInclude Include="SagittariusCloud.h">
+      <Filter>MainGame\Enemy\Sagittarius\Cloud</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>MainGame\BackGround</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
