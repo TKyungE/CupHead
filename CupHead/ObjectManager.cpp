@@ -21,7 +21,7 @@ void ObjectManager::Init()
 
 		// 테스트 코드 Sagittarius 생성
 		Sagittarius* sagittarius = new Sagittarius();
-		sagittarius->Init({ WINSIZE_X * 0.5f,300.f });
+		sagittarius->Init({ WINSIZE_X * 0.8f,300.f });
 		AddObject(sagittarius, OBJTYPE::OBJ_MONSTER);
 	}
 
