@@ -58,6 +58,15 @@
     <Filter Include="MainGame\Enemy\Moon">
       <UniqueIdentifier>{3a1e8550-902f-43d0-b1ea-4a3d4ae13e22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\BlimpEnemy">
+      <UniqueIdentifier>{07c2a441-a826-4bb3-a953-2089ab90a541}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Tornado">
+      <UniqueIdentifier>{3a18a387-eadb-4cab-9e88-49cc723dd6a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Bullet">
+      <UniqueIdentifier>{f4325e91-1cd1-4944-b822-866867221cdd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -123,12 +132,6 @@
     <ClCompile Include="SagittariusArrow.cpp">
       <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
     </ClCompile>
-    <ClCompile Include="BlimpEnemy.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="UFO.cpp">
       <Filter>MainGame\Enemy\UFO</Filter>
     </ClCompile>
@@ -156,11 +159,17 @@
     <ClCompile Include="BackGround.cpp">
       <Filter>MainGame\BackGround</Filter>
     </ClCompile>
-    <ClCompile Include="Tornado.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Moon.cpp">
       <Filter>MainGame\Enemy\Moon</Filter>
+    </ClCompile>
+    <ClCompile Include="BlimpEnemy.cpp">
+      <Filter>MainGame\Enemy\BlimpEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Tornado.cpp">
+      <Filter>MainGame\Enemy\Tornado</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>MainGame\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -233,12 +242,6 @@
     <ClInclude Include="SagittariusArrow.h">
       <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
     </ClInclude>
-    <ClInclude Include="BlimpEnemy.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="UFO.h">
       <Filter>MainGame\Enemy\UFO</Filter>
     </ClInclude>
@@ -266,11 +269,17 @@
     <ClInclude Include="BackGround.h">
       <Filter>MainGame\BackGround</Filter>
     </ClInclude>
-    <ClInclude Include="Tornado.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Moon.h">
       <Filter>MainGame\Enemy\Moon</Filter>
+    </ClInclude>
+    <ClInclude Include="BlimpEnemy.h">
+      <Filter>MainGame\Enemy\BlimpEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Tornado.h">
+      <Filter>MainGame\Enemy\Tornado</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>MainGame\Bullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
