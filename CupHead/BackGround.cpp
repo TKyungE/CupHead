@@ -86,7 +86,8 @@ void BackGround::Release()
 BackGroundManager::BackGroundManager()
 	: MainGroundIndex{},
 	BackGroundList{}, ForeGroundList{}, ForeObjectList{},
-	SelectedForeGround{}, ForeGroundElapsedTime{}, ForeGroundCoolTime{}
+	SelectedForeGround{}, ForeGroundElapsedTime{}, ForeGroundCoolTime{},
+	ForeObjectElapsedTime{}, ForeObjectCoolTime{}
 {
 }
 
@@ -420,7 +421,7 @@ void BackGroundManager::Init()
 #pragma endregion
 #pragma endregion
 
-	// back
+
 #pragma region background
 	// sky 1
 	imageBackType = BackGroundInfo::EBackGroundType::SKY;
@@ -461,6 +462,11 @@ void BackGroundManager::Init()
 #pragma endregion
 
 #pragma region foreobject
+	int speed = 900;
+	for (int i = 0; i < BackGroundInfo::ForeObjectNum; ++i)
+	{
+		AddForeObject(BackGroundInfo::ForeObject, i, speed, false, false);
+	}
 
 #pragma endregion
 
@@ -500,6 +506,7 @@ void BackGroundManager::Update()
 {
 	PrepareNextBackGround();
 	PrepareNextForeGround();
+	PrepareNextForeObject();
 
 	for (int i = 0; i < BackGroundInfo::EBackGroundType::BACKTYPE_END; ++i)
 	{
@@ -547,6 +554,9 @@ void BackGroundManager::RenderForeGround(HDC hdc)
 	wchar_t szText[100];
 	wsprintf(szText, TEXT("elpased : %d, cool : %d"), (int)ForeGroundElapsedTime, (int)ForeGroundCoolTime);
 	TextOut(hdc, 50, 100, szText, (int)wcslen(szText));
+
+	wsprintf(szText, TEXT("elpased : %d, cool : %d"), (int)ForeObjectElapsedTime, (int)ForeObjectCoolTime);
+	TextOut(hdc, 50, 150, szText, (int)wcslen(szText));
 }
 
 void BackGroundManager::PrepareNextBackGround()
@@ -594,6 +604,20 @@ void BackGroundManager::PrepareNextForeGround()
 
 void BackGroundManager::PrepareNextForeObject()
 {
+	if (ForeObjectList.size() == 0) return;
+
+	ForeObjectElapsedTime += TimerManager::GetInstance()->GetDeltaTime();
+	if (ForeObjectElapsedTime < ForeObjectCoolTime) return;
+
+	int randomObject = uid(dre) % ForeObjectList.size();
+
+	if (ForeObjectList[randomObject]->IsOutOfScreen())
+	{
+		ForeObjectList[randomObject]->Init();
+	}
+
+	ForeObjectElapsedTime = 0.f;
+	ForeObjectCoolTime = uid(dre) % 4 + 2.f;
 }
 
 void BackGroundManager::AddBackGround(BackGroundInfo::EBackGroundType type, int num, int speed, bool loop, bool init, bool bottomSide)
@@ -655,7 +679,7 @@ void BackGroundManager::AddForeObject(string name, int num, int speed, bool loop
 		fw = image->GetFrameWidth();
 		fh = image->GetFrameHeight();
 	}
-	BackGround* background = new BackGround({ WINSIZE_X + fw / 2.f, WINSIZE_Y - fh / 2.f }, image, speed, loop);
+	BackGround* background = new BackGround({ WINSIZE_X + fw / 2.f, WINSIZE_Y - fh / 3.f }, image, speed, loop);
 	if (init) background->Init();
 	ForeObjectList.emplace_back(background);
 }

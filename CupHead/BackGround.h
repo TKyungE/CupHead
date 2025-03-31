@@ -102,4 +102,7 @@ private:
 	int SelectedForeGround;
 	float ForeGroundElapsedTime;
 	float ForeGroundCoolTime;
+
+	float ForeObjectElapsedTime;
+	float ForeObjectCoolTime;
 };
