@@ -89,6 +89,10 @@ private:
 	void PrepareNextForeObject();
 
 private:
+	void AddBackGround(BackGroundInfo::EBackGroundType type, int num, int speed, bool loop, bool init, bool bottomSide = true);
+	void AddForeGround(BackGroundInfo::EForeGroundType type, int num, int speed, bool loop, bool init);
+	void AddForeObject(string name, int num, int speed, bool loop, bool init);
+
 	vector<BackGround*> BackGroundList[BackGroundInfo::EBackGroundType::BACKTYPE_END];
 	vector<BackGround*> ForeGroundList[BackGroundInfo::EForeGroundType::FORETYPE_END];
 	vector<BackGround*> ForeObjectList;

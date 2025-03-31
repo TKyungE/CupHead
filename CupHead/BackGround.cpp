@@ -192,7 +192,7 @@ void BackGroundManager::Init()
 	imageForeType = BackGroundInfo::EForeGroundType::LARGE_FOREST;
 	imageNum = 0;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_large_forest_0000.bmp"),
 		146, 358,
 		1, 1,
@@ -200,15 +200,15 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_large_forest_0001.bmp"),
-		146, 358,
+		1191, 289,
 		1, 1,
 		true, RGB(255, 0, 255));
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_large_forest_0002.bmp"),
 		1099, 233,
 		1, 1,
@@ -216,15 +216,15 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_large_forest_0002b.bmp"),
-		122, 266,
+		112, 266,
 		1, 1,
 		true, RGB(255, 0, 255));
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_large_forest_0003.bmp"),
 		1421, 283,
 		1, 1,
@@ -232,7 +232,7 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_large_forest_0003b.bmp"),
 		82, 166,
 		1, 1,
@@ -240,7 +240,7 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_large_forest_0004.bmp"),
 		1382, 257,
 		1, 1,
@@ -251,7 +251,7 @@ void BackGroundManager::Init()
 	imageForeType = BackGroundInfo::EForeGroundType::MEDIUM_FOREST;
 	imageNum = 0;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_medium_forest_0001.bmp"),
 		1205, 285,
 		1, 1,
@@ -259,7 +259,7 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_medium_forest_0002.bmp"),
 		1265, 273,
 		1, 1,
@@ -267,7 +267,7 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_medium_forest_0003.bmp"),
 		752, 227,
 		1, 1,
@@ -275,7 +275,7 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_medium_forest_0004.bmp"),
 		1155, 242,
 		1, 1,
@@ -286,7 +286,7 @@ void BackGroundManager::Init()
 	imageForeType = BackGroundInfo::EForeGroundType::SMALL_FOREST_A;
 	imageNum = 0;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_small_forest_A_0000.bmp"),
 		296, 298,
 		1, 1,
@@ -294,7 +294,7 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_small_forest_A_0001.bmp"),
 		1148, 236,
 		1, 1,
@@ -302,7 +302,7 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_small_forest_A_0002.bmp"),
 		640, 209,
 		1, 1,
@@ -310,7 +310,7 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_small_forest_A_0002b.bmp"),
 		93, 219,
 		1, 1,
@@ -318,7 +318,7 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_small_forest_A_0003.bmp"),
 		746, 245,
 		1, 1,
@@ -326,7 +326,7 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_small_forest_A_0004.bmp"),
 		1185, 164,
 		1, 1,
@@ -337,7 +337,7 @@ void BackGroundManager::Init()
 	imageForeType = BackGroundInfo::EForeGroundType::SMALL_FOREST_B;
 	imageNum = 0;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_small_forest_B_0001.bmp"),
 		835, 247,
 		1, 1,
@@ -345,7 +345,7 @@ void BackGroundManager::Init()
 
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_small_forest_B_0002.bmp"),
 		645, 196,
 		1, 1,
@@ -353,7 +353,7 @@ void BackGroundManager::Init()
 	
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_small_forest_B_0003.bmp"),
 		933, 199,
 		1, 1,
@@ -361,7 +361,7 @@ void BackGroundManager::Init()
 	
 	imageNum++;
 	ImageManager::GetInstance()->AddImage(
-		BackGroundInfo::ForeGroundTypes[imageBackType] + to_string(imageNum),
+		BackGroundInfo::ForeGroundTypes[imageForeType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_small_forest_B_0004.bmp"),
 		1239, 246,
 		1, 1,
@@ -421,88 +421,48 @@ void BackGroundManager::Init()
 #pragma endregion
 
 	// back
+#pragma region background
 	// sky 1
 	imageBackType = BackGroundInfo::EBackGroundType::SKY;
 	imageNum = 0;
-	string imageName = BackGroundInfo::BackGroundTypes[BackGroundInfo::EBackGroundType::SKY] + to_string(imageNum);
-	Image* image = ImageManager::GetInstance()->FindImage(imageName);
-	int fw = 0;
-	int fh = 0;
-	if (image)
-	{
-		fw = image->GetFrameWidth();
-		fh = image->GetFrameHeight();
-	}
-	BackGround* background = new BackGround({ WINSIZE_X / 2.f, WINSIZE_Y / 2.f }, image, 10, true);
-	background->Init();
-	BackGroundList[imageBackType].emplace_back(background);
+	AddBackGround(imageBackType, imageNum, 10, true, true);
 
 	// cloud
 	imageBackType = BackGroundInfo::EBackGroundType::CLOUD;
 	imageNum = 0;
-	imageName = BackGroundInfo::BackGroundTypes[BackGroundInfo::EBackGroundType::CLOUD] + to_string(imageNum);
-	image = ImageManager::GetInstance()->FindImage(imageName);
-	fw = 0;
-	fh = 0;
-	if (image)
-	{
-		fw = image->GetFrameWidth();
-		fh = image->GetFrameHeight();
-	}
-	background = new BackGround({ WINSIZE_X / 2.f, WINSIZE_Y / 4.f }, image, 20, false);
-	background->Init();
-	BackGroundList[imageBackType].emplace_back(background);
+	AddBackGround(imageBackType, imageNum, 10, true, true, false);
 
 	// dark hill
 	imageBackType = BackGroundInfo::EBackGroundType::DARK_HILL;
 	imageNum = 0;
-	imageName = BackGroundInfo::BackGroundTypes[BackGroundInfo::EBackGroundType::DARK_HILL] + to_string(imageNum);
-	image = ImageManager::GetInstance()->FindImage(imageName);
-	fw = 0;
-	fh = 0;
-	if (image)
-	{
-		fw = image->GetFrameWidth();
-		fh = image->GetFrameHeight();
-	}
-	background = new BackGround({ WINSIZE_X / 2.f, WINSIZE_Y - fh/2.f }, image, 300, true);
-	background->Init();
-	BackGroundList[imageBackType].emplace_back(background);
-
+	AddBackGround(imageBackType, imageNum, 300, true, true);
 	
 	// main ground
 	imageBackType = BackGroundInfo::EBackGroundType::MAIN_GROUND;
 	imageNum = 0;
-	imageName = BackGroundInfo::BackGroundTypes[BackGroundInfo::EBackGroundType::MAIN_GROUND] + to_string(imageNum);
-	image = ImageManager::GetInstance()->FindImage(imageName);
-	fw = 0;
-	fh = 0;
-	if (image)
-	{
-		fw = image->GetFrameWidth();
-		fh = image->GetFrameHeight();
-	}
-	background = new BackGround({ WINSIZE_X + fw/2.f, WINSIZE_Y - fh/2.f }, image, 500, false);
-	background->Init();
-	BackGroundList[imageBackType].emplace_back(background);
+	AddBackGround(imageBackType, imageNum, 500, false, true);
 
-	imageBackType = BackGroundInfo::EBackGroundType::MAIN_GROUND;
 	imageNum++;
-	imageName = BackGroundInfo::BackGroundTypes[BackGroundInfo::EBackGroundType::MAIN_GROUND] + to_string(imageNum);
-	image = ImageManager::GetInstance()->FindImage(imageName);
-	fw = 0;
-	fh = 0;
-	if (image)
+	AddBackGround(imageBackType, imageNum, 500, false, false);
+
+#pragma endregion
+
+#pragma region foreground
+
+	for (int type = 0; type < BackGroundInfo::EForeGroundType::FORETYPE_END; ++type)
 	{
-		fw = image->GetFrameWidth();
-		fh = image->GetFrameHeight();
+		int speed = 700;
+		for (int i = BackGroundInfo::ForeGroundNum[type] - 1; i >= 0; --i)
+		{
+			AddForeGround((BackGroundInfo::EForeGroundType)type, i, speed - i * 50, false, false);
+		}
 	}
-	background = new BackGround({ WINSIZE_X + fw/2.f, WINSIZE_Y - fh/2.f }, image, 500, false);
-	//background->Init();
-	BackGroundList[imageBackType].emplace_back(background);
 
+#pragma endregion
 
+#pragma region foreobject
 
+#pragma endregion
 
 }
 
@@ -582,6 +542,11 @@ void BackGroundManager::RenderForeGround(HDC hdc)
 	{
 		bg->Render(hdc);
 	}
+
+	// cooltime check
+	wchar_t szText[100];
+	wsprintf(szText, TEXT("elpased : %d, cool : %d"), (int)ForeGroundElapsedTime, (int)ForeGroundCoolTime);
+	TextOut(hdc, 50, 100, szText, (int)wcslen(szText));
 }
 
 void BackGroundManager::PrepareNextBackGround()
@@ -624,9 +589,73 @@ void BackGroundManager::PrepareNextForeGround()
 	}
 
 	ForeGroundElapsedTime = 0.f;
-	ForeGroundCoolTime = uid(dre) % 6 + 2.f;
+	ForeGroundCoolTime = uid(dre) % 4 + 2.f;
 }
 
 void BackGroundManager::PrepareNextForeObject()
 {
+}
+
+void BackGroundManager::AddBackGround(BackGroundInfo::EBackGroundType type, int num, int speed, bool loop, bool init, bool bottomSide)
+{
+	string imageName = BackGroundInfo::BackGroundTypes[type] + to_string(num);
+	Image* image = ImageManager::GetInstance()->FindImage(imageName);
+	int fw = 0;
+	int fh = 0;
+	if (image)
+	{
+		fw = image->GetFrameWidth();
+		fh = image->GetFrameHeight();
+	}
+
+	FPOINT position{ WINSIZE_X + fw / 2, WINSIZE_Y };
+	if (loop)
+	{
+		position.x = WINSIZE_X / 2;
+	}
+
+	if (bottomSide)
+	{
+		position.y = WINSIZE_Y - fh / 2;
+	}
+	else
+	{
+		position.y = fh / 2;
+	}
+
+	BackGround* background = new BackGround(position, image, speed, loop);
+	if (init) background->Init();
+	BackGroundList[type].emplace_back(background);
+}
+
+void BackGroundManager::AddForeGround(BackGroundInfo::EForeGroundType type, int num, int speed, bool loop, bool init)
+{
+	string imageName = BackGroundInfo::ForeGroundTypes[type] + to_string(num);
+	Image* image = ImageManager::GetInstance()->FindImage(imageName);
+	int fw = 0;
+	int fh = 0;
+	if (image)
+	{
+		fw = image->GetFrameWidth();
+		fh = image->GetFrameHeight();
+	}
+	BackGround* background = new BackGround({ WINSIZE_X + fw / 2.f, WINSIZE_Y - fh / 2.f }, image, speed, loop);
+	if (init) background->Init();
+	ForeGroundList[type].emplace_back(background);
+}
+
+void BackGroundManager::AddForeObject(string name, int num, int speed, bool loop, bool init)
+{
+	string imageName = name + to_string(num);
+	Image* image = ImageManager::GetInstance()->FindImage(imageName);
+	int fw = 0;
+	int fh = 0;
+	if (image)
+	{
+		fw = image->GetFrameWidth();
+		fh = image->GetFrameHeight();
+	}
+	BackGround* background = new BackGround({ WINSIZE_X + fw / 2.f, WINSIZE_Y - fh / 2.f }, image, speed, loop);
+	if (init) background->Init();
+	ForeObjectList.emplace_back(background);
 }
