@@ -243,16 +243,16 @@ void Image::FrameRender(HDC hdc, int destX, int destY,
     }
 }
 
-void Image::FrameRenderAlpha(HDC hdc, int destX, int destY, int frameX, int frameY, bool isFlip)
+void Image::FrameRenderAlpha(HDC hdc, int destX, int destY, int frameX, int frameY, COLORREF _AlphaColor, int _AlphaValue, bool isFlip)
 {
+    FrameRender(hdc, destX, destY, frameX, frameY, isFlip);
+
     int x = destX - (imageInfo->frameWidth / 2);
     int y = destY - (imageInfo->frameHeight / 2);
 
     imageInfo->currFrameX = frameX;
     imageInfo->currFrameY = frameY;
 
-    // 1. 32bit DIB 생성 (알파 채널 포함)
-   // HDC hdcTemp = CreateCompatibleDC(hdc);
     BITMAPINFO bmi = { 0 };
     bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
     bmi.bmiHeader.biWidth = imageInfo->frameWidth;
@@ -278,7 +278,9 @@ void Image::FrameRenderAlpha(HDC hdc, int destX, int destY, int frameX, int fram
         }
         else
         {
-            pixels[i] |= 0xFF000000; // 알파값 255로 설정 (불투명)
+            //pixels[i] |= 0xFF000000;
+            //pixels[i] |= 0xFFFFFFFF; // 알파값 255로 설정 (불투명),
+            pixels[i] |= (0xFF000000 | _AlphaColor); // 알파값 255로 설정 (불투명),
         }
     }
 
@@ -286,7 +288,7 @@ void Image::FrameRenderAlpha(HDC hdc, int destX, int destY, int frameX, int fram
     BLENDFUNCTION bf;
     bf.BlendOp = AC_SRC_OVER;
     bf.BlendFlags = 0;
-    bf.SourceConstantAlpha = 155;  // 밝기 조절 (0 ~ 255)
+    bf.SourceConstantAlpha = _AlphaValue;  // 밝기 조절 (0 ~ 255)
     bf.AlphaFormat = AC_SRC_ALPHA;  // 알파 채널 사용
 
     AlphaBlend(hdc, x, y, imageInfo->frameWidth, imageInfo->frameHeight, imageInfo->hTempDC, 0, 0, imageInfo->frameWidth, imageInfo->frameHeight, bf);

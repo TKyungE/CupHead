@@ -61,9 +61,8 @@ void Sagittarius::Update()
 void Sagittarius::Render(HDC hdc)
 {
 	if (image)
-		image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0);
-	//image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0);
-	
+		//image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0);
+	image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, RGB(255,255,255), 85); // FrameRender하고 그 위에 원하는 컬러값을 AlphaValue값만큼 AlphaBlend해서 그리는 함수.
 }
 
 void Sagittarius::Move()

@@ -22,8 +22,11 @@ void MainGame::Init()
 		/*MessageBox(g_hWnd,
 			TEXT("����� ���� ����"), TEXT("���"), MB_OK);*/
 	}
+	// C:\Programming\Git\CupHead\CupHead\CupHead\Image\CupHead\BackGround
+
 	backGround = new Image();
-	if (FAILED(backGround->Init(TEXT("Image/BackGround.bmp"), WINSIZE_X, WINSIZE_Y)))
+	//if (FAILED(backGround->Init(TEXT("Image/BackGround.bmp"), WINSIZE_X, WINSIZE_Y)))
+	if (FAILED(backGround->Init(TEXT("Image/background1.bmp"), WINSIZE_X, WINSIZE_Y)))
 	{
 		/*MessageBox(g_hWnd,
 			TEXT("Image/backGround.bmp ���� ����"), TEXT("���"), MB_OK);*/
