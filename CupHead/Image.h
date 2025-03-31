@@ -56,6 +56,7 @@ private:
 	IMAGE_INFO* imageInfo;
 	bool isTransparent;
 	COLORREF transColor;
+	FPOINT Scale = {1.f,1.f,};
 
 public:
 	// 빈 비트맵 이미지를 만드는 함수
@@ -100,5 +101,9 @@ public:
 	inline int GetFrameWidth() { return imageInfo->frameWidth; }
 	inline int GetFrameHeight() { return imageInfo->frameHeight; }
 
+	void SetScale(float x = 1.f, float y = 1.f) { 
+		Scale.x = x;
+		Scale.y = y;
+	}
 };
 

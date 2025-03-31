@@ -1,7 +1,6 @@
 #include "MainGame.h"
 #include "CommonFunction.h"
 #include "Image.h"
-#include "EnemyManager.h"
 #include "Timer.h"
 #include "CollisionManager.h"
 #include "ObjectManager.h"
@@ -24,7 +23,7 @@ void MainGame::Init()
 	if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
 	{
 		/*MessageBox(g_hWnd,
-			TEXT("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"), TEXT("ï¿½ï¿½ï¿½"), MB_OK);*/
+			TEXT("ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"), TEXT("ï¿½ï¿½ï¿?"), MB_OK);*/
 	}
 	// C:\Programming\Git\CupHead\CupHead\CupHead\Image\CupHead\BackGround
 
@@ -33,7 +32,7 @@ void MainGame::Init()
 	if (FAILED(backGround->Init(TEXT("Image/background1.bmp"), WINSIZE_X, WINSIZE_Y)))
 	{
 		/*MessageBox(g_hWnd,
-			TEXT("Image/backGround.bmp ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"), TEXT("ï¿½ï¿½ï¿½"), MB_OK);*/
+			TEXT("Image/backGround.bmp ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"), TEXT("ï¿½ï¿½ï¿?"), MB_OK);*/
 	}
 
 	backgroundManager = new BackGroundManager;
@@ -55,13 +54,6 @@ void MainGame::Init()
 
 void MainGame::Release()
 {
-	if (enemyManager)
-	{
-		enemyManager->Release();
-		delete enemyManager;
-		enemyManager = nullptr;
-	}
-
 	if (backGround)
 	{
 		backGround->Release();
@@ -150,9 +142,6 @@ void MainGame::Update()
 
 	if (Objectmanager)
 		Objectmanager->Update();
-
-	if (enemyManager)
-		enemyManager->Update();
 	if (collisionManager)
 		collisionManager->Update();
 
@@ -164,7 +153,7 @@ void MainGame::Update()
 
 void MainGame::Render()
 {
-	// ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½Û¿ï¿? ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
 	backGround->Render(hBackBufferDC);
@@ -178,8 +167,6 @@ void MainGame::Render()
 	if (Objectmanager)
 		Objectmanager->Render(hBackBufferDC);
 
-	if (enemyManager)
-		enemyManager->Render(hBackBufferDC);
 	if (collisionManager)
 		collisionManager->Render(hBackBufferDC);
 
@@ -194,7 +181,7 @@ void MainGame::Render()
 	if (backgroundManager)
 		backgroundManager->RenderForeGround(hBackBufferDC);
 
-	// ï¿½ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ hdcï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+	// ï¿½ï¿½ï¿½ï¿½Û¿ï¿? ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ hdcï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	backBuffer->Render(hdc);
 }
 

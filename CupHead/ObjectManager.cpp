@@ -2,9 +2,10 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "BlimpEnemy.h"
-#include "UFO.h"
 #include "Sagittarius.h"
 #include "Moon.h"
+#include "PlayerHP.h"
+#include "KnockOut.h"
 
 void ObjectManager::Init()
 {
@@ -24,6 +25,16 @@ void ObjectManager::Init()
 		Moon* moon = new Moon();
 		moon->Init();
 		AddObject(moon, OBJTYPE::OBJ_MONSTER);
+
+		// 테스트 코드 PlayerHP 생성
+		PlayerHP* playerHP = new PlayerHP();
+		playerHP->Init();
+		AddObject(playerHP, OBJTYPE::OBJ_UI);
+
+		// 테스트 코드 KnockOut 생성
+		KnockOut* knockOut = new KnockOut();
+		knockOut->Init();
+		AddObject(knockOut, OBJTYPE::OBJ_UI);
 	}
 
 	// 테스트 코드 BlimpEnemy 생성
@@ -56,13 +67,8 @@ void ObjectManager::Update()
 
 void ObjectManager::Render(HDC hdc)
 {
-	for (int i = 0; i < OBJ_END; ++i)
-	{
-		for (auto& iter : ObjectList[i])
-		{
-			iter->Render(hdc);
-		}
-	}
+	RenderObject(hdc);
+	RenderUI(hdc);
 }
 
 void ObjectManager::Release()
@@ -79,4 +85,25 @@ void ObjectManager::Release()
 	}
 
 	ReleaseInstance();
+}
+
+void ObjectManager::RenderObject(HDC hdc)
+{
+	for (auto& iter : ObjectList[OBJ_PLAYER])
+		iter->Render(hdc);
+
+	for (auto& iter : ObjectList[OBJ_MONSTER])
+		iter->Render(hdc);
+
+	for(auto& iter : ObjectList[OBJ_PLAYER_WEAPON])
+		iter->Render(hdc);
+
+	for (auto& iter : ObjectList[OBJ_MONSTER_WEAPON])
+		iter->Render(hdc);
+}
+
+void ObjectManager::RenderUI(HDC hdc)
+{
+	for (auto& iter : ObjectList[OBJ_UI])
+		iter->Render(hdc);
 }

@@ -67,6 +67,15 @@
     <Filter Include="MainGame\Bullet">
       <UniqueIdentifier>{f4325e91-1cd1-4944-b822-866867221cdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\UI">
+      <UniqueIdentifier>{fa26e4c4-0a13-4bf6-b445-a9f582719184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\PlayerHP">
+      <UniqueIdentifier>{92e1e235-1437-405f-a193-794b1a043a33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\KnockOut">
+      <UniqueIdentifier>{c5ef2cd6-80ed-4fb5-9c48-3a8e7630c71c}</UniqueIdentifier>
+    </Filter>
     <Filter Include="MainGame\Enemy\Laugh">
       <UniqueIdentifier>{bff62b1b-6cea-4bbf-b3da-d91ce8c64590}</UniqueIdentifier>
     </Filter>
@@ -86,12 +95,6 @@
     </ClCompile>
     <ClCompile Include="KeyManager.cpp">
       <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>MainGame\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>MainGame\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="MissileManager.cpp">
       <Filter>MainGame\Missile</Filter>
@@ -165,6 +168,15 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>MainGame\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="UIBase.cpp">
+      <Filter>MainGame\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHP.cpp">
+      <Filter>MainGame\UI\PlayerHP</Filter>
+    </ClCompile>
+    <ClCompile Include="KnockOut.cpp">
+      <Filter>MainGame\UI\KnockOut</Filter>
+    </ClCompile>
     <ClCompile Include="EffectManager.cpp">
       <Filter>2D Framework</Filter>
     </ClCompile>
@@ -199,12 +211,6 @@
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>MainGame\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>MainGame\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="MissileManager.h">
       <Filter>MainGame\Missile</Filter>
@@ -277,6 +283,15 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>MainGame\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="UIBase.h">
+      <Filter>MainGame\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHP.h">
+      <Filter>MainGame\UI\PlayerHP</Filter>
+    </ClInclude>
+    <ClInclude Include="KnockOut.h">
+      <Filter>MainGame\UI\KnockOut</Filter>
     </ClInclude>
     <ClInclude Include="EffectManager.h">
       <Filter>2D Framework</Filter>
