@@ -67,6 +67,12 @@
     <Filter Include="MainGame\Bullet">
       <UniqueIdentifier>{f4325e91-1cd1-4944-b822-866867221cdd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\Laugh">
+      <UniqueIdentifier>{bff62b1b-6cea-4bbf-b3da-d91ce8c64590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Star">
+      <UniqueIdentifier>{92969c5f-8b52-42c7-a0c9-8c9cdf03092e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -138,18 +144,6 @@
     <ClCompile Include="UFOBeam.cpp">
       <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
     </ClCompile>
-    <ClCompile Include="LaughProjectile.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="StarProjectile.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Sagittarius.cpp">
       <Filter>MainGame\Enemy\Sagittarius</Filter>
     </ClCompile>
@@ -171,8 +165,20 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>MainGame\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
     <ClCompile Include="PlayerMissile.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>MainGame\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="LaughProjectile.cpp">
+      <Filter>MainGame\Enemy\Laugh</Filter>
+    </ClCompile>
+    <ClCompile Include="StarProjectile.cpp">
+      <Filter>MainGame\Enemy\Star</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -251,18 +257,6 @@
     <ClInclude Include="UFOBeam.h">
       <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
     </ClInclude>
-    <ClInclude Include="LaughProjectile.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="StarProjectile.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Sagittarius.h">
       <Filter>MainGame\Enemy\Sagittarius</Filter>
     </ClInclude>
@@ -284,8 +278,20 @@
     <ClInclude Include="Bullet.h">
       <Filter>MainGame\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
     <ClInclude Include="PlayerMissile.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>MainGame\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="LaughProjectile.h">
+      <Filter>MainGame\Enemy\Laugh</Filter>
+    </ClInclude>
+    <ClInclude Include="StarProjectile.h">
+      <Filter>MainGame\Enemy\Star</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
