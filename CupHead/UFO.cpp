@@ -15,7 +15,7 @@ UFO::UFO()
 void UFO::Init(FPOINT pos)
 {
 	this->pos = pos;
-	Speed = 200.f;
+	Speed = 300.f;
 	FrameSpeed = 15.f;
 
 	const bool UFOBronze = bool(uid(dre) % 2);
@@ -54,7 +54,7 @@ void UFO::Move()
 {
 	pos.x -= Speed * TimerManager::GetInstance()->GetDeltaTime();
 
-	if (WINSIZE_X - pos.x >= 100.f && pos.y - (image->GetFrameHeight() * 0.5f) >= 0.f)
+	if (WINSIZE_X - pos.x >= 150.f && pos.y - (image->GetFrameHeight() * 0.5f) >= 0.f)
 		pos.y -= Speed * TimerManager::GetInstance()->GetDeltaTime();
 }
 

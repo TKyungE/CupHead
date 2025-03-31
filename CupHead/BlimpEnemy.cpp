@@ -90,7 +90,7 @@ void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum)
 	CurState = BlimpEnemyInfo::EState::STATE_END;
 	
 	// 일단 애니메이션 속도 전부 10.f
-	for (int state = BlimpEnemyInfo::EState::IDLE; state < BlimpEnemyInfo::EState::STATE_END; ++state)
+	for (int state = 0; state < BlimpEnemyInfo::EState::STATE_END; ++state)
 	{
 		AnimData.push_back({ BlimpEnemyInfo::states[state], 10.f });
 	}
@@ -103,8 +103,8 @@ void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum)
 	size = { 1.f,1.f };
 	bDead = false;
 
-	int sizeX = GetWidth();
-	int sizeY = GetHeight();
+	float sizeX = GetWidth();
+	float sizeY = GetHeight();
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER);
@@ -291,7 +291,7 @@ float BlimpEnemy::GetWidth()
 {
 	if (image)
 	{
-		return image->GetFrameWidth();
+		return (float)image->GetFrameWidth();
 	}
 	return 0.0f;
 }
@@ -300,7 +300,7 @@ float BlimpEnemy::GetHeight()
 {
 	if (image)
 	{
-		return image->GetFrameHeight();
+		return (float)image->GetFrameHeight();
 	}
 	return 0.0f;
 }

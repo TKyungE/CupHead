@@ -9,6 +9,8 @@
 
 #include "LaughProjectile.h"
 #include "StarProjectile.h"
+
+#include "BackGround.h"
 #include "Tornado.h"
 
 void MainGame::Init()
@@ -33,6 +35,9 @@ void MainGame::Init()
 		/*MessageBox(g_hWnd,
 			TEXT("Image/backGround.bmp ���� ����"), TEXT("���"), MB_OK);*/
 	}
+
+	backgroundManager = new BackGroundManager;
+	backgroundManager->Init();
 
 	// �������� ���ʹ̸Ŵ���.. �ּ�Ǯ�� �� �߻� 
 	//enemyManager = new EnemyManager();
@@ -69,6 +74,13 @@ void MainGame::Release()
 		backBuffer->Release();
 		delete backBuffer;
 		backBuffer = nullptr;
+	}
+
+	if (backgroundManager)
+	{
+		backgroundManager->Release();
+		delete backgroundManager;
+		backgroundManager = nullptr;
 	}
 
 	if (collisionManager)
@@ -125,6 +137,8 @@ void MainGame::Update()
 	//	}
 	//}
 
+	if (backgroundManager)
+		backgroundManager->Update();
 	// Test Laugh
 	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_RETURN))
 	{
@@ -155,9 +169,11 @@ void MainGame::Render()
 
 	backGround->Render(hBackBufferDC);
 
+	if (backgroundManager)
+		backgroundManager->RenderBackGround(hBackBufferDC);
+
 	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), (int)mousePos.x, (int)mousePos.y);
 	TextOut(hBackBufferDC, 20, 60, szText, (int)wcslen(szText));
-
 
 	if (Objectmanager)
 		Objectmanager->Render(hBackBufferDC);
@@ -174,6 +190,9 @@ void MainGame::Render()
 		
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
+
+	if (backgroundManager)
+		backgroundManager->RenderForeGround(hBackBufferDC);
 
 	// ����ۿ� �ִ� ������ ���� hdc�� ����
 	backBuffer->Render(hdc);
