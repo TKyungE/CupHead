@@ -39,15 +39,26 @@ public:
 
 	void UpdateInput();
 	void UpdateState();
+	void UpdateToUpState();
+	void UpdateToDownState();
+	void UpdateToNoneState();
+
+	void Fire();
+
+	//void UpdateUpDownState();
 	void EffectTestInit();
 
 	//virtual void TakeDamage(int damage = 0);
 
 private:
-	Image* IdleImage;
+	Image* NextImage;
 	int FrameDir;
+	int FireCnt;
+	float FireTime;
+	float FireCoolTime;
 	bool IsTranseEnd;
-	UPDOWN UpDownState = UPDOWN_NONE;
+	UPDOWN PreUpDownState;
+	UPDOWN CurUpDownState;
 	PLAYERSTATE PreState;
 	PLAYERSTATE CurState;
 };

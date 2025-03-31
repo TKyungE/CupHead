@@ -6,8 +6,10 @@
 #include "EffectManager.h"
 #include "ObjectManager.h"
 #include "CommonFunction.h"
+#include "PlayerMissile.h"
 
-Player::Player() : FrameDir(1), IsTranseEnd(false), UpDownState(UPDOWN_NONE), PreState(PLAYER_IDLE), CurState(PLAYER_IDLE)
+Player::Player() 
+	: FrameDir(1), FireCnt(0), FireTime(0.f), FireCoolTime(0.07f), IsTranseEnd(false), PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), PreState(PLAYER_IDLE), CurState(PLAYER_IDLE), NextImage(nullptr)
 {
 
 }				  
@@ -27,8 +29,9 @@ void Player::Init(FPOINT pos, FPOINT size)
 	this->pos = pos;
 	this->size = size;
 
-	Speed = 300.f;
-	FrameSpeed = 10.f;
+	Speed = 700.f;
+	FrameSpeed = 30.f;
+	//FrameSpeed = 25.f;
 
 	ImageInit();
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { 105.f, 85.f }, true);
@@ -49,7 +52,7 @@ void Player::Release()
 
 void Player::Update()
 {
-	UpdateInput();
+	Move();
 	Action();
 	UpdateState();
 	UpdateFrame();
@@ -57,16 +60,69 @@ void Player::Update()
 
 void Player::UpdateFrame()
 {
-	FrameTime += FrameDir * FrameSpeed * TimerManager::GetInstance()->GetDeltaTime();
+	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
+	if (-1 == FrameDir)
+	{
+		FrameTime += FrameDir * 1.5f * FrameSpeed * DeltaTime; //Gara
+	}
+
+	else
+	{
+		FrameTime += FrameDir * FrameSpeed * DeltaTime;
+	}
+	
 	CurFrameIndex = (int)FrameTime;
 
-	if (PLAYER_IDLE == CurState && UPDOWN_NONE == UpDownState)
+	if (-1 == FrameDir && UPDOWN_NONE != CurUpDownState)
 	{
 		if (0 > CurFrameIndex)
 		{
 			FrameDir = 1;
-			//image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
-			image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
+			if (nullptr != NextImage)
+			{
+				image = NextImage;
+				NextImage = nullptr;
+			}
+
+			if (UPDOWN_UP == CurUpDownState)
+			{
+				NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_up");
+			}
+
+			else if (UPDOWN_DOWN == CurUpDownState)
+			{
+				NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_down");
+			}
+
+			CurFrameIndex = FrameTime = 0.f;
+		}
+	}
+
+	else if (-1 == FrameDir && UPDOWN_NONE == CurUpDownState)
+	{
+		if (0 > CurFrameIndex)
+		{
+			FrameDir = 1;
+			if (nullptr != NextImage)
+			{
+				image = NextImage;
+				NextImage = nullptr;
+			}
+
+			CurFrameIndex = FrameTime = 0.f;
+		}
+	}
+
+	else if (UPDOWN_NONE != CurUpDownState)
+	{
+		if (CurFrameIndex >= image->GetMaxFrameX())
+		{
+			//FrameDir = 1;
+			if (nullptr != NextImage)
+			{
+				image = NextImage;
+				NextImage = nullptr;
+			}
 			CurFrameIndex = FrameTime = 0.f;
 		}
 	}
@@ -79,107 +135,7 @@ void Player::UpdateFrame()
 
 void Player::UpdateInput()
 {
-	KeyManager* keyManager = KeyManager::GetInstance();
-	if (keyManager)
-	{
-		FPOINT position = { 0.f,0.f };
 
-		if (keyManager->IsStayKeyDown('W'))
-		{
-			position.y = -1;
-
-			if (UPDOWN_UP != UpDownState)
-			{
-				UpDownState = UPDOWN_UP;
-				FrameTime = CurFrameIndex = 0;
-				image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_up");
-			}
-
-			else
-			{
-				if (image->GetMaxFrameX() - 1 == CurFrameIndex)
-				{
-					image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_up");
-					FrameTime = CurFrameIndex = 0;
-					
-				}
-			}
-
-			FrameDir = 1;
-			
-		}
-
-		else if (keyManager->IsStayKeyDown('S'))
-		{
-			position.y = 1;
-
-			if (UPDOWN_DOWN != UpDownState)
-			{
-				UpDownState = UPDOWN_DOWN;
-				FrameTime = CurFrameIndex = 0;
-				image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_down");
-			}
-
-			else
-			{
-				if (image->GetMaxFrameX() - 1 == CurFrameIndex)
-				{
-					image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_down");
-					FrameTime = CurFrameIndex = 0;
-
-				}
-			}
-
-			FrameDir = 1;
-
-		}
-		else
-		{
-			if (UPDOWN_DOWN == UpDownState)
-			{
-				image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_down");
-				FrameTime = CurFrameIndex = image->GetMaxFrameX();
-				FrameDir = -1;
-			}
-
-			else if (UPDOWN_UP == UpDownState)
-			{
-				image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_up");
-				FrameTime = CurFrameIndex = image->GetMaxFrameX();
-				FrameDir = -1;
-			}
-
-			UpDownState = UPDOWN_NONE;
-		}
-
-		if (keyManager->IsStayKeyDown('A'))
-		{
-			position.x = -1;
-		}
-
-		else if (keyManager->IsStayKeyDown('D'))
-		{
-			position.x = 1;
-		}
-
-		const float size = sqrtf(position.x * position.x + position.y * position.y);
-
-		if (UPDOWN_NONE == UpDownState)
-		{
-			CurState = PLAYER_IDLE;
-		}
-		
-
-		if (size)
-		{
-			position.x /= size;
-			position.y /= size;
-			CurState = PLAYER_MOVE;
-		}
-
-		pos.x += position.x * Speed * TimerManager::GetInstance()->GetDeltaTime();
-		pos.y += position.y * Speed * TimerManager::GetInstance()->GetDeltaTime();
-	}
 }
 
 void Player::UpdateState()
@@ -190,26 +146,208 @@ void Player::UpdateState()
 		{
 		case PLAYER_IDLE:
 			break;
-
 		case PLAYER_MOVE:
-			//image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_up");
-			//image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_down");
-			//image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_down");
-			//image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_up");
 			break;
-
 		case PLAYER_ATTACK:
 			break;
-
 		case PLAYER_END:
 			break;
-
 		default:
 			break;
 		}
 	}
 
 	PreState = CurState;
+
+	if (PreUpDownState == CurUpDownState)
+	{
+		return;
+	}
+
+	switch(CurUpDownState)
+	{
+	case UPDOWN_UP:
+		UpdateToUpState();
+		break;
+	case UPDOWN_DOWN:
+		UpdateToDownState();
+		break;
+	case UPDOWN_NONE:
+		UpdateToNoneState();
+		break;
+	default:
+		break;
+	}
+	PreUpDownState = CurUpDownState;
+}
+
+void Player::UpdateToUpState()
+{
+	if (-1 == FrameDir)
+	{
+		switch (PreUpDownState)
+		{
+		case UPDOWN_NONE:
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_up");
+			break;
+		case UPDOWN_UP:
+			break;
+		case UPDOWN_DOWN:
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_up");
+			break;
+		case UPDOWN_END:
+			break;
+		default:
+			break;
+		}
+	}
+
+	else
+	{
+		switch (PreUpDownState)
+		{
+		case UPDOWN_NONE:
+			image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_up");
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_up");
+			FrameDir = 1;
+			break;
+		case UPDOWN_UP:
+			break;
+		case UPDOWN_DOWN:
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_up");
+			FrameDir = -1;
+			CurFrameIndex = FrameTime = image->GetMaxFrameX();
+			break;
+		case UPDOWN_END:
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void Player::UpdateToDownState()
+{
+	if (-1 == FrameDir)
+	{
+		switch (PreUpDownState)
+		{
+		case UPDOWN_NONE:
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_down");
+			break;
+		case UPDOWN_UP:
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_down");
+			break;
+		case UPDOWN_DOWN:
+			break;
+		case UPDOWN_END:
+			break;
+		default:
+			break;
+		}
+	}
+
+	else
+	{
+		switch (PreUpDownState)
+		{
+		case UPDOWN_NONE:
+			image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_down");
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_down");
+			FrameDir = 1;
+			break;
+		case UPDOWN_UP:
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_down");
+			FrameDir = -1;
+			CurFrameIndex = FrameTime = image->GetMaxFrameX();
+			break;
+		case UPDOWN_DOWN:
+			break;
+		case UPDOWN_END:
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void Player::UpdateToNoneState()
+{
+	//if (-1 == FrameDir)
+	//{
+	//	switch (PreUpDownState)
+	//	{
+	//	case UPDOWN_NONE:
+	//		break;
+	//	case UPDOWN_UP:
+	//		FrameDir = -1;
+	//		image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_up");
+	//		NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
+	//		CurFrameIndex = FrameTime = image->GetMaxFrameX();
+	//		break;
+	//	case UPDOWN_DOWN:
+	//		FrameDir = -1;
+	//		image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_down");
+	//		NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
+	//		CurFrameIndex = FrameTime = image->GetMaxFrameX();
+	//		break;
+	//	case UPDOWN_END:
+	//		break;
+	//	default:
+	//		break;
+	//	}
+	//}
+
+	//else
+	{
+		switch (PreUpDownState)
+		{
+		case UPDOWN_NONE:
+			break;
+		case UPDOWN_UP:
+			FrameDir = -1;
+			image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_up");
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
+			CurFrameIndex = FrameTime = image->GetMaxFrameX();
+			break;
+		case UPDOWN_DOWN:
+			FrameDir = -1;
+			image = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_down");
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
+			CurFrameIndex = FrameTime = image->GetMaxFrameX();
+			break;
+		case UPDOWN_END:
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+void Player::Fire()
+{
+	if (FireCoolTime <= FireTime)
+	{
+		string Key = "plane_shoot_spark_000";
+		Key += char(++FireCnt) + '0';
+		FPOINT OffsetPos = { 80.f, 5.f };
+		EffectManager::GetInstance()->AddEffect(Key, pos, FireCoolTime, OffsetPos, 1, true, this);
+		FireTime = 0.f;
+		FPOINT FirePos = { pos.x + OffsetPos.x , pos.y + OffsetPos.y };
+
+		(0 == FireCnt % 2) ? FirePos.y += 20.f : FirePos.y -= 20.f, FirePos.x += 10.f;
+
+		PlayerMissile* Missile = new PlayerMissile();
+		Missile->Init(FirePos);
+		ObjectManager::GetInstance()->AddObject(Missile, OBJTYPE::OBJ_PLAYER_WEAPON);
+
+		if (4 <= FireCnt)
+		{
+			FireCnt = 0;
+		}
+	}
+
+
 }
 
 void Player::Render(HDC hdc)
@@ -253,6 +391,7 @@ void Player::Action()
 void Player::ImageInit()
 {
 	//C:\Programming\Git\CupHead\CupHead\CupHead\Image\CupHead\cuphead_plane\Idle
+	//D:\Programming\Git\CupHead\CupHead\Image\CupHead\cuphead_plane\Shoot
 
 	image = ImageManager::GetInstance()->AddImage("cuphead_plane_idle_down",
 		TEXT("Image/CupHead/cuphead_plane/Idle/cuphead_plane_idle_down.bmp"),
@@ -274,43 +413,88 @@ void Player::ImageInit()
 		TEXT("Image/CupHead/cuphead_plane/Idle/cuphead_plane_idle_straight.bmp"),
 		448, 101, 4, 1, true, RGB(255, 0, 255));
 
-	IdleImage = image;
+	ImageManager::GetInstance()->AddImage("plane_shoot_spark_0001",
+		TEXT("Image/CupHead/cuphead_plane/Shoot/plane_shoot_spark_0001.bmp"),
+		72, 61, 1, 1, true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage("plane_shoot_spark_0002",
+		TEXT("Image/CupHead/cuphead_plane/Shoot/plane_shoot_spark_0002.bmp"),
+		73, 62, 1, 1, true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage("plane_shoot_spark_0003",
+		TEXT("Image/CupHead/cuphead_plane/Shoot/plane_shoot_spark_0003.bmp"),
+		76, 60, 1, 1, true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage("plane_shoot_spark_0004",
+		TEXT("Image/CupHead/cuphead_plane/Shoot/plane_shoot_spark_0004.bmp"),
+		65, 49, 1, 1, true, RGB(255, 0, 255));
+
 }
 
 void Player::Move()
 {
+	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
+	FireTime += DeltaTime;
+
 	KeyManager* keyManager = KeyManager::GetInstance();
-	FPOINT position = { 0.f,0.f };
-
-	if (keyManager->IsStayKeyDown('W'))
-		position.y = -1;
-
-	else if (keyManager->IsStayKeyDown('S'))
-		position.y = 1;
-
-	if (keyManager->IsStayKeyDown('A'))
-		position.x = -1;
-
-	else if (keyManager->IsStayKeyDown('D'))
-		position.x = 1;
-
-	const float size = sqrtf(position.x * position.x + position.y * position.y);
-	if (size)
+	if (keyManager)
 	{
-		position.x /= size;
-		position.y /= size;
+		FPOINT position = { 0.f,0.f };
+		if (keyManager->IsStayKeyDown(VK_SPACE))
+		{
+			Fire();
+		}
+
+		if (keyManager->IsStayKeyDown('W'))
+		{
+			position.y = -1;
+			CurUpDownState = UPDOWN_UP;
+		}
+
+		else if (keyManager->IsStayKeyDown('S'))
+		{
+			position.y = 1;
+
+			if (UPDOWN_DOWN != CurUpDownState)
+			{
+				CurUpDownState = UPDOWN_DOWN;
+			}
+		}
+
+		else
+		{
+			CurUpDownState = UPDOWN_NONE;
+		}
+
+		if (keyManager->IsStayKeyDown('A'))
+		{
+			position.x = -1;
+		}
+
+		else if (keyManager->IsStayKeyDown('D'))
+		{
+			position.x = 1;
+		}
+
+		const float size = sqrtf(position.x * position.x + position.y * position.y);
+
+		if (size)
+		{
+			position.x /= size;
+			position.y /= size;
+			CurState = PLAYER_MOVE;
+		}
+
+		pos.x += position.x * Speed * TimerManager::GetInstance()->GetDeltaTime();
+		pos.y += position.y * Speed * TimerManager::GetInstance()->GetDeltaTime();
+
+		pos.x = ClampValue<float>(pos.x, 0.f + (this->size.x * 0.5f), WINSIZE_X - (this->size.x * 0.5f));
+		pos.y = ClampValue<float>(pos.y, 0.f + (this->size.y * 0.5f), WINSIZE_Y - (this->size.y * 0.5f));
 	}
-
-	pos.x += position.x * Speed * TimerManager::GetInstance()->GetDeltaTime();
-	pos.y += position.y * Speed * TimerManager::GetInstance()->GetDeltaTime();
-
-	// 플레이어 화면 밖 못나가잉
-	pos.x = ClampValue<float>(pos.x, 0.f + (this->size.x * 0.5f), WINSIZE_X - (this->size.x * 0.5f));
-	pos.y = ClampValue<float>(pos.y, 0.f + (this->size.y * 0.5f), WINSIZE_Y - (this->size.y * 0.5f));
 }
 
 void Player::TakeDamage(int damage)
 {
 	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx", pos, 0.5f);
-	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx_b", pos, 0.5f);
+	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx_b", { pos.x - 50.f, pos.y }, 0.5f);
 }

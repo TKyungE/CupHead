@@ -79,6 +79,6 @@ void LaughProjectile::Move()
 
 	if (OutOfScreen(FPOINT{ pos.x + image->GetFrameWidth() * 0.5f, pos.y }, image->GetFrameWidth(), image->GetFrameHeight()))
 	{
-		//bDead = true;
+		bDead = true;
 	}
 }
