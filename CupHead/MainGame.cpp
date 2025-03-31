@@ -113,23 +113,25 @@ void MainGame::Update()
 	}
 
 	// Test Star
-	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_RETURN))
-	{
-		for (int i = 0; i < 3; ++i)
-		{
-			StarProjectile* star = new StarProjectile(StarType(i));
-			star->Init({ mousePos.x, float(mousePos.y + (i - 1) * 150) });
-			Objectmanager->AddObject(star, OBJTYPE::OBJ_MONSTER_WEAPON);
-		}
-	}
-
-	// Test Laugh
+	//srand(time(NULL));
 	//if (KeyManager::GetInstance()->IsOnceKeyDown(VK_RETURN))
 	//{
-	//	LaughProjectile* Laugh = new LaughProjectile();
-	//	Laugh->Init(mousePos);
-	//	ObjectManager::GetInstance()->AddObject(Laugh, OBJTYPE::OBJ_MONSTER_WEAPON);
+	//	for (int i = 0; i < 3; ++i)
+	//	{
+	//		
+	//		StarProjectile* star = new StarProjectile(StarType(i));
+	//		star->Init({ mousePos.x, float(mousePos.y + (i - 1) * 150) });
+	//		Objectmanager->AddObject(star, OBJTYPE::OBJ_MONSTER_WEAPON);
+	//	}
 	//}
+
+	// Test Laugh
+	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_RETURN))
+	{
+		LaughProjectile* Laugh = new LaughProjectile();
+		Laugh->Init(mousePos);
+		ObjectManager::GetInstance()->AddObject(Laugh, OBJTYPE::OBJ_MONSTER_WEAPON);
+	}
 
 
 	if (Objectmanager)

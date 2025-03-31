@@ -1,27 +1,47 @@
 #pragma once
-#include "GameObject.h"
+#include "Character.h"
 
 class Image;
 
-class Player : public GameObject
+enum PLAYERSTATE
 {
+	PLAYER_IDLE, PLAYER_MOVE, PLAYER_ATTACK, PLAYER_END
+};
+
+enum UPDOWN
+{
+	UPDOWN_NONE, UPDOWN_UP, UPDOWN_DOWN, UPDOWN_END
+};
+
+class Player : public Character
+{
+
 public:
 	Player();
 	~Player();
 
-	void Init(FPOINT pos,FPOINT size);		
-	void Release();		
-	void Update();		
-	void Render(HDC hdc);
+	
 
+public:
+	virtual void Init() override;
+	void Init(FPOINT pos, FPOINT size);
+	virtual void Release() override;
+	virtual void Update() override;
+	virtual void UpdateFrame() override;
+	virtual void Render(HDC hdc) override;
+
+	virtual void Move() override;
+	virtual void TakeDamage(int damage = 0) override;
+
+	void UpdateInput();
+	void UpdateState();
 	void EffectTestInit();
-	void EffectTest();
 
 	//virtual void TakeDamage(int damage = 0);
 
-	void Move();
-
 private:
-	Image* image;
+	UPDOWN UpDownState = UPDOWN_NONE;
+	PLAYERSTATE PreState;
+	PLAYERSTATE CurState;
 };
 
