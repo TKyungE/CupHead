@@ -15,6 +15,8 @@ void UFOBeam::Init(GameObject* InOwner, FPOINT InPivot)
 	Pivot = InPivot;
 	FrameSpeed = 10.f;
 	IsStayMaxFrame = true;
+	CurFrameIndex = 0;
+	FrameTime = 0.f;
 	image = ImageManager::GetInstance()->AddImage("blimp_moon_ufo_beam", L"Image/CupHead/Hilda Berg/Moon/Attack/blimp_moon_ufo_beam.bmp", 3768, 725, 24, 1, true, RGB(255, 0, 255));
 }
 

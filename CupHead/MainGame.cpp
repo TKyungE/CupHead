@@ -179,7 +179,9 @@ void MainGame::Render()
 	if (backgroundManager)
 		backgroundManager->RenderForeGround(hBackBufferDC);
 
-	// ����ۿ�? �ִ� ������ ���� hdc�� ����
+	if (Objectmanager)
+		Objectmanager->RenderUI(hBackBufferDC);
+
 	backBuffer->Render(hdc);
 }
 

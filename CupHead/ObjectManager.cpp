@@ -68,7 +68,6 @@ void ObjectManager::Update()
 void ObjectManager::Render(HDC hdc)
 {
 	RenderObject(hdc);
-	RenderUI(hdc);
 }
 
 void ObjectManager::Release()
