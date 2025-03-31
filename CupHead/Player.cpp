@@ -3,8 +3,6 @@
 #include "ImageManager.h"
 #include "Collider.h"
 #include "CollisionManager.h"
-#include "LaughProjectile.h"
-#include "StarProjectile.h"
 #include "EffectManager.h"
 #include "ObjectManager.h"
 #include "CommonFunction.h"
@@ -33,9 +31,7 @@ void Player::Init(FPOINT pos, FPOINT size)
 
 	//
 	EffectTestInit();
-	StarTestInit();
-	LaughTestInit();
-											
+										
 	//EffectManager::GetInstance()->AddEffect("blimp_star_fx", pos, 30.f, { 100.f, 0.f }, 30, true, this);
 	//image이름, 초기 위치, 몇 초 동안 보일건지, 초기 위치 기준 offset 위치, 몇 번 반복하고 싶은지, GameObj Trece 여부, Trace할거면 포인터 넣기
 	// EffectManager::GetInstance()->AddEffectDefault("blimp_star_fx", pos, 30.f);
@@ -91,26 +87,6 @@ void Player::EffectTestInit()
 	ImageManager::GetInstance()->AddImage("blimp_enemy_spark", TEXT("Image/CupHead/Hilda Berg/Enemy/Explode/blimp_enemy_spark.bmp"), 2232, 260, 9, 1, true, RGB(255, 0, 255)); // ����Ʈ �׽�Ʈ
 	ImageManager::GetInstance()->AddImage("blimp_star_fx", TEXT("Image/CupHead/Hilda Berg/Moon/Attack/blimp_star_fx.bmp"), 1120, 70, 8, 1, true, RGB(255, 0, 255)); // ����Ʈ �׽�Ʈ
 	ImageManager::GetInstance()->AddImage("sagg_arrow_fx", TEXT("Image/CupHead/Hilda Berg/Sagittarius/Arrow/Smoke/sagg_arrow_fx.bmp"), 1045, 203, 5, 1, true, RGB(255, 0, 255)); // ����Ʈ �׽�Ʈ
-}
-
-void Player::StarTestInit()
-{
-	StarProjectile* Star = nullptr;
-	for (int i = 0; i < 6; ++i)
-	{
-		Star = new StarProjectile(StarType(i % 3));
-		Star->Init({ float(1000 + (100 * i)) , float(100 + i * 100) });
-		ObjectManager::GetInstance()->AddObject(Star, OBJTYPE::OBJ_MONSTER_WEAPON);
-	}
-
-	//StarProjectile* Star = new StarProjectile(StarType::STARTYPE_A);
-}
-
-void Player::LaughTestInit()
-{
-	LaughProjectile* Laugh = new LaughProjectile();
-	Laugh->Init({ 1000,300 });
-	ObjectManager::GetInstance()->AddObject(Laugh, OBJTYPE::OBJ_MONSTER_WEAPON);
 }
 
 void Player::EffectTest()
