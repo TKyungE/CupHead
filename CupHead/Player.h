@@ -51,15 +51,16 @@ public:
 	//virtual void TakeDamage(int damage = 0);
 
 private:
-	Image* NextImage;
 	int FrameDir;
 	int FireCnt;
 	float FireTime;
 	float FireCoolTime;
-	bool IsTranseEnd;
+	float AlphaTime;
+	float MaxAlphaTime;
 	UPDOWN PreUpDownState;
 	UPDOWN CurUpDownState;
 	PLAYERSTATE PreState;
 	PLAYERSTATE CurState;
+	Image* NextImage;
 };
 

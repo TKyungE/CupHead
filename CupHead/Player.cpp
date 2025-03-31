@@ -9,7 +9,7 @@
 #include "PlayerMissile.h"
 
 Player::Player() 
-	: FrameDir(1), FireCnt(0), FireTime(0.f), FireCoolTime(0.07f), IsTranseEnd(false), PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), PreState(PLAYER_IDLE), CurState(PLAYER_IDLE), NextImage(nullptr)
+	: FrameDir(1), FireCnt(0), FireTime(0.f), FireCoolTime(0.07f), AlphaTime(0.f), MaxAlphaTime(0.5f), PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), PreState(PLAYER_IDLE), CurState(PLAYER_IDLE), NextImage(nullptr)
 {
 
 }				  
@@ -354,7 +354,17 @@ void Player::Render(HDC hdc)
 {
 	if (image)
 	{
-		image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, false);
+		if (0.f < AlphaTime)
+		{
+			image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, false, 135);
+		}
+
+		else
+		{
+			image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, false);
+			AlphaTime = 0.f;
+		}
+		
 	}
 }
 
@@ -435,6 +445,7 @@ void Player::Move()
 {
 	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
 	FireTime += DeltaTime;
+	AlphaTime -= DeltaTime;
 
 	KeyManager* keyManager = KeyManager::GetInstance();
 	if (keyManager)
@@ -497,4 +508,5 @@ void Player::TakeDamage(int damage)
 {
 	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx", pos, 0.5f);
 	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx_b", { pos.x - 50.f, pos.y }, 0.5f);
+	AlphaTime = MaxAlphaTime;
 }
