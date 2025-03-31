@@ -243,9 +243,12 @@ void Image::FrameRender(HDC hdc, int destX, int destY,
     }
 }
 
-void Image::FrameRenderAlpha(HDC hdc, int destX, int destY, int frameX, int frameY, COLORREF _AlphaColor, int _AlphaValue, bool isFlip)
+void Image::FrameRenderAlpha(HDC hdc, int destX, int destY, int frameX, int frameY, bool _IsOver, int _AlphaValue, COLORREF _AlphaColor, bool isFlip)
 {
-    FrameRender(hdc, destX, destY, frameX, frameY, isFlip);
+    if (true == _IsOver)
+    {
+        FrameRender(hdc, destX, destY, frameX, frameY, isFlip);
+    }
 
     int x = destX - (imageInfo->frameWidth / 2);
     int y = destY - (imageInfo->frameHeight / 2);
@@ -280,7 +283,16 @@ void Image::FrameRenderAlpha(HDC hdc, int destX, int destY, int frameX, int fram
         {
             //pixels[i] |= 0xFF000000;
             //pixels[i] |= 0xFFFFFFFF; // 알파값 255로 설정 (불투명),
-            pixels[i] |= (0xFF000000 | _AlphaColor); // 알파값 255로 설정 (불투명),
+            if (true == _IsOver)
+            {
+                pixels[i] |= (0xFF000000 | _AlphaColor); // 알파값 255로 설정 (불투명),
+            }
+
+            else
+            {
+                pixels[i] |= 0xFF000000; // 알파값 255로 설정 (불투명),
+            }
+          
         }
     }
 

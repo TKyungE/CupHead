@@ -15,8 +15,6 @@ public:
 	void Render(HDC hdc);
 
 	void EffectTestInit();
-	void StarTestInit();
-	void LaughTestInit();
 	void EffectTest();
 
 	//virtual void TakeDamage(int damage = 0);

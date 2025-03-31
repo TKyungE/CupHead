@@ -42,8 +42,8 @@ StarProjectile::StarProjectile(StarType _Type) : LookAngle(180.f), MoveValue(0.f
 	switch (_Type)
 	{
 	case StarType::STARTYPE_A:
-		Speed = 700.f;
-		FrameSpeed = 10.f;
+		Speed = 1000.f;
+		FrameSpeed = 20.f;
 		SinValue = 0.11f;
 		image = ImageManager::GetInstance()->AddImage("blimp_star_a", TEXT("Image/CupHead/Hilda Berg/Moon/Attack/blimp_star_a.bmp"), 1632, 108, 16, 1, true, RGB(255, 0, 255));
 		break;
@@ -81,7 +81,7 @@ void StarProjectile::Init()
 void StarProjectile::Init(FPOINT _Pos)
 {
 	pos = _Pos;
-	EffectManager::GetInstance()->AddEffect("blimp_star_fx", pos, 30.f, { 100.f, 0.f }, 30, true, this); // Trace는 되는데 생각해보니 버그 생길듯 수정 필요.
+	EffectManager::GetInstance()->AddEffect("blimp_star_fx", pos, 30.f, { 70.f, 0.f }, 30, true, this); // Trace는 되는데 생각해보니 버그 생길듯 수정 필요.
 }
 
 void StarProjectile::Release()

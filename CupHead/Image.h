@@ -76,7 +76,7 @@ public:
 	void FrameRender(HDC hdc, int destX, int destY,
 		int frameX, int frameY, bool isFlip = false);
 	void FrameRenderAlpha(HDC hdc, int destX, int destY,
-		int frameX, int frameY, COLORREF _AlphaColor, int _AlphaValue, bool isFlip = false);
+		int frameX, int frameY, bool _IsOver, int _AlphaValue, COLORREF _AlphaColor = RGB(255, 255, 255), bool isFlip = false);
 
 	// 메모리 해제
 	void Release();
