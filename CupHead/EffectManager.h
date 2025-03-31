@@ -21,7 +21,10 @@ public:
 
 	void AddEffect(string _ImageName, FPOINT _Pos, void* _Desc);
 	void AddEffect(string _ImageName, FPOINT _Pos, float _MaxLifeTime, FPOINT _Offset = { 0.f, 0.f }, int _MaxLoopCnt = 1, bool _IsTraceTarget = false, GameObject* TraceTarget = nullptr);
+
+	void AddEffectDefault(string _ImageName, FPOINT _Pos, float _MaxLifeTime);
+
 	list<Effect*> Effects;
-	//map<GameObject*, list<Effect*>> Test;
+	//map<GameObject*, list<Effect*>> TraceEffects;
 
 };

@@ -1,4 +1,5 @@
 #include "Image.h"
+#pragma comment(lib,"msimg32.lib")
 
 HRESULT Image::Init(int width, int height)
 {
@@ -14,6 +15,7 @@ HRESULT Image::Init(int width, int height)
     imageInfo->hTempBit = CreateCompatibleBitmap(hdc, width, height);
     imageInfo->hOldTemp = (HBITMAP)SelectObject(imageInfo->hTempDC, imageInfo->hTempBit);
 
+ 
     imageInfo->width = width;
     imageInfo->height = height;
     imageInfo->loadType = IMAGE_LOAD_TYPE::Empty;
@@ -44,6 +46,7 @@ HRESULT Image::Init(const wchar_t* filePath, int width, int height,
     imageInfo->hTempDC = CreateCompatibleDC(hdc);
     imageInfo->hTempBit = CreateCompatibleBitmap(hdc, width, height);
     imageInfo->hOldTemp = (HBITMAP)SelectObject(imageInfo->hTempDC, imageInfo->hTempBit);
+
 
     imageInfo->width = width;
     imageInfo->height = height;
@@ -94,8 +97,9 @@ HRESULT Image::Init(const wchar_t* filePath, int width, int height, int maxFrame
     imageInfo->hTempBit = CreateCompatibleBitmap(hdc, width, height);
     imageInfo->hOldTemp = (HBITMAP)SelectObject(imageInfo->hTempDC, imageInfo->hTempBit);
 
-    ReleaseDC(g_hWnd, hdc);
 
+    ReleaseDC(g_hWnd, hdc);
+    
     if (imageInfo->hBitmap == NULL)
     {
         Release();
@@ -218,7 +222,6 @@ void Image::FrameRender(HDC hdc, int destX, int destY,
         GdiTransparentBlt(hdc,
             x, y,
             imageInfo->frameWidth, imageInfo->frameHeight,
-
             imageInfo->hMemDC,
             imageInfo->frameWidth * imageInfo->currFrameX,
             imageInfo->frameHeight * imageInfo->currFrameY,
@@ -238,6 +241,70 @@ void Image::FrameRender(HDC hdc, int destX, int destY,
             SRCCOPY
         );
     }
+}
+
+void Image::FrameRenderAlpha(HDC hdc, int destX, int destY, int frameX, int frameY, bool _IsOver, int _AlphaValue, COLORREF _AlphaColor, bool isFlip)
+{
+    if (true == _IsOver)
+    {
+        FrameRender(hdc, destX, destY, frameX, frameY, isFlip);
+    }
+
+    int x = destX - (imageInfo->frameWidth / 2);
+    int y = destY - (imageInfo->frameHeight / 2);
+
+    imageInfo->currFrameX = frameX;
+    imageInfo->currFrameY = frameY;
+
+    BITMAPINFO bmi = { 0 };
+    bmi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+    bmi.bmiHeader.biWidth = imageInfo->frameWidth;
+    bmi.bmiHeader.biHeight = -imageInfo->frameHeight; // DIB는 기본적으로 상하 반전
+    bmi.bmiHeader.biPlanes = 1;
+    bmi.bmiHeader.biBitCount = 32; // 32bit (ARGB)
+    bmi.bmiHeader.biCompression = BI_RGB;
+
+    void* pBits = nullptr;
+    imageInfo->hTempBit = CreateDIBSection(hdc, &bmi, DIB_RGB_COLORS, &pBits, NULL, 0);
+    SelectObject(imageInfo->hTempDC, imageInfo->hTempBit);
+    BitBlt(imageInfo->hTempDC, 0, 0, imageInfo->frameWidth, imageInfo->frameHeight, imageInfo->hMemDC, imageInfo->frameWidth * frameX, imageInfo->frameHeight * frameY, SRCCOPY);
+
+    // 3. 픽셀 데이터 직접 수정 (투명색을 완전 투명하게 변환)
+    DWORD* pixels = (DWORD*)pBits;
+    COLORREF transColor32 = (0x00FFFFFF & transColor); // RGB 값만 사용
+
+    for (int i = 0; i < imageInfo->frameWidth * imageInfo->frameHeight; i++)
+    {
+        if ((pixels[i] & 0x00FFFFFF) == transColor32) // 투명색이면
+        {
+            pixels[i] = 0x00000000; // 완전 투명 (ARGB = 0x00000000)
+        }
+        else
+        {
+            //pixels[i] |= 0xFF000000;
+            //pixels[i] |= 0xFFFFFFFF; // 알파값 255로 설정 (불투명),
+            if (true == _IsOver)
+            {
+                pixels[i] |= (0xFF000000 | _AlphaColor); // 알파값 255로 설정 (불투명),
+            }
+
+            else
+            {
+                pixels[i] |= 0xFF000000; // 알파값 255로 설정 (불투명),
+            }
+          
+        }
+    }
+
+    // 4. 알파 블렌드 설정
+    BLENDFUNCTION bf;
+    bf.BlendOp = AC_SRC_OVER;
+    bf.BlendFlags = 0;
+    bf.SourceConstantAlpha = _AlphaValue;  // 밝기 조절 (0 ~ 255)
+    bf.AlphaFormat = AC_SRC_ALPHA;  // 알파 채널 사용
+
+    AlphaBlend(hdc, x, y, imageInfo->frameWidth, imageInfo->frameHeight, imageInfo->hTempDC, 0, 0, imageInfo->frameWidth, imageInfo->frameHeight, bf);
+    DeleteObject(imageInfo->hTempBit);
 }
 
 void Image::Release()

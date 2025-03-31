@@ -61,7 +61,13 @@ void Sagittarius::Update()
 void Sagittarius::Render(HDC hdc)
 {
 	if (image)
-		image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0);
+	{
+		//image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0);
+		
+		// 몬스터는 맞을 때 흰색 덮이는데 플레이어는 맞으면 알파블렌딩으로 그려져서 bool 인자로 분기했습니당.
+		image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, true, 85, RGB(255, 255, 255)); // true면 기존FrameRender하고 그 위에 원하는 컬러값을 AlphaValue값만큼 AlphaBlend해서 그리는 함수.
+		//image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, false, 85); // false면 기존 이미지를 AlphaValue값만큼 AlphaBlend해서 그리는 함수.
+	}
 }
 
 void Sagittarius::Move()
