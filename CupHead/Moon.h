@@ -29,17 +29,20 @@ private:
 	void Dead();
 
 	void UFOSpawn();
+	void EffectInit();
 
 private:
 	EMoonState State;
 	Collider* ColliderComponent;
 
-	float CurrentAttackTime;
+	float CurrentTime;
+
 	float AttackTime;
 	int CurrentAttackCount;
 	int AttackCount;
 
-	float CurrentUFOTime;
 	float UFOSpawnTime;
+
+	float DeadEffectTime;
 };
 
