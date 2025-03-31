@@ -151,6 +151,7 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerMissile.cpp" />
     <ClCompile Include="Sagittarius.cpp" />
     <ClCompile Include="SagittariusCloud.cpp" />
     <ClCompile Include="StarProjectile.cpp" />
@@ -188,6 +189,7 @@
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerMissile.h" />
     <ClInclude Include="Sagittarius.h" />
     <ClInclude Include="SagittariusArrow.h" />
     <ClInclude Include="SagittariusCloud.h" />

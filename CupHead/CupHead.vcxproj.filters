@@ -171,6 +171,9 @@
     <ClCompile Include="Bullet.cpp">
       <Filter>MainGame\Bullet</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerMissile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>MainGame\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMissile.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
