@@ -28,21 +28,18 @@ void Player::Init(FPOINT pos, FPOINT size)
 {
 	this->pos = pos;
 	this->size = size;
-	image = nullptr;
+	//image = nullptr;
+	Speed = 700.f;
+	FrameSpeed = 30.f;
 	/*image = ImageManager::GetInstance()->AddImage(
 		"Normal_Enemy", TEXT("Image/Test/blimp_dash.bmp"), 21168, 415, 24, 1,
 		true, RGB(255, 0, 255));*/
-
-		// ï¿½İ¶ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿?				// Pivot = (ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½) / 2 , (ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ / ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½) / 2
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }/*{ (21168 / 24) * 0.5f, 415 * 0.5f }*/, this->size, true);
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { 105.f, 85.f }, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER);
 
+	ImageInit();
 	EffectTestInit();										
-	//EffectManager::GetInstance()->AddEffect("blimp_star_fx", pos, 30.f, { 100.f, 0.f }, 30, true, this);
-	//image?´ë¦?, ì´ˆê¸° ?œ„ì¹?, ëª? ì´? ?™?•ˆ ë³´ì¼ê±´ì??, ì´ˆê¸° ?œ„ì¹? ê¸°ì?? offset ?œ„ì¹?, ëª? ë²? ë°˜ë³µ?•˜ê³? ?‹¶???ì§?, GameObj Trece ?—¬ë¶?, Trace?• ê±°ë©´ ?¬?¸?„° ?„£ê¸?
-	// EffectManager::GetInstance()->AddEffectDefault("blimp_star_fx", pos, 30.f);
-	// ê·¸ëƒ¥ ê·? ?œ„ì¹˜ì— ?•œ ë²? ?„°?Š¸ë¦¬ê¸°ë§? ?•  ê±°ë©´ Default ?“°ê¸?
 }
 
 void Player::Release()

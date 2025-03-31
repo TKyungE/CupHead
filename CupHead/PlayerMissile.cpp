@@ -15,7 +15,7 @@ PlayerMissile::PlayerMissile() : LookAngle(DEG_TO_RAD(0.f))
 	// D:\Programming\Git\CupHead\CupHead\Image\CupHead\cuphead_plane\Shoot
 	image = ImageManager::GetInstance()->AddImage("schmup_peashot_bullet", TEXT("Image/CupHead/cuphead_plane/Shoot/schmup_peashot_bullet.bmp"), 909, 19, MaxAnimationFrame, 1, true, RGB(255, 0, 255));
 
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { 165.f, 70.f }, false);
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { 90.f, 30.f }, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER_WEAPON);
 }
