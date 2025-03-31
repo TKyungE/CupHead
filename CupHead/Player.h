@@ -44,6 +44,7 @@ public:
 	//virtual void TakeDamage(int damage = 0);
 
 private:
+	Image* IdleImage;
 	int FrameDir;
 	bool IsTranseEnd;
 	UPDOWN UpDownState = UPDOWN_NONE;
