@@ -8,6 +8,8 @@
 
 #include "LaughProjectile.h"
 #include "StarProjectile.h"
+
+#include "BackGround.h"
 #include "Tornado.h"
 
 void MainGame::Init()
@@ -21,7 +23,7 @@ void MainGame::Init()
 	if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
 	{
 		/*MessageBox(g_hWnd,
-			TEXT("����� ���� ����"), TEXT("���"), MB_OK);*/
+			TEXT("�����? ���� ����"), TEXT("���?"), MB_OK);*/
 	}
 	// C:\Programming\Git\CupHead\CupHead\CupHead\Image\CupHead\BackGround
 
@@ -30,8 +32,15 @@ void MainGame::Init()
 	if (FAILED(backGround->Init(TEXT("Image/background1.bmp"), WINSIZE_X, WINSIZE_Y)))
 	{
 		/*MessageBox(g_hWnd,
-			TEXT("Image/backGround.bmp ���� ����"), TEXT("���"), MB_OK);*/
+			TEXT("Image/backGround.bmp ���� ����"), TEXT("���?"), MB_OK);*/
 	}
+
+	backgroundManager = new BackGroundManager;
+	backgroundManager->Init();
+
+	// �������� ���ʹ̸Ŵ���.. �ּ�Ǯ�� �� �߻� 
+	//enemyManager = new EnemyManager();
+	//enemyManager->Init();
 
 	Objectmanager = ObjectManager::GetInstance();
 	Objectmanager->Init();
@@ -57,6 +66,13 @@ void MainGame::Release()
 		backBuffer->Release();
 		delete backBuffer;
 		backBuffer = nullptr;
+	}
+
+	if (backgroundManager)
+	{
+		backgroundManager->Release();
+		delete backgroundManager;
+		backgroundManager = nullptr;
 	}
 
 	if (collisionManager)
@@ -119,6 +135,8 @@ void MainGame::Update()
 	//	ObjectManager::GetInstance()->AddObject(Laugh, OBJTYPE::OBJ_MONSTER_WEAPON);
 	//}
 
+	if (backgroundManager)
+		backgroundManager->Update();
 
 	if (Objectmanager)
 		Objectmanager->Update();
@@ -133,14 +151,16 @@ void MainGame::Update()
 
 void MainGame::Render()
 {
-	// ����ۿ� ���� ����
+	// ����ۿ�? ���� ����
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
 	backGround->Render(hBackBufferDC);
 
+	if (backgroundManager)
+		backgroundManager->RenderBackGround(hBackBufferDC);
+
 	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), (int)mousePos.x, (int)mousePos.y);
 	TextOut(hBackBufferDC, 20, 60, szText, (int)wcslen(szText));
-
 
 	if (Objectmanager)
 		Objectmanager->Render(hBackBufferDC);
@@ -156,7 +176,10 @@ void MainGame::Render()
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 
-	// ����ۿ� �ִ� ������ ���� hdc�� ����
+	if (backgroundManager)
+		backgroundManager->RenderForeGround(hBackBufferDC);
+
+	// ����ۿ�? �ִ� ������ ���� hdc�� ����
 	backBuffer->Render(hdc);
 }
 

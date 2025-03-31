@@ -6,6 +6,7 @@ class Image;
 class CollisionManager;
 class ObjectManager;
 class EffectManager;
+class BackGroundManager;
 class MainGame : public GameObject
 {
 private:
@@ -16,6 +17,7 @@ private:
 
 	Image* backBuffer;
 	Image* backGround;
+	BackGroundManager* backgroundManager;
 	CollisionManager* collisionManager;
 	ObjectManager* Objectmanager;
 	EffectManager* EffectManager;
