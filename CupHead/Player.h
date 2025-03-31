@@ -1,9 +1,9 @@
 #pragma once
-#include "GameObject.h"
+#include "Character.h"
 
 class Image;
 
-class Player : public GameObject
+class Player : public Character
 {
 public:
 	Player();

@@ -155,7 +155,7 @@ void Image::Render(HDC hdc, int destX, int destY, int frameIndex, bool isFlip)
 
         GdiTransparentBlt(hdc,
             destX, destY,
-            imageInfo->frameWidth, imageInfo->frameHeight,
+            imageInfo->frameWidth * Scale.x, imageInfo->frameHeight * Scale.y,
 
             imageInfo->hTempDC,
             0, 0,
@@ -166,7 +166,7 @@ void Image::Render(HDC hdc, int destX, int destY, int frameIndex, bool isFlip)
     {
         GdiTransparentBlt(hdc,
             destX, destY,
-            imageInfo->frameWidth, imageInfo->frameHeight,
+            imageInfo->frameWidth * Scale.x, imageInfo->frameHeight * Scale.y,
 
             imageInfo->hMemDC,
             imageInfo->frameWidth * imageInfo->currFrameX,
@@ -191,8 +191,8 @@ void Image::Render(HDC hdc, int destX, int destY, int frameIndex, bool isFlip)
 void Image::FrameRender(HDC hdc, int destX, int destY, 
     int frameX, int frameY, bool isFlip)
 {
-    int x = destX - (imageInfo->frameWidth / 2);
-    int y = destY - (imageInfo->frameHeight / 2);
+    int x = destX - ((imageInfo->frameWidth * Scale.x) / 2);
+    int y = destY - ((imageInfo->frameHeight * Scale.y) / 2);
 
     imageInfo->currFrameX = frameX;
     imageInfo->currFrameY = frameY;
@@ -210,7 +210,7 @@ void Image::FrameRender(HDC hdc, int destX, int destY,
 
         GdiTransparentBlt(hdc,
             x, y,
-            imageInfo->frameWidth, imageInfo->frameHeight,
+            imageInfo->frameWidth * Scale.x, imageInfo->frameHeight * Scale.y,
 
             imageInfo->hTempDC,
             0, 0,
@@ -221,7 +221,7 @@ void Image::FrameRender(HDC hdc, int destX, int destY,
     {
         GdiTransparentBlt(hdc,
             x, y,
-            imageInfo->frameWidth, imageInfo->frameHeight,
+            imageInfo->frameWidth * Scale.x, imageInfo->frameHeight * Scale.y,
             imageInfo->hMemDC,
             imageInfo->frameWidth * imageInfo->currFrameX,
             imageInfo->frameHeight * imageInfo->currFrameY,
@@ -233,8 +233,8 @@ void Image::FrameRender(HDC hdc, int destX, int destY,
         BitBlt(
             hdc,
             x, y,
-            imageInfo->frameWidth,
-            imageInfo->frameHeight,
+            imageInfo->frameWidth * Scale.x,
+            imageInfo->frameHeight * Scale.y,
             imageInfo->hMemDC,
             imageInfo->frameWidth * imageInfo->currFrameX, 
             imageInfo->frameHeight * imageInfo->currFrameY,

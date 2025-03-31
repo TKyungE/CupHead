@@ -1,7 +1,6 @@
 #include "MainGame.h"
 #include "CommonFunction.h"
 #include "Image.h"
-#include "EnemyManager.h"
 #include "Timer.h"
 #include "CollisionManager.h"
 #include "ObjectManager.h"
@@ -34,10 +33,6 @@ void MainGame::Init()
 			TEXT("Image/backGround.bmp ���� ����"), TEXT("���"), MB_OK);*/
 	}
 
-	// �������� ���ʹ̸Ŵ���.. �ּ�Ǯ�� �� �߻� 
-	//enemyManager = new EnemyManager();
-	//enemyManager->Init();
-
 	Objectmanager = ObjectManager::GetInstance();
 	Objectmanager->Init();
 
@@ -50,13 +45,6 @@ void MainGame::Init()
 
 void MainGame::Release()
 {
-	if (enemyManager)
-	{
-		enemyManager->Release();
-		delete enemyManager;
-		enemyManager = nullptr;
-	}
-
 	if (backGround)
 	{
 		backGround->Release();
@@ -134,9 +122,6 @@ void MainGame::Update()
 
 	if (Objectmanager)
 		Objectmanager->Update();
-
-	if (enemyManager)
-		enemyManager->Update();
 	if (collisionManager)
 		collisionManager->Update();
 
@@ -160,8 +145,6 @@ void MainGame::Render()
 	if (Objectmanager)
 		Objectmanager->Render(hBackBufferDC);
 
-	if (enemyManager)
-		enemyManager->Render(hBackBufferDC);
 	if (collisionManager)
 		collisionManager->Render(hBackBufferDC);
 

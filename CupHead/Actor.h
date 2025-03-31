@@ -24,6 +24,7 @@ public:
 protected:
 	Image* image;
 	int CurFrameIndex;
+	int CurFrameYIndex;
 	float FrameSpeed;
 	float FrameTime;
 	bool IsFlip;

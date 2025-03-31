@@ -3,7 +3,6 @@
 
 class Timer;
 class Image;
-class EnemyManager;
 class CollisionManager;
 class ObjectManager;
 class EffectManager;
@@ -17,7 +16,6 @@ private:
 
 	Image* backBuffer;
 	Image* backGround;
-	EnemyManager* enemyManager;
 	CollisionManager* collisionManager;
 	ObjectManager* Objectmanager;
 	EffectManager* EffectManager;

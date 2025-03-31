@@ -20,6 +20,8 @@ void Player::Init(FPOINT pos, FPOINT size)
 	this->pos = pos;
 	this->size = size;
 	image = nullptr;
+
+	Hp = 4;
 	/*image = ImageManager::GetInstance()->AddImage(
 		"Normal_Enemy", TEXT("Image/Test/blimp_dash.bmp"), 21168, 415, 24, 1,
 		true, RGB(255, 0, 255));*/

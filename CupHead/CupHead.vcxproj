@@ -136,12 +136,11 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="EffectManager.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="KeyManager.cpp" />
+    <ClCompile Include="KnockOut.cpp" />
     <ClCompile Include="LaughProjectile.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -151,6 +150,7 @@
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="Pawn.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerHP.cpp" />
     <ClCompile Include="Sagittarius.cpp" />
     <ClCompile Include="SagittariusCloud.cpp" />
     <ClCompile Include="StarProjectile.cpp" />
@@ -161,6 +161,7 @@
     <ClCompile Include="Tornado.cpp" />
     <ClCompile Include="UFO.cpp" />
     <ClCompile Include="UFOBeam.cpp" />
+    <ClCompile Include="UIBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -174,12 +175,11 @@
     <ClInclude Include="config.h" />
     <ClInclude Include="Effect.h" />
     <ClInclude Include="EffectManager.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="KeyManager.h" />
+    <ClInclude Include="KnockOut.h" />
     <ClInclude Include="LaughProjectile.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Missile.h" />
@@ -188,6 +188,7 @@
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="Pawn.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerHP.h" />
     <ClInclude Include="Sagittarius.h" />
     <ClInclude Include="SagittariusArrow.h" />
     <ClInclude Include="SagittariusCloud.h" />
@@ -199,6 +200,7 @@
     <ClInclude Include="Tornado.h" />
     <ClInclude Include="UFO.h" />
     <ClInclude Include="UFOBeam.h" />
+    <ClInclude Include="UIBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

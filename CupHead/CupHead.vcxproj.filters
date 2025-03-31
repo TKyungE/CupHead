@@ -58,6 +58,15 @@
     <Filter Include="MainGame\Enemy\Moon">
       <UniqueIdentifier>{3a1e8550-902f-43d0-b1ea-4a3d4ae13e22}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\UI">
+      <UniqueIdentifier>{fa26e4c4-0a13-4bf6-b445-a9f582719184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\PlayerHP">
+      <UniqueIdentifier>{92e1e235-1437-405f-a193-794b1a043a33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\KnockOut">
+      <UniqueIdentifier>{c5ef2cd6-80ed-4fb5-9c48-3a8e7630c71c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -71,12 +80,6 @@
     </ClCompile>
     <ClCompile Include="KeyManager.cpp">
       <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>MainGame\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>MainGame\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="MissileManager.cpp">
       <Filter>MainGame\Missile</Filter>
@@ -162,6 +165,15 @@
     <ClCompile Include="Moon.cpp">
       <Filter>MainGame\Enemy\Moon</Filter>
     </ClCompile>
+    <ClCompile Include="UIBase.cpp">
+      <Filter>MainGame\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHP.cpp">
+      <Filter>MainGame\UI\PlayerHP</Filter>
+    </ClCompile>
+    <ClCompile Include="KnockOut.cpp">
+      <Filter>MainGame\UI\KnockOut</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -181,12 +193,6 @@
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>MainGame\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>MainGame\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="MissileManager.h">
       <Filter>MainGame\Missile</Filter>
@@ -271,6 +277,15 @@
     </ClInclude>
     <ClInclude Include="Moon.h">
       <Filter>MainGame\Enemy\Moon</Filter>
+    </ClInclude>
+    <ClInclude Include="UIBase.h">
+      <Filter>MainGame\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHP.h">
+      <Filter>MainGame\UI\PlayerHP</Filter>
+    </ClInclude>
+    <ClInclude Include="KnockOut.h">
+      <Filter>MainGame\UI\KnockOut</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
