@@ -4,6 +4,7 @@
 #include "BlimpEnemy.h"
 #include "UFO.h"
 #include "Sagittarius.h"
+#include "Moon.h"
 
 void ObjectManager::Init()
 {
@@ -19,10 +20,15 @@ void ObjectManager::Init()
 		ufo->Init({ WINSIZE_X,300.f });
 		AddObject(ufo, OBJTYPE::OBJ_MONSTER);
 
+		//// 테스트 코드 Sagittarius 생성
+		//Sagittarius* sagittarius = new Sagittarius();
+		//sagittarius->Init({ WINSIZE_X * 0.8f,300.f });
+		//AddObject(sagittarius, OBJTYPE::OBJ_MONSTER);
+
 		// 테스트 코드 Sagittarius 생성
-		Sagittarius* sagittarius = new Sagittarius();
-		sagittarius->Init({ WINSIZE_X * 0.8f,300.f });
-		AddObject(sagittarius, OBJTYPE::OBJ_MONSTER);
+		Moon* moon = new Moon();
+		moon->Init();
+		AddObject(moon, OBJTYPE::OBJ_MONSTER);
 	}
 
 	// 테스트 코드 BlimpEnemy 생성

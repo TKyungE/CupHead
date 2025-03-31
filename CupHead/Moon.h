@@ -1,0 +1,45 @@
+#pragma once
+#include "Character.h"
+
+class Collider;
+class Moon : public Character
+{
+private:
+	enum class EMoonState : uint8_t
+	{
+		Idle,
+		Attack,
+		Dead,
+		End
+	};
+public:
+	Moon();
+	virtual ~Moon() = default;
+
+public:
+	virtual void Init() override;
+	virtual void Release() override;
+	virtual void Update() override;
+	virtual void Render(HDC hdc) override;
+	virtual void TakeDamage(int damage = 0) override;
+
+private:
+	void Idle();
+	void Attack();
+	void Dead();
+
+	void UFOSpawn();
+
+private:
+	EMoonState State;
+	Collider* ColliderComponent;
+
+	float CurrentAttackTime;
+	float AttackTime;
+	int CurrentAttackCount;
+	int AttackCount;
+
+	float CurrentUFOTime;
+	float UFOSpawnTime;
+};
+

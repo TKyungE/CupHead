@@ -8,7 +8,8 @@
 #include "EffectManager.h"
 
 SagittariusStar::SagittariusStar(FPOINT InPos, float InGuidedTime, float InAngle)
-	: State(EStarState::End), GuidedTime(InGuidedTime), Angle(InAngle), CurrentTime(0.f), AngularVelocity(0.f), maxAngularAcceleration(0.f), maxAngularVelocity(0.f), friction(0.f), TrailPos()
+	: State(EStarState::End), GuidedTime(InGuidedTime), Angle(InAngle), CurrentTime(0.f), AngularVelocity(0.f),
+	maxAngularAcceleration(0.f), maxAngularVelocity(0.f), friction(0.f), TrailPos()
 {
 	pos = InPos;
 	StartPos = InPos;

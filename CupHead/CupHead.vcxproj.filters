@@ -55,6 +55,9 @@
     <Filter Include="MainGame\BackGround">
       <UniqueIdentifier>{3cc5650b-eaac-4d13-9cd1-703e14f33d42}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\Moon">
+      <UniqueIdentifier>{3a1e8550-902f-43d0-b1ea-4a3d4ae13e22}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -152,6 +155,12 @@
     </ClCompile>
     <ClCompile Include="BackGround.cpp">
       <Filter>MainGame\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Tornado.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Moon.cpp">
+      <Filter>MainGame\Enemy\Moon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -256,6 +265,12 @@
     </ClInclude>
     <ClInclude Include="BackGround.h">
       <Filter>MainGame\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Tornado.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Moon.h">
+      <Filter>MainGame\Enemy\Moon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
