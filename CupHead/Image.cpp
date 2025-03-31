@@ -184,7 +184,7 @@ void Image::Render(HDC hdc, int destX, int destY, int frameIndex, bool isFlip)
     }
 }
 
-void Image::FrameRenderLoop(HDC hdc, int destX, int destY, 
+void Image::FrameRenderLoop(HDC hdc, int destX, int destY,
     int frameX, int frameY, bool isFlip, bool isLoop)
 {
     if (!isLoop)
@@ -193,57 +193,9 @@ void Image::FrameRenderLoop(HDC hdc, int destX, int destY,
         return;
     }
 
-    int x = destX - (imageInfo->frameWidth / 2);
-    int y = destY - (imageInfo->frameHeight / 2);
-
-    imageInfo->currFrameX = frameX;
-    imageInfo->currFrameY = frameY;
-
-    if (isFlip && isTransparent)
-    {
-        StretchBlt(imageInfo->hTempDC, 0, 0,
-            imageInfo->frameWidth, imageInfo->frameHeight,
-            imageInfo->hMemDC,
-            (imageInfo->frameWidth * imageInfo->currFrameX) + (imageInfo->frameWidth - 1),
-            imageInfo->frameHeight * imageInfo->currFrameY,
-            -imageInfo->frameWidth, imageInfo->frameHeight,
-            SRCCOPY
-        );
-
-        GdiTransparentBlt(hdc,
-            x, y,
-            imageInfo->frameWidth, imageInfo->frameHeight,
-
-            imageInfo->hTempDC,
-            0, 0,
-            imageInfo->frameWidth, imageInfo->frameHeight,
-            transColor);
-    }
-    else if (isTransparent)
-    {
-        GdiTransparentBlt(hdc,
-            x, y,
-            imageInfo->frameWidth, imageInfo->frameHeight,
-
-            imageInfo->hMemDC,
-            imageInfo->frameWidth * imageInfo->currFrameX,
-            imageInfo->frameHeight * imageInfo->currFrameY,
-            imageInfo->frameWidth, imageInfo->frameHeight,
-            transColor);
-    }
-    else
-    {
-        BitBlt(
-            hdc,
-            x, y,
-            imageInfo->frameWidth,
-            imageInfo->frameHeight,
-            imageInfo->hMemDC,
-            imageInfo->frameWidth * imageInfo->currFrameX, 
-            imageInfo->frameHeight * imageInfo->currFrameY,
-            SRCCOPY
-        );
-    }
+    int width = imageInfo->frameWidth;
+    FrameRender(hdc, destX, destY, frameX, frameY, isFlip);
+    FrameRender(hdc, destX + width, destY, frameX, frameY, isFlip);
 }
 
 void Image::FrameRender(HDC hdc, int destX, int destY, 

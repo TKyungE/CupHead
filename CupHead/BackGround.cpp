@@ -49,14 +49,14 @@ void BackGround::Update()
 
 	if (Loop)
 	{
-		if (pos.x <= 0)
+		if (GetRightPos() <= 0)
 		{
-			pos.x = WINSIZE_X;
+			pos.x += width;
 		}
 	}
 	else
 	{
-		if (pos.x + width <= 0)
+		if (GetRightPos() <= 0)
 		{
 			IsOut = true;
 		}
@@ -68,21 +68,14 @@ void BackGround::Render(HDC hdc)
 	if (IsOut) return;
 	if (image != nullptr)
 	{
-		if (!Loop)
-		{
-			image->FrameRender(hdc, pos.x, pos.y, 0, 0);
-		}
-		else
-		{
-			image->FrameRender(hdc, pos.x, pos.y, 0, 0);
-		}
+		image->FrameRenderLoop(hdc, pos.x, pos.y, 0, 0, 0, Loop);
 	}
 }
 
 float BackGround::GetRightPos() const
 {
-	int width{};
-	if (image) width = image->GetFrameWidth();
+	float width{};
+	if (image) width = (float)image->GetFrameWidth();
 	return pos.x + width / 2.f;
 }
 
@@ -440,7 +433,7 @@ void BackGroundManager::Init()
 		fw = image->GetFrameWidth();
 		fh = image->GetFrameHeight();
 	}
-	BackGround* background = new BackGround({ WINSIZE_X / 2.f, WINSIZE_Y / 2.f }, image, 1, true);
+	BackGround* background = new BackGround({ WINSIZE_X / 2.f, WINSIZE_Y / 2.f }, image, 10, true);
 	background->Init();
 	BackGroundList[imageBackType].emplace_back(background);
 
@@ -456,7 +449,7 @@ void BackGroundManager::Init()
 		fw = image->GetFrameWidth();
 		fh = image->GetFrameHeight();
 	}
-	background = new BackGround({ WINSIZE_X / 2.f, WINSIZE_Y / 4.f }, image, 10, false);
+	background = new BackGround({ WINSIZE_X / 2.f, WINSIZE_Y / 4.f }, image, 20, false);
 	background->Init();
 	BackGroundList[imageBackType].emplace_back(background);
 
@@ -472,7 +465,7 @@ void BackGroundManager::Init()
 		fw = image->GetFrameWidth();
 		fh = image->GetFrameHeight();
 	}
-	background = new BackGround({ WINSIZE_X / 2.f, WINSIZE_Y - fh/2.f }, image, 100, false);
+	background = new BackGround({ WINSIZE_X / 2.f, WINSIZE_Y - fh/2.f }, image, 300, true);
 	background->Init();
 	BackGroundList[imageBackType].emplace_back(background);
 
