@@ -46,7 +46,7 @@ void Tornado::Init(FPOINT _pos)
 	CurState = TornadoInfo::EState::STATE_END;
 
 	// 일단 애니메이션 속도 전부 10.f
-	for (int state = TornadoInfo::EState::INTRO; state < TornadoInfo::EState::STATE_END; ++state)
+	for (int state = 0; state < TornadoInfo::EState::STATE_END; ++state)
 	{
 		AnimData.push_back({ TornadoInfo::states[state], 10.f });
 	}
