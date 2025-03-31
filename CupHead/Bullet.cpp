@@ -66,8 +66,8 @@ void Bullet::Init(FPOINT _pos, float _Angle, BulletInfo::EBulletType imageType)
 	size = { 1.f,1.f };
 	bDead = false;
 
-	int sizeX = GetWidth();
-	int sizeY = GetHeight();
+	float sizeX = GetWidth();
+	float sizeY = GetHeight();
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER_WEAPON);
@@ -92,7 +92,7 @@ void Bullet::Render(HDC hdc)
 {
 	if (image)
 	{
-		image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, false);
+		image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, false);
 	}
 }
 
@@ -108,7 +108,7 @@ float Bullet::GetWidth()
 {
 	if (image)
 	{
-		return image->GetFrameWidth();
+		return (float)image->GetFrameWidth();
 	}
 	return 0.0f;
 }
@@ -117,7 +117,7 @@ float Bullet::GetHeight()
 {
 	if (image)
 	{
-		return image->GetFrameHeight();
+		return (float)image->GetFrameHeight();
 	}
 	return 0.0f;
 }

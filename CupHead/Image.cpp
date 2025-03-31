@@ -188,6 +188,20 @@ void Image::Render(HDC hdc, int destX, int destY, int frameIndex, bool isFlip)
     }
 }
 
+void Image::FrameRenderLoop(HDC hdc, int destX, int destY,
+    int frameX, int frameY, bool isFlip, bool isLoop)
+{
+    if (!isLoop)
+    {
+        FrameRender(hdc, destX, destY, frameX, frameY, isFlip);
+        return;
+    }
+
+    int width = imageInfo->frameWidth;
+    FrameRender(hdc, destX, destY, frameX, frameY, isFlip);
+    FrameRender(hdc, destX + width, destY, frameX, frameY, isFlip);
+}
+
 void Image::FrameRender(HDC hdc, int destX, int destY, 
     int frameX, int frameY, bool isFlip)
 {
