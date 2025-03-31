@@ -110,7 +110,7 @@ void MainGame::Release()
 
 void MainGame::Update()
 {
-	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_SPACE))
+	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_ESCAPE))
 		bPause = !bPause;
 
 	if (bPause)
