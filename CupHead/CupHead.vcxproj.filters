@@ -76,6 +76,12 @@
     <Filter Include="MainGame\UI\KnockOut">
       <UniqueIdentifier>{c5ef2cd6-80ed-4fb5-9c48-3a8e7630c71c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\Laugh">
+      <UniqueIdentifier>{bff62b1b-6cea-4bbf-b3da-d91ce8c64590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Star">
+      <UniqueIdentifier>{92969c5f-8b52-42c7-a0c9-8c9cdf03092e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -141,18 +147,6 @@
     <ClCompile Include="UFOBeam.cpp">
       <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
     </ClCompile>
-    <ClCompile Include="LaughProjectile.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="StarProjectile.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectManager.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Sagittarius.cpp">
       <Filter>MainGame\Enemy\Sagittarius</Filter>
     </ClCompile>
@@ -182,6 +176,21 @@
     </ClCompile>
     <ClCompile Include="KnockOut.cpp">
       <Filter>MainGame\UI\KnockOut</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>2D Framework</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMissile.cpp">
+      <Filter>MainGame\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="LaughProjectile.cpp">
+      <Filter>MainGame\Enemy\Laugh</Filter>
+    </ClCompile>
+    <ClCompile Include="StarProjectile.cpp">
+      <Filter>MainGame\Enemy\Star</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -254,18 +263,6 @@
     <ClInclude Include="UFOBeam.h">
       <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
     </ClInclude>
-    <ClInclude Include="LaughProjectile.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="StarProjectile.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectManager.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Sagittarius.h">
       <Filter>MainGame\Enemy\Sagittarius</Filter>
     </ClInclude>
@@ -295,6 +292,21 @@
     </ClInclude>
     <ClInclude Include="KnockOut.h">
       <Filter>MainGame\UI\KnockOut</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>2D Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMissile.h">
+      <Filter>MainGame\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="LaughProjectile.h">
+      <Filter>MainGame\Enemy\Laugh</Filter>
+    </ClInclude>
+    <ClInclude Include="StarProjectile.h">
+      <Filter>MainGame\Enemy\Star</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

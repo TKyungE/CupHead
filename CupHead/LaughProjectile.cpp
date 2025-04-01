@@ -11,7 +11,7 @@ LaughProjectile::LaughProjectile() : LookAngle(0.f), MoveValue(0.f)
 	Speed = 300.f;
 	LookAngle = DEG_TO_RAD(180.f);
 	FrameSpeed = 15.f;
-	SinValue = 0.005f;
+	SinValue = 0.1f;
 	IsStayMaxFrame = true;
 	int MaxAnimationFrame = 13;
 	image = ImageManager::GetInstance()->AddImage("blimp_ha", TEXT("Image/CupHead/Hilda Berg/Normal/Attack/blimp_ha.bmp"), 2262, 74, MaxAnimationFrame, 1, true, RGB(255, 0, 255));
@@ -60,18 +60,18 @@ void LaughProjectile::Move()
 	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
 
 	MoveValue += DeltaTime;
-	SinValue += DeltaTime * 0.05f;
-	Speed += DeltaTime * 350.f;
+	SinValue += DeltaTime * 0.15f;
+	Speed += DeltaTime * 1200.f;
 
-	SinValue = min(0.07f, SinValue);
-	Speed = min(500.f, Speed);
+	SinValue = min(0.25f, SinValue);
+	Speed = min(2000.f, Speed);
 
 	float BaseDirX = cosf(LookAngle);
 	float BaseDirY = -sinf(LookAngle);
 	float PerDirX = -BaseDirY;
 	float PerDirY = BaseDirX;
 
-	float WaveOffset = SinValue * sinf(10.f * MoveValue);
+	float WaveOffset = SinValue * sinf(15.f * MoveValue);
 	//float waveOffset = cosf(float(MoveValue));
 
 	pos.x += (Speed * DeltaTime) * BaseDirX + PerDirX * WaveOffset;
@@ -79,6 +79,6 @@ void LaughProjectile::Move()
 
 	if (OutOfScreen(FPOINT{ pos.x + image->GetFrameWidth() * 0.5f, pos.y }, image->GetFrameWidth(), image->GetFrameHeight()))
 	{
-		//bDead = true;
+		bDead = true;
 	}
 }

@@ -3,25 +3,64 @@
 
 class Image;
 
+enum PLAYERSTATE
+{
+	PLAYER_IDLE, PLAYER_MOVE, PLAYER_ATTACK, PLAYER_END
+};
+
+enum UPDOWN
+{
+	UPDOWN_NONE, UPDOWN_UP, UPDOWN_DOWN, UPDOWN_END
+};
+
 class Player : public Character
 {
+
 public:
 	Player();
 	~Player();
 
-	void Init(FPOINT pos,FPOINT size);		
-	void Release();		
-	void Update();		
-	void Render(HDC hdc);
+	
 
+public:
+	virtual void Init() override;
+	void Init(FPOINT pos, FPOINT size);
+	
+	virtual void Release() override;
+	virtual void Update() override;
+	virtual void UpdateFrame() override;
+	virtual void Render(HDC hdc) override;
+
+	virtual void Move() override;
+	virtual void TakeDamage(int damage = 0) override;
+
+	void Action();
+	void ImageInit();
+
+	void UpdateInput();
+	void UpdateState();
+	void UpdateToUpState();
+	void UpdateToDownState();
+	void UpdateToNoneState();
+
+	void Fire();
+
+	//void UpdateUpDownState();
 	void EffectTestInit();
-	void EffectTest();
 
 	//virtual void TakeDamage(int damage = 0);
 
-	void Move();
-
 private:
-	Image* image;
+	int FrameDir;
+	int FireCnt;
+	float FireTime;
+	float FireCoolTime;
+	float AlphaTime;
+	float MaxAlphaTime;
+	UPDOWN PreUpDownState;
+	UPDOWN CurUpDownState;
+	PLAYERSTATE PreState;
+	PLAYERSTATE CurState;
+	Image* NextImage;
 };
 
