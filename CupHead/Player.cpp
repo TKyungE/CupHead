@@ -31,13 +31,14 @@ void Player::Init(FPOINT pos, FPOINT size)
 	//image = nullptr;
 	Speed = 700.f;
 	FrameSpeed = 30.f;
+	Hp = 8;
 	/*image = ImageManager::GetInstance()->AddImage(
 		"Normal_Enemy", TEXT("Image/Test/blimp_dash.bmp"), 21168, 415, 24, 1,
 		true, RGB(255, 0, 255));*/
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { 105.f, 85.f }, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER);
-
+	
 	ImageInit();
 	EffectTestInit();										
 }
@@ -506,4 +507,5 @@ void Player::TakeDamage(int damage)
 	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx", pos, 0.5f);
 	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx_b", { pos.x - 50.f, pos.y }, 0.5f);
 	AlphaTime = MaxAlphaTime;
+	Hp = max(0, Hp - 1);
 }
