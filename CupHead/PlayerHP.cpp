@@ -16,7 +16,7 @@ void PlayerHP::Init()
 
 	image = ImageManager::GetInstance()->AddImage("PlayerHP", L"Image/CupHead/UI/Player/HP/PlayerHP.bmp", 481, 69, 6, 2, true, RGB(255, 0, 255));
 
-	pos = { (float)image->GetFrameWidth() * 0.5f,WINSIZE_Y - (float)image->GetFrameHeight() * 0.5f };
+	pos = { (float)image->GetFrameWidth(),WINSIZE_Y - ((float)image->GetFrameHeight())};
 }
 
 void PlayerHP::Update()

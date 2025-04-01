@@ -17,7 +17,7 @@ void TrumpCardManager::Init(int InBulletCount, int InCardCount)
 	{
 		// 20과 30은 은 트럼프 이미지의 카드 하나 사이즈다.
 		TrumpCard* trumpCard = new TrumpCard();
-		trumpCard->Init({ float(80 + 20 * (i + 1)),(float)WINSIZE_Y }, MaxCount / InCardCount);
+		trumpCard->Init({ float((80 + 20 * 2) + 20 * (i + 1)),(float)WINSIZE_Y }, MaxCount / InCardCount);
 
 		ObjectManager::GetInstance()->AddObject(trumpCard, OBJTYPE::OBJ_UI);
 		TrumpCards.push_back(trumpCard);
