@@ -1,17 +1,9 @@
 #include "MainGame.h"
 #include "CommonFunction.h"
 #include "Image.h"
-#include "Timer.h"
-#include "CollisionManager.h"
-#include "ObjectManager.h"
-#include "EffectManager.h"
-
-#include "LaughProjectile.h"
-#include "StarProjectile.h"
-
 #include "BackGround.h"
-#include "Tornado.h"
-#include "Fade.h"
+#include "ScreenFX.h"
+#include "LevelManager.h"
 
 void MainGame::Init()
 {
@@ -28,40 +20,15 @@ void MainGame::Init()
 	}
 	// C:\Programming\Git\CupHead\CupHead\CupHead\Image\CupHead\BackGround
 
-	backGround = new Image();
-	//if (FAILED(backGround->Init(TEXT("Image/BackGround.bmp"), WINSIZE_X, WINSIZE_Y)))
-	if (FAILED(backGround->Init(TEXT("Image/background1.bmp"), WINSIZE_X, WINSIZE_Y)))
-	{
-		/*MessageBox(g_hWnd,
-			TEXT("Image/backGround.bmp ���� ����"), TEXT("���?"), MB_OK);*/
-	}
+	LevelManager = LevelManager::GetInstance();
+	LevelManager->Init();
 
-	backgroundManager = new BackGroundManager;
-	backgroundManager->Init();
-
-	// �������� ���ʹ̸Ŵ���.. �ּ�Ǯ�� �� �߻� 
-	//enemyManager = new EnemyManager();
-	//enemyManager->Init();
-
-	Objectmanager = ObjectManager::GetInstance();
-	Objectmanager->Init();
-
-	collisionManager = CollisionManager::GetInstance();
-	collisionManager->Init();
-
-	EffectManager = EffectManager::GetInstance();
-	EffectManager->Init();
+	ScreenFx = new ScreenFX();
+	ScreenFx->Init();
 }
 
 void MainGame::Release()
 {
-	if (backGround)
-	{
-		backGround->Release();
-		delete backGround;
-		backGround = nullptr;
-	}
-
 	if (backBuffer)
 	{
 		backBuffer->Release();
@@ -69,29 +36,17 @@ void MainGame::Release()
 		backBuffer = nullptr;
 	}
 
-	if (backgroundManager)
+	if (ScreenFx)
 	{
-		backgroundManager->Release();
-		delete backgroundManager;
-		backgroundManager = nullptr;
+		ScreenFx->Release();
+		delete ScreenFx;
+		ScreenFx = nullptr;
 	}
 
-	if (collisionManager)
+	if (LevelManager)
 	{
-		collisionManager->Release();
-		collisionManager = nullptr;
-	}
-
-	if (Objectmanager)
-	{
-		Objectmanager->Release();
-		Objectmanager = nullptr;
-	}
-
-	if (EffectManager)
-	{
-		EffectManager->Release();
-		EffectManager = nullptr;
+		LevelManager->Release();
+		LevelManager = nullptr;
 	}
 
 	ReleaseDC(g_hWnd, hdc);
@@ -108,94 +63,29 @@ void MainGame::Update()
 	if (bPause)
 		return;
 
-	// Test. Tornado
-	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_RBUTTON))
-	{
-		Tornado* tornado = new Tornado();
-		tornado->Init(mousePos);
-		Objectmanager->AddObject(tornado, OBJTYPE::OBJ_MONSTER_WEAPON);
-	}
+	if (LevelManager)
+		LevelManager->Update();
 
-	// Test Fade
-	if (KeyManager::GetInstance()->IsOnceKeyDown('T'))
-	{
-		Fade* fade = new Fade();
-		fade->Init(EFadeMode::FadeIn);
-		Objectmanager->AddObject(fade, OBJTYPE::OBJ_UI);
-	}
-	if (KeyManager::GetInstance()->IsOnceKeyDown('Y'))
-	{
-		Fade* fade = new Fade();
-		fade->Init(EFadeMode::FadeOut);
-		Objectmanager->AddObject(fade, OBJTYPE::OBJ_UI);
-	}
-
-
-	// Test Star
-	//srand(time(NULL));
-	//if (KeyManager::GetInstance()->IsOnceKeyDown(VK_RETURN))
-	//{
-	//	for (int i = 0; i < 3; ++i)
-	//	{
-	//		
-	//		StarProjectile* star = new StarProjectile(StarType(i));
-	//		star->Init({ mousePos.x, float(mousePos.y + (i - 1) * 150) });
-	//		Objectmanager->AddObject(star, OBJTYPE::OBJ_MONSTER_WEAPON);
-	//	}
-	//}
-
-	if (backgroundManager)
-		backgroundManager->Update();
-	// Test Laugh
-	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_RETURN))
-	{
-		LaughProjectile* Laugh = new LaughProjectile();
-		Laugh->Init(mousePos);
-		ObjectManager::GetInstance()->AddObject(Laugh, OBJTYPE::OBJ_MONSTER_WEAPON);
-	}
-
-	if (Objectmanager)
-		Objectmanager->Update();
-	if (collisionManager)
-		collisionManager->Update();
-
-	if (nullptr != EffectManager)
-	{
-		EffectManager->Update();
-	}
+	if (ScreenFx)
+		ScreenFx->Update();
 }
 
 void MainGame::Render()
 {
-	// ����ۿ�? ���� ����
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
-	backGround->Render(hBackBufferDC);
+	BitBlt(hBackBufferDC, 0, 0, WINSIZE_X, WINSIZE_Y, hBackBufferDC, 0, 0, WHITENESS);
 
-	if (backgroundManager)
-		backgroundManager->RenderBackGround(hBackBufferDC);
+	if (LevelManager)
+		LevelManager->Render(hBackBufferDC);
 
-	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), (int)mousePos.x, (int)mousePos.y);
+	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), (int)g_MousePos.x, (int)g_MousePos.y);
 	TextOut(hBackBufferDC, 20, 60, szText, (int)wcslen(szText));
-
-	if (Objectmanager)
-		Objectmanager->Render(hBackBufferDC);
-
-	if (collisionManager)
-		collisionManager->Render(hBackBufferDC);
-
-	if (EffectManager)
-	{
-		EffectManager->Render(hBackBufferDC);
-	}
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 
-	if (backgroundManager)
-		backgroundManager->RenderForeGround(hBackBufferDC);
-
-	if (Objectmanager)
-		Objectmanager->RenderUI(hBackBufferDC);
+	/*if (ScreenFx)
+		ScreenFx->Render(hBackBufferDC);*/
 
 	backBuffer->Render(hdc);
 }
@@ -205,8 +95,8 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 	switch (iMessage)
 	{
 	case WM_MOUSEMOVE:
-		mousePos.x = LOWORD(lParam);
-		mousePos.y = HIWORD(lParam);
+		g_MousePos.x = LOWORD(lParam);
+		g_MousePos.y = HIWORD(lParam);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -217,7 +107,7 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 }
 
 MainGame::MainGame()
-	:bPause(false)
+	:backBuffer(nullptr), ScreenFx(nullptr), LevelManager(nullptr), bPause(false)
 {
 }
 

@@ -94,6 +94,18 @@
     <Filter Include="MainGame\UI\ScreenFX">
       <UniqueIdentifier>{8e571a5b-a2ec-4e72-a036-7184509c91ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\Level">
+      <UniqueIdentifier>{e52ce03a-6925-4c9d-bf41-46b5d1493a0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Level">
+      <UniqueIdentifier>{ea61fab0-2af6-4482-b034-210473c70405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\MainTitle">
+      <UniqueIdentifier>{22036bb1-a26c-454e-8286-b5daa529ce32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\StartBtn">
+      <UniqueIdentifier>{5b081e03-d8d3-419f-94a0-f5a1e95370eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -224,6 +236,30 @@
     </ClCompile>
     <ClCompile Include="ScreenFX.cpp">
       <Filter>MainGame\UI\ScreenFX</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>2D Framework\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>2D Framework\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelLogo.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelMain.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Level1.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelResult.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="MainTitle.cpp">
+      <Filter>MainGame\UI\MainTitle</Filter>
+    </ClCompile>
+    <ClCompile Include="StartBtn.cpp">
+      <Filter>MainGame\UI\StartBtn</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -361,6 +397,30 @@
     </ClInclude>
     <ClInclude Include="ScreenFX.h">
       <Filter>MainGame\UI\ScreenFX</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>2D Framework\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>2D Framework\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLogo.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelMain.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level1.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelResult.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="MainTitle.h">
+      <Filter>MainGame\UI\MainTitle</Filter>
+    </ClInclude>
+    <ClInclude Include="StartBtn.h">
+      <Filter>MainGame\UI\StartBtn</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
