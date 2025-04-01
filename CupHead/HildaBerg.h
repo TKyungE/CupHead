@@ -23,10 +23,14 @@ public:
 
 private:
 	void ChangeForm();
+	void SpawnEnemy();
 
 private:
 	Character* HildaForm;
 	int Phase;
 	float Angle;
+
+	float ElapsedSpawnTime;
+	float SpawnCoolTime;
 };
 

@@ -29,7 +29,7 @@ public:
 	BlimpEnemy();
 	virtual ~BlimpEnemy();
 
-	void Init(BlimpEnemyInfo::EColor _Color, int _BulletNum);
+	void Init(BlimpEnemyInfo::EColor _Color, int _BulletNum, FPOINT _Pos);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
@@ -37,6 +37,7 @@ public:
 	virtual void UpdateFrame() override;
 
 	virtual void Move() override;
+	virtual void TakeDamage(int damage = 0) override;
 
 private:
 	void UpdateState();

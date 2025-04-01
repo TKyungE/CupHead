@@ -4,9 +4,13 @@
 #include "Taurus.h"
 #include "Sagittarius.h"
 #include "Moon.h"
+#include "BlimpEnemy.h"
+#include "StarProjectile.h"
+#include "ObjectManager.h"
 
 HildaBerg::HildaBerg()
-	: HildaForm{}, Phase{}, Angle{}
+	: HildaForm{}, Phase{}, Angle{},
+	ElapsedSpawnTime{}, SpawnCoolTime{ 3.f }
 {
 }
 
@@ -46,10 +50,18 @@ void HildaBerg::Update()
 			HildaForm->Release();
 			delete HildaForm;
 			HildaForm = NULL;
+			ElapsedSpawnTime = 0.f;
 		}
 	}
 
 	if (!HildaForm) ChangeForm();
+
+	ElapsedSpawnTime += TimerManager::GetInstance()->GetDeltaTime();
+	if (ElapsedSpawnTime >= SpawnCoolTime)
+	{
+		SpawnEnemy();
+		ElapsedSpawnTime = 0.f;
+	}
 }
 
 void HildaBerg::Render(HDC hdc)
@@ -66,6 +78,7 @@ void HildaBerg::ChangeForm()
 		HildaBlimp* blimp = new HildaBlimp(0);
 		blimp->Init(pos, Angle);
 		HildaForm = blimp;
+		SpawnCoolTime = 6.f;
 		++Phase;
 		break;
 	}
@@ -74,6 +87,7 @@ void HildaBerg::ChangeForm()
 		Taurus* taurus = new Taurus();
 		taurus->Init(pos, Angle);
 		HildaForm = taurus;
+		SpawnCoolTime = 5.f;
 		++Phase;
 		break;
 	}
@@ -82,6 +96,7 @@ void HildaBerg::ChangeForm()
 		HildaBlimp* blimp = new HildaBlimp(1);
 		blimp->Init(pos, Angle);
 		HildaForm = blimp;
+		SpawnCoolTime = 5.f;
 		++Phase;
 		break;
 	}
@@ -90,6 +105,7 @@ void HildaBerg::ChangeForm()
 		Sagittarius* sag = new Sagittarius();
 		sag->Init(pos, Angle);
 		HildaForm = sag;
+		SpawnCoolTime = 4.f;
 		++Phase;
 		break;
 	}
@@ -98,6 +114,7 @@ void HildaBerg::ChangeForm()
 		HildaBlimp* blimp = new HildaBlimp(2);
 		blimp->Init(pos, Angle);
 		HildaForm = blimp;
+		SpawnCoolTime = 4.f;
 		++Phase;
 		break;
 	}
@@ -106,7 +123,73 @@ void HildaBerg::ChangeForm()
 		Moon* moon = new Moon();
 		moon->Init();
 		HildaForm = moon;
+		SpawnCoolTime = 2.f;
 		++Phase;
+		break;
+	}
+	}
+}
+
+void HildaBerg::SpawnEnemy()
+{
+	std::uniform_int_distribution<int> uidY{ 100, WINSIZE_Y - 100 };
+	switch (Phase)
+	{
+	case 0:	case 1:
+	{
+		BlimpEnemy* blimpEnemy = new BlimpEnemy();
+		blimpEnemy->Init(BlimpEnemyInfo::EColor::PURPLE, 1, { WINSIZE_X + 100.f, (float)uidY(dre) });
+		ObjectManager::GetInstance()->AddObject(blimpEnemy, OBJ_MONSTER);
+		break;
+	}
+	case 2:	// normal
+	{
+		bool PurpleEnemy = uid(dre) % 10;
+		BlimpEnemyInfo::EColor color{};
+		int bulletNum{};
+		if (PurpleEnemy)
+		{
+			color = BlimpEnemyInfo::EColor::PURPLE;
+			bulletNum = 1;
+		}
+		else
+		{
+			color = BlimpEnemyInfo::EColor::GREEN;
+			bulletNum = 4;
+		}
+		BlimpEnemy* blimpEnemy = new BlimpEnemy();
+		blimpEnemy->Init(color, bulletNum, { WINSIZE_X + 100.f, (float)uidY(dre) });
+		ObjectManager::GetInstance()->AddObject(blimpEnemy, OBJ_MONSTER);
+		break;
+	}
+	case 3:	case 4:
+	{
+		bool spawnOnce = uid(dre) % (10 - Phase * 2);
+		int spawnNum = spawnOnce ? 1 : 2;
+		for (int i = 0; i < spawnNum; ++i)
+		{
+			bool PurpleEnemy = uid(dre) % 10;
+			BlimpEnemyInfo::EColor color{};
+			int bulletNum{};
+			if (PurpleEnemy)
+			{
+				color = BlimpEnemyInfo::EColor::PURPLE;
+				bulletNum = 1;
+			}
+			else
+			{
+				color = BlimpEnemyInfo::EColor::GREEN;
+				bulletNum = 4;
+			}
+			BlimpEnemy* blimpEnemy = new BlimpEnemy();
+			blimpEnemy->Init(color, bulletNum, { WINSIZE_X + 100.f, (float)uidY(dre) });
+			ObjectManager::GetInstance()->AddObject(blimpEnemy, OBJ_MONSTER);
+		}
+		break;
+	}
+	case 5:	// moon
+	{
+		// Moon Phase Star Spawn
 		break;
 	}
 	}

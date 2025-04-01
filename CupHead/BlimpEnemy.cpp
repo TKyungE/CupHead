@@ -22,7 +22,7 @@ BlimpEnemy::~BlimpEnemy()
 {
 }
 
-void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum)
+void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum, FPOINT _Pos)
 {
 #pragma region Image Load
 	// Image 나중에 다른데서 한꺼번에 Load
@@ -97,9 +97,9 @@ void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum)
 
 	SetState(BlimpEnemyInfo::EState::IDLE, false);
 
-	Speed = 200.f;
+	Speed = 400.f;
 	IsFlip = false;
-	pos = { WINSIZE_X, WINSIZE_Y / 2 };
+	pos = _Pos;
 	size = { 1.f,1.f };
 	bDead = false;
 
@@ -174,6 +174,15 @@ void BlimpEnemy::Move()
 {
 	pos.x += Dx * Speed * TimerManager::GetInstance()->GetDeltaTime();
 	pos.y += Dy * Speed * TimerManager::GetInstance()->GetDeltaTime();
+}
+
+void BlimpEnemy::TakeDamage(int damage)
+{
+	Hp -= damage;
+	if (Hp <= 0)
+	{
+		bDead = true;
+	}
 }
 
 void BlimpEnemy::UpdateState()

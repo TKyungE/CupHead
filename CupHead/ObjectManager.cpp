@@ -38,11 +38,6 @@ void ObjectManager::Init()
 		AddObject(knockOut, OBJTYPE::OBJ_UI);
 	}
 
-	// Test. BlimpEnemy
-	BlimpEnemy* blimpEnemy = new BlimpEnemy();
-	blimpEnemy->Init(BlimpEnemyInfo::EColor::GREEN, 5);
-	AddObject(blimpEnemy, OBJTYPE::OBJ_MONSTER);
-
 	// Test. HildaBerg
 	HildaBerg* hilda = new HildaBerg();
 	hilda->Init();
