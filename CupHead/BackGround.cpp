@@ -431,7 +431,7 @@ void BackGroundManager::Init()
 	// cloud
 	imageBackType = BackGroundInfo::EBackGroundType::CLOUD;
 	imageNum = 0;
-	AddBackGround(imageBackType, imageNum, 10, true, true, false);
+	AddBackGround(imageBackType, imageNum, 30, true, true, false);
 
 	// dark hill
 	imageBackType = BackGroundInfo::EBackGroundType::DARK_HILL;

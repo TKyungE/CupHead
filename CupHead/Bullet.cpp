@@ -60,7 +60,7 @@ void Bullet::Init(FPOINT _pos, float _Angle, BulletInfo::EBulletType imageType)
 	FrameSpeed = 10.f;
 	FrameTime = 0.f;
 
-	Speed = 200.f;
+	Speed = 500.f;
 	IsFlip = false;
 	pos = _pos;
 	size = { 1.f,1.f };

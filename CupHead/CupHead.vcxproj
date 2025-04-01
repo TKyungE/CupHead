@@ -138,6 +138,8 @@
     <ClCompile Include="EffectManager.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="HildaBerg.cpp" />
+    <ClCompile Include="HildaBlimp.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="KeyManager.cpp" />
@@ -162,6 +164,7 @@
     <ClCompile Include="StarProjectile.cpp" />
     <ClCompile Include="SagittariusArrow.cpp" />
     <ClCompile Include="SagittariusStar.cpp" />
+    <ClCompile Include="Taurus.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="Tornado.cpp" />
@@ -185,6 +188,8 @@
     <ClInclude Include="EffectManager.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="HildaBerg.h" />
+    <ClInclude Include="HildaBlimp.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="KeyManager.h" />
@@ -209,6 +214,7 @@
     <ClInclude Include="ScreenFX.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="StarProjectile.h" />
+    <ClInclude Include="Taurus.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
     <ClInclude Include="Tornado.h" />

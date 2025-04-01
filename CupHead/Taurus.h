@@ -1,35 +1,27 @@
 #pragma once
 #include "Character.h"
 
-namespace BlimpEnemyInfo
+namespace TaurusInfo
 {
 	enum EState
 	{
 		IDLE,
 		ATTACK,
-		TURN,
 		STATE_END
 	};
 
 	extern string states[EState::STATE_END];
-
-	enum EColor
-	{
-		PURPLE,
-		GREEN,
-		COLOR_END,
-	};
-
-	extern string colors[EColor::COLOR_END];
 }
 
-class BlimpEnemy : public Character
+class Collider;
+class Taurus : public Character
 {
 public:
-	BlimpEnemy();
-	virtual ~BlimpEnemy();
+	Taurus();
+	virtual ~Taurus();
 
-	void Init(BlimpEnemyInfo::EColor _Color, int _BulletNum, FPOINT _Pos);
+public:
+	void Init(FPOINT _Pos, float _Angle = 0);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
@@ -39,28 +31,32 @@ public:
 	virtual void Move() override;
 	virtual void TakeDamage(int damage = 0) override;
 
+	virtual float GetMoveAngle() override { return Angle; }
+
 private:
 	void UpdateState();
+	void SetState(TaurusInfo::EState NewState);
 
-	void FireBullet();
-
-	void SetState(BlimpEnemyInfo::EState NewState, bool AnimReverse);
+	void Dash();
+	void Recover();
 
 	// 나중에 옮기든지..
 	float GetWidth();
 	float GetHeight();
 
 private:
-	float Dx;
-	float Dy;
+	float Angle;
+	float AngleSpeed;
 
-	string Color;
-	int BulletNum;
-	bool IsFired;
-
-	BlimpEnemyInfo::EState CurState;
+	TaurusInfo::EState CurState;
 	vector<pair<string, float>> AnimData;
 	bool IsAnimEnd;
-	bool IsAnimReverse;
+
+	float ElapsedAttackTime;
+	float AttackCoolTime;
+
+	FPOINT PosBefore;
+
+	Collider* AttackCollider;
 };
 

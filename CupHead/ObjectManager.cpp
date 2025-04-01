@@ -8,6 +8,7 @@
 #include "KnockOut.h"
 #include "TrumpCardManager.h"
 #include "ReadyWallop.h"
+#include "HildaBerg.h"
 
 void ObjectManager::Init()
 {
@@ -18,10 +19,10 @@ void ObjectManager::Init()
 		player->Init({ 100.f,100.f }, { 105.f, 95.f });
 		AddObject(player, OBJTYPE::OBJ_PLAYER);
 
-		//// 테스트 코드 Sagittarius 생성
-		Sagittarius* sagittarius = new Sagittarius();
-		sagittarius->Init({ WINSIZE_X * 0.8f,300.f });
-		AddObject(sagittarius, OBJTYPE::OBJ_MONSTER);
+		////// 테스트 코드 Sagittarius 생성
+		//Sagittarius* sagittarius = new Sagittarius();
+		//sagittarius->Init({ WINSIZE_X * 0.8f,300.f });
+		//AddObject(sagittarius, OBJTYPE::OBJ_MONSTER);
 
 		// 테스트 코드 Moon 생성
 	/*	Moon* moon = new Moon();
@@ -49,10 +50,10 @@ void ObjectManager::Init()
 		AddObject(readyWallop, OBJTYPE::OBJ_UI);
 	}
 
-	// 테스트 코드 BlimpEnemy 생성
-	BlimpEnemy* blimpEnemy = new BlimpEnemy();
-	blimpEnemy->Init(BlimpEnemyInfo::EColor::GREEN, 5);
-	AddObject(blimpEnemy, OBJTYPE::OBJ_MONSTER);
+	// Test. HildaBerg
+	HildaBerg* hilda = new HildaBerg();
+	hilda->Init();
+	AddObject(hilda, OBJTYPE::OBJ_MONSTER);
 }
 
 void ObjectManager::Update()
