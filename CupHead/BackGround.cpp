@@ -461,34 +461,32 @@ void BackGroundManager::Init()
 	// sky 1
 	imageBackType = BackGroundInfo::EBackGroundType::SKY;
 	imageNum = 0;
-	AddBackGround(imageBackType, imageNum, 10, true, true, 3, 255);
+	AddBackGround(imageBackType, imageNum, 10, true, true, 3);
 
 	// cloud
 	imageBackType = BackGroundInfo::EBackGroundType::CLOUD;
 	imageNum = 1;
 	AddBackGround(imageBackType, imageNum, 40, true, true, 1, 100);
 	imageNum++;
-	AddBackGround(imageBackType, imageNum, 30, true, true, 1, 210);
+	AddBackGround(imageBackType, imageNum, 30, true, true, 1);
 	
 	// mist
 	imageBackType = BackGroundInfo::EBackGroundType::MIST;
 	imageNum = 0;
-	AddBackGround(imageBackType, imageNum, 40, true, true, 2, 30);
-	imageNum++;
-	AddBackGround(imageBackType, imageNum, 30, true, true, 2, 50);
+	AddBackGround(imageBackType, imageNum, 40, true, true, 2, 50);
 
 	// dark hill
 	imageBackType = BackGroundInfo::EBackGroundType::DARK_HILL;
 	imageNum = 0;
-	AddBackGround(imageBackType, imageNum, 300, true, true, 3, 255);
+	AddBackGround(imageBackType, imageNum, 300, true, true, 3);
 	
 	// main ground
 	imageBackType = BackGroundInfo::EBackGroundType::MAIN_GROUND;
 	imageNum = 0;
-	AddBackGround(imageBackType, imageNum, 500, false, true, 3, 255);
+	AddBackGround(imageBackType, imageNum, 500, false, true, 3);
 
 	imageNum++;
-	AddBackGround(imageBackType, imageNum, 500, false, false, 3, 255);
+	AddBackGround(imageBackType, imageNum, 500, false, false, 3);
 
 #pragma endregion
 
