@@ -58,8 +58,11 @@ void HildaBerg::Update()
 		}
 	}
 
-	if (!HildaForm) ChangeForm();
-
+	if (!HildaForm)
+	{
+		Phase++;
+		ChangeForm();
+	}
 	ElapsedSpawnTime += TimerManager::GetInstance()->GetDeltaTime();
 	if (ElapsedSpawnTime >= SpawnCoolTime)
 	{
@@ -83,7 +86,6 @@ void HildaBerg::ChangeForm()
 		blimp->Init(pos, Angle);
 		HildaForm = blimp;
 		SpawnCoolTime = 6.f;
-		++Phase;
 		break;
 	}
 	case 1:
@@ -92,7 +94,6 @@ void HildaBerg::ChangeForm()
 		taurus->Init(pos, Angle);
 		HildaForm = taurus;
 		SpawnCoolTime = 5.f;
-		++Phase;
 		break;
 	}
 	case 2:
@@ -101,7 +102,6 @@ void HildaBerg::ChangeForm()
 		blimp->Init(pos, Angle);
 		HildaForm = blimp;
 		SpawnCoolTime = 5.f;
-		++Phase;
 		break;
 	}
 	case 3:
@@ -110,7 +110,6 @@ void HildaBerg::ChangeForm()
 		sag->Init(pos, Angle);
 		HildaForm = sag;
 		SpawnCoolTime = 4.f;
-		++Phase;
 		break;
 	}
 	case 4:
@@ -119,7 +118,6 @@ void HildaBerg::ChangeForm()
 		blimp->Init(pos, Angle);
 		HildaForm = blimp;
 		SpawnCoolTime = 4.f;
-		++Phase;
 		break;
 	}
 	case 5:
@@ -128,7 +126,6 @@ void HildaBerg::ChangeForm()
 		moon->Init();
 		HildaForm = moon;
 		SpawnCoolTime = 2.f;
-		++Phase;
 		break;
 	}
 	}
