@@ -13,7 +13,7 @@ void ObjectManager::Init()
 	{
 		// 테스트 코드 플레이어 생성
 		Player* player = new Player();
-		player->Init({ 100.f,100.f }, { 30.f,30.f });
+		player->Init({ 100.f,100.f }, { 105.f, 95.f });
 		AddObject(player, OBJTYPE::OBJ_PLAYER);
 
 		//// 테스트 코드 Sagittarius 생성
