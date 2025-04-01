@@ -10,7 +10,7 @@ UFOBeam::UFOBeam()
 }
 
 void UFOBeam::Init(GameObject* InOwner, FPOINT InPivot)
-{ 
+{
 	Owner = InOwner;
 	Pivot = InPivot;
 	FrameSpeed = 10.f;

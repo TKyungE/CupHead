@@ -160,6 +160,8 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="Tornado.cpp" />
+    <ClCompile Include="TrumpCard.cpp" />
+    <ClCompile Include="TrumpCardManager.cpp" />
     <ClCompile Include="UFO.cpp" />
     <ClCompile Include="UFOBeam.cpp" />
     <ClCompile Include="UIBase.cpp" />
@@ -200,6 +202,8 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
     <ClInclude Include="Tornado.h" />
+    <ClInclude Include="TrumpCard.h" />
+    <ClInclude Include="TrumpCardManager.h" />
     <ClInclude Include="UFO.h" />
     <ClInclude Include="UFOBeam.h" />
     <ClInclude Include="UIBase.h" />

@@ -6,12 +6,14 @@
 #include "CommonFunction.h"
 
 PlayerHP::PlayerHP()
-	:Player(nullptr), bHP1SettingReset(false)
+	:Owner(nullptr), bHP1SettingReset(false)
 {
 }
 
 void PlayerHP::Init()
 {
+	FrameSpeed = 10.f;
+
 	image = ImageManager::GetInstance()->AddImage("PlayerHP", L"Image/CupHead/UI/Player/HP/PlayerHP.bmp", 481, 69, 6, 2, true, RGB(255, 0, 255));
 
 	pos = { (float)image->GetFrameWidth() * 0.5f,WINSIZE_Y - (float)image->GetFrameHeight() * 0.5f };
@@ -19,11 +21,11 @@ void PlayerHP::Init()
 
 void PlayerHP::Update()
 {
-	if (Player == nullptr)
+	if (Owner == nullptr)
 	{
 		list<GameObject*> playerList = ObjectManager::GetInstance()->GetObjectList(OBJ_PLAYER);
 		if (!playerList.empty())
-			Player = dynamic_cast<Character*>(playerList.front());
+			Owner = dynamic_cast<Character*>(playerList.front());
 	}
 
 	HPUpdate();
@@ -37,15 +39,15 @@ void PlayerHP::Render(HDC hdc)
 
 void PlayerHP::HPUpdate()
 {
-	if (Player == nullptr)
+	if (Owner == nullptr)
 		return;
 
-	if (Player->GetHp() != 1)
+	if (Owner->GetHp() != 1)
 		bHP1SettingReset = false;
 
-	CurFrameYIndex = ClampValue<int>(Player->GetHp() / 4, 0, 1);
+	CurFrameYIndex = ClampValue<int>(Owner->GetHp() / 4, 0, 1);
 
-	if (Player->GetHp() == 1)
+	if (Owner->GetHp() == 1)
 	{
 		if (!bHP1SettingReset)
 			HP1SettingReset();
@@ -56,25 +58,24 @@ void PlayerHP::HPUpdate()
 		if (CurFrameIndex > 3)
 			CurFrameIndex = FrameTime = 2;
 	}
-	else if (Player->GetHp() == 2 || Player->GetHp() == 3)
-		CurFrameIndex = Player->GetHp() + 2;
-	else if (Player->GetHp() >= 4)
-		CurFrameIndex = ClampValue(Player->GetHp() - 4, 0, 4);
+	else if (Owner->GetHp() == 2 || Owner->GetHp() == 3)
+		CurFrameIndex = Owner->GetHp() + 2;
+	else if (Owner->GetHp() >= 4)
+		CurFrameIndex = ClampValue(Owner->GetHp() - 4, 0, 4);
 	else
-		CurFrameIndex = Player->GetHp();
+		CurFrameIndex = Owner->GetHp();
 }
 
 void PlayerHP::HP1SettingReset()
 {
 	bHP1SettingReset = true;
-
-	FrameSpeed = 10.f;
+	
 	FrameTime = 2.f;
 }
 
 void PlayerHP::Release()
 {
-	Player = nullptr;
+	Owner = nullptr;
 }
 
 PlayerHP::~PlayerHP()
