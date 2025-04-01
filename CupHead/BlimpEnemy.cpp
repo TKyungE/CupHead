@@ -103,9 +103,11 @@ void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum, FPOINT _Pos
 	size = { 1.f,1.f };
 	bDead = false;
 
+	Hp = 10;
+
 	float sizeX = GetWidth();
 	float sizeY = GetHeight();
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true);
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true, 0.1f);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER);
 }

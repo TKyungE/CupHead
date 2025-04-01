@@ -16,7 +16,7 @@ Sagittarius::Sagittarius()
 void Sagittarius::Init(FPOINT InPos, float InAngle)
 {
 	// Test. HildaBerg Change Form
-	Hp = 50;
+	Hp = 100;
 
 	State = ESagittariusState::Idle;
 	pos = InPos;

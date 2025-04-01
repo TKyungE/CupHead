@@ -29,7 +29,7 @@ HildaBlimp::HildaBlimp(int _Phase)
 	: Phase{ _Phase },
 	Angle{}, AngleSpeed{},
 	CurState{}, AnimData{}, IsAnimEnd{},
-	ElapsedShootTime{}, ShootCoolTime{ 7.f },
+	ElapsedShootTime{}, ShootCoolTime{ 5.f },
 	HaShootCnt{}, HaMaxShootCnt{ 1 },
 	ElapsedAnimTime{}
 {
@@ -157,7 +157,7 @@ void HildaBlimp::Init(FPOINT _Pos, float _Angle)
 	size = { 1.f,1.f };
 	bDead = false;
 
-	Hp = 50;
+	Hp = 100;
 
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true, 0.1f);
 	collider->Init();
@@ -170,9 +170,9 @@ void HildaBlimp::Release()
 
 void HildaBlimp::Update()
 {
-	UpdateState();
-
 	UpdateFrame();
+
+	UpdateState();
 }
 
 void HildaBlimp::Render(HDC hdc)

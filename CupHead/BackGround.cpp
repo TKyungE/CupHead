@@ -549,14 +549,6 @@ void BackGroundManager::RenderForeGround(HDC hdc)
 	{
 		bg->Render(hdc);
 	}
-
-	// cooltime check
-	wchar_t szText[100];
-	wsprintf(szText, TEXT("elpased : %d, cool : %d"), (int)ForeGroundElapsedTime, (int)ForeGroundCoolTime);
-	TextOut(hdc, 50, 100, szText, (int)wcslen(szText));
-
-	wsprintf(szText, TEXT("elpased : %d, cool : %d"), (int)ForeObjectElapsedTime, (int)ForeObjectCoolTime);
-	TextOut(hdc, 50, 150, szText, (int)wcslen(szText));
 }
 
 void BackGroundManager::PrepareNextBackGround()

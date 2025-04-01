@@ -67,7 +67,7 @@ void Taurus::Init(FPOINT _Pos, float _Angle)
 	size = { 1.f,1.f };
 	bDead = false;
 
-	Hp = 50;
+	Hp = 100;
 
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f, -20.f }, { sizeX * 0.7f, sizeY * 0.5f }, true, 0.1f);
 	collider->Init();
@@ -128,10 +128,7 @@ void Taurus::Move()
 void Taurus::TakeDamage(int damage)
 {
 	Hp -= damage;
-	if (Hp <= 0)
-	{
-		bDead = true;
-	}
+
 }
 
 void Taurus::UpdateState()
@@ -140,6 +137,12 @@ void Taurus::UpdateState()
 	{
 	case TaurusInfo::EState::IDLE:
 	{
+		if (Hp <= 0)
+		{
+			// after finish attack
+			bDead = true;
+		}
+
 		Move();
 
 		ElapsedAttackTime += TimerManager::GetInstance()->GetDeltaTime();

@@ -7,6 +7,7 @@
 #include "BlimpEnemy.h"
 #include "StarProjectile.h"
 #include "ObjectManager.h"
+#include "CollisionManager.h"
 
 HildaBerg::HildaBerg()
 	: HildaForm{}, Phase{}, Angle{},
@@ -47,6 +48,9 @@ void HildaBerg::Update()
 		{
 			pos = HildaForm->GetPos();
 			Angle = HildaForm->GetMoveAngle();
+
+			CollisionManager::GetInstance()->Update();
+
 			HildaForm->Release();
 			delete HildaForm;
 			HildaForm = NULL;
@@ -132,7 +136,7 @@ void HildaBerg::ChangeForm()
 
 void HildaBerg::SpawnEnemy()
 {
-	std::uniform_int_distribution<int> uidY{ 100, WINSIZE_Y - 100 };
+	std::uniform_int_distribution<int> uidY{ 100, WINSIZE_Y - 200 };
 	switch (Phase)
 	{
 	case 0:	case 1:
