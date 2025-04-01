@@ -17,7 +17,8 @@ Taurus::Taurus()
 	: Angle{}, AngleSpeed{},
 	CurState{}, AnimData{}, IsAnimEnd{},
 	ElapsedAttackTime{}, AttackCoolTime{ 5.f },
-	PosBefore{}
+	PosBefore{},
+	AttackCollider{}
 {
 }
 
@@ -70,6 +71,7 @@ void Taurus::Init(FPOINT _Pos, float _Angle)
 
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f, -20.f }, { sizeX * 0.7f, sizeY * 0.5f }, true, 0.1f);
 	collider->Init();
+	AttackCollider = collider;
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER);
 }
 
@@ -151,8 +153,11 @@ void Taurus::UpdateState()
 	}
 	case TaurusInfo::EState::ATTACK:
 	{
+		float sizeX = GetWidth();
+		float sizeY = GetHeight();
 		if (CurFrameIndex >= 11 and CurFrameIndex <= 13 )
 		{
+			AttackCollider->SetSize({ sizeX, sizeY * 0.5f });
 			AnimData[TaurusInfo::EState::ATTACK].second = 20.f;
 			Speed = 600;
 			Dash();
@@ -171,6 +176,10 @@ void Taurus::UpdateState()
 			AnimData[TaurusInfo::EState::ATTACK].second = 15.f;
 			pos = PosBefore;
 			SetState(TaurusInfo::EState::IDLE);
+
+			sizeX = GetWidth();
+			sizeY = GetHeight();
+			AttackCollider->SetSize({ sizeX * 0.7f, sizeY * 0.5f });
 		}
 		break;
 	}

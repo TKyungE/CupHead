@@ -13,6 +13,7 @@ namespace TaurusInfo
 	extern string states[EState::STATE_END];
 }
 
+class Collider;
 class Taurus : public Character
 {
 public:
@@ -55,5 +56,7 @@ private:
 	float AttackCoolTime;
 
 	FPOINT PosBefore;
+
+	Collider* AttackCollider;
 };
 
