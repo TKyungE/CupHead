@@ -65,12 +65,18 @@ void TrumpCardManager::Update()
 				TrumpCards[i]->SetCurrentCount(CardsCurrentCount);
 				CardsCurrentCount = 0;
 			}
+
+			if(CurrentCount != MaxCount)
+				TrumpCards[i]->SetbTurn(false);
 		}
 		else
 			TrumpCards[i]->SetCurrentCount(0);
 
 		if (CurrentCount == MaxCount && !TrumpCards[i]->IsTurn())
+		{
 			TrumpCards[i]->SetbTurn(true);
+			continue;
+		}
 
 		// 이런방식으로 하고 싶은데.. 
 		///*CardsCurrentCount = (CardsCurrentCount - 1) - 5;

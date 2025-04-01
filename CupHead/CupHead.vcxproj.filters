@@ -82,6 +82,9 @@
     <Filter Include="MainGame\Enemy\Star">
       <UniqueIdentifier>{92969c5f-8b52-42c7-a0c9-8c9cdf03092e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\UI\TrumpCard">
+      <UniqueIdentifier>{e79ef24b-b39c-40c8-a8ef-fc1b08536a95}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -191,6 +194,12 @@
     </ClCompile>
     <ClCompile Include="StarProjectile.cpp">
       <Filter>MainGame\Enemy\Star</Filter>
+    </ClCompile>
+    <ClCompile Include="TrumpCard.cpp">
+      <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClCompile>
+    <ClCompile Include="TrumpCardManager.cpp">
+      <Filter>MainGame\UI\TrumpCard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -307,6 +316,12 @@
     </ClInclude>
     <ClInclude Include="StarProjectile.h">
       <Filter>MainGame\Enemy\Star</Filter>
+    </ClInclude>
+    <ClInclude Include="TrumpCard.h">
+      <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClInclude>
+    <ClInclude Include="TrumpCardManager.h">
+      <Filter>MainGame\UI\TrumpCard</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

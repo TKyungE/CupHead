@@ -15,8 +15,13 @@ public:
 	bool IsTurn() const { return bTurn; }
 	void SetCurrentCount(int InCount) { CurrentCount = InCount; }
 	void SetbTurn(bool InbTurn) { 
-		bTurn = InbTurn;
-		FrameTime = 0.f;
+		if (InbTurn && bTurn != InbTurn)
+		{
+			FrameTime = 0.f;
+			CurFrameIndex = 0;
+			FrameDir = 1;
+		}
+		bTurn = InbTurn;		
 	}
 	
 
