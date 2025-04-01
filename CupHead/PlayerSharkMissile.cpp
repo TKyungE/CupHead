@@ -17,16 +17,16 @@ PlayerSharkMissile::PlayerSharkMissile() : IsLoop(true)
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, size, true, 0.2f); // ÀÓÀÇ°ª 0.2f
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER_WEAPON);
+	EffectManager::GetInstance()->AddEffect("SharkStartFire", pos, 3 / FrameSpeed, { -90.f, 0.f }, 1, true, this);
 }
 
 PlayerSharkMissile::~PlayerSharkMissile()
 {
 }
 
-void PlayerSharkMissile::Init(FPOINT _Pos)
+void PlayerSharkMissile::Init(FPOINT _Pos, int _Damage)
 {
-	pos = _Pos;
-	EffectManager::GetInstance()->AddEffect("SharkStartFire", pos, 3 / FrameSpeed, { -90.f, 0.f }, 1, true, this);
+	__super::Init(_Pos, _Damage);
 }
 
 void PlayerSharkMissile::Init()

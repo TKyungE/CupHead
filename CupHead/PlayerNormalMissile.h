@@ -1,10 +1,10 @@
 #pragma once
 #include "PlayerMissile.h"
-class PlayerSharkMissile : public PlayerMissile
+class PlayerNormalMissile : public PlayerMissile
 {
 public:
-	PlayerSharkMissile();
-	virtual ~PlayerSharkMissile();
+	PlayerNormalMissile();
+	virtual ~PlayerNormalMissile();
 
 public:
 	virtual void Init(FPOINT _Pos, int _Damage) override;
@@ -13,11 +13,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	virtual void UpdateFrame() override;
 	virtual void Move() override;
 	virtual void TakeDamage(int damage = 0) override;
-
-private:
-	bool IsLoop;
 };
 

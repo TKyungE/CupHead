@@ -1,13 +1,13 @@
 #pragma once
-#include "Pawn.h"
-class PlayerFallMissile : public Pawn
+#include "PlayerMissile.h"
+class PlayerFallMissile : public PlayerMissile
 {
 public:
 	PlayerFallMissile();
 	virtual ~PlayerFallMissile();
 
 public:
-	void Init(FPOINT _Pos);
+	virtual void Init(FPOINT _Pos, int _Damage) override;
 	virtual void Init() override;
 	virtual void Release() override;
 	virtual void Update() override;

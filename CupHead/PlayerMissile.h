@@ -7,7 +7,7 @@ public:
 	virtual ~PlayerMissile();
 
 public:
-	void Init(FPOINT _Pos);
+	virtual void Init(FPOINT _Pos, int _Damage);
 	virtual void Init() override;
 	virtual void Release() override;
 	virtual void Update() override;
@@ -16,7 +16,11 @@ public:
 	virtual void Move() override;
 	virtual void TakeDamage(int damage = 0) override;
 
-private:
-	float LookAngle;
+public:
+	inline int GetDamage() const { return Damage; };
+	inline void SetDamage(int _Damage) { Damage = _Damage; };
+
+protected:
+	int Damage;
 };
 

@@ -6,18 +6,23 @@
 #include "EffectManager.h"
 #include "ObjectManager.h"
 #include "CommonFunction.h"
-#include "PlayerMissile.h"
+#include "PlayerNormalMissile.h"
 #include "PlayerFallMissile.h"
 #include "PlayerSharkMissile.h"
 
 Player::Player() 
-	: FrameDir(1), FireCnt(0),  AlphaTime(0.f), MaxAlphaTime(0.5f), PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), PreState(PLAYER_IDLE), CurState(PLAYER_IDLE), NextImage(nullptr)
+	:	IsIntroEnd(false),
+		IntroAngle(0.f),
+		InitPos({0.f,0.f}),
+		Damage(5), FrameDir(1), FireCnt(0), 
+		AlphaTime(0.f), MaxAlphaTime(0.5f), 
+		PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), 
+		PreState(PLAYER_INTRO), CurState(PLAYER_INTRO), NextImage(nullptr)
 {
 	AttackCoolTimes[ATTACK_NORMAL] = 0.1f;
 	AttackCoolTimes[ATTACK_FALL] = 0.5f;
 	AttackCoolTimes[ATTACK_SHARK] = 0.5f;
 	memcpy(AttackTimes, AttackCoolTimes, sizeof(AttackTimes));
-	int i = 5;
 }				  
 
 Player::~Player()
@@ -32,11 +37,12 @@ void Player::Init()
 
 void Player::Init(FPOINT pos, FPOINT size)
 {
-	this->pos = pos;
+	InitPos = this->pos = pos;
 	this->size = size;
 	Speed = 700.f;
 	//FrameSpeed = 30.f;
 	FrameSpeed = 25.f;
+	//FrameSpeed = 10.f;
 	Hp = 8;
 
 	/*image = ImageManager::GetInstance()->AddImage(
@@ -134,6 +140,12 @@ void Player::UpdateFrame()
 	else if (CurFrameIndex >= image->GetMaxFrameX())
 	{
 		CurFrameIndex = FrameTime = 0.f;
+		if (false == IsIntroEnd)
+		{
+			IsIntroEnd = true;
+			CurState = PLAYER_IDLE;
+			//image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
+		}
 		//image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
 	}
 }
@@ -150,6 +162,7 @@ void Player::UpdateState()
 		switch (CurState)
 		{
 		case PLAYER_IDLE:
+			image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
 			break;
 		case PLAYER_MOVE:
 			break;
@@ -329,6 +342,31 @@ void Player::UpdateToNoneState()
 	}
 }
 
+void Player::Intro()
+{
+	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
+	if (5 >= CurFrameIndex) // 가라
+	{
+		float Temp = 1000.f * DeltaTime * FrameSpeed / image->GetMaxFrameX();
+		IntroDistance += Temp;
+		pos.x += Temp;
+		pos.y += Temp;
+		InitPos.y += Temp;
+	}
+
+	else if (6 <= CurFrameIndex && 30 >= CurFrameIndex)
+	{
+		pos.x = InitPos.x + IntroDistance * cosf(DEG_TO_RAD(IntroAngle));
+		pos.y = InitPos.y - 0.7f * IntroDistance * sinf(DEG_TO_RAD(IntroAngle));
+		IntroAngle += DeltaTime * 300.f * FrameSpeed / image->GetMaxFrameX();
+	}
+
+	else
+	{
+		pos.x += 700.f * DeltaTime * FrameSpeed / image->GetMaxFrameX();
+	}
+}
+
 void Player::Attack()
 {
 	
@@ -350,7 +388,7 @@ void Player::Fire(ATTACKTYPE _Type)
 		FireFall();
 		break;
 	case ATTACK_SHARK:
-		CurState = PLAYER_ATTACK;
+		//CurState = PLAYER_ATTACK;
 		FireShark();
 		break;
 	}
@@ -367,9 +405,9 @@ void Player::FireNormal()
 
 	(0 == FireCnt % 2) ? FirePos.y += 20.f : FirePos.y -= 20.f, FirePos.x += 10.f;
 
-	PlayerMissile* Missile = new PlayerMissile();
+	PlayerNormalMissile* Missile = new PlayerNormalMissile();
 	//PlayerFallMissile* Missile = new PlayerFallMissile();
-	Missile->Init(FirePos);
+	Missile->Init(FirePos, 1);
 	ObjectManager::GetInstance()->AddObject(Missile, OBJTYPE::OBJ_PLAYER_WEAPON);
 
 	if (4 <= FireCnt)
@@ -387,7 +425,7 @@ void Player::FireFall()
 	AttackTimes[ATTACK_FALL] = 0.f;
 	FPOINT FirePos = { pos.x + OffsetPos.x , pos.y + OffsetPos.y };
 	PlayerFallMissile* Missile = new PlayerFallMissile();
-	Missile->Init(FirePos);
+	Missile->Init(FirePos, 3);
 	ObjectManager::GetInstance()->AddObject(Missile, OBJTYPE::OBJ_PLAYER_WEAPON);
 
 	if (4 <= FireCnt)
@@ -406,7 +444,7 @@ void Player::FireShark()
 	AttackTimes[ATTACK_SHARK] = 0.f;
 	FPOINT FirePos = { pos.x + OffsetPos.x , pos.y + OffsetPos.y };
 	PlayerSharkMissile* Missile = new PlayerSharkMissile();
-	Missile->Init(FirePos);
+	Missile->Init(FirePos, 5);
 	ObjectManager::GetInstance()->AddObject(Missile, OBJTYPE::OBJ_PLAYER_WEAPON);
 
 	if (4 <= FireCnt)
@@ -465,6 +503,9 @@ void Player::Action()
 {
 	switch(CurState)
 	{
+	case PLAYER_INTRO:
+		Intro();
+		break;
 	case PLAYER_IDLE:
 		break;
 	case PLAYER_MOVE:
@@ -514,6 +555,10 @@ void Player::ImageInit()
 		TEXT("Image/CupHead/cuphead_plane/Idle/cuphead_plane_idle_straight.bmp"),
 		448, 101, 4, 1, true, RGB(255, 0, 255));
 
+	image = ImageManager::GetInstance()->AddImage("cuphead_plane_intro",
+		TEXT("Image/CupHead/cuphead_plane/cuphead_plane_intro.bmp"),
+		7216, 155, 41, 1, true, RGB(255, 0, 255));
+
 
 	ImageManager::GetInstance()->AddImage("plane_shoot_spark_0001",
 		TEXT("Image/CupHead/cuphead_plane/Shoot/plane_shoot_spark_0001.bmp"),
@@ -537,6 +582,14 @@ void Player::ImageInit()
 
 void Player::Move()
 {
+	if (false == IsIntroEnd)
+	{
+		CurState = PLAYER_INTRO;
+		return;
+	}
+
+	CurState = PLAYER_IDLE;
+
 	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
 	for (int i = 0; i < ATTACK_END; ++i)
 	{
@@ -613,5 +666,5 @@ void Player::TakeDamage(int damage)
 	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx", pos, 0.5f);
 	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx_b", { pos.x , pos.y }, 0.5f); // 값 조정 or 때리는 투사체 쪽에서 위치 조정?
 	AlphaTime = MaxAlphaTime;
-	Hp = max(0, Hp - 1);
+	Hp = max(0, Hp - damage);
 }
