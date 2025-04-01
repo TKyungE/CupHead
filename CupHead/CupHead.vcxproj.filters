@@ -192,6 +192,12 @@
     <ClCompile Include="StarProjectile.cpp">
       <Filter>MainGame\Enemy\Star</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerFallMissile.cpp">
+      <Filter>MainGame\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSharkMissile.cpp">
+      <Filter>MainGame\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -307,6 +313,12 @@
     </ClInclude>
     <ClInclude Include="StarProjectile.h">
       <Filter>MainGame\Enemy\Star</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFallMissile.h">
+      <Filter>MainGame\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSharkMissile.h">
+      <Filter>MainGame\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

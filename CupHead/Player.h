@@ -13,6 +13,11 @@ enum UPDOWN
 	UPDOWN_NONE, UPDOWN_UP, UPDOWN_DOWN, UPDOWN_END
 };
 
+enum ATTACKTYPE
+{
+	ATTACK_NORMAL, ATTACK_FALL, ATTACK_SHARK, ATTACK_END
+};
+
 class Player : public Character
 {
 
@@ -36,6 +41,7 @@ public:
 
 	void Action();
 	void ImageInit();
+	void EffectInit();
 
 	void UpdateInput();
 	void UpdateState();
@@ -43,18 +49,22 @@ public:
 	void UpdateToDownState();
 	void UpdateToNoneState();
 
-	void Fire();
+	void Attack();
+	void Fire(ATTACKTYPE _Type);
+	void FireNormal();
+	void FireFall();
+	void FireShark();
 
 	//void UpdateUpDownState();
-	void EffectTestInit();
+
 
 	//virtual void TakeDamage(int damage = 0);
 
 private:
 	int FrameDir;
 	int FireCnt;
-	float FireTime;
-	float FireCoolTime;
+	float AttackTimes[ATTACK_END];
+	float AttackCoolTimes[ATTACK_END];
 	float AlphaTime;
 	float MaxAlphaTime;
 	UPDOWN PreUpDownState;
@@ -62,5 +72,7 @@ private:
 	PLAYERSTATE PreState;
 	PLAYERSTATE CurState;
 	Image* NextImage;
+
+
 };
 

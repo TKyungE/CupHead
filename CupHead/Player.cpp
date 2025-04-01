@@ -7,11 +7,17 @@
 #include "ObjectManager.h"
 #include "CommonFunction.h"
 #include "PlayerMissile.h"
+#include "PlayerFallMissile.h"
+#include "PlayerSharkMissile.h"
 
 Player::Player() 
-	: FrameDir(1), FireCnt(0), FireTime(0.f), FireCoolTime(0.07f), AlphaTime(0.f), MaxAlphaTime(0.5f), PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), PreState(PLAYER_IDLE), CurState(PLAYER_IDLE), NextImage(nullptr)
+	: FrameDir(1), FireCnt(0),  AlphaTime(0.f), MaxAlphaTime(0.5f), PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), PreState(PLAYER_IDLE), CurState(PLAYER_IDLE), NextImage(nullptr)
 {
-
+	AttackCoolTimes[ATTACK_NORMAL] = 0.1f;
+	AttackCoolTimes[ATTACK_FALL] = 0.5f;
+	AttackCoolTimes[ATTACK_SHARK] = 0.5f;
+	memcpy(AttackTimes, AttackCoolTimes, sizeof(AttackTimes));
+	int i = 5;
 }				  
 
 Player::~Player()
@@ -28,19 +34,20 @@ void Player::Init(FPOINT pos, FPOINT size)
 {
 	this->pos = pos;
 	this->size = size;
-	//image = nullptr;
 	Speed = 700.f;
-	FrameSpeed = 30.f;
+	//FrameSpeed = 30.f;
+	FrameSpeed = 25.f;
 	Hp = 8;
+
 	/*image = ImageManager::GetInstance()->AddImage(
 		"Normal_Enemy", TEXT("Image/Test/blimp_dash.bmp"), 21168, 415, 24, 1,
 		true, RGB(255, 0, 255));*/
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { 105.f, 85.f }, true);
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, size, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER);
 	
 	ImageInit();
-	EffectTestInit();										
+	EffectInit();
 }
 
 void Player::Release()
@@ -115,7 +122,6 @@ void Player::UpdateFrame()
 	{
 		if (CurFrameIndex >= image->GetMaxFrameX())
 		{
-			//FrameDir = 1;
 			if (nullptr != NextImage)
 			{
 				image = NextImage;
@@ -128,6 +134,7 @@ void Player::UpdateFrame()
 	else if (CurFrameIndex >= image->GetMaxFrameX())
 	{
 		CurFrameIndex = FrameTime = 0.f;
+		//image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
 	}
 }
 
@@ -322,30 +329,91 @@ void Player::UpdateToNoneState()
 	}
 }
 
-void Player::Fire()
+void Player::Attack()
 {
-	if (FireCoolTime <= FireTime)
+	
+}
+
+void Player::Fire(ATTACKTYPE _Type)
+{
+	if (AttackCoolTimes[_Type] > AttackTimes[_Type])
 	{
-		string Key = "plane_shoot_spark_000";
-		Key += char(++FireCnt) + '0';
-		FPOINT OffsetPos = { 80.f, 5.f };
-		EffectManager::GetInstance()->AddEffect(Key, pos, FireCoolTime, OffsetPos, 1, true, this);
-		FireTime = 0.f;
-		FPOINT FirePos = { pos.x + OffsetPos.x , pos.y + OffsetPos.y };
-
-		(0 == FireCnt % 2) ? FirePos.y += 20.f : FirePos.y -= 20.f, FirePos.x += 10.f;
-
-		PlayerMissile* Missile = new PlayerMissile();
-		Missile->Init(FirePos);
-		ObjectManager::GetInstance()->AddObject(Missile, OBJTYPE::OBJ_PLAYER_WEAPON);
-
-		if (4 <= FireCnt)
-		{
-			FireCnt = 0;
-		}
+		return;
 	}
 
+	switch (_Type)
+	{
+	case ATTACK_NORMAL:
+		FireNormal();
+		break;
+	case ATTACK_FALL:
+		FireFall();
+		break;
+	case ATTACK_SHARK:
+		CurState = PLAYER_ATTACK;
+		FireShark();
+		break;
+	}
+}
 
+void Player::FireNormal()
+{
+	string Key = "plane_shoot_spark_000";
+	Key += char(++FireCnt) + '0';
+	FPOINT OffsetPos = { 80.f, 5.f };
+	EffectManager::GetInstance()->AddEffect(Key, pos, AttackCoolTimes[ATTACK_NORMAL], OffsetPos, 1, true, this);
+	AttackTimes[ATTACK_NORMAL] = 0.f;
+	FPOINT FirePos = { pos.x + OffsetPos.x , pos.y + OffsetPos.y };
+
+	(0 == FireCnt % 2) ? FirePos.y += 20.f : FirePos.y -= 20.f, FirePos.x += 10.f;
+
+	PlayerMissile* Missile = new PlayerMissile();
+	//PlayerFallMissile* Missile = new PlayerFallMissile();
+	Missile->Init(FirePos);
+	ObjectManager::GetInstance()->AddObject(Missile, OBJTYPE::OBJ_PLAYER_WEAPON);
+
+	if (4 <= FireCnt)
+	{
+		FireCnt = 0;
+	}
+}
+
+void Player::FireFall()
+{
+	string Key = "plane_shoot_spark_000";
+	Key += char(++FireCnt) + '0';
+	FPOINT OffsetPos = { 60.f, 15.f };
+	EffectManager::GetInstance()->AddEffect(Key, pos, 0.07f, OffsetPos, 1, true, this);
+	AttackTimes[ATTACK_FALL] = 0.f;
+	FPOINT FirePos = { pos.x + OffsetPos.x , pos.y + OffsetPos.y };
+	PlayerFallMissile* Missile = new PlayerFallMissile();
+	Missile->Init(FirePos);
+	ObjectManager::GetInstance()->AddObject(Missile, OBJTYPE::OBJ_PLAYER_WEAPON);
+
+	if (4 <= FireCnt)
+	{
+		FireCnt = 0;
+	}
+	
+}
+
+void Player::FireShark()
+{
+	string Key = "plane_shoot_spark_000";
+	Key += char(++FireCnt) + '0';
+	FPOINT OffsetPos = { 60.f, 15.f };
+	EffectManager::GetInstance()->AddEffect(Key, pos, 0.07f, OffsetPos, 1, true, this);
+	AttackTimes[ATTACK_SHARK] = 0.f;
+	FPOINT FirePos = { pos.x + OffsetPos.x , pos.y + OffsetPos.y };
+	PlayerSharkMissile* Missile = new PlayerSharkMissile();
+	Missile->Init(FirePos);
+	ObjectManager::GetInstance()->AddObject(Missile, OBJTYPE::OBJ_PLAYER_WEAPON);
+
+	if (4 <= FireCnt)
+	{
+		FireCnt = 0;
+	}
+	//PlayerSharkMissile
 }
 
 void Player::Render(HDC hdc)
@@ -366,7 +434,7 @@ void Player::Render(HDC hdc)
 	}
 }
 
-void Player::EffectTestInit()
+void Player::EffectInit()
 {
 	//C:\Programming\Git\CupHead\CupHead\CupHead\Image\CupHead\cuphead_plane\Damaged
 	ImageManager::GetInstance()->AddImage("blimp_enemy_explode", TEXT("Image/CupHead/Hilda Berg/Enemy/Explode/blimp_enemy_explode.bmp"), 4172, 217, 14, 1, true, RGB(255, 0, 255)); 
@@ -375,6 +443,21 @@ void Player::EffectTestInit()
 	ImageManager::GetInstance()->AddImage("sagg_arrow_fx", TEXT("Image/CupHead/Hilda Berg/Sagittarius/Arrow/Smoke/sagg_arrow_fx.bmp"), 1045, 203, 5, 1, true, RGB(255, 0, 255)); 
 	ImageManager::GetInstance()->AddImage("cuphead_plane_hit_fx", TEXT("Image/CupHead/cuphead_plane/Damaged/cuphead_plane_hit_fx.bmp"), 1936, 205, 11, 1, true, RGB(255, 0, 255));
 	ImageManager::GetInstance()->AddImage("cuphead_plane_hit_fx_b", TEXT("Image/CupHead/cuphead_plane/Damaged/cuphead_plane_hit_fx_b.bmp"), 2259, 267, 9, 1, true, RGB(255, 0, 255));
+	ImageManager::GetInstance()->AddImage("schmup_peashot_hit_spark", TEXT("Image/CupHead/cuphead_plane/Shoot/schmup_peashot_hit_spark.bmp"), 568, 73, 8, 1, true, RGB(255, 0, 255));
+
+
+	//LargeSpark
+	ImageManager::GetInstance()->AddImage("LargeSpark", TEXT("Image/CupHead/cuphead_plane/Shoot/LargeSpark.bmp"), 2256, 261, 8, 1, true, RGB(255, 0, 255));
+
+	//LargeFire
+	ImageManager::GetInstance()->AddImage("LargeFire", TEXT("Image/CupHead/cuphead_plane/Shoot/LargeFire.bmp"), 1862, 247, 7, 1, true, RGB(255, 0, 255));
+
+	//LargeExplosion
+	ImageManager::GetInstance()->AddImage("LargeExplosion", TEXT("Image/CupHead/cuphead_plane/Shoot/LargeExplosion.bmp"), 3926, 298, 13, 1, true, RGB(255, 0, 255));
+
+	//SharkFire
+	ImageManager::GetInstance()->AddImage("SharkStartFire", TEXT("Image/CupHead/cuphead_plane/Shoot/SharkStartFire.bmp"), 585, 100, 5, 1, true, RGB(255, 0, 255));
+	ImageManager::GetInstance()->AddImage("SharkLoopFire", TEXT("Image/CupHead/cuphead_plane/Shoot/SharkLoopFire.bmp"), 468, 100, 4, 1, true, RGB(255, 0, 255));
 
 }
 
@@ -388,6 +471,7 @@ void Player::Action()
 		//Move();
 		break;
 	case PLAYER_ATTACK:
+		Attack();
 		break;
 	case PLAYER_END:
 		break;
@@ -417,9 +501,19 @@ void Player::ImageInit()
 		TEXT("Image/CupHead/cuphead_plane/Idle/cuphead_plane_trans_up.bmp"),
 		1254, 104, 11, 1, true, RGB(255, 0, 255));
 
+	image = ImageManager::GetInstance()->AddImage("cuphead_plane_ex_down",
+		TEXT("Image/CupHead/cuphead_plane/Shoot/cuphead_plane_ex_down.bmp"),
+		10056, 367, 24, 1, true, RGB(255, 0, 255));
+
+	// Shark
+	image = ImageManager::GetInstance()->AddImage("cuphead_plane_ex_up",
+		TEXT("Image/CupHead/cuphead_plane/Shoot/cuphead_plane_ex_up.bmp"),
+		10056, 367, 24, 1, true, RGB(255, 0, 255));
+
 	image = ImageManager::GetInstance()->AddImage("cuphead_plane_idle_straight",
 		TEXT("Image/CupHead/cuphead_plane/Idle/cuphead_plane_idle_straight.bmp"),
 		448, 101, 4, 1, true, RGB(255, 0, 255));
+
 
 	ImageManager::GetInstance()->AddImage("plane_shoot_spark_0001",
 		TEXT("Image/CupHead/cuphead_plane/Shoot/plane_shoot_spark_0001.bmp"),
@@ -437,21 +531,37 @@ void Player::ImageInit()
 		TEXT("Image/CupHead/cuphead_plane/Shoot/plane_shoot_spark_0004.bmp"),
 		65, 49, 1, 1, true, RGB(255, 0, 255));
 
+	
+
 }
 
 void Player::Move()
 {
 	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
-	FireTime += DeltaTime;
+	for (int i = 0; i < ATTACK_END; ++i)
+	{
+		AttackTimes[i] += DeltaTime;
+	}
+
 	AlphaTime -= DeltaTime;
 
 	KeyManager* keyManager = KeyManager::GetInstance();
 	if (keyManager)
 	{
 		FPOINT position = { 0.f,0.f };
-		if (keyManager->IsStayKeyDown(VK_SPACE))
+		if (keyManager->IsStayKeyDown('J')) // Test, 원래 키는 뭐지
 		{
-			Fire();
+			Fire(ATTACK_NORMAL);
+		}
+
+		if (keyManager->IsStayKeyDown('K'))
+		{
+			Fire(ATTACK_FALL);
+		}
+
+		if (keyManager->IsStayKeyDown('L'))
+		{
+			Fire(ATTACK_SHARK);
 		}
 
 		if (keyManager->IsStayKeyDown('W'))
@@ -463,11 +573,7 @@ void Player::Move()
 		else if (keyManager->IsStayKeyDown('S'))
 		{
 			position.y = 1;
-
-			if (UPDOWN_DOWN != CurUpDownState)
-			{
-				CurUpDownState = UPDOWN_DOWN;
-			}
+			CurUpDownState = UPDOWN_DOWN;
 		}
 
 		else
@@ -505,7 +611,7 @@ void Player::Move()
 void Player::TakeDamage(int damage)
 {
 	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx", pos, 0.5f);
-	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx_b", { pos.x - 50.f, pos.y }, 0.5f);
+	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx_b", { pos.x , pos.y }, 0.5f); // 값 조정 or 때리는 투사체 쪽에서 위치 조정?
 	AlphaTime = MaxAlphaTime;
 	Hp = max(0, Hp - 1);
 }
