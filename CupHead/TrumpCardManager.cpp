@@ -33,7 +33,7 @@ void TrumpCardManager::Update()
 			Owner = dynamic_cast<Player*>(playerList.front());
 	}
 
-	if (KeyManager::GetInstance()->IsOnceKeyDown('U'))
+	if (KeyManager::GetInstance()->IsStayKeyDown('U'))
 	{
 		++CurrentCount;
 	}

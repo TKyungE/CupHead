@@ -11,6 +11,7 @@
 
 #include "BackGround.h"
 #include "Tornado.h"
+#include "Fade.h"
 
 void MainGame::Init()
 {
@@ -97,7 +98,6 @@ void MainGame::Release()
 
 	KeyManager::GetInstance()->Release();
 	ImageManager::GetInstance()->Release();
-
 }
 
 void MainGame::Update()
@@ -115,6 +115,21 @@ void MainGame::Update()
 		tornado->Init(mousePos);
 		Objectmanager->AddObject(tornado, OBJTYPE::OBJ_MONSTER_WEAPON);
 	}
+
+	// Test Fade
+	if (KeyManager::GetInstance()->IsOnceKeyDown('T'))
+	{
+		Fade* fade = new Fade();
+		fade->Init(EFadeMode::FadeIn);
+		Objectmanager->AddObject(fade, OBJTYPE::OBJ_UI);
+	}
+	if (KeyManager::GetInstance()->IsOnceKeyDown('Y'))
+	{
+		Fade* fade = new Fade();
+		fade->Init(EFadeMode::FadeOut);
+		Objectmanager->AddObject(fade, OBJTYPE::OBJ_UI);
+	}
+
 
 	// Test Star
 	//srand(time(NULL));

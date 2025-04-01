@@ -7,6 +7,7 @@
 #include "PlayerHP.h"
 #include "KnockOut.h"
 #include "TrumpCardManager.h"
+#include "ReadyWallop.h"
 
 void ObjectManager::Init()
 {
@@ -33,14 +34,19 @@ void ObjectManager::Init()
 		AddObject(playerHP, OBJTYPE::OBJ_UI);
 
 		// 테스트 코드 KnockOut 생성
-		KnockOut* knockOut = new KnockOut();
+	/*	KnockOut* knockOut = new KnockOut();
 		knockOut->Init();
-		AddObject(knockOut, OBJTYPE::OBJ_UI);
+		AddObject(knockOut, OBJTYPE::OBJ_UI);*/
 
 		// 테스트 코드 TrumpCardManager 생성
 		TrumpCardManager* trumpCardManager = new TrumpCardManager();
-		trumpCardManager->Init(10,5);
+		trumpCardManager->Init(10, 5);
 		AddObject(trumpCardManager, OBJTYPE::OBJ_ETC);
+
+		// 테스트 코드 KnockOut 생성
+		ReadyWallop* readyWallop = new ReadyWallop();
+		readyWallop->Init();
+		AddObject(readyWallop, OBJTYPE::OBJ_UI);
 	}
 
 	// 테스트 코드 BlimpEnemy 생성
@@ -66,7 +72,7 @@ void ObjectManager::Update()
 			{
 				(*iter)->Update();
 				++iter;
-			}				
+			}
 		}
 	}
 }
@@ -100,7 +106,7 @@ void ObjectManager::RenderObject(HDC hdc)
 	for (auto& iter : ObjectList[OBJ_MONSTER])
 		iter->Render(hdc);
 
-	for(auto& iter : ObjectList[OBJ_PLAYER_WEAPON])
+	for (auto& iter : ObjectList[OBJ_PLAYER_WEAPON])
 		iter->Render(hdc);
 
 	for (auto& iter : ObjectList[OBJ_MONSTER_WEAPON])

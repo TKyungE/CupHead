@@ -85,6 +85,15 @@
     <Filter Include="MainGame\UI\TrumpCard">
       <UniqueIdentifier>{e79ef24b-b39c-40c8-a8ef-fc1b08536a95}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\UI\Fade">
+      <UniqueIdentifier>{054e9be4-f2fd-46a2-9d00-5d304f50cc96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\ReadyWallop">
+      <UniqueIdentifier>{a2b8822a-0e45-4f80-bf07-ee843dd9167f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\ScreenFX">
+      <UniqueIdentifier>{8e571a5b-a2ec-4e72-a036-7184509c91ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -200,6 +209,15 @@
     </ClCompile>
     <ClCompile Include="TrumpCardManager.cpp">
       <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>MainGame\UI\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadyWallop.cpp">
+      <Filter>MainGame\UI\ReadyWallop</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenFX.cpp">
+      <Filter>MainGame\UI\ScreenFX</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +340,15 @@
     </ClInclude>
     <ClInclude Include="TrumpCardManager.h">
       <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>MainGame\UI\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadyWallop.h">
+      <Filter>MainGame\UI\ReadyWallop</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenFX.h">
+      <Filter>MainGame\UI\ScreenFX</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
