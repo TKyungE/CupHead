@@ -43,12 +43,6 @@
     <Filter Include="MainGame\Enemy\Sagittarius\Arrow">
       <UniqueIdentifier>{b86ab429-09c3-4945-af67-14ee279b735b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Enemy\UFO">
-      <UniqueIdentifier>{ca75984f-dd6e-4d43-8394-f9d6bdafbf35}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame\Enemy\UFO\UFOBeam">
-      <UniqueIdentifier>{f44c96b0-9e2d-4250-9a86-d359bbb9f5b7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainGame\Enemy\Sagittarius\Cloud">
       <UniqueIdentifier>{50d00f88-f519-4df4-87f0-48bc4b2d320d}</UniqueIdentifier>
     </Filter>
@@ -61,12 +55,6 @@
     <Filter Include="MainGame\Enemy\BlimpEnemy">
       <UniqueIdentifier>{07c2a441-a826-4bb3-a953-2089ab90a541}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Enemy\Tornado">
-      <UniqueIdentifier>{3a18a387-eadb-4cab-9e88-49cc723dd6a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame\Bullet">
-      <UniqueIdentifier>{f4325e91-1cd1-4944-b822-866867221cdd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainGame\UI">
       <UniqueIdentifier>{fa26e4c4-0a13-4bf6-b445-a9f582719184}</UniqueIdentifier>
     </Filter>
@@ -75,12 +63,6 @@
     </Filter>
     <Filter Include="MainGame\UI\KnockOut">
       <UniqueIdentifier>{c5ef2cd6-80ed-4fb5-9c48-3a8e7630c71c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame\Enemy\Laugh">
-      <UniqueIdentifier>{bff62b1b-6cea-4bbf-b3da-d91ce8c64590}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame\Enemy\Star">
-      <UniqueIdentifier>{92969c5f-8b52-42c7-a0c9-8c9cdf03092e}</UniqueIdentifier>
     </Filter>
     <Filter Include="MainGame\UI\TrumpCard">
       <UniqueIdentifier>{e79ef24b-b39c-40c8-a8ef-fc1b08536a95}</UniqueIdentifier>
@@ -93,6 +75,33 @@
     </Filter>
     <Filter Include="MainGame\UI\ScreenFX">
       <UniqueIdentifier>{8e571a5b-a2ec-4e72-a036-7184509c91ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\BlimpEnemy\Bullet">
+      <UniqueIdentifier>{f4325e91-1cd1-4944-b822-866867221cdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\HildaBlimp">
+      <UniqueIdentifier>{9df35f62-8119-4c5f-a643-4c6d77198ef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\HildaBlimp\Laugh">
+      <UniqueIdentifier>{bff62b1b-6cea-4bbf-b3da-d91ce8c64590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\HildaBlimp\Tornado">
+      <UniqueIdentifier>{3a18a387-eadb-4cab-9e88-49cc723dd6a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Moon\UFO">
+      <UniqueIdentifier>{ca75984f-dd6e-4d43-8394-f9d6bdafbf35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Moon\UFO\UFOBeam">
+      <UniqueIdentifier>{f44c96b0-9e2d-4250-9a86-d359bbb9f5b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Moon\Star">
+      <UniqueIdentifier>{92969c5f-8b52-42c7-a0c9-8c9cdf03092e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Taurus">
+      <UniqueIdentifier>{b3fd6217-26fb-4869-bf3c-3e40bf1f562b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\HildaBerg">
+      <UniqueIdentifier>{32b271e7-c7da-406f-80e8-0fd878658019}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -154,10 +163,10 @@
       <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
     </ClCompile>
     <ClCompile Include="UFO.cpp">
-      <Filter>MainGame\Enemy\UFO</Filter>
+      <Filter>MainGame\Enemy\Moon\UFO</Filter>
     </ClCompile>
     <ClCompile Include="UFOBeam.cpp">
-      <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
+      <Filter>MainGame\Enemy\Moon\UFO\UFOBeam</Filter>
     </ClCompile>
     <ClCompile Include="Sagittarius.cpp">
       <Filter>MainGame\Enemy\Sagittarius</Filter>
@@ -175,10 +184,10 @@
       <Filter>MainGame\Enemy\BlimpEnemy</Filter>
     </ClCompile>
     <ClCompile Include="Tornado.cpp">
-      <Filter>MainGame\Enemy\Tornado</Filter>
+      <Filter>MainGame\Enemy\HildaBlimp\Tornado</Filter>
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
-      <Filter>MainGame\Bullet</Filter>
+      <Filter>MainGame\Enemy\BlimpEnemy\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="UIBase.cpp">
       <Filter>MainGame\UI</Filter>
@@ -199,10 +208,10 @@
       <Filter>MainGame\Player</Filter>
     </ClCompile>
     <ClCompile Include="LaughProjectile.cpp">
-      <Filter>MainGame\Enemy\Laugh</Filter>
+      <Filter>MainGame\Enemy\HildaBlimp\Laugh</Filter>
     </ClCompile>
     <ClCompile Include="StarProjectile.cpp">
-      <Filter>MainGame\Enemy\Star</Filter>
+      <Filter>MainGame\Enemy\Moon\Star</Filter>
     </ClCompile>
     <ClCompile Include="TrumpCard.cpp">
       <Filter>MainGame\UI\TrumpCard</Filter>
@@ -224,6 +233,15 @@
     </ClCompile>
     <ClCompile Include="ScreenFX.cpp">
       <Filter>MainGame\UI\ScreenFX</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBlimp.cpp">
+      <Filter>MainGame\Enemy\HildaBlimp</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBerg.cpp">
+      <Filter>MainGame\Enemy\HildaBerg</Filter>
+    </ClCompile>
+    <ClCompile Include="Taurus.cpp">
+      <Filter>MainGame\Enemy\Taurus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -291,10 +309,10 @@
       <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
     </ClInclude>
     <ClInclude Include="UFO.h">
-      <Filter>MainGame\Enemy\UFO</Filter>
+      <Filter>MainGame\Enemy\Moon\UFO</Filter>
     </ClInclude>
     <ClInclude Include="UFOBeam.h">
-      <Filter>MainGame\Enemy\UFO\UFOBeam</Filter>
+      <Filter>MainGame\Enemy\Moon\UFO\UFOBeam</Filter>
     </ClInclude>
     <ClInclude Include="Sagittarius.h">
       <Filter>MainGame\Enemy\Sagittarius</Filter>
@@ -312,10 +330,10 @@
       <Filter>MainGame\Enemy\BlimpEnemy</Filter>
     </ClInclude>
     <ClInclude Include="Tornado.h">
-      <Filter>MainGame\Enemy\Tornado</Filter>
+      <Filter>MainGame\Enemy\HildaBlimp\Tornado</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>MainGame\Bullet</Filter>
+      <Filter>MainGame\Enemy\BlimpEnemy\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="UIBase.h">
       <Filter>MainGame\UI</Filter>
@@ -336,10 +354,10 @@
       <Filter>MainGame\Player</Filter>
     </ClInclude>
     <ClInclude Include="LaughProjectile.h">
-      <Filter>MainGame\Enemy\Laugh</Filter>
+      <Filter>MainGame\Enemy\HildaBlimp\Laugh</Filter>
     </ClInclude>
     <ClInclude Include="StarProjectile.h">
-      <Filter>MainGame\Enemy\Star</Filter>
+      <Filter>MainGame\Enemy\Moon\Star</Filter>
     </ClInclude>
     <ClInclude Include="TrumpCard.h">
       <Filter>MainGame\UI\TrumpCard</Filter>
@@ -361,6 +379,15 @@
     </ClInclude>
     <ClInclude Include="ScreenFX.h">
       <Filter>MainGame\UI\ScreenFX</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaBlimp.h">
+      <Filter>MainGame\Enemy\HildaBlimp</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaBerg.h">
+      <Filter>MainGame\Enemy\HildaBerg</Filter>
+    </ClInclude>
+    <ClInclude Include="Taurus.h">
+      <Filter>MainGame\Enemy\Taurus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
