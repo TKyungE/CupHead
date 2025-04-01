@@ -1,35 +1,26 @@
 #pragma once
 #include "Character.h"
 
-namespace HildaBlimpInfo
+namespace TaurusInfo
 {
 	enum EState
 	{
-		INTRO,
 		IDLE,
-		SHOOT,
-		TORNADO,
-		DASH,
-		SUMMON,
-		SUMMONRECOVER,
-		MORPH1,
-		MORPH2,
-		MORPH3,
-		MORPH4,
+		ATTACK,
 		STATE_END
 	};
 
 	extern string states[EState::STATE_END];
 }
 
-class HildaBlimp : public Character
+class Taurus : public Character
 {
 public:
-	HildaBlimp(int _Phase);
-	virtual ~HildaBlimp();
+	Taurus();
+	virtual ~Taurus();
 
 public:
-	void Init(FPOINT _Pos, float _Angle=0);
+	void Init(FPOINT _Pos, float _Angle = 0);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
@@ -43,35 +34,26 @@ public:
 
 private:
 	void UpdateState();
-	void SetState(HildaBlimpInfo::EState NewState);
-	
-	void ShootPaternByPhase();
-	void ShootHa();
-	void ShootTornado();
+	void SetState(TaurusInfo::EState NewState);
 
 	void Dash();
-	void DashRecover();
+	void Recover();
 
 	// 나중에 옮기든지..
 	float GetWidth();
 	float GetHeight();
 
 private:
-	int Phase;
-
 	float Angle;
 	float AngleSpeed;
 
-	HildaBlimpInfo::EState CurState;
+	TaurusInfo::EState CurState;
 	vector<pair<string, float>> AnimData;
 	bool IsAnimEnd;
 
-	float ElapsedShootTime;
-	float ShootCoolTime;
+	float ElapsedAttackTime;
+	float AttackCoolTime;
 
-	int HaShootCnt;
-	int HaMaxShootCnt;
-
-	float ElapsedAnimTime;
+	FPOINT PosBefore;
 };
 

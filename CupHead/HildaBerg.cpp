@@ -1,6 +1,7 @@
 #include "HildaBerg.h"
 #include "Character.h"
 #include "HildaBlimp.h"
+#include "Taurus.h"
 #include "Sagittarius.h"
 #include "Moon.h"
 
@@ -16,7 +17,7 @@ HildaBerg::~HildaBerg()
 void HildaBerg::Init()
 {
 	pos = { WINSIZE_X - 300.f, WINSIZE_Y / 2.f + 50.f };
-	Phase = 0;
+	Phase = 1;
 	ChangeForm();
 }
 
@@ -70,7 +71,9 @@ void HildaBerg::ChangeForm()
 	}
 	case 1:
 	{
-		// taurus
+		Taurus* taurus = new Taurus();
+		taurus->Init(pos, Angle);
+		HildaForm = taurus;
 		++Phase;
 		break;
 	}

@@ -11,17 +11,17 @@
 namespace HildaBlimpInfo
 {
 	string states[EState::STATE_END] = {
-		"INTRO",
-		"IDLE",
-		"SHOOT",
-		"TORNADO",
-		"DASH",
-		"SUMMON",
-		"SUMMONRECOVER",
-		"MORPH1",
-		"MORPH2",
-		"MORPH3",
-		"MORPH4"
+		"BLIMP_INTRO",
+		"BLIMP_IDLE",
+		"BLIMP_SHOOT",
+		"BLIMP_TORNADO",
+		"BLIMP_DASH",
+		"BLIMP_SUMMON",
+		"BLIMP_SUMMONRECOVER",
+		"BLIMP_MORPH1",
+		"BLIMP_MORPH2",
+		"BLIMP_MORPH3",
+		"BLIMP_MORPH4"
 	};
 }
 
