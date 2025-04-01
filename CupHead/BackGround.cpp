@@ -7,10 +7,11 @@ namespace BackGroundInfo
 	string BackGroundTypes[EBackGroundType::BACKTYPE_END] = {
 		"SKY",
 		"CLOUD",
+		"MIST",
 		"DARK_HILL",
 		"MAIN_GROUND"
 	};
-	int BackGroundNum[EBackGroundType::BACKTYPE_END] = { 1, 5, 1, 2 };
+	int BackGroundNum[EBackGroundType::BACKTYPE_END] = { 1, 5, 3, 1, 2 };
 
 	string ForeGroundTypes[EForeGroundType::FORETYPE_END] = {
 		"LARGE_FOREST",
@@ -24,8 +25,8 @@ namespace BackGroundInfo
 	int ForeObjectNum = 6;
 }
 
-BackGround::BackGround(FPOINT InPos, Image* _image, int _Speed, bool _Loop)
-	: StartPos(InPos), image(_image), Speed(_Speed), IsOut{ true }, Loop(_Loop)
+BackGround::BackGround(FPOINT InPos, Image* _image, int _Speed, bool _Loop, int _Alpha)
+	: StartPos(InPos), image(_image), Speed(_Speed), IsOut{ true }, Loop(_Loop), Alpha(_Alpha)
 {
 }
 
@@ -68,7 +69,14 @@ void BackGround::Render(HDC hdc)
 	if (IsOut) return;
 	if (image != nullptr)
 	{
-		image->FrameRenderLoop(hdc, pos.x, pos.y, 0, 0, 0, Loop);
+		if (Alpha == 255)
+		{
+			image->FrameRenderLoop(hdc, pos.x, pos.y, 0, 0, false, Loop);
+		}
+		else
+		{
+			image->FrameRenderLoopAlpha(hdc, pos.x, pos.y, 0, 0, false, Alpha, {}, false, Loop);
+		}
 	}
 }
 
@@ -153,6 +161,33 @@ void BackGroundManager::Init()
 		BackGroundInfo::BackGroundTypes[imageBackType] + to_string(imageNum),
 		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_clouds_0005.bmp"),
 		2048, 322,
+		1, 1,
+		true, RGB(255, 0, 255));
+#pragma endregion
+#pragma region mist
+	// mist
+	imageBackType = BackGroundInfo::EBackGroundType::MIST;
+	imageNum = 0;
+	ImageManager::GetInstance()->AddImage(
+		BackGroundInfo::BackGroundTypes[imageBackType] + to_string(imageNum),
+		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_mist_0001.bmp"),
+		1653, 150,
+		1, 1,
+		true, RGB(255, 0, 255));
+
+	++imageNum;
+	ImageManager::GetInstance()->AddImage(
+		BackGroundInfo::BackGroundTypes[imageBackType] + to_string(imageNum),
+		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_mist_0002.bmp"),
+		1653, 150,
+		1, 1,
+		true, RGB(255, 0, 255));
+
+	++imageNum;
+	ImageManager::GetInstance()->AddImage(
+		BackGroundInfo::BackGroundTypes[imageBackType] + to_string(imageNum),
+		TEXT("Image\\CupHead\\BackGround\\Day\\blimp_mist_0003.bmp"),
+		1254, 150,
 		1, 1,
 		true, RGB(255, 0, 255));
 #pragma endregion
@@ -426,25 +461,34 @@ void BackGroundManager::Init()
 	// sky 1
 	imageBackType = BackGroundInfo::EBackGroundType::SKY;
 	imageNum = 0;
-	AddBackGround(imageBackType, imageNum, 10, true, true);
+	AddBackGround(imageBackType, imageNum, 10, true, true, 3, 255);
 
 	// cloud
 	imageBackType = BackGroundInfo::EBackGroundType::CLOUD;
+	imageNum = 1;
+	AddBackGround(imageBackType, imageNum, 40, true, true, 1, 100);
+	imageNum++;
+	AddBackGround(imageBackType, imageNum, 30, true, true, 1, 210);
+	
+	// mist
+	imageBackType = BackGroundInfo::EBackGroundType::MIST;
 	imageNum = 0;
-	AddBackGround(imageBackType, imageNum, 30, true, true, false);
+	AddBackGround(imageBackType, imageNum, 40, true, true, 2, 30);
+	imageNum++;
+	AddBackGround(imageBackType, imageNum, 30, true, true, 2, 50);
 
 	// dark hill
 	imageBackType = BackGroundInfo::EBackGroundType::DARK_HILL;
 	imageNum = 0;
-	AddBackGround(imageBackType, imageNum, 300, true, true);
+	AddBackGround(imageBackType, imageNum, 300, true, true, 3, 255);
 	
 	// main ground
 	imageBackType = BackGroundInfo::EBackGroundType::MAIN_GROUND;
 	imageNum = 0;
-	AddBackGround(imageBackType, imageNum, 500, false, true);
+	AddBackGround(imageBackType, imageNum, 500, false, true, 3, 255);
 
 	imageNum++;
-	AddBackGround(imageBackType, imageNum, 500, false, false);
+	AddBackGround(imageBackType, imageNum, 500, false, false, 3, 255);
 
 #pragma endregion
 
@@ -612,7 +656,7 @@ void BackGroundManager::PrepareNextForeObject()
 	ForeObjectCoolTime = uid(dre) % 4 + 2.f;
 }
 
-void BackGroundManager::AddBackGround(BackGroundInfo::EBackGroundType type, int num, int speed, bool loop, bool init, bool bottomSide)
+void BackGroundManager::AddBackGround(BackGroundInfo::EBackGroundType type, int num, int speed, bool loop, bool init, int YPosType, int alpha)
 {
 	string imageName = BackGroundInfo::BackGroundTypes[type] + to_string(num);
 	Image* image = ImageManager::GetInstance()->FindImage(imageName);
@@ -630,16 +674,26 @@ void BackGroundManager::AddBackGround(BackGroundInfo::EBackGroundType type, int 
 		position.x = WINSIZE_X / 2;
 	}
 
-	if (bottomSide)
+	switch (YPosType)
 	{
-		position.y = WINSIZE_Y - fh / 2;
-	}
-	else
+	case 1:
 	{
 		position.y = fh / 2;
+		break;
+	}
+	case 2:
+	{
+		position.y = WINSIZE_Y - fh * 1.5f;
+		break;
+	}
+	case 3:
+	{
+		position.y = WINSIZE_Y - fh / 2;
+		break;
+	}
 	}
 
-	BackGround* background = new BackGround(position, image, speed, loop);
+	BackGround* background = new BackGround(position, image, speed, loop, alpha);
 	if (init) background->Init();
 	BackGroundList[type].emplace_back(background);
 }
