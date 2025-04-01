@@ -1,10 +1,10 @@
 #pragma once
 #include "Pawn.h"
-class PlayerMissile : public Pawn
+class PlayerFallMissile : public Pawn
 {
 public:
-	PlayerMissile();
-	virtual ~PlayerMissile();
+	PlayerFallMissile();
+	virtual ~PlayerFallMissile();
 
 public:
 	void Init(FPOINT _Pos);
@@ -17,6 +17,8 @@ public:
 	virtual void TakeDamage(int damage = 0) override;
 
 private:
-	float LookAngle;
+	float MoveTime;
+	float Gravity;
+	FPOINT InitPos;
 };
 
