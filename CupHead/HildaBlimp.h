@@ -12,6 +12,10 @@ namespace HildaBlimpInfo
 		DASH,
 		SUMMON,
 		SUMMONRECOVER,
+		MORPH1,
+		MORPH2,
+		MORPH3,
+		MORPH4,
 		STATE_END
 	};
 
@@ -21,10 +25,10 @@ namespace HildaBlimpInfo
 class HildaBlimp : public Character
 {
 public:
-	HildaBlimp(int phase);
+	HildaBlimp(int _Phase);
 	virtual ~HildaBlimp();
 
-	void Init(FPOINT InPos);
+	void Init(FPOINT _Pos, float _Angle=0);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
@@ -33,6 +37,8 @@ public:
 
 	virtual void Move() override;
 	virtual void TakeDamage(int damage = 0) override;
+
+	virtual float GetMoveAngle() override { return Angle; }
 
 private:
 	void UpdateState();
@@ -64,5 +70,7 @@ private:
 
 	int HaShootCnt;
 	int HaMaxShootCnt;
+
+	float ElapsedAnimTime;
 };
 

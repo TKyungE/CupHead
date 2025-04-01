@@ -13,13 +13,14 @@ Sagittarius::Sagittarius()
 {
 }
 
-void Sagittarius::Init(FPOINT InPos)
+void Sagittarius::Init(FPOINT InPos, float InAngle)
 {
 	// Test. HildaBerg Change Form
-	Hp = 10;
+	Hp = 50;
 
 	State = ESagittariusState::Idle;
 	pos = InPos;
+	Angle = InAngle;
 	Speed = 150.f;
 	FrameSpeed = 10.f;
 	AngleSpeed = 250.f;
@@ -27,7 +28,7 @@ void Sagittarius::Init(FPOINT InPos)
 
 	image = ImageManager::GetInstance()->AddImage("sagg_idle", L"Image/CupHead/Hilda Berg/Sagittarius/Sagittarius/Idle/sagg_idle.bmp", 5580, 362, 12, 1, true, RGB(255, 0, 255));
 
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { (float)image->GetFrameWidth(), (float)image->GetFrameHeight() }, true, 1.f);
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { (float)image->GetFrameWidth(), (float)image->GetFrameHeight() }, true, 0.1f);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJ_MONSTER);
 

@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+
+class Character;
 class HildaBerg : public GameObject
 {
 public:
@@ -23,7 +25,8 @@ private:
 	void ChangeForm();
 
 private:
-	GameObject* HildaForm;
+	Character* HildaForm;
 	int Phase;
+	float Angle;
 };
 

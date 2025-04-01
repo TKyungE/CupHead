@@ -23,9 +23,9 @@ void ObjectManager::Init()
 		//AddObject(sagittarius, OBJTYPE::OBJ_MONSTER);
 
 		// 테스트 코드 Moon 생성
-		Moon* moon = new Moon();
-		moon->Init();
-		AddObject(moon, OBJTYPE::OBJ_MONSTER);
+		//Moon* moon = new Moon();
+		//moon->Init();
+		//AddObject(moon, OBJTYPE::OBJ_MONSTER);
 
 		// 테스트 코드 PlayerHP 생성
 		PlayerHP* playerHP = new PlayerHP();

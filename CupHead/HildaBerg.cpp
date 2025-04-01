@@ -1,10 +1,11 @@
 #include "HildaBerg.h"
+#include "Character.h"
 #include "HildaBlimp.h"
 #include "Sagittarius.h"
 #include "Moon.h"
 
 HildaBerg::HildaBerg()
-	: HildaForm{}, Phase{}
+	: HildaForm{}, Phase{}, Angle{}
 {
 }
 
@@ -14,7 +15,8 @@ HildaBerg::~HildaBerg()
 
 void HildaBerg::Init()
 {
-	pos = { WINSIZE_X - 100.f, WINSIZE_Y / 2.f + 50.f };
+	pos = { WINSIZE_X - 300.f, WINSIZE_Y / 2.f + 50.f };
+	Phase = 0;
 	ChangeForm();
 }
 
@@ -35,10 +37,11 @@ void HildaBerg::Update()
 	if (HildaForm)
 	{
 		HildaForm->Update();
-		pos = HildaForm->GetPos();
 
 		if (HildaForm->IsDead())
 		{
+			pos = HildaForm->GetPos();
+			Angle = HildaForm->GetMoveAngle();
 			HildaForm->Release();
 			delete HildaForm;
 			HildaForm = NULL;
@@ -60,7 +63,7 @@ void HildaBerg::ChangeForm()
 	case 0:
 	{
 		HildaBlimp* blimp = new HildaBlimp(0);
-		blimp->Init(pos);
+		blimp->Init(pos, Angle);
 		HildaForm = blimp;
 		++Phase;
 		break;
@@ -74,7 +77,7 @@ void HildaBerg::ChangeForm()
 	case 2:
 	{
 		HildaBlimp* blimp = new HildaBlimp(1);
-		blimp->Init(pos);
+		blimp->Init(pos, Angle);
 		HildaForm = blimp;
 		++Phase;
 		break;
@@ -82,7 +85,7 @@ void HildaBerg::ChangeForm()
 	case 3:
 	{
 		Sagittarius* sag = new Sagittarius();
-		sag->Init(pos);
+		sag->Init(pos, Angle);
 		HildaForm = sag;
 		++Phase;
 		break;
@@ -90,7 +93,7 @@ void HildaBerg::ChangeForm()
 	case 4:
 	{
 		HildaBlimp* blimp = new HildaBlimp(2);
-		blimp->Init(pos);
+		blimp->Init(pos, Angle);
 		HildaForm = blimp;
 		++Phase;
 		break;

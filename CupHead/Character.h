@@ -15,6 +15,7 @@ public:
 	virtual void Move() override;
 	virtual void TakeDamage(int damage = 0) override;
 
+	virtual float GetMoveAngle() { return 0.f; }
 	
 	inline void SetHp(int _Hp) { Hp = _Hp; }
 	inline int GetHp() const { return Hp; }

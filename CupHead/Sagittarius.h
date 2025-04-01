@@ -16,13 +16,15 @@ public:
 	Sagittarius();
 	virtual ~Sagittarius() = default;
 
-	void Init(FPOINT InPos);
+	void Init(FPOINT InPos, float InAngle);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
 	virtual void Move() override;
 	virtual void TakeDamage(int damage = 0) override;
+
+	virtual float GetMoveAngle() override { return Angle; }
 
 private:
 	void Idle();

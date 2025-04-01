@@ -17,7 +17,11 @@ namespace HildaBlimpInfo
 		"TORNADO",
 		"DASH",
 		"SUMMON",
-		"SUMMONRECOVER"
+		"SUMMONRECOVER",
+		"MORPH1",
+		"MORPH2",
+		"MORPH3",
+		"MORPH4"
 	};
 }
 
@@ -26,7 +30,8 @@ HildaBlimp::HildaBlimp(int _Phase)
 	Angle{}, AngleSpeed{},
 	CurState{}, AnimData{}, IsAnimEnd{},
 	ElapsedShootTime{}, ShootCoolTime{ 7.f },
-	HaShootCnt{}, HaMaxShootCnt{ 1 }
+	HaShootCnt{}, HaMaxShootCnt{ 1 },
+	ElapsedAnimTime{}
 {
 }
 
@@ -34,7 +39,7 @@ HildaBlimp::~HildaBlimp()
 {
 }
 
-void HildaBlimp::Init(FPOINT InPos)
+void HildaBlimp::Init(FPOINT _Pos, float _Angle)
 {
 #pragma region Image Load
 	// Image 나중에 다른데서 한꺼번에 Load
@@ -82,16 +87,48 @@ void HildaBlimp::Init(FPOINT InPos)
 	ImageManager::GetInstance()->AddImage(
 		stateStr,
 		TEXT("Image\\CupHead\\Hilda Berg\\Normal\\blimp_summon.bmp"),
-		5712, 433,
-		16, 1,
+		5355, 433,
+		15, 1,
 		true, RGB(255, 0, 255));
 
 	stateStr = HildaBlimpInfo::states[HildaBlimpInfo::EState::SUMMONRECOVER];
 	ImageManager::GetInstance()->AddImage(
 		stateStr,
 		TEXT("Image\\CupHead\\Hilda Berg\\Normal\\blimp_summon_recover.bmp"),
-		1955, 419,
-		5, 1,
+		2346, 419,
+		6, 1,
+		true, RGB(255, 0, 255));
+
+	stateStr = HildaBlimpInfo::states[HildaBlimpInfo::EState::MORPH1];
+	ImageManager::GetInstance()->AddImage(
+		stateStr,
+		TEXT("Image\\CupHead\\Hilda Berg\\Trans\\blimp_morph_1.bmp"),
+		2793, 399,
+		7, 1,
+		true, RGB(255, 0, 255));
+
+	stateStr = HildaBlimpInfo::states[HildaBlimpInfo::EState::MORPH2];
+	ImageManager::GetInstance()->AddImage(
+		stateStr,
+		TEXT("Image\\CupHead\\Hilda Berg\\Trans\\blimp_morph_2.bmp"),
+		4062, 424,
+		6, 1,
+		true, RGB(255, 0, 255));
+
+	stateStr = HildaBlimpInfo::states[HildaBlimpInfo::EState::MORPH3];
+	ImageManager::GetInstance()->AddImage(
+		stateStr,
+		TEXT("Image\\CupHead\\Hilda Berg\\Trans\\blimp_morph_3.bmp"),
+		18425, 510,
+		25, 1,
+		true, RGB(255, 0, 255));
+
+	stateStr = HildaBlimpInfo::states[HildaBlimpInfo::EState::MORPH4];
+	ImageManager::GetInstance()->AddImage(
+		stateStr,
+		TEXT("Image\\CupHead\\Hilda Berg\\Trans\\blimp_morph_4.bmp"),
+		9490, 801,
+		10, 1,
 		true, RGB(255, 0, 255));
 #pragma endregion
 
@@ -112,14 +149,15 @@ void HildaBlimp::Init(FPOINT InPos)
 	float sizeX = GetWidth();
 	float sizeY = GetHeight();
 
-	Speed = 200.f;
+	Speed = 150.f;
 	AngleSpeed = 250.f;
 	IsFlip = false;
-	pos = InPos;
+	pos = _Pos;
+	Angle = _Angle;
 	size = { 1.f,1.f };
 	bDead = false;
 
-	Hp = 10;
+	Hp = 50;
 
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true, 0.1f);
 	collider->Init();
@@ -197,7 +235,14 @@ void HildaBlimp::UpdateState()
 	{
 		if (Hp <= 0)
 		{
-			SetState(HildaBlimpInfo::EState::DASH);
+			if (Phase != 2)
+			{
+				SetState(HildaBlimpInfo::EState::DASH);
+			}
+			else
+			{
+				SetState(HildaBlimpInfo::EState::MORPH1);
+			}
 			return;
 		}
 
@@ -244,6 +289,7 @@ void HildaBlimp::UpdateState()
 		if (IsAnimEnd)
 		{
 			FrameTime = CurFrameIndex = 21;
+			IsAnimEnd = false;
 		}
 		if (pos.x <= -GetWidth()/2.f)
 		{
@@ -263,6 +309,63 @@ void HildaBlimp::UpdateState()
 	case HildaBlimpInfo::EState::SUMMONRECOVER:
 	{
 		if (IsAnimEnd)
+		{
+			bDead = true;
+		}
+		break;
+	}
+	case HildaBlimpInfo::EState::MORPH1:
+	{
+		ElapsedAnimTime += TimerManager::GetInstance()->GetDeltaTime();
+		if (IsAnimEnd)
+		{
+			if (ElapsedAnimTime > 5.f)
+			{
+				SetState(HildaBlimpInfo::EState::MORPH2);
+				ElapsedAnimTime = 0.f;
+			}
+			else
+			{
+				FrameTime = CurFrameIndex = 1;
+				IsAnimEnd = false;
+			}
+		}
+		break;
+	}
+	case HildaBlimpInfo::EState::MORPH2:
+	{
+		IsAnimEnd = false;
+		ElapsedAnimTime += TimerManager::GetInstance()->GetDeltaTime();
+
+		if (ElapsedAnimTime > 2.f)
+		{
+			SetState(HildaBlimpInfo::EState::MORPH3);
+			ElapsedAnimTime = 0.f;
+		}
+		break;
+	}
+	case HildaBlimpInfo::EState::MORPH3:
+	{
+		if (IsAnimEnd)
+		{
+			SetState(HildaBlimpInfo::EState::MORPH4);
+		}
+		break;
+	}
+	case HildaBlimpInfo::EState::MORPH4:
+	{
+		float deltaX = (WINSIZE_X - 310.f) - pos.x;
+		float deltaY = (WINSIZE_Y * 0.5f) - pos.y;
+		pos.x += deltaX * 5.f * TimerManager::GetInstance()->GetDeltaTime();
+		pos.y += deltaY * 5.f * TimerManager::GetInstance()->GetDeltaTime();
+
+		if (IsAnimEnd)
+		{
+			FrameTime = CurFrameIndex = 19;
+			IsAnimEnd = false;
+		}
+
+		if (GetDistance({ 0,0 }, { deltaX, deltaY }) <= 1.f)
 		{
 			bDead = true;
 		}
