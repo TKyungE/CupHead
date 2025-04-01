@@ -38,15 +38,10 @@ public:
 
 	virtual void Move() override;
 
+private:
 	void UpdateState();
 
 	void FireBullet();
-
-	void SetColor(string _Color);
-	inline string GetColor() const { return Color; }
-
-	inline void SetBulletNum(int _BulletNum) { BulletNum = _BulletNum; }
-	inline int GetBulletNum() const { return BulletNum; }
 
 	void SetState(BlimpEnemyInfo::EState NewState, bool AnimReverse);
 

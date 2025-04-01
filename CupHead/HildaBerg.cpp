@@ -17,7 +17,7 @@ HildaBerg::~HildaBerg()
 void HildaBerg::Init()
 {
 	pos = { WINSIZE_X - 300.f, WINSIZE_Y / 2.f + 50.f };
-	Phase = 1;
+	Phase = 0;
 	ChangeForm();
 }
 
