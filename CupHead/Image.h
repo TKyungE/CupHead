@@ -78,6 +78,8 @@ public:
 		int frameX, int frameY, bool isFlip = false);
 	void FrameRenderAlpha(HDC hdc, int destX, int destY,
 		int frameX, int frameY, bool _IsOver, int _AlphaValue, COLORREF _AlphaColor = RGB(255, 255, 255), bool isFlip = false);
+	void FrameRenderAlpha(HDC hdc, int destX, int destY,
+		int frameX, int frameY, bool _IsOver, int _AlphaValue, int AlphaY,COLORREF _AlphaColor = RGB(255, 255, 255), bool isFlip = false);
 	void FrameRenderLoop(HDC hdc, int destX, int destY,
 		int frameX, int frameY, bool isFlip = false, bool isLoop = false);
 

@@ -139,7 +139,6 @@ void MainGame::Update()
 		ObjectManager::GetInstance()->AddObject(Laugh, OBJTYPE::OBJ_MONSTER_WEAPON);
 	}
 
-
 	if (Objectmanager)
 		Objectmanager->Update();
 	if (collisionManager)
@@ -174,14 +173,15 @@ void MainGame::Render()
 	{
 		EffectManager->Render(hBackBufferDC);
 	}
-		
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 
 	if (backgroundManager)
 		backgroundManager->RenderForeGround(hBackBufferDC);
 
-	// ����ۿ�? �ִ� ������ ���� hdc�� ����
+	if (Objectmanager)
+		Objectmanager->RenderUI(hBackBufferDC);
+
 	backBuffer->Render(hdc);
 }
 

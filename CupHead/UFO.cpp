@@ -37,11 +37,7 @@ void UFO::Update()
 	Attack();
 
 	if (OutOfScreen(pos, image->GetFrameWidth(), image->GetFrameHeight()))
-	{
 		bDead = true;
-		if (UFOBeamWeapon != nullptr)
-			UFOBeamWeapon->SetDead(true);
-	}
 }
 
 void UFO::Render(HDC hdc)
@@ -55,7 +51,12 @@ void UFO::Move()
 	pos.x -= Speed * TimerManager::GetInstance()->GetDeltaTime();
 
 	if (WINSIZE_X - pos.x >= 150.f && pos.y - (image->GetFrameHeight() * 0.5f) >= 0.f)
+	{
 		pos.y -= Speed * TimerManager::GetInstance()->GetDeltaTime();
+
+		if (pos.y - (image->GetFrameHeight() * 0.5f) < 0.f)
+			pos.y = image->GetFrameHeight() * 0.5f;
+	}		
 }
 
 void UFO::Attack()

@@ -17,7 +17,7 @@ private:
 	void HPUpdate();
 	void HP1SettingReset();
 private:
-	Character* Player;
+	Character* Owner;
 	bool bHP1SettingReset;
 };
 

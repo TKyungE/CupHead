@@ -25,16 +25,16 @@ void SagittariusStar::Init()
 	MaxHp = 2;
 	Hp = MaxHp;
 
-	maxAngularAcceleration = 0.3f;
-	maxAngularVelocity = 0.1f;
-	friction = 0.9f;
+	maxAngularAcceleration = 0.6f;
+	maxAngularVelocity = 0.7f;
+	friction = 0.3f;
 
 	image = ImageManager::GetInstance()->AddImage("sagg_star", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/sagg_star.bmp", 1157, 90, 13, 1, true, RGB(255, 0, 255));
 	ImageSize = sqrtf(powf(image->GetFrameWidth(), 2) + powf(image->GetFrameHeight(), 2));
 
 	Collider* collider = new Collider(this, COLLIDERTYPE::Sphere, { 0.f,0.f }, 30.f, true, 1.f);
 	collider->Init();
-	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER_WEAPON);
+	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER);
 
 	EffectInit();
 }
@@ -98,7 +98,7 @@ void SagittariusStar::Guided()
 		const float targetAngle = atan2f(player->GetPos().y - pos.y, player->GetPos().x - pos.x);
 		const float angleDiff = NoramlizeAngle(targetAngle - (float)DEG_TO_RAD(Angle));
 
-		//각 가속도
+		//각가속도
 		float angularAcceleration = maxAngularAcceleration * (angleDiff > 0 ? 1 : -1);
 		AngularVelocity += angularAcceleration;
 

@@ -6,6 +6,7 @@
 #include "Moon.h"
 #include "PlayerHP.h"
 #include "KnockOut.h"
+#include "TrumpCardManager.h"
 
 void ObjectManager::Init()
 {
@@ -17,14 +18,14 @@ void ObjectManager::Init()
 		AddObject(player, OBJTYPE::OBJ_PLAYER);
 
 		//// 테스트 코드 Sagittarius 생성
-		//Sagittarius* sagittarius = new Sagittarius();
-		//sagittarius->Init({ WINSIZE_X * 0.8f,300.f });
-		//AddObject(sagittarius, OBJTYPE::OBJ_MONSTER);
+		Sagittarius* sagittarius = new Sagittarius();
+		sagittarius->Init({ WINSIZE_X * 0.8f,300.f });
+		AddObject(sagittarius, OBJTYPE::OBJ_MONSTER);
 
 		// 테스트 코드 Moon 생성
-		Moon* moon = new Moon();
+	/*	Moon* moon = new Moon();
 		moon->Init();
-		AddObject(moon, OBJTYPE::OBJ_MONSTER);
+		AddObject(moon, OBJTYPE::OBJ_MONSTER);*/
 
 		// 테스트 코드 PlayerHP 생성
 		PlayerHP* playerHP = new PlayerHP();
@@ -35,6 +36,11 @@ void ObjectManager::Init()
 		KnockOut* knockOut = new KnockOut();
 		knockOut->Init();
 		AddObject(knockOut, OBJTYPE::OBJ_UI);
+
+		// 테스트 코드 TrumpCardManager 생성
+		TrumpCardManager* trumpCardManager = new TrumpCardManager();
+		trumpCardManager->Init(10,5);
+		AddObject(trumpCardManager, OBJTYPE::OBJ_ETC);
 	}
 
 	// 테스트 코드 BlimpEnemy 생성
@@ -68,7 +74,6 @@ void ObjectManager::Update()
 void ObjectManager::Render(HDC hdc)
 {
 	RenderObject(hdc);
-	RenderUI(hdc);
 }
 
 void ObjectManager::Release()
