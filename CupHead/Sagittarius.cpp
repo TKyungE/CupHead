@@ -15,6 +15,9 @@ Sagittarius::Sagittarius()
 
 void Sagittarius::Init(FPOINT InPos)
 {
+	// Test. HildaBerg Change Form
+	Hp = 10;
+
 	State = ESagittariusState::Idle;
 	pos = InPos;
 	Speed = 150.f;
@@ -80,6 +83,9 @@ void Sagittarius::Move()
 
 void Sagittarius::TakeDamage(int damage)
 {
+	// Test. HildaBerg Change Form
+	Hp -= damage;
+	if (Hp <= 0) bDead = true;
 }
 
 void Sagittarius::Idle()

@@ -6,7 +6,7 @@
 #include "Moon.h"
 #include "PlayerHP.h"
 #include "KnockOut.h"
-#include "HildaBlimp.h"
+#include "HildaBerg.h"
 
 void ObjectManager::Init()
 {
@@ -43,9 +43,9 @@ void ObjectManager::Init()
 	blimpEnemy->Init(BlimpEnemyInfo::EColor::GREEN, 5);
 	AddObject(blimpEnemy, OBJTYPE::OBJ_MONSTER);
 
-	// Test. HildaBlimp
-	HildaBlimp* hilda = new HildaBlimp(2);
-	hilda->Init({ WINSIZE_X - 200.f, WINSIZE_Y / 2.f });
+	// Test. HildaBerg
+	HildaBerg* hilda = new HildaBerg();
+	hilda->Init();
 	AddObject(hilda, OBJTYPE::OBJ_MONSTER);
 }
 

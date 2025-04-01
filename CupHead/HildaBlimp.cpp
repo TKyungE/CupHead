@@ -104,6 +104,11 @@ void HildaBlimp::Init(FPOINT InPos)
 
 	SetState(HildaBlimpInfo::EState::INTRO);
 
+	if (Phase > 0)
+	{
+		FrameTime = CurFrameIndex = 37;
+	}
+
 	float sizeX = GetWidth();
 	float sizeY = GetHeight();
 
