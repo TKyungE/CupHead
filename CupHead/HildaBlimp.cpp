@@ -373,7 +373,7 @@ void HildaBlimp::UpdateState()
 		ElapsedAnimTime += TimerManager::GetInstance()->GetDeltaTime();
 		if (IsAnimEnd)
 		{
-			if (ElapsedAnimTime > 5.f)
+			if (ElapsedAnimTime > 3.f)
 			{
 				SetState(HildaBlimpInfo::EState::MORPH2);
 				ElapsedAnimTime = 0.f;
@@ -416,7 +416,7 @@ void HildaBlimp::UpdateState()
 
 		if (IsAnimEnd)
 		{
-			FrameTime = CurFrameIndex = 10;
+			FrameTime = CurFrameIndex = 6;
 			IsAnimEnd = false;
 		}
 
