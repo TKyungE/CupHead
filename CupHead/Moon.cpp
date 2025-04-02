@@ -15,7 +15,7 @@ Moon::Moon()
 void Moon::Init()
 {
 	FrameSpeed = 25.f;
-	Hp = 5;
+	Hp = 100;
 
 	AttackTime = 5.f;
 	UFOSpawnTime = 2.f;
@@ -24,7 +24,7 @@ void Moon::Init()
 	State = EMoonState::Idle;
 	image = ImageManager::GetInstance()->AddImage("blimp_moon_idle", L"Image/CupHead/Hilda Berg/Moon/blimp_moon_idle.bmp", 13120, 773, 16, 1, true, RGB(255, 0, 255));
 
-	ColliderComponent = new Collider(this,COLLIDERTYPE::Rect,{ (float)image->GetFrameWidth() * 0.2f,0.f},{(float)image->GetFrameWidth() * 0.25f,(float)image->GetFrameHeight() * 0.5f},true,1.f);
+	ColliderComponent = new Collider(this,COLLIDERTYPE::Rect,{ (float)image->GetFrameWidth() * 0.2f,0.f},{(float)image->GetFrameWidth() * 0.25f,(float)image->GetFrameHeight() * 0.5f},true,0.1f);
 	ColliderComponent->Init();
 	CollisionManager::GetInstance()->AddCollider(ColliderComponent, OBJ_MONSTER);
 
