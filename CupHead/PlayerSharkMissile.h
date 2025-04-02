@@ -19,5 +19,7 @@ public:
 
 private:
 	bool IsLoop;
+	float StopTime;
+	float StopMaxTime;
 };
 

@@ -49,11 +49,17 @@ public:
 
 	void Intro();
 
+	void UpdateEffect();
+	void UpdateTime();
+	void UpdateAttackFrame();
+
 	void Attack();
 	void Fire(ATTACKTYPE _Type);
 	void FireNormal();
 	void FireFall();
 	void FireShark();
+	void ResetFrame();
+	void ResetState();
 
 	//void UpdateUpDownState();
 
@@ -62,15 +68,22 @@ public:
 	inline void SetDamage(int _Damage) { Damage = _Damage; };
 
 private:
+	bool IsSharkFire;
 	bool IsIntroEnd;
 	float IntroAngle;
 	float IntroDistance = 0.f;
 	FPOINT InitPos;
+	FPOINT PrePos;
 	int Damage; // 미사일 변신하고 충돌하면 넘길 데미지
 	int FrameDir;
 	int FireCnt;
 	float AttackTimes[ATTACK_END];
 	float AttackCoolTimes[ATTACK_END];
+
+	int DustCnt;
+	float DustTime;
+	float DustCoolTime;
+	
 	float AlphaTime;
 	float MaxAlphaTime;
 	UPDOWN PreUpDownState;

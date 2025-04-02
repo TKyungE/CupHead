@@ -10,14 +10,18 @@
 #include "PlayerFallMissile.h"
 #include "PlayerSharkMissile.h"
 
-Player::Player() 
-	:	IsIntroEnd(false),
+Player::Player() :
+		IsSharkFire(false),
+		IsIntroEnd(false),
 		IntroAngle(0.f),
-		InitPos({0.f,0.f}),
+		IntroDistance(0.f),
+		InitPos({0.f,0.f}), PrePos({ 0.f,0.f }),
 		Damage(5), FrameDir(1), FireCnt(0), 
+		DustCnt(0), DustTime(0.f), DustCoolTime(0.15f),
 		AlphaTime(0.f), MaxAlphaTime(0.5f), 
 		PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), 
-		PreState(PLAYER_INTRO), CurState(PLAYER_INTRO), NextImage(nullptr)
+		PreState(PLAYER_INTRO), CurState(PLAYER_INTRO),
+		NextImage(nullptr)
 {
 	AttackCoolTimes[ATTACK_NORMAL] = 0.1f;
 	AttackCoolTimes[ATTACK_FALL] = 0.5f;
@@ -37,7 +41,7 @@ void Player::Init()
 
 void Player::Init(FPOINT pos, FPOINT size)
 {
-	InitPos = this->pos = pos;
+	PrePos = InitPos = this->pos = pos;
 	this->size = size;
 	Speed = 700.f;
 	//FrameSpeed = 30.f;
@@ -72,6 +76,14 @@ void Player::Update()
 void Player::UpdateFrame()
 {
 	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
+
+	if (PLAYER_ATTACK == CurState)
+	{
+		UpdateAttackFrame();
+		return;
+	}
+
+	//if(CurState)
 	if (-1 == FrameDir)
 	{
 		FrameTime += FrameDir * 1.5f * FrameSpeed * DeltaTime; //Gara
@@ -105,7 +117,7 @@ void Player::UpdateFrame()
 				NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_down");
 			}
 
-			CurFrameIndex = FrameTime = 0.f;
+			ResetFrame();
 		}
 	}
 
@@ -119,8 +131,7 @@ void Player::UpdateFrame()
 				image = NextImage;
 				NextImage = nullptr;
 			}
-
-			CurFrameIndex = FrameTime = 0.f;
+			ResetFrame();
 		}
 	}
 
@@ -133,13 +144,13 @@ void Player::UpdateFrame()
 				image = NextImage;
 				NextImage = nullptr;
 			}
-			CurFrameIndex = FrameTime = 0.f;
+			ResetFrame();
 		}
 	}
 
 	else if (CurFrameIndex >= image->GetMaxFrameX())
 	{
-		CurFrameIndex = FrameTime = 0.f;
+		ResetFrame();
 		if (false == IsIntroEnd)
 		{
 			IsIntroEnd = true;
@@ -159,14 +170,46 @@ void Player::UpdateState()
 {
 	if (PreState != CurState)
 	{
-		switch (CurState)
+		switch (PreState)
 		{
-		case PLAYER_IDLE:
+		case PLAYER_INTRO:
 			image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
+			ResetState(); // 추가 테스트 필요
+			break;
+		case PLAYER_IDLE:
 			break;
 		case PLAYER_MOVE:
 			break;
 		case PLAYER_ATTACK:
+			IsSharkFire = false;
+			CurState = PLAYER_MOVE;
+			image = NextImage;
+			ResetState(); // 추가 테스트 필요
+			ResetFrame();
+			break;
+		case PLAYER_END:
+			break;
+		default:
+			break;
+		}
+
+		switch (CurState)
+		{
+		case PLAYER_IDLE:
+			//image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
+			break;
+		case PLAYER_MOVE:
+			break;
+		case PLAYER_ATTACK:
+			if (UPDOWN_UP == CurUpDownState)
+			{
+				image = ImageManager::GetInstance()->FindImage("cuphead_plane_ex_up");
+			}
+			else
+			{
+				image = ImageManager::GetInstance()->FindImage("cuphead_plane_ex_down");
+			}
+			ResetFrame();
 			break;
 		case PLAYER_END:
 			break;
@@ -177,26 +220,45 @@ void Player::UpdateState()
 
 	PreState = CurState;
 
-	if (PreUpDownState == CurUpDownState)
+	if (CurState == PLAYER_ATTACK)
 	{
+		switch (CurUpDownState)
+		{
+		case UPDOWN_UP:
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_up");
+			break;
+		case UPDOWN_DOWN:
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_trans_down");
+			break;
+		case UPDOWN_NONE:
+			NextImage = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
+			break;
+		default:
+			break;
+		}
+
+		PreUpDownState = CurUpDownState;
 		return;
 	}
 
-	switch(CurUpDownState)
+	if (PreUpDownState != CurUpDownState)
 	{
-	case UPDOWN_UP:
-		UpdateToUpState();
-		break;
-	case UPDOWN_DOWN:
-		UpdateToDownState();
-		break;
-	case UPDOWN_NONE:
-		UpdateToNoneState();
-		break;
-	default:
-		break;
+		switch (CurUpDownState)
+		{
+		case UPDOWN_UP:
+			UpdateToUpState();
+			break;
+		case UPDOWN_DOWN:
+			UpdateToDownState();
+			break;
+		case UPDOWN_NONE:
+			UpdateToNoneState();
+			break;
+		default:
+			break;
+		}
+		PreUpDownState = CurUpDownState;
 	}
-	PreUpDownState = CurUpDownState;
 }
 
 void Player::UpdateToUpState()
@@ -367,9 +429,62 @@ void Player::Intro()
 	}
 }
 
+void Player::UpdateEffect()
+{
+	if (DustCoolTime <= DustTime && PrePos.x < pos.x)
+	{
+		string Key = "AirDust";
+		Key += char(++DustCnt) + '0';
+		EffectManager::GetInstance()->AddEffect(Key, pos, 0.5f, {-50.f,10.f}/*, 1, true, this*/);
+		if (3 <= DustCnt)
+		{
+			DustCnt = 0;
+		}
+
+		DustTime = 0.f;
+	}
+}
+
+void Player::UpdateTime()
+{
+	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
+	for (int i = 0; i < ATTACK_END; ++i)
+	{
+		AttackTimes[i] += DeltaTime;
+		AttackTimes[i] = min(AttackCoolTimes[i], AttackTimes[i]);
+	}
+
+	AlphaTime -= DeltaTime;
+	AlphaTime = max(AlphaTime, 0.f);
+
+	DustTime += DeltaTime;
+	DustTime = min(DustTime, DustCoolTime);
+}
+
+void Player::UpdateAttackFrame()
+{
+	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
+	FrameTime += FrameSpeed * DeltaTime;
+	CurFrameIndex = (int)FrameTime;
+
+	if (CurFrameIndex >= image->GetMaxFrameX())
+	{
+		image = ImageManager::GetInstance()->FindImage("cuphead_plane_idle_straight");
+		ResetFrame();
+		CurState = PLAYER_IDLE;
+	}
+}
+
 void Player::Attack()
 {
-	
+	if (false == IsSharkFire)
+	{
+		if (13 <= CurFrameIndex)
+		{
+			IsSharkFire = true;
+			FireShark();
+		}
+	}
 }
 
 void Player::Fire(ATTACKTYPE _Type)
@@ -388,8 +503,8 @@ void Player::Fire(ATTACKTYPE _Type)
 		FireFall();
 		break;
 	case ATTACK_SHARK:
-		//CurState = PLAYER_ATTACK;
-		FireShark();
+		CurState = PLAYER_ATTACK;
+		//FireShark();
 		break;
 	}
 }
@@ -454,6 +569,20 @@ void Player::FireShark()
 	//PlayerSharkMissile
 }
 
+void Player::ResetFrame()
+{
+	CurFrameIndex = FrameTime = 0;
+}
+
+void Player::ResetState()
+{
+	PreUpDownState = UPDOWN_NONE;
+	CurUpDownState = UPDOWN_NONE;
+	PreState = PLAYER_IDLE;
+	CurState = PLAYER_IDLE;
+	NextImage = nullptr;
+}
+
 void Player::Render(HDC hdc)
 {
 	if (image)
@@ -497,6 +626,11 @@ void Player::EffectInit()
 	ImageManager::GetInstance()->AddImage("SharkStartFire", TEXT("Image/CupHead/cuphead_plane/Shoot/SharkStartFire.bmp"), 585, 100, 5, 1, true, RGB(255, 0, 255));
 	ImageManager::GetInstance()->AddImage("SharkLoopFire", TEXT("Image/CupHead/cuphead_plane/Shoot/SharkLoopFire.bmp"), 468, 100, 4, 1, true, RGB(255, 0, 255));
 
+	//Dust
+	ImageManager::GetInstance()->AddImage("AirDust1", TEXT("Image/CupHead/cuphead_plane/Idle/AirDust1.bmp"), 377, 27, 13, 1, true, RGB(255, 0, 255));
+	ImageManager::GetInstance()->AddImage("AirDust2", TEXT("Image/CupHead/cuphead_plane/Idle/AirDust2.bmp"), 275, 26, 11, 1, true, RGB(255, 0, 255));
+	ImageManager::GetInstance()->AddImage("AirDust3", TEXT("Image/CupHead/cuphead_plane/Idle/AirDust3.bmp"), 377, 29, 13, 1, true, RGB(255, 0, 255));
+
 }
 
 void Player::Action()
@@ -507,8 +641,10 @@ void Player::Action()
 		Intro();
 		break;
 	case PLAYER_IDLE:
+		UpdateEffect();
 		break;
 	case PLAYER_MOVE:
+		UpdateEffect();
 		//Move();
 		break;
 	case PLAYER_ATTACK:
@@ -519,13 +655,12 @@ void Player::Action()
 	default:
 		break;
 	}
+
+	PrePos = pos;
 }
 
 void Player::ImageInit()
 {
-	//C:\Programming\Git\CupHead\CupHead\CupHead\Image\CupHead\cuphead_plane\Idle
-	//D:\Programming\Git\CupHead\CupHead\Image\CupHead\cuphead_plane\Shoot
-
 	image = ImageManager::GetInstance()->AddImage("cuphead_plane_idle_down",
 		TEXT("Image/CupHead/cuphead_plane/Idle/cuphead_plane_idle_down.bmp"),
 		440, 104, 4, 1, true, RGB(255, 0, 255));
@@ -588,15 +723,12 @@ void Player::Move()
 		return;
 	}
 
-	CurState = PLAYER_IDLE;
-
-	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
-	for (int i = 0; i < ATTACK_END; ++i)
+	if (CurState != PLAYER_ATTACK)
 	{
-		AttackTimes[i] += DeltaTime;
+		CurState = PLAYER_IDLE;
 	}
-
-	AlphaTime -= DeltaTime;
+	
+	UpdateTime();
 
 	KeyManager* keyManager = KeyManager::GetInstance();
 	if (keyManager)
@@ -612,9 +744,10 @@ void Player::Move()
 			Fire(ATTACK_FALL);
 		}
 
-		if (keyManager->IsStayKeyDown('L'))
+		if (keyManager->IsStayKeyDown('L') &&  (size.x * 1.8f) < pos.x )
 		{
 			Fire(ATTACK_SHARK);
+			//CurState = PLAYER_ATTACK;
 		}
 
 		if (keyManager->IsStayKeyDown('W'))
@@ -650,12 +783,16 @@ void Player::Move()
 		{
 			position.x /= size;
 			position.y /= size;
-			CurState = PLAYER_MOVE;
+
+			if (PLAYER_IDLE == CurState)
+			{
+				CurState = PLAYER_MOVE;
+			}
 		}
 
 		pos.x += position.x * Speed * TimerManager::GetInstance()->GetDeltaTime();
 		pos.y += position.y * Speed * TimerManager::GetInstance()->GetDeltaTime();
-
+	
 		pos.x = ClampValue<float>(pos.x, 0.f + (this->size.x * 0.5f), WINSIZE_X - (this->size.x * 0.5f));
 		pos.y = ClampValue<float>(pos.y, 0.f + (this->size.y * 0.5f), WINSIZE_Y - (this->size.y * 0.5f));
 	}
@@ -663,8 +800,13 @@ void Player::Move()
 
 void Player::TakeDamage(int damage)
 {
-	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx", pos, 0.5f);
-	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx_b", { pos.x , pos.y }, 0.5f); // 값 조정 or 때리는 투사체 쪽에서 위치 조정?
+	if (PLAYER_ATTACK == CurState)
+	{
+		return;
+	}
+
+	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx_b", { pos.x , pos.y }, 0.3f); // 값 조정 or 때리는 투사체 쪽에서 위치 조정?
+	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx", pos, 0.3f);
 	AlphaTime = MaxAlphaTime;
 	Hp = max(0, Hp - damage);
 }
