@@ -15,6 +15,7 @@
 #include "KnockOut.h"
 #include "TrumpCardManager.h"
 #include "ReadyWallop.h"
+#include "HildaBerg.h"
 
 Level1::Level1()
 	:BackgroundManager(nullptr), ObjectManager(nullptr), CollisionManager(nullptr), EffectManager(nullptr)
@@ -99,9 +100,9 @@ void Level1::ObjectInit()
 		ObjectManager->AddObject(sagittarius, OBJTYPE::OBJ_MONSTER);*/
 
 		// 테스트 코드 Moon 생성
-		Moon* moon = new Moon();
+	/*	Moon* moon = new Moon();
 		moon->Init();
-		ObjectManager->AddObject(moon, OBJTYPE::OBJ_MONSTER);
+		ObjectManager->AddObject(moon, OBJTYPE::OBJ_MONSTER);*/
 
 		// 테스트 코드 PlayerHP 생성
 		PlayerHP* playerHP = new PlayerHP();
@@ -124,10 +125,10 @@ void Level1::ObjectInit()
 		ObjectManager->AddObject(readyWallop, OBJTYPE::OBJ_UI);
 	}
 
-	// 테스트 코드 BlimpEnemy 생성
-	BlimpEnemy* blimpEnemy = new BlimpEnemy();
-	blimpEnemy->Init(BlimpEnemyInfo::EColor::GREEN, 5);
-	ObjectManager->AddObject(blimpEnemy, OBJTYPE::OBJ_MONSTER);
+	// 테스트 코드 HildaBerg 생성
+	HildaBerg* hilda = new HildaBerg();
+	hilda->Init();
+	ObjectManager->AddObject(hilda, OBJTYPE::OBJ_MONSTER);
 
 	Fade* fade = new Fade();
 	fade->Init(EFadeMode::FadeIn);
