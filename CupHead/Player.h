@@ -2,6 +2,7 @@
 #include "Character.h"
 
 class Image;
+class SkillPointManager;
 
 enum PLAYERSTATE
 {
@@ -103,6 +104,7 @@ private:
 	PLAYERSTATE PreState;
 	PLAYERSTATE CurState;
 	Image* NextImage;
+	SkillPointManager* SkillManager;
 
 private:
 	float SkillPoint;
