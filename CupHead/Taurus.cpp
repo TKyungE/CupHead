@@ -1,5 +1,6 @@
 #include "Taurus.h"
 #include "Image.h"
+#include "BarrageBullet.h"
 
 #include "CommonFunction.h"
 #include "ObjectManager.h"
@@ -18,7 +19,8 @@ Taurus::Taurus()
 	CurState{}, AnimData{}, IsAnimEnd{},
 	ElapsedAttackTime{}, AttackCoolTime{ 5.f },
 	PosBefore{},
-	AttackCollider{}
+	AttackCollider{},
+	ElapsedBarrageTime{}, BarrageCoolTime{ 0.2f }
 {
 }
 
@@ -186,6 +188,13 @@ void Taurus::UpdateState()
 			sizeY = GetHeight();
 			AttackCollider->SetSize({ sizeX * 0.7f, sizeY * 0.5f });
 		}
+
+		ElapsedBarrageTime += TimerManager::GetInstance()->GetDeltaTime();
+		if (ElapsedBarrageTime >= BarrageCoolTime)
+		{
+			ElapsedBarrageTime = 0.f;
+			BarrageFire();
+		}
 		break;
 	}
 	}
@@ -217,6 +226,18 @@ void Taurus::Recover()
 {
 	float deltaX = PosBefore.x - pos.x;
 	pos.x += (Speed * 0.5f * deltaX * TimerManager::GetInstance()->GetDeltaTime()) / (float)(image->GetMaxFrameX() - CurFrameIndex);
+}
+
+void Taurus::BarrageFire()
+{
+	FPOINT bulletPos{ (float)WINSIZE_X, pos.y };
+	float bulletAngle{ 100.f };
+	for (int j = 0; j < 10; ++j) {
+		bulletAngle += j * 4;
+		BarrageBullet* bullet = new BarrageBullet();
+		bullet->Init(bulletPos, bulletAngle, 50, 20.f);
+		ObjectManager::GetInstance()->AddObject(bullet, OBJ_MONSTER_WEAPON);
+	}
 }
 
 float Taurus::GetWidth()
