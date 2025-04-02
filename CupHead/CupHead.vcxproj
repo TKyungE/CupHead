@@ -130,6 +130,7 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="AlphaBackground.cpp" />
     <ClCompile Include="BackGround.cpp" />
+    <ClCompile Include="BarrageBullet.cpp" />
     <ClCompile Include="BlimpEnemy.cpp" />
     <ClCompile Include="BlimpEnemyPiece.cpp" />
     <ClCompile Include="Bullet.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="AlphaBackground.h" />
     <ClInclude Include="BackGround.h" />
+    <ClInclude Include="BarrageBullet.h" />
     <ClInclude Include="BlimpEnemy.h" />
     <ClInclude Include="BlimpEnemyPiece.h" />
     <ClInclude Include="Bullet.h" />
