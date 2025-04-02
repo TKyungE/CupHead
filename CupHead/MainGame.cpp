@@ -84,8 +84,8 @@ void MainGame::Render()
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 
-	/*if (ScreenFx)
-		ScreenFx->Render(hBackBufferDC);*/
+	if (ScreenFx)
+		ScreenFx->Render(hBackBufferDC);
 
 	backBuffer->Render(hdc);
 }

@@ -190,7 +190,7 @@ void HildaBlimp::Init(FPOINT _Pos, float _Angle)
 	size = { 1.f,1.f };
 	bDead = false;
 
-	Hp = 100;
+	Hp = 10;
 
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true, 0.1f);
 	collider->Init();
@@ -403,6 +403,7 @@ void HildaBlimp::UpdateState()
 		if (IsAnimEnd)
 		{
 			SetState(HildaBlimpInfo::EState::MORPH4);
+			IsStayMaxFrame = true;
 		}
 		break;
 	}
@@ -415,7 +416,7 @@ void HildaBlimp::UpdateState()
 
 		if (IsAnimEnd)
 		{
-			FrameTime = CurFrameIndex = 19;
+			FrameTime = CurFrameIndex = 10;
 			IsAnimEnd = false;
 		}
 

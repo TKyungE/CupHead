@@ -39,7 +39,7 @@ void HildaBerg::Init()
 #pragma endregion
 
 	pos = { WINSIZE_X - 300.f, WINSIZE_Y / 2.f + 50.f };
-	Phase = 0;
+	Phase = 4;
 	ChangeForm();
 }
 
