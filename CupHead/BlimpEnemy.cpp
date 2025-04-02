@@ -22,7 +22,7 @@ BlimpEnemy::~BlimpEnemy()
 {
 }
 
-void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum)
+void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum, FPOINT _Pos)
 {
 #pragma region Image Load
 	// Image 나중에 다른데서 한꺼번에 Load
@@ -97,15 +97,17 @@ void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum)
 
 	SetState(BlimpEnemyInfo::EState::IDLE, false);
 
-	Speed = 200.f;
+	Speed = 400.f;
 	IsFlip = false;
-	pos = { WINSIZE_X, WINSIZE_Y / 2 };
+	pos = _Pos;
 	size = { 1.f,1.f };
 	bDead = false;
 
+	Hp = 10;
+
 	float sizeX = GetWidth();
 	float sizeY = GetHeight();
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true);
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true, 0.1f);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER);
 }
@@ -174,6 +176,15 @@ void BlimpEnemy::Move()
 {
 	pos.x += Dx * Speed * TimerManager::GetInstance()->GetDeltaTime();
 	pos.y += Dy * Speed * TimerManager::GetInstance()->GetDeltaTime();
+}
+
+void BlimpEnemy::TakeDamage(int damage)
+{
+	Hp -= damage;
+	if (Hp <= 0)
+	{
+		bDead = true;
+	}
 }
 
 void BlimpEnemy::UpdateState()
@@ -261,12 +272,6 @@ void BlimpEnemy::FireBullet()
 	}
 
 	IsFired = true;
-}
-
-void BlimpEnemy::SetColor(string _Color)
-{
-	Color = _Color;
-	image = ImageManager::GetInstance()->FindImage(AnimData[CurState].first + Color);
 }
 
 void BlimpEnemy::SetState(BlimpEnemyInfo::EState NewState, bool AnimReverse)

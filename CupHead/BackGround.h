@@ -23,6 +23,7 @@ namespace BackGroundInfo
 	{
 		SKY,
 		CLOUD,
+		MIST,
 		DARK_HILL,
 		MAIN_GROUND,
 		BACKTYPE_END,
@@ -52,7 +53,7 @@ class Image;
 class BackGround : public GameObject
 {
 public:
-	BackGround(FPOINT InPos, Image* _image, int _Speed, bool _Loop);
+	BackGround(FPOINT InPos, Image* _image, int _Speed, bool _Loop, int _Alpha=255);
 	virtual ~BackGround();
 
 	void Init();
@@ -68,6 +69,7 @@ private:
 	int Speed;
 	bool IsOut;
 	bool Loop;
+	int Alpha;
 };
 
 // not Singleton
@@ -89,7 +91,7 @@ private:
 	void PrepareNextForeObject();
 
 private:
-	void AddBackGround(BackGroundInfo::EBackGroundType type, int num, int speed, bool loop, bool init, bool bottomSide = true);
+	void AddBackGround(BackGroundInfo::EBackGroundType type, int num, int speed, bool loop, bool init, int YPosType, int alpha = 255);
 	void AddForeGround(BackGroundInfo::EForeGroundType type, int num, int speed, bool loop, bool init);
 	void AddForeObject(string name, int num, int speed, bool loop, bool init);
 

@@ -202,6 +202,19 @@ void Image::FrameRenderLoop(HDC hdc, int destX, int destY,
 	FrameRender(hdc, destX + width, destY, frameX, frameY, isFlip);
 }
 
+void Image::FrameRenderLoopAlpha(HDC hdc, int destX, int destY, int frameX, int frameY, bool _IsOver, int _AlphaValue, COLORREF _AlphaColor, bool isFlip, bool isLoop)
+{
+	if (!isLoop)
+	{
+		FrameRenderAlpha(hdc, destX, destY, frameX, frameY, _IsOver, _AlphaValue, _AlphaColor, isFlip);
+		return;
+	}
+
+	int width = imageInfo->frameWidth;
+	FrameRenderAlpha(hdc, destX, destY, frameX, frameY, _IsOver, _AlphaValue, _AlphaColor, isFlip);
+	FrameRenderAlpha(hdc, destX + width, destY, frameX, frameY, _IsOver, _AlphaValue, _AlphaColor, isFlip);
+}
+
 void Image::FrameRender(HDC hdc, int destX, int destY,
 	int frameX, int frameY, bool isFlip)
 {
