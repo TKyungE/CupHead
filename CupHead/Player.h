@@ -67,6 +67,18 @@ public:
 	inline int GetDamage() const { return PLAYER_ATTACK == CurState ? Damage : 0 ; };
 	inline void SetDamage(int _Damage) { Damage = _Damage; };
 
+	inline float GetSkillPoint() const { return SkillPoint; };
+	inline void SetSkillPoint(float _SkillPoint) 
+	{ 
+		SkillPoint = _SkillPoint;
+		SkillPoint = max(MaxSkillPoint, SkillPoint);
+	};
+	inline void PlusSkillPoint(float _SkillPoint) 
+	{ 
+		SkillPoint += _SkillPoint;
+		SkillPoint = max(MaxSkillPoint, SkillPoint);
+	};
+
 private:
 	bool IsSharkFire;
 	bool IsIntroEnd;
@@ -91,5 +103,9 @@ private:
 	PLAYERSTATE PreState;
 	PLAYERSTATE CurState;
 	Image* NextImage;
+
+private:
+	float SkillPoint;
+	float MaxSkillPoint;
 };
 

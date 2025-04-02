@@ -21,7 +21,8 @@ Player::Player() :
 		AlphaTime(0.f), MaxAlphaTime(0.5f), 
 		PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), 
 		PreState(PLAYER_INTRO), CurState(PLAYER_INTRO),
-		NextImage(nullptr)
+		NextImage(nullptr),
+		SkillPoint(0.f), MaxSkillPoint(5.f)
 {
 	AttackCoolTimes[ATTACK_NORMAL] = 0.1f;
 	AttackCoolTimes[ATTACK_FALL] = 0.5f;
@@ -494,6 +495,11 @@ void Player::Fire(ATTACKTYPE _Type)
 		return;
 	}
 
+	if (ATTACK_SHARK == _Type && 1.f > SkillPoint)
+	{
+		return;
+	}
+
 	switch (_Type)
 	{
 	case ATTACK_NORMAL:
@@ -504,6 +510,7 @@ void Player::Fire(ATTACKTYPE _Type)
 		break;
 	case ATTACK_SHARK:
 		CurState = PLAYER_ATTACK;
+		--SkillPoint;
 		//FireShark();
 		break;
 	}
@@ -566,6 +573,7 @@ void Player::FireShark()
 	{
 		FireCnt = 0;
 	}
+
 	//PlayerSharkMissile
 }
 
