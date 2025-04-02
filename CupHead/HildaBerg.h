@@ -21,6 +21,9 @@ public:
 
 	void SetDead(bool bDead) { this->bDead = bDead; }
 
+	int GetTotalHp() const;
+	int GetCurrentFormHp() const;
+
 private:
 	void ChangeForm();
 	void SpawnEnemy();
@@ -32,5 +35,7 @@ private:
 
 	float ElapsedSpawnTime;
 	float SpawnCoolTime;
+
+	int HpList[6];
 };
 

@@ -13,10 +13,10 @@ Sagittarius::Sagittarius()
 {
 }
 
-void Sagittarius::Init(FPOINT InPos, float InAngle)
+void Sagittarius::Init(FPOINT InPos, float InAngle, int _Hp)
 {
 	// Test. HildaBerg Change Form
-	Hp = 100;
+	Hp = _Hp;
 
 	State = ESagittariusState::Idle;
 	pos = InPos;

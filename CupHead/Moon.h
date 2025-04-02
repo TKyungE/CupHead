@@ -17,7 +17,7 @@ public:
 	virtual ~Moon() = default;
 
 public:
-	virtual void Init() override;
+	void Init(int _Hp);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
