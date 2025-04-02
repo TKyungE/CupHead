@@ -11,9 +11,9 @@ void ReadyWallop::Init()
 	FrameSpeed = 15.f;
 	IsStayMaxFrame = true;
 
-	image = ImageManager::GetInstance()->AddImage("FightText_GetReady", L"Image/CupHead/UI/FightText_GetReady.bmp", 25600, 288, 50, 1, true, RGB(255, 0, 255));
+	image = ImageManager::GetInstance()->FindImage("FightText_GetReady");
 
-	image->SetScale(3.f, 3.f);
+	image->SetScale(2.5f, 2.5f);
 }
 
 void ReadyWallop::Update()

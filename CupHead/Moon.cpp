@@ -6,6 +6,7 @@
 #include "UFO.h"
 #include "ObjectManager.h"
 #include "EffectManager.h"
+#include "KnockOut.h"
 
 Moon::Moon()
 	:State(EMoonState::End), CurrentTime(0.f), AttackTime(0.f), CurrentAttackCount(0), AttackCount(0), UFOSpawnTime(0.f), DeadEffectTime(0.f)
@@ -81,6 +82,10 @@ void Moon::TakeDamage(int damage)
 		image = ImageManager::GetInstance()->AddImage("blimp_moon_death", L"Image/CupHead/Hilda Berg/Moon/blimp_moon_death.bmp", 10144, 810, 16, 1, true, RGB(255, 0, 255));
 
 		ColliderComponent->SetDead(true);
+
+		KnockOut* knockOut = new KnockOut();
+		knockOut->Init();
+		ObjectManager::GetInstance()->AddObject(knockOut, OBJ_UI);
 	}		
 }
 

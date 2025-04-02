@@ -152,7 +152,8 @@
     <ClCompile Include="LevelMain.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LevelResult.cpp" />
-    <ClCompile Include="LogoBackground.cpp" />
+    <ClCompile Include="SimpleUI.cpp" />
+    <ClCompile Include="UIBackground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="MainTitle.cpp" />
@@ -213,7 +214,8 @@
     <ClInclude Include="LevelMain.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LevelResult.h" />
-    <ClInclude Include="LogoBackground.h" />
+    <ClInclude Include="SimpleUI.h" />
+    <ClInclude Include="UIBackground.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MainTitle.h" />
     <ClInclude Include="Missile.h" />

@@ -1,7 +1,7 @@
 #include "LevelLogo.h"
 #include "ObjectManager.h"
 #include "ImageManager.h"
-#include "LogoBackground.h"
+#include "UIBackground.h"
 #include "AlphaBackground.h"
 #include "PotenUp.h"
 #include "Image.h"
@@ -53,8 +53,8 @@ void LevelLogo::ObjectInit()
 	if (ObjectManager == nullptr)
 		return;
 	
-	LogoBackground* logoBackground = new LogoBackground();
-	logoBackground->Init();	
+	UIBackground* logoBackground = new UIBackground();
+	logoBackground->Init("logobackground");
 	ObjectManager->AddObject(logoBackground, OBJ_UI);
 
 	for (int i = 1; i <= 3; ++i)

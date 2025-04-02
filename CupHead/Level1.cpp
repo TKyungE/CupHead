@@ -137,23 +137,12 @@ void Level1::ObjectInit()
 
 void Level1::ImageInit()
 {
+	ImageManager::GetInstance()->AddImage("FightText_GetReady", L"Image/CupHead/UI/FightText_GetReady.bmp", 25600, 288, 50, 1, true, RGB(255, 0, 255));
+
 }
 
 void Level1::TestCode()
 {
-	if (KeyManager::GetInstance()->IsOnceKeyDown('T'))
-	{
-		Fade* fade = new Fade();
-		fade->Init(EFadeMode::FadeIn);
-		ObjectManager->AddObject(fade, OBJTYPE::OBJ_UI);
-	}
-	if (KeyManager::GetInstance()->IsOnceKeyDown('Y'))
-	{
-		Fade* fade = new Fade();
-		fade->Init(EFadeMode::FadeOut);
-		ObjectManager->AddObject(fade, OBJTYPE::OBJ_UI);
-	}
-
 	// Test Star
 	//srand(time(NULL));
 	//if (KeyManager::GetInstance()->IsOnceKeyDown(VK_RETURN))
