@@ -5,7 +5,7 @@ class Image;
 
 enum PLAYERSTATE
 {
-	PLAYER_IDLE, PLAYER_MOVE, PLAYER_ATTACK, PLAYER_END
+	PLAYER_INTRO, PLAYER_IDLE, PLAYER_MOVE, PLAYER_ATTACK, PLAYER_END
 };
 
 enum UPDOWN
@@ -25,12 +25,10 @@ public:
 	Player();
 	~Player();
 
-	
-
 public:
-	virtual void Init() override;
 	void Init(FPOINT pos, FPOINT size);
-	
+
+	virtual void Init() override;
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void UpdateFrame() override;
@@ -49,22 +47,43 @@ public:
 	void UpdateToDownState();
 	void UpdateToNoneState();
 
+	void Intro();
+
+	void UpdateEffect();
+	void UpdateTime();
+	void UpdateAttackFrame();
+
 	void Attack();
 	void Fire(ATTACKTYPE _Type);
 	void FireNormal();
 	void FireFall();
 	void FireShark();
+	void ResetFrame();
+	void ResetState();
 
 	//void UpdateUpDownState();
 
-
-	//virtual void TakeDamage(int damage = 0);
+public:
+	inline int GetDamage() const { return PLAYER_ATTACK == CurState ? Damage : 0 ; };
+	inline void SetDamage(int _Damage) { Damage = _Damage; };
 
 private:
+	bool IsSharkFire;
+	bool IsIntroEnd;
+	float IntroAngle;
+	float IntroDistance = 0.f;
+	FPOINT InitPos;
+	FPOINT PrePos;
+	int Damage; // 미사일 변신하고 충돌하면 넘길 데미지
 	int FrameDir;
 	int FireCnt;
 	float AttackTimes[ATTACK_END];
 	float AttackCoolTimes[ATTACK_END];
+
+	int DustCnt;
+	float DustTime;
+	float DustCoolTime;
+	
 	float AlphaTime;
 	float MaxAlphaTime;
 	UPDOWN PreUpDownState;
@@ -72,7 +91,5 @@ private:
 	PLAYERSTATE PreState;
 	PLAYERSTATE CurState;
 	Image* NextImage;
-
-
 };
 

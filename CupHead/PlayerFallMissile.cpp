@@ -26,8 +26,9 @@ PlayerFallMissile::~PlayerFallMissile()
 
 }
 
-void PlayerFallMissile::Init(FPOINT _Pos)
+void PlayerFallMissile::Init(FPOINT _Pos, int _Damage)
 {
+	__super::Init(_Pos, _Damage);
 	InitPos = pos = _Pos;
 }
 

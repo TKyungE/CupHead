@@ -6,7 +6,7 @@
 #include "Collider.h"
 #include "CollisionManager.h"
 
-PlayerSharkMissile::PlayerSharkMissile() : IsLoop(true)
+PlayerSharkMissile::PlayerSharkMissile() : IsLoop(true), StopTime(0.f), StopMaxTime(0.08f)
 {
 	Speed = 900.f;
 	FrameSpeed = 15.f;
@@ -17,16 +17,16 @@ PlayerSharkMissile::PlayerSharkMissile() : IsLoop(true)
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, size, true, 0.2f); // 임의값 0.2f
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER_WEAPON);
+	EffectManager::GetInstance()->AddEffect("SharkStartFire", pos, 3 / FrameSpeed, { -90.f, 0.f }, 1, true, this);
 }
 
 PlayerSharkMissile::~PlayerSharkMissile()
 {
 }
 
-void PlayerSharkMissile::Init(FPOINT _Pos)
+void PlayerSharkMissile::Init(FPOINT _Pos, int _Damage)
 {
-	pos = _Pos;
-	EffectManager::GetInstance()->AddEffect("SharkStartFire", pos, 3 / FrameSpeed, { -90.f, 0.f }, 1, true, this);
+	__super::Init(_Pos, _Damage);
 }
 
 void PlayerSharkMissile::Init()
@@ -77,6 +77,12 @@ void PlayerSharkMissile::Move()
 {
 	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
 
+	if (0.f < StopTime)
+	{
+		StopTime -= DeltaTime;
+		StopTime = max(StopTime, 0.f);
+		return;
+	}
 	pos.x += (Speed * DeltaTime);
 
 	if (OutOfScreen(FPOINT{ pos.x - size.x / 2, pos.y }, image->GetFrameWidth(), image->GetFrameHeight())) // 이펙트 때문에 부자연스러워서 위치 조정
@@ -88,4 +94,5 @@ void PlayerSharkMissile::Move()
 void PlayerSharkMissile::TakeDamage(int damage)
 {
 	EffectManager::GetInstance()->AddEffectDefault("LargeSpark", { (pos.x + size.x / 2), pos.y }, 0.2f);
+	StopTime = StopMaxTime;
 }

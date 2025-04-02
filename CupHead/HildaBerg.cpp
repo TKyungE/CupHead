@@ -8,6 +8,7 @@
 #include "StarProjectile.h"
 #include "ObjectManager.h"
 #include "CollisionManager.h"
+#include "EffectManager.h"
 
 HildaBerg::HildaBerg()
 	: HildaForm{}, Phase{}, Angle{},
@@ -21,6 +22,22 @@ HildaBerg::~HildaBerg()
 
 void HildaBerg::Init()
 {
+#pragma region Effect Image Load
+	ImageManager::GetInstance()->AddImage(
+		"BigCloudFx",
+		TEXT("Image\\CupHead\\Hilda Berg\\Normal\\Fx\\big_cloud_fx.bmp"),
+		10545, 679,
+		19, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"SmallCloudFx",
+		TEXT("Image\\CupHead\\Hilda Berg\\Normal\\Fx\\small_cloud_fx.bmp"),
+		4147, 308,
+		13, 1,
+		true, RGB(255, 0, 255));
+#pragma endregion
+
 	pos = { WINSIZE_X - 300.f, WINSIZE_Y / 2.f + 50.f };
 	Phase = 0;
 	ChangeForm();
@@ -55,6 +72,19 @@ void HildaBerg::Update()
 			delete HildaForm;
 			HildaForm = NULL;
 			ElapsedSpawnTime = 0.f;
+
+			if (Phase < 4)
+			{
+				EffectManager::GetInstance()->AddEffect("BigCloudFx", pos, 1.f);
+
+				for (int i = 0; i < 4; ++i)
+				{
+					uniform_int_distribution<int> randX{ int(pos.x - 350.f * 0.5f), int(pos.x + 350.f * 0.5f) };
+					uniform_int_distribution<int> randY{ int(pos.y - 400.f * 0.5f), int(pos.y + 400.f * 0.5f) };
+
+					EffectManager::GetInstance()->AddEffect("SmallCloudFx", { (float)randX(dre), (float)randY(dre) }, 1.f);
+				}
+			}
 		}
 	}
 
