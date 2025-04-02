@@ -45,6 +45,7 @@ void Taurus::Init(FPOINT _Pos, float _Angle)
 		24339, 448,
 		21, 1,
 		true, RGB(255, 0, 255));
+
 #pragma endregion
 
 	CurState = TaurusInfo::EState::STATE_END;
@@ -81,9 +82,9 @@ void Taurus::Release()
 
 void Taurus::Update()
 {
-	UpdateState();
-
 	UpdateFrame();
+
+	UpdateState();
 }
 
 void Taurus::Render(HDC hdc)
@@ -141,6 +142,7 @@ void Taurus::UpdateState()
 		{
 			// after finish attack
 			bDead = true;
+
 		}
 
 		Move();
@@ -168,7 +170,7 @@ void Taurus::UpdateState()
 		else if (CurFrameIndex >= 18)
 		{
 			AnimData[TaurusInfo::EState::ATTACK].second = 5.f;
-			//Speed = 150;
+			Speed = 150;
 			Recover();
 		}
 
@@ -214,7 +216,7 @@ void Taurus::Dash()
 void Taurus::Recover()
 {
 	float deltaX = PosBefore.x - pos.x;
-	pos.x += (Speed * deltaX * TimerManager::GetInstance()->GetDeltaTime()) / (float)(image->GetMaxFrameX() - CurFrameIndex);
+	pos.x += (Speed * 0.5f * deltaX * TimerManager::GetInstance()->GetDeltaTime()) / (float)(image->GetMaxFrameX() - CurFrameIndex);
 }
 
 float Taurus::GetWidth()
