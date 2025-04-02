@@ -3,11 +3,12 @@
 #include "CommonFunction.h"
 #include "Collider.h"
 #include "CollisionManager.h"
+#include "EffectManager.h"
 
 namespace BulletInfo
 {
-	string imageTypes[EBulletType::IMAGETYPE_END] = { "PLAYER", "BLIMP_ENEMY" };
-	int imageNum[EBulletType::IMAGETYPE_END] = { 1,3 };
+	string imageTypes = { "BLIMP_ENEMY" };
+	int imageNum = { 3 };
 }
 
 Bullet::Bullet()
@@ -19,12 +20,12 @@ Bullet::~Bullet()
 {
 }
 
-void Bullet::Init(FPOINT _pos, float _Angle, BulletInfo::EBulletType imageType)
+void Bullet::Init(FPOINT _pos, float _Angle)
 {
 #pragma region Image Load
 	// Image 나중에 다른데서 한꺼번에 Load
 	// EnemyBullet
-	string bulletType = BulletInfo::imageTypes[BulletInfo::EBulletType::BLIMP_ENEMY];
+	string bulletType = BulletInfo::imageTypes;
 	int imageNum = 0;
 	ImageManager::GetInstance()->AddImage(
 		bulletType + to_string(imageNum),
@@ -49,18 +50,40 @@ void Bullet::Init(FPOINT _pos, float _Angle, BulletInfo::EBulletType imageType)
 		10, 1,
 		true, RGB(255, 0, 255));
 #pragma endregion
+#pragma region Effect Image Load
+	ImageManager::GetInstance()->AddImage(
+		"BlimpEnemyBulletFx0",
+		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\Bullet\\blimp_enemy_bullet_fx_a.bmp"),
+		1104, 107,
+		12, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"BlimpEnemyBulletFx1",
+		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\Bullet\\blimp_enemy_bullet_fx_b.bmp"),
+		1372, 94,
+		14, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"BlimpEnemyBulletFx2",
+		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\Bullet\\blimp_enemy_bullet_fx_c.bmp"),
+		1100, 98,
+		11, 1,
+		true, RGB(255, 0, 255));
+#pragma endregion
 
 	Angle = _Angle;
 
-	int randomImageNum = uid(dre) % BulletInfo::imageNum[imageType];
-	string imageStr = BulletInfo::imageTypes[imageType] + to_string(randomImageNum);
+	int randomImageNum = uid(dre) % BulletInfo::imageNum;
+	string imageStr = BulletInfo::imageTypes + to_string(randomImageNum);
 	image = ImageManager::GetInstance()->FindImage(imageStr);
 
 	CurFrameIndex = 0;
 	FrameSpeed = 10.f;
 	FrameTime = 0.f;
 
-	Speed = 500.f;
+	Speed = 450.f;
 	IsFlip = false;
 	pos = _pos;
 	size = { 1.f,1.f };
@@ -71,6 +94,8 @@ void Bullet::Init(FPOINT _pos, float _Angle, BulletInfo::EBulletType imageType)
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER_WEAPON);
+
+	EffectManager::GetInstance()->AddEffect("BlimpEnemyBulletFx" + to_string(randomImageNum), pos, 1.f);
 }
 
 void Bullet::Release()

@@ -1,10 +1,13 @@
 #include "BlimpEnemy.h"
 #include "Image.h"
 #include "Bullet.h"
+#include "BlimpEnemyPiece.h"
+
 #include "CommonFunction.h"
 #include "ObjectManager.h"
 #include "Collider.h"
 #include "CollisionManager.h"
+#include "EffectManager.h"
 
 namespace BlimpEnemyInfo
 {
@@ -77,6 +80,22 @@ void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum, FPOINT _Pos
 		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\EnemyPurple\\b_blimp_enemy_turn.bmp"),
 		1267, 106,
 		7, 1,
+		true, RGB(255, 0, 255));
+#pragma endregion
+
+#pragma region Effect Image Load
+	ImageManager::GetInstance()->AddImage(
+		"BlimpEnemyExplode",
+		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\Explode\\blimp_enemy_explode.bmp"),
+		4172, 217,
+		14, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"BlimpEnemySpark",
+		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\Explode\\blimp_enemy_spark.bmp"),
+		2232, 260,
+		9, 1,
 		true, RGB(255, 0, 255));
 #pragma endregion
 
@@ -184,6 +203,15 @@ void BlimpEnemy::TakeDamage(int damage)
 	if (Hp <= 0)
 	{
 		bDead = true;
+		EffectManager::GetInstance()->AddEffect("BlimpEnemySpark", pos, 1.f);
+		EffectManager::GetInstance()->AddEffect("BlimpEnemyExplode", pos, 1.f);
+
+		for (int i = 0; i < BlimpEnemyPieceInfo::EType::TYPE_END; ++i)
+		{
+			BlimpEnemyPiece* piece = new BlimpEnemyPiece((float)(uid(dre) % 2), (float)(uid(dre) % 4));
+			piece->Init(pos, (BlimpEnemyPieceInfo::EType)i, Color);
+			ObjectManager::GetInstance()->AddObject(piece, OBJ_MONSTER);
+		}
 	}
 }
 
@@ -265,8 +293,7 @@ void BlimpEnemy::FireBullet()
 
 		Bullet* bullet = new Bullet;
 		FPOINT bulletPos = { pos.x - GetWidth() / 2, pos.y };
-		Image* bulletImage = ImageManager::GetInstance()->FindImage("EnemyBulletA");
-		bullet->Init(bulletPos, bulletAngle, BulletInfo::EBulletType::BLIMP_ENEMY);
+		bullet->Init(bulletPos, bulletAngle);
 
 		ObjectManager::GetInstance()->AddObject(bullet, OBJTYPE::OBJ_MONSTER_WEAPON);
 	}

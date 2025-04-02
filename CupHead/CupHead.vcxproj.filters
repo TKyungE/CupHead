@@ -103,6 +103,9 @@
     <Filter Include="MainGame\Enemy\HildaBerg">
       <UniqueIdentifier>{32b271e7-c7da-406f-80e8-0fd878658019}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\BlimpEnemy\BlimpEnemyPiece">
+      <UniqueIdentifier>{0c2b6d8e-1191-4c1c-ba4a-98398fbcfec0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -242,6 +245,9 @@
     </ClCompile>
     <ClCompile Include="Taurus.cpp">
       <Filter>MainGame\Enemy\Taurus</Filter>
+    </ClCompile>
+    <ClCompile Include="BlimpEnemyPiece.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -388,6 +394,9 @@
     </ClInclude>
     <ClInclude Include="Taurus.h">
       <Filter>MainGame\Enemy\Taurus</Filter>
+    </ClInclude>
+    <ClInclude Include="BlimpEnemyPiece.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
