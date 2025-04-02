@@ -21,7 +21,7 @@ using namespace std;
 /*
 	컴파일러에서 해당 코드를 뒤에 정의된 코드로 변경한다.
 */
-#define WINSIZE_X	1540
+#define WINSIZE_X	1280
 #define WINSIZE_Y	720
 #define DEG_TO_RAD(degree) ((3.14 / 180.0) * degree)
 #define RAD_TO_DEG(radian) ((180.0 / 3.14) * radian)
@@ -41,6 +41,7 @@ typedef struct tagFPOINT
 */
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
+extern FPOINT g_MousePos;
 
 #ifdef _DEBUG
 

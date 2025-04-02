@@ -1,5 +1,6 @@
 #pragma once
 #include "UIBase.h"
+#include "LevelManager.h"	
 
 enum class EFadeMode : uint8_t
 {
@@ -15,6 +16,7 @@ public:
 	virtual ~Fade();
 
 	void Init(EFadeMode InFadeMode);
+	void Init(EFadeMode InFadeMode, ELevelState InNextLevel);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
@@ -23,6 +25,7 @@ public:
 	void SetFadeMode(EFadeMode InFadeMode);
 private:
 	EFadeMode FadeMode;
+	ELevelState NextLevel;
 	int FrameDir;
 	float Alpha;
 };

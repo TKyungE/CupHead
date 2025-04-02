@@ -103,6 +103,30 @@
     <Filter Include="MainGame\Enemy\HildaBerg">
       <UniqueIdentifier>{32b271e7-c7da-406f-80e8-0fd878658019}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\Level">
+      <UniqueIdentifier>{e52ce03a-6925-4c9d-bf41-46b5d1493a0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Level">
+      <UniqueIdentifier>{ea61fab0-2af6-4482-b034-210473c70405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\MainTitle">
+      <UniqueIdentifier>{22036bb1-a26c-454e-8286-b5daa529ce32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\PressKey">
+      <UniqueIdentifier>{5b081e03-d8d3-419f-94a0-f5a1e95370eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Logo">
+      <UniqueIdentifier>{38b306c5-a117-45e8-b05c-5465dc811f63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Logo\Background">
+      <UniqueIdentifier>{7e0f639c-3455-4d4f-9be3-ff445472efe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Logo\PotenUp">
+      <UniqueIdentifier>{29d5262d-2e5d-4697-9d90-9ccc3bdc1115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Logo\AlphaBackground">
+      <UniqueIdentifier>{c9b87885-4595-47c2-b9e0-a738e7dc7e75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -242,6 +266,39 @@
     </ClCompile>
     <ClCompile Include="Taurus.cpp">
       <Filter>MainGame\Enemy\Taurus</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>2D Framework\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>2D Framework\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelLogo.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelMain.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Level1.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelResult.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="MainTitle.cpp">
+      <Filter>MainGame\UI\MainTitle</Filter>
+    </ClCompile>
+    <ClCompile Include="PressKey.cpp">
+      <Filter>MainGame\UI\PressKey</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoBackground.cpp">
+      <Filter>MainGame\UI\Logo\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="PotenUp.cpp">
+      <Filter>MainGame\UI\Logo\PotenUp</Filter>
+    </ClCompile>
+    <ClCompile Include="AlphaBackground.cpp">
+      <Filter>MainGame\UI\Logo\AlphaBackground</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -388,6 +445,39 @@
     </ClInclude>
     <ClInclude Include="Taurus.h">
       <Filter>MainGame\Enemy\Taurus</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>2D Framework\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>2D Framework\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLogo.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelMain.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level1.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelResult.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="MainTitle.h">
+      <Filter>MainGame\UI\MainTitle</Filter>
+    </ClInclude>
+    <ClInclude Include="PressKey.h">
+      <Filter>MainGame\UI\PressKey</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoBackground.h">
+      <Filter>MainGame\UI\Logo\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="PotenUp.h">
+      <Filter>MainGame\UI\Logo\PotenUp</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphaBackground.h">
+      <Filter>MainGame\UI\Logo\AlphaBackground</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -202,6 +202,19 @@ void Image::FrameRenderLoop(HDC hdc, int destX, int destY,
 	FrameRender(hdc, destX + width, destY, frameX, frameY, isFlip);
 }
 
+void Image::FrameRenderLoopAlpha(HDC hdc, int destX, int destY, int frameX, int frameY, bool _IsOver, int _AlphaValue, COLORREF _AlphaColor, bool isFlip, bool isLoop)
+{
+	if (!isLoop)
+	{
+		FrameRenderAlpha(hdc, destX, destY, frameX, frameY, _IsOver, _AlphaValue, _AlphaColor, isFlip);
+		return;
+	}
+
+	int width = imageInfo->frameWidth;
+	FrameRenderAlpha(hdc, destX, destY, frameX, frameY, _IsOver, _AlphaValue, _AlphaColor, isFlip);
+	FrameRenderAlpha(hdc, destX + width, destY, frameX, frameY, _IsOver, _AlphaValue, _AlphaColor, isFlip);
+}
+
 void Image::FrameRender(HDC hdc, int destX, int destY,
 	int frameX, int frameY, bool isFlip)
 {
@@ -264,8 +277,8 @@ void Image::FrameRenderAlpha(HDC hdc, int destX, int destY, int frameX, int fram
 		FrameRender(hdc, destX, destY, frameX, frameY, isFlip);
 	}
 
-	int x = destX - (imageInfo->frameWidth / 2);
-	int y = destY - (imageInfo->frameHeight / 2);
+	int x = destX - ((imageInfo->frameWidth * Scale.x) / 2);
+	int y = destY - ((imageInfo->frameHeight * Scale.y) / 2);
 
 	imageInfo->currFrameX = frameX;
 	imageInfo->currFrameY = frameY;
@@ -281,7 +294,7 @@ void Image::FrameRenderAlpha(HDC hdc, int destX, int destY, int frameX, int fram
 	void* pBits = nullptr;
 	imageInfo->hTempBit = CreateDIBSection(hdc, &bmi, DIB_RGB_COLORS, &pBits, NULL, 0);
 	SelectObject(imageInfo->hTempDC, imageInfo->hTempBit);
-	BitBlt(imageInfo->hTempDC, 0, 0, imageInfo->frameWidth, imageInfo->frameHeight, imageInfo->hMemDC, imageInfo->frameWidth * frameX, imageInfo->frameHeight * frameY, SRCCOPY);
+	BitBlt(imageInfo->hTempDC, 0, 0, imageInfo->frameWidth * Scale.x, imageInfo->frameHeight * Scale.y, imageInfo->hMemDC, imageInfo->frameWidth * frameX, imageInfo->frameHeight * frameY, SRCCOPY);
 
 	// 3. 픽셀 데이터 직접 수정 (투명색을 완전 투명하게 변환)
 	DWORD* pixels = (DWORD*)pBits;
@@ -317,7 +330,7 @@ void Image::FrameRenderAlpha(HDC hdc, int destX, int destY, int frameX, int fram
 	bf.SourceConstantAlpha = _AlphaValue;  // 밝기 조절 (0 ~ 255)
 	bf.AlphaFormat = AC_SRC_ALPHA;  // 알파 채널 사용
 
-	AlphaBlend(hdc, x, y, imageInfo->frameWidth, imageInfo->frameHeight, imageInfo->hTempDC, 0, 0, imageInfo->frameWidth, imageInfo->frameHeight, bf);
+	AlphaBlend(hdc, x, y, imageInfo->frameWidth * Scale.x, imageInfo->frameHeight * Scale.y, imageInfo->hTempDC, 0, 0, imageInfo->frameWidth, imageInfo->frameHeight, bf);
 	DeleteObject(imageInfo->hTempBit);
 }
 

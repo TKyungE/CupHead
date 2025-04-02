@@ -13,6 +13,7 @@ std::random_device rd;
 std::default_random_engine dre{ rd() };
 std::uniform_int_distribution<int> uid{ 0, 100 };
 
+FPOINT g_MousePos;
 // Init
 
 RECT GetRect(int left, int top, int width, int height);

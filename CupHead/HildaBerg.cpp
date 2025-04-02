@@ -191,6 +191,10 @@ void HildaBerg::SpawnEnemy()
 	case 5:	// moon
 	{
 		// Moon Phase Star Spawn
+		int type = uid(dre) % 3;
+		StarProjectile* star = new StarProjectile(StarType(type));
+		star->Init({ WINSIZE_X, (float)uidY(dre)});
+		ObjectManager::GetInstance()->AddObject(star, OBJ_MONSTER);
 		break;
 	}
 	}
