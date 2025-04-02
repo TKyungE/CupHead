@@ -148,6 +148,9 @@
     <Filter Include="MainGame\UI\Record">
       <UniqueIdentifier>{1c87280f-c403-41b4-9e8c-0e7cdce69948}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\Taurus\BarrageBullet">
+      <UniqueIdentifier>{3852b809-6c04-43e6-88c6-8ef4b0886928}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -332,6 +335,9 @@
     </ClCompile>
     <ClCompile Include="RecordUI.cpp">
       <Filter>MainGame\UI\Record</Filter>
+    </ClCompile>
+    <ClCompile Include="BarrageBullet.cpp">
+      <Filter>MainGame\Enemy\Taurus\BarrageBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -523,6 +529,9 @@
     </ClInclude>
     <ClInclude Include="RecordUI.h">
       <Filter>MainGame\UI\Record</Filter>
+    </ClInclude>
+    <ClInclude Include="BarrageBullet.h">
+      <Filter>MainGame\Enemy\Taurus\BarrageBullet</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
