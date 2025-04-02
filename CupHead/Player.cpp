@@ -597,7 +597,6 @@ void Player::Render(HDC hdc)
 			image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, false);
 			AlphaTime = 0.f;
 		}
-		
 	}
 }
 

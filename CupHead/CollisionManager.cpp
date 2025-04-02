@@ -2,6 +2,7 @@
 #include "Collider.h"
 #include "GameObject.h"
 #include "CommonFunction.h"
+#include "PlayerMissile.h"
 #include <cmath>
 
 void CollisionManager::Init()
@@ -204,7 +205,8 @@ void CollisionManager::PlayerWeaponMonsterCollision()
 			if (bCollision)
 			{
 				playerWeapon->GetOwner()->TakeDamage(1);
-				monster->GetOwner()->TakeDamage(1);
+				monster->GetOwner()->TakeDamage
+				(static_cast<PlayerMissile*>(playerWeapon->GetOwner())->GetDamage());
 				playerWeapon->SetHit(true);
 				monster->SetHit(true);
 			}
