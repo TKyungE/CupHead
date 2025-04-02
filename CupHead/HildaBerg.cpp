@@ -9,6 +9,7 @@
 #include "ObjectManager.h"
 #include "CollisionManager.h"
 #include "EffectManager.h"
+#include "LevelManager.h"
 
 HildaBerg::HildaBerg()
 	: HildaForm{}, Phase{}, Angle{},
@@ -99,6 +100,8 @@ void HildaBerg::Update()
 		SpawnEnemy();
 		ElapsedSpawnTime = 0.f;
 	}
+
+	LevelManager::GetInstance()->SetData(&Phase);
 }
 
 void HildaBerg::Render(HDC hdc)
@@ -223,7 +226,7 @@ void HildaBerg::SpawnEnemy()
 		// Moon Phase Star Spawn
 		int type = uid(dre) % 3;
 		StarProjectile* star = new StarProjectile(StarType(type));
-		star->Init({ WINSIZE_X, (float)uidY(dre)});
+		star->Init({ WINSIZE_X, (float)uidY(dre) });
 		ObjectManager::GetInstance()->AddObject(star, OBJ_MONSTER);
 		break;
 	}

@@ -70,11 +70,6 @@ void LevelManager::SetLevelState(ELevelState InLevelState)
 	Data = nullptr;
 }
 
-void LevelManager::SetNextLevelState(ELevelState InLevelState)
-{
-	NextLevelState = InLevelState;
-}
-
 void LevelManager::Release()
 {
 	if (Level != nullptr)
@@ -84,5 +79,18 @@ void LevelManager::Release()
 		Level = nullptr;
 	}
 
+	if (Data)
+	{
+		delete Data;
+		Data = nullptr;
+	}
+
 	ReleaseInstance();
+}
+
+void LevelManager::ReTry()
+{
+	ELevelState StateTemp = LevelState;
+	LevelState = ELevelState::End;
+	SetNextLevelState(StateTemp);	
 }

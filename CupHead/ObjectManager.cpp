@@ -67,4 +67,7 @@ void ObjectManager::RenderUI(HDC hdc)
 {
 	for (auto& iter : ObjectList[OBJ_UI])
 		iter->Render(hdc);
+
+	for (auto& iter : ObjectList[OBJ_UPPERUI])
+		iter->Render(hdc);
 }
