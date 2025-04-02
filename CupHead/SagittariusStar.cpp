@@ -25,9 +25,14 @@ void SagittariusStar::Init()
 	MaxHp = 2;
 	Hp = MaxHp;
 
-	maxAngularAcceleration = 0.6f;
-	maxAngularVelocity = 0.7f;
-	friction = 0.3f;
+	maxAngularAcceleration = 0.1f;
+	maxAngularVelocity = 0.9f;
+	friction = 0.9f;
+
+	// 이 값 쓰세요.
+	/*maxAngularAcceleration = 0.1f;
+	maxAngularVelocity = 0.9f;
+	friction = 0.9f;*/
 
 	image = ImageManager::GetInstance()->AddImage("sagg_star", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/sagg_star.bmp", 1157, 90, 13, 1, true, RGB(255, 0, 255));
 	ImageSize = sqrtf(powf(image->GetFrameWidth(), 2) + powf(image->GetFrameHeight(), 2));
