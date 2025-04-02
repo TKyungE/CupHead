@@ -1,4 +1,5 @@
 #include "Level1.h"
+#include "LevelManager.h"
 #include "CollisionManager.h"
 #include "ObjectManager.h"
 #include "EffectManager.h"
@@ -41,6 +42,12 @@ void Level1::Init()
 
 void Level1::Update()
 {
+	if (LevelManager::GetInstance()->GetNextLevelState() != LevelManager::GetInstance()->GetLevelState())
+	{
+		LevelManager::GetInstance()->SetLevelState(LevelManager::GetInstance()->GetNextLevelState());
+		return;
+	}
+
 	TestCode();
 
 	if (BackgroundManager != nullptr)
@@ -121,6 +128,10 @@ void Level1::ObjectInit()
 	BlimpEnemy* blimpEnemy = new BlimpEnemy();
 	blimpEnemy->Init(BlimpEnemyInfo::EColor::GREEN, 5);
 	ObjectManager->AddObject(blimpEnemy, OBJTYPE::OBJ_MONSTER);
+
+	Fade* fade = new Fade();
+	fade->Init(EFadeMode::FadeIn);
+	ObjectManager->AddObject(fade, OBJTYPE::OBJ_UI);
 }
 
 void Level1::ImageInit()

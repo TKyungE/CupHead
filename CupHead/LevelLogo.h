@@ -1,6 +1,7 @@
 #pragma once
 #include "Level.h"
 
+class ObjectManager;
 class LevelLogo : public Level
 {
 public:
@@ -15,5 +16,8 @@ public:
 protected:
 	virtual void ImageInit() override;
 	virtual void ObjectInit() override;
+
+private:
+	ObjectManager* ObjectManager;
 };
 

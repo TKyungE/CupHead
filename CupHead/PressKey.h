@@ -1,14 +1,20 @@
 #pragma once
 #include "UIBase.h"
-class StartBtn : public UIBase
+class PressKey : public UIBase
 {
 public:
-	StartBtn();
-	virtual ~StartBtn();
+	PressKey();
+	virtual ~PressKey();
 
 	virtual void Init() override;
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
+
+private:
+	RECT RC;
+	float Scale;
+	float Speed;
+	int Dir;
 };
 

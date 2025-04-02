@@ -20,9 +20,12 @@ public:
 	void Render(HDC hdc);
 	void Release();
 
+	ELevelState GetNextLevelState() const { return NextLevelState; }
+	ELevelState GetLevelState() const { return LevelState; }
 	void SetLevelState(ELevelState InLevelState);
-
+	void SetNextLevelState(ELevelState InLevelState);
 private:
+	ELevelState NextLevelState;
 	ELevelState LevelState;
 	Level* Level;
 };

@@ -1,6 +1,10 @@
 #include "LevelMain.h"
-#include "MainTitle.h"
 #include "ObjectManager.h"
+#include "MainTitle.h"
+#include "PressKey.h"
+#include "LevelManager.h"
+#include "Fade.h"
+
 
 LevelMain::LevelMain()
 	:ObjectManager(nullptr)
@@ -19,6 +23,23 @@ void LevelMain::Init()
 
 void LevelMain::Update()
 {
+	if (LevelManager::GetInstance()->GetNextLevelState() != LevelManager::GetInstance()->GetLevelState())
+	{
+		LevelManager::GetInstance()->SetLevelState(LevelManager::GetInstance()->GetNextLevelState());
+		return;
+	}
+
+	for (int i = 0; i < MAX_KEY_COUNT; ++i)
+	{
+		if (KeyManager::GetInstance()->IsOnceKeyDown(i))
+		{
+			Fade* fade = new Fade();
+			fade->Init(EFadeMode::FadeOut, ELevelState::Level1);
+			ObjectManager->AddObject(fade, OBJ_UI);
+			break;
+		}			
+	}
+
 	if (ObjectManager != nullptr)
 		ObjectManager->Update();
 }
@@ -36,6 +57,7 @@ void LevelMain::ImageInit()
 {
 	ImageManager::GetInstance()->AddImage("cuphead_title_screen", L"Image/CupHead/UI/Screen/Title/cuphead_title_screen.bmp", 37162, 622, 34, 1, true, RGB(255, 0, 255));
 	ImageManager::GetInstance()->AddImage("title_screen_background", L"Image/CupHead/UI/Screen/Title/title_screen_background.bmp", 1280, 720, 1, 1, true, RGB(255, 0, 255));
+	ImageManager::GetInstance()->AddImage("pressKey", L"Image/CupHead/UI/Screen/Title/pressKey.bmp", 460, 215, 1, 1, true, RGB(255, 0, 255));
 }
 
 void LevelMain::ObjectInit()
@@ -43,6 +65,10 @@ void LevelMain::ObjectInit()
 	MainTitle* mainTitle = new MainTitle();
 	mainTitle->Init();
 	ObjectManager->AddObject(mainTitle, OBJ_UI);
+
+	PressKey* pressKey = new PressKey();
+	pressKey->Init();
+	ObjectManager->AddObject(pressKey, OBJ_UI);
 }
 
 void LevelMain::Release()

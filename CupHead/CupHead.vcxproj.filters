@@ -103,8 +103,20 @@
     <Filter Include="MainGame\UI\MainTitle">
       <UniqueIdentifier>{22036bb1-a26c-454e-8286-b5daa529ce32}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\UI\StartBtn">
+    <Filter Include="MainGame\UI\PressKey">
       <UniqueIdentifier>{5b081e03-d8d3-419f-94a0-f5a1e95370eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Logo">
+      <UniqueIdentifier>{38b306c5-a117-45e8-b05c-5465dc811f63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Logo\Background">
+      <UniqueIdentifier>{7e0f639c-3455-4d4f-9be3-ff445472efe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Logo\PotenUp">
+      <UniqueIdentifier>{29d5262d-2e5d-4697-9d90-9ccc3bdc1115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Logo\AlphaBackground">
+      <UniqueIdentifier>{c9b87885-4595-47c2-b9e0-a738e7dc7e75}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -258,8 +270,17 @@
     <ClCompile Include="MainTitle.cpp">
       <Filter>MainGame\UI\MainTitle</Filter>
     </ClCompile>
-    <ClCompile Include="StartBtn.cpp">
-      <Filter>MainGame\UI\StartBtn</Filter>
+    <ClCompile Include="PressKey.cpp">
+      <Filter>MainGame\UI\PressKey</Filter>
+    </ClCompile>
+    <ClCompile Include="LogoBackground.cpp">
+      <Filter>MainGame\UI\Logo\Background</Filter>
+    </ClCompile>
+    <ClCompile Include="PotenUp.cpp">
+      <Filter>MainGame\UI\Logo\PotenUp</Filter>
+    </ClCompile>
+    <ClCompile Include="AlphaBackground.cpp">
+      <Filter>MainGame\UI\Logo\AlphaBackground</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -419,8 +440,17 @@
     <ClInclude Include="MainTitle.h">
       <Filter>MainGame\UI\MainTitle</Filter>
     </ClInclude>
-    <ClInclude Include="StartBtn.h">
-      <Filter>MainGame\UI\StartBtn</Filter>
+    <ClInclude Include="PressKey.h">
+      <Filter>MainGame\UI\PressKey</Filter>
+    </ClInclude>
+    <ClInclude Include="LogoBackground.h">
+      <Filter>MainGame\UI\Logo\Background</Filter>
+    </ClInclude>
+    <ClInclude Include="PotenUp.h">
+      <Filter>MainGame\UI\Logo\PotenUp</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphaBackground.h">
+      <Filter>MainGame\UI\Logo\AlphaBackground</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

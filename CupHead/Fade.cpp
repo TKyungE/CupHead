@@ -3,7 +3,7 @@
 #include "ImageManager.h"
 
 Fade::Fade()
-	:FadeMode(EFadeMode::End), FrameDir(1), Alpha(0.f)
+	:FadeMode(EFadeMode::End), FrameDir(1), Alpha(0.f), NextLevel(ELevelState::End)
 {
 }
 
@@ -16,9 +16,22 @@ void Fade::Init(EFadeMode InFadeMode)
 	SetFadeMode(InFadeMode);
 }
 
+void Fade::Init(EFadeMode InFadeMode, ELevelState InNextLevel)
+{
+	FrameSpeed = 15.f;
+	NextLevel = InNextLevel;
+
+	image = ImageManager::GetInstance()->AddImage("Fade", L"Image/CupHead/UI/Screen/Fade/Fade.bmp", 8704, 288, 17, 1, true, RGB(255, 0, 255));
+	image->SetScale(5.f, 5.f);
+	SetFadeMode(InFadeMode);
+}
+
 void Fade::Update()
 {
 	UpdateFrame();
+
+	if (bDead && NextLevel != ELevelState::End)
+		LevelManager::GetInstance()->SetNextLevelState(NextLevel);
 }
 
 void Fade::Render(HDC hdc)

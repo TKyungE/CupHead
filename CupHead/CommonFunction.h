@@ -73,6 +73,16 @@ inline bool PointInRect(POINT ptMouse, RECT rc)
 	return true;
 }
 
+inline bool PointInRect(FPOINT ptMouse, RECT rc)
+{
+	if (ptMouse.x < rc.left || ptMouse.x > rc.right
+		|| ptMouse.y < rc.top || ptMouse.y > rc.bottom)
+	{
+		return false;
+	}
+	return true;
+}
+
 inline bool RectInRect(RECT rc1, RECT rc2)
 {
 	if (rc1.right < rc2.left || rc1.left > rc2.right
