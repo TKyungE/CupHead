@@ -40,6 +40,8 @@ private:
 	void Dash();
 	void Recover();
 
+	void BarrageFire();
+
 	// 나중에 옮기든지..
 	float GetWidth();
 	float GetHeight();
@@ -58,5 +60,8 @@ private:
 	FPOINT PosBefore;
 
 	Collider* AttackCollider;
+
+	float ElapsedBarrageTime;
+	float BarrageCoolTime;
 };
 
