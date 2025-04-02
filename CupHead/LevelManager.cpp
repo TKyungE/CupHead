@@ -10,6 +10,7 @@ void LevelManager::Init()
 	LevelState = ELevelState::End;
 	NextLevelState = ELevelState::End;
 	Level = nullptr;
+	Data = nullptr;
 	SetLevelState(ELevelState::Logo);
 }
 
@@ -63,7 +64,10 @@ void LevelManager::SetLevelState(ELevelState InLevelState)
 		break;
 	}
 
-	Level->Init();
+	Level->Init(Data);
+
+	delete Data;
+	Data = nullptr;
 }
 
 void LevelManager::SetNextLevelState(ELevelState InLevelState)

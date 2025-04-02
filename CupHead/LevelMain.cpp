@@ -12,7 +12,7 @@ LevelMain::LevelMain()
 }
 
 
-void LevelMain::Init()
+void LevelMain::Init(void* InData)
 {
 	ObjectManager = ObjectManager::GetInstance();
 	ObjectManager->Init();
@@ -60,7 +60,7 @@ void LevelMain::ImageInit()
 	ImageManager::GetInstance()->AddImage("pressKey", L"Image/CupHead/UI/Screen/Title/pressKey.bmp", 460, 215, 1, 1, true, RGB(255, 0, 255));
 }
 
-void LevelMain::ObjectInit()
+void LevelMain::ObjectInit(void* InData)
 {
 	MainTitle* mainTitle = new MainTitle();
 	mainTitle->Init();

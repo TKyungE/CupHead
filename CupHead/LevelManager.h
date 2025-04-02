@@ -24,9 +24,11 @@ public:
 	ELevelState GetLevelState() const { return LevelState; }
 	void SetLevelState(ELevelState InLevelState);
 	void SetNextLevelState(ELevelState InLevelState);
+	void SetData(void* InData) { Data = InData; }
 private:
 	ELevelState NextLevelState;
 	ELevelState LevelState;
 	Level* Level;
+	void* Data;
 };
 

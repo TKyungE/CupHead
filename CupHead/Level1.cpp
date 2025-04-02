@@ -18,12 +18,12 @@
 #include "HildaBerg.h"
 
 Level1::Level1()
-	:BackgroundManager(nullptr), ObjectManager(nullptr), CollisionManager(nullptr), EffectManager(nullptr)
+	:BackgroundManager(nullptr), ObjectManager(nullptr), CollisionManager(nullptr), EffectManager(nullptr), CurrentTime(0.f)
 {
 }
 
 
-void Level1::Init()
+void Level1::Init(void* InData)
 {
 	BackgroundManager = new BackGroundManager;
 	BackgroundManager->Init();
@@ -43,6 +43,9 @@ void Level1::Init()
 
 void Level1::Update()
 {
+	// 클리어 누적 시간 
+	CurrentTime += TimerManager::GetInstance()->GetDeltaTime();
+
 	if (LevelManager::GetInstance()->GetNextLevelState() != LevelManager::GetInstance()->GetLevelState())
 	{
 		LevelManager::GetInstance()->SetLevelState(LevelManager::GetInstance()->GetNextLevelState());
@@ -85,7 +88,7 @@ void Level1::Render(HDC hdc)
 		ObjectManager->RenderUI(hdc);
 }
 
-void Level1::ObjectInit()
+void Level1::ObjectInit(void* InData)
 {
 	// 김태경 테스트 코드
 	{
@@ -191,6 +194,8 @@ void Level1::Release()
 		EffectManager->Release();
 		EffectManager = nullptr;
 	}
+
+	LevelManager::GetInstance()->SetData(new float(CurrentTime));
 }
 
 Level1::~Level1()

@@ -1,6 +1,7 @@
 #include "KnockOut.h"
 #include "Image.h"
 #include "ImageManager.h"
+#include "LevelManager.h"
 
 KnockOut::KnockOut()
 {
@@ -23,7 +24,10 @@ void KnockOut::Update()
 	__super::Update();
 
 	if (CurFrameIndex == image->GetMaxFrameX() - 1)
+	{
 		bDead = true;
+		LevelManager::GetInstance()->SetNextLevelState(ELevelState::Result);
+	}		
 }
 
 void KnockOut::Render(HDC hdc)

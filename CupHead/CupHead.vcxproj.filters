@@ -145,6 +145,9 @@
     <Filter Include="2D Framework\Key">
       <UniqueIdentifier>{b0fb4913-1046-4538-9f17-1ccd3532b693}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\UI\Record">
+      <UniqueIdentifier>{1c87280f-c403-41b4-9e8c-0e7cdce69948}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -326,6 +329,9 @@
     </ClCompile>
     <ClCompile Include="KeyManager.cpp">
       <Filter>2D Framework\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="RecordUI.cpp">
+      <Filter>MainGame\UI\Record</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -514,6 +520,9 @@
     </ClInclude>
     <ClInclude Include="KeyManager.h">
       <Filter>2D Framework\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="RecordUI.h">
+      <Filter>MainGame\UI\Record</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

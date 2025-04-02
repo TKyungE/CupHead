@@ -8,14 +8,14 @@ public:
 	LevelMain();
 	virtual ~LevelMain();
 
-	virtual void Init() override;
+	virtual void Init(void* InData = nullptr) override;
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
 protected:
 	virtual void ImageInit() override;
-	virtual void ObjectInit() override;
+	virtual void ObjectInit(void* InData = nullptr) override;
 
 private:
 	ObjectManager* ObjectManager;
