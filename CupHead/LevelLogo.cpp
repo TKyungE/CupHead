@@ -12,7 +12,7 @@ LevelLogo::LevelLogo()
 {
 }
 
-void LevelLogo::Init()
+void LevelLogo::Init(void* InData)
 {
 	ObjectManager = ObjectManager::GetInstance();
 	ObjectManager->Init();
@@ -48,7 +48,7 @@ void LevelLogo::ImageInit()
 		potenupImage->SetScale(0.5f, 0.5f);
 }
 
-void LevelLogo::ObjectInit()
+void LevelLogo::ObjectInit(void* InData)
 {
 	if (ObjectManager == nullptr)
 		return;

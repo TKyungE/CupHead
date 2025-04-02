@@ -69,8 +69,7 @@ void TrumpCard::UpdateFrame()
 		{
 			CurFrameIndex = image->GetMaxFrameX() - 1;
 			FrameDir = -1;
-		}
-			
+		}			
 		else if (FrameDir == -1 && CurFrameIndex < 0)
 		{
 			CurFrameIndex = 0;

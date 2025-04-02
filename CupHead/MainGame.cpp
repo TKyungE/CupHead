@@ -84,7 +84,7 @@ void MainGame::Render()
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 
-	if (ScreenFx)
+	if (ScreenFx && LevelManager->GetLevelState() != ELevelState::Logo)
 		ScreenFx->Render(hBackBufferDC);
 
 	backBuffer->Render(hdc);
