@@ -133,6 +133,18 @@
     <Filter Include="MainGame\UI\SimpleUI">
       <UniqueIdentifier>{94c6dd7f-338d-4c0e-9aab-d068b4cf3524}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\Collision">
+      <UniqueIdentifier>{824877b9-3df2-444c-9531-3b3a8862b409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Effect">
+      <UniqueIdentifier>{ae3a2238-8f11-4bbe-a28a-85ceaf785f4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Image">
+      <UniqueIdentifier>{62c1448e-3331-4b4d-ba95-394fdedfe40e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Key">
+      <UniqueIdentifier>{b0fb4913-1046-4538-9f17-1ccd3532b693}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -141,35 +153,17 @@
     <ClCompile Include="MainGame.cpp">
       <Filter>MainGame</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyManager.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
     <ClCompile Include="MissileManager.cpp">
       <Filter>MainGame\Missile</Filter>
     </ClCompile>
     <ClCompile Include="Missile.cpp">
       <Filter>MainGame\Missile</Filter>
     </ClCompile>
-    <ClCompile Include="ImageManager.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>2D Framework\Timer</Filter>
     </ClCompile>
     <ClCompile Include="TimerManager.cpp">
       <Filter>2D Framework\Timer</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>2D Framework</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>MainGame\Player</Filter>
@@ -227,12 +221,6 @@
     </ClCompile>
     <ClCompile Include="KnockOut.cpp">
       <Filter>MainGame\UI\KnockOut</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectManager.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Effect.cpp">
-      <Filter>2D Framework</Filter>
     </ClCompile>
     <ClCompile Include="PlayerMissile.cpp">
       <Filter>MainGame\Player</Filter>
@@ -303,9 +291,6 @@
     <ClCompile Include="AlphaBackground.cpp">
       <Filter>MainGame\UI\Logo\AlphaBackground</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerNormalMissile.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="BlimpEnemyPiece.cpp">
       <Filter>MainGame\Enemy\BlimpEnemy\Piece</Filter>
     </ClCompile>
@@ -314,6 +299,33 @@
     </ClCompile>
     <ClCompile Include="SimpleUI.cpp">
       <Filter>MainGame\UI\SimpleUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>2D Framework\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>2D Framework\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>2D Framework\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>2D Framework\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>2D Framework\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>2D Framework\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerNormalMissile.cpp">
+      <Filter>MainGame\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>2D Framework\Key</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -326,12 +338,6 @@
     <ClInclude Include="MainGame.h">
       <Filter>MainGame</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyManager.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>2D Framework</Filter>
     </ClInclude>
@@ -341,23 +347,11 @@
     <ClInclude Include="Missile.h">
       <Filter>MainGame\Missile</Filter>
     </ClInclude>
-    <ClInclude Include="ImageManager.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>2D Framework\Timer</Filter>
     </ClInclude>
     <ClInclude Include="TimerManager.h">
       <Filter>2D Framework\Timer</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>2D Framework</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>MainGame\Player</Filter>
@@ -415,12 +409,6 @@
     </ClInclude>
     <ClInclude Include="KnockOut.h">
       <Filter>MainGame\UI\KnockOut</Filter>
-    </ClInclude>
-    <ClInclude Include="EffectManager.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Effect.h">
-      <Filter>2D Framework</Filter>
     </ClInclude>
     <ClInclude Include="PlayerMissile.h">
       <Filter>MainGame\Player</Filter>
@@ -491,9 +479,6 @@
     <ClInclude Include="AlphaBackground.h">
       <Filter>MainGame\UI\Logo\AlphaBackground</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerNormalMissile.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="BlimpEnemyPiece.h">
       <Filter>MainGame\Enemy\BlimpEnemy\Piece</Filter>
     </ClInclude>
@@ -502,6 +487,33 @@
     </ClInclude>
     <ClInclude Include="SimpleUI.h">
       <Filter>MainGame\UI\SimpleUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>2D Framework\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>2D Framework\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>2D Framework\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>2D Framework\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>2D Framework\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>2D Framework\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerNormalMissile.h">
+      <Filter>MainGame\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>2D Framework\Key</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
