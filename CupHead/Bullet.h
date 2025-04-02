@@ -3,15 +3,8 @@
 
 namespace BulletInfo
 {
-	enum EBulletType
-	{
-		PLAYER,
-		BLIMP_ENEMY,
-		IMAGETYPE_END
-	};
-
-	extern string imageTypes[EBulletType::IMAGETYPE_END];
-	extern int imageNum[EBulletType::IMAGETYPE_END];
+	extern string imageTypes;
+	extern int imageNum;
 }
 
 class Bullet : public Pawn
@@ -20,7 +13,7 @@ public:
 	Bullet();
 	virtual ~Bullet();
 
-	void Init(FPOINT _pos, float _Angle, BulletInfo::EBulletType imageType);
+	void Init(FPOINT _pos, float _Angle);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;

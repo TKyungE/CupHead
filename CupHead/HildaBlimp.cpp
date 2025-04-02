@@ -7,6 +7,7 @@
 #include "ObjectManager.h"
 #include "Collider.h"
 #include "CollisionManager.h"
+#include "EffectManager.h"
 
 namespace HildaBlimpInfo
 {
@@ -31,7 +32,9 @@ HildaBlimp::HildaBlimp(int _Phase)
 	CurState{}, AnimData{}, IsAnimEnd{},
 	ElapsedShootTime{}, ShootCoolTime{ 5.f },
 	HaShootCnt{}, HaMaxShootCnt{ 1 },
-	ElapsedAnimTime{}
+	ElapsedAnimTime{},
+	DashExplodeCnt{}, DashSmokeEffect{},
+	ElapsedSummonEffectTime{}, SummonEffectTime{ 0.1f }
 {
 }
 
@@ -129,6 +132,36 @@ void HildaBlimp::Init(FPOINT _Pos, float _Angle)
 		TEXT("Image\\CupHead\\Hilda Berg\\Trans\\blimp_morph_4.bmp"),
 		9490, 801,
 		10, 1,
+		true, RGB(255, 0, 255));
+#pragma endregion
+
+#pragma region Effect Image Load
+	ImageManager::GetInstance()->AddImage(
+		"BigCloudFx",
+		TEXT("Image\\CupHead\\Hilda Berg\\Normal\\Fx\\big_cloud_fx.bmp"),
+		10545, 679,
+		19, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"SmallCloudFx",
+		TEXT("Image\\CupHead\\Hilda Berg\\Normal\\Fx\\small_cloud_fx.bmp"),
+		4147, 308,
+		13, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"BlimpDashFxExplode",
+		TEXT("Image\\CupHead\\Hilda Berg\\Normal\\Fx\\blimp_dash_fx_explode.bmp"),
+		10380, 642,
+		15, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"BlimpDashFxSmoke",
+		TEXT("Image\\CupHead\\Hilda Berg\\Normal\\Fx\\blimp_dash_fx_smoke.bmp"),
+		3954, 264,
+		6, 1,
 		true, RGB(255, 0, 255));
 #pragma endregion
 
@@ -283,8 +316,25 @@ void HildaBlimp::UpdateState()
 	case HildaBlimpInfo::EState::DASH:
 	{
 		if (CurFrameIndex >= 18)
-		{
+		{	
+			if (!DashSmokeEffect)
+			{
+				EffectManager::GetInstance()->AddEffect("BlimpDashFxSmoke", pos, 1.f, { GetWidth() * 0.6f, 20.f }, 3, true, this);
+				DashSmokeEffect = true;
+			}
+			
 			Dash();
+
+			if (pos.x < WINSIZE_X * 0.5f and DashExplodeCnt == 0)
+			{
+				EffectManager::GetInstance()->AddEffect("BlimpDashFxExplode", pos, 1.f);
+				DashExplodeCnt++;
+			}
+			if (pos.x < 10.f and DashExplodeCnt == 1)
+			{
+				EffectManager::GetInstance()->AddEffect("BlimpDashFxExplode", pos, 1.f);
+				DashExplodeCnt++;
+			}
 		}
 		if (IsAnimEnd)
 		{
@@ -300,6 +350,10 @@ void HildaBlimp::UpdateState()
 	case HildaBlimpInfo::EState::SUMMON:
 	{
 		DashRecover();
+		if (pos.x > WINSIZE_X * 0.5f)
+		{
+			SmallCloudEffect();
+		}
 		if (pos.x > WINSIZE_X - 200.f)
 		{
 			SetState(HildaBlimpInfo::EState::SUMMONRECOVER);
@@ -451,6 +505,20 @@ void HildaBlimp::Dash()
 void HildaBlimp::DashRecover()
 {
 	pos.x += Speed * 3.f * TimerManager::GetInstance()->GetDeltaTime();
+}
+
+void HildaBlimp::SmallCloudEffect()
+{
+	ElapsedSummonEffectTime += TimerManager::GetInstance()->GetDeltaTime();
+	if (ElapsedSummonEffectTime < SummonEffectTime) return;
+
+	ElapsedSummonEffectTime = 0.f;
+
+	// ±ÍÂ÷´ÏÁò2
+	uniform_int_distribution<int> randX{ int(pos.x - image->GetFrameWidth() * 0.25f), int(pos.x + image->GetFrameWidth() * 0.25f) };
+	uniform_int_distribution<int> randY{ int(pos.y - image->GetFrameHeight() * 0.5f), int(pos.y + image->GetFrameHeight() * 0.5f) };
+
+	EffectManager::GetInstance()->AddEffect("SmallCloudFx", { (float)randX(dre), (float)randY(dre)}, 1.f);
 }
 
 float HildaBlimp::GetWidth()

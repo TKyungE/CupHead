@@ -52,6 +52,8 @@ private:
 	void Dash();
 	void DashRecover();
 
+	void SmallCloudEffect();
+
 	// 나중에 옮기든지..
 	float GetWidth();
 	float GetHeight();
@@ -73,5 +75,12 @@ private:
 	int HaMaxShootCnt;
 
 	float ElapsedAnimTime;
+
+	// Effect
+	int DashExplodeCnt;
+	bool DashSmokeEffect;
+
+	float ElapsedSummonEffectTime;
+	float SummonEffectTime;
 };
 
