@@ -124,9 +124,6 @@
     <Filter Include="MainGame\UI\Logo\AlphaBackground">
       <UniqueIdentifier>{c9b87885-4595-47c2-b9e0-a738e7dc7e75}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\Enemy\BlimpEnemy\Piece">
-      <UniqueIdentifier>{9d9d17d6-39fc-47ba-ba00-d62ca4e2e53a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainGame\UI\UIBackground">
       <UniqueIdentifier>{d4fe5a5e-20c2-4892-a273-dd2bb3a75e6c}</UniqueIdentifier>
     </Filter>
@@ -162,6 +159,9 @@
     </Filter>
     <Filter Include="MainGame\Player\Missile">
       <UniqueIdentifier>{0246a662-d416-436f-981a-671f1574d57d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\BrokenPiece">
+      <UniqueIdentifier>{310d1b90-5e28-4746-8b90-8bc591d3e7f9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -300,9 +300,6 @@
     <ClCompile Include="AlphaBackground.cpp">
       <Filter>MainGame\UI\Logo\AlphaBackground</Filter>
     </ClCompile>
-    <ClCompile Include="BlimpEnemyPiece.cpp">
-      <Filter>MainGame\Enemy\BlimpEnemy\Piece</Filter>
-    </ClCompile>
     <ClCompile Include="UIBackground.cpp">
       <Filter>MainGame\UI\UIBackground</Filter>
     </ClCompile>
@@ -362,6 +359,9 @@
     </ClCompile>
     <ClCompile Include="PlayerSharkMissile.cpp">
       <Filter>MainGame\Player\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="BrokenPiece.cpp">
+      <Filter>MainGame\BrokenPiece</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -506,9 +506,6 @@
     <ClInclude Include="AlphaBackground.h">
       <Filter>MainGame\UI\Logo\AlphaBackground</Filter>
     </ClInclude>
-    <ClInclude Include="BlimpEnemyPiece.h">
-      <Filter>MainGame\Enemy\BlimpEnemy\Piece</Filter>
-    </ClInclude>
     <ClInclude Include="UIBackground.h">
       <Filter>MainGame\UI\UIBackground</Filter>
     </ClInclude>
@@ -568,6 +565,9 @@
     </ClInclude>
     <ClInclude Include="SagittariusStar2.h">
       <Filter>MainGame\Enemy\Moon\MoonStar</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenPiece.h">
+      <Filter>MainGame\BrokenPiece</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
