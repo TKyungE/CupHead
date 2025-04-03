@@ -740,6 +740,70 @@ void Player::ImageInit()
 	ImageManager::GetInstance()->AddImage("plane_shoot_spark_0004",
 		TEXT("Image/CupHead/cuphead_plane/Shoot/plane_shoot_spark_0004.bmp"),
 		65, 49, 1, 1, true, RGB(255, 0, 255));
+
+	// PlanePiece
+	ImageManager::GetInstance()->AddImage(
+		"schmup_ch_piece_a",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_ch_piece_a.bmp"),
+		424, 55,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_ch_piece_b",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_ch_piece_b.bmp"),
+		416, 55,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_ch_piece_c",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_ch_piece_c.bmp"),
+		280, 36,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_ch_piece_d",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_ch_piece_d.bmp"),
+		288, 36,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_ch_piece_e",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_ch_piece_e.bmp"),
+		504, 62,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_gear_a",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_gear_a.bmp"),
+		512, 64,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_gear_b",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_gear_b.bmp"),
+		264, 36,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_gear_c",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_gear_c.bmp"),
+		504, 68,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_gear_d",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_gear_d.bmp"),
+		448, 55,
+		8, 1,
+		true, RGB(255, 0, 255));
 }
 
 void Player::Move()
