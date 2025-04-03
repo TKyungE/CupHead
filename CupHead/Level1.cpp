@@ -129,10 +129,6 @@ void Level1::ObjectInit(void* InData)
 		readyWallop->Init();
 		ObjectManager->AddObject(readyWallop, OBJTYPE::OBJ_UI);
 
-		DeathCard* deathCard = new DeathCard();
-		deathCard->Init("death_card_bg",WINSIZE_X * 0.5f, WINSIZE_Y * 0.5f);
-		ObjectManager->AddObject(deathCard, OBJTYPE::OBJ_UI);
-
 		Fade* fade = new Fade();
 		fade->Init(EFadeMode::FadeIn);
 		ObjectManager->AddObject(fade, OBJTYPE::OBJ_UPPERUI);
@@ -169,6 +165,7 @@ void Level1::ImageInit()
 
 	image = ImageManager::GetInstance()->AddImage("phaseIndex", L"Image/CupHead/UI/Menu/phaseIndex.bmp", 7, 27, 1, 1, true, RGB(255, 0, 255));
 	image = ImageManager::GetInstance()->AddImage("death_card_run", L"Image/CupHead/UI/Menu/death_card_run.bmp", 864, 62, 16, 1, true, RGB(255, 0, 255));
+	image = ImageManager::GetInstance()->AddImage("phaseIndex", L"Image/CupHead/UI/Menu/phaseIndex.bmp", 7, 27, 1, 1, true, RGB(255, 0, 255));
 }
 
 void Level1::TestCode()
@@ -192,6 +189,13 @@ void Level1::TestCode()
 		LaughProjectile* Laugh = new LaughProjectile();
 		Laugh->Init(g_MousePos);
 		ObjectManager::GetInstance()->AddObject(Laugh, OBJTYPE::OBJ_MONSTER_WEAPON);
+	}
+
+	if (KeyManager::GetInstance()->IsOnceKeyDown('0'))
+	{
+		DeathCard* deathCard = new DeathCard();
+		deathCard->Init("death_card_bg", WINSIZE_X * 0.5f, WINSIZE_Y * 0.5f);
+		ObjectManager->AddObject(deathCard, OBJTYPE::OBJ_UI);
 	}
 }
 

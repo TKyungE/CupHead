@@ -22,6 +22,10 @@ HildaBerg::HildaBerg()
 	HpList[3] = 15;
 	HpList[4] = 10;
 	HpList[5] = 20;
+
+	ZeroMemory(&HlidaBergData, sizeof(FHildaBergData));
+
+	
 }
 
 HildaBerg::~HildaBerg()
@@ -49,6 +53,10 @@ void HildaBerg::Init()
 	pos = { WINSIZE_X - 300.f, WINSIZE_Y / 2.f + 50.f };
 	Phase = 0;
 	ChangeForm();
+
+
+	HlidaBergData.TotalHp = GetTotalHp();
+	memcpy(HlidaBergData.HpList, HpList, sizeof(int) * 6);
 }
 
 void HildaBerg::Release()
@@ -108,7 +116,10 @@ void HildaBerg::Update()
 		ElapsedSpawnTime = 0.f;
 	}
 
-	LevelManager::GetInstance()->SetData(&Phase);
+	HlidaBergData.Phase = Phase;
+	HlidaBergData.CurrentHp = GetCurrentHp();
+
+	LevelManager::GetInstance()->SetData(&HlidaBergData);
 }
 
 void HildaBerg::Render(HDC hdc)

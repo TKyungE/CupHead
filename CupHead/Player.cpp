@@ -9,6 +9,7 @@
 #include "PlayerNormalMissile.h"
 #include "PlayerFallMissile.h"
 #include "PlayerSharkMissile.h"
+#include "DeathCard.h"
 
 Player::Player() :
 		IsSharkFire(false),
@@ -803,6 +804,14 @@ void Player::TakeDamage(int damage)
 	if (PLAYER_ATTACK == CurState)
 	{
 		return;
+	}
+
+	// 죽음 UI 띄운다.
+	if (Hp == 1)
+	{
+		DeathCard* deathCard = new DeathCard();
+		deathCard->Init("death_card_bg", WINSIZE_X * 0.5f, WINSIZE_Y * 0.5f);
+		ObjectManager::GetInstance()->AddObject(deathCard, OBJTYPE::OBJ_UI);
 	}
 
 	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx_b", { pos.x , pos.y }, 0.3f); // 값 조정 or 때리는 투사체 쪽에서 위치 조정?
