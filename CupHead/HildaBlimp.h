@@ -29,7 +29,7 @@ public:
 	virtual ~HildaBlimp();
 
 public:
-	void Init(FPOINT _Pos, float _Angle=0);
+	void Init(FPOINT _Pos, float _Angle, int _Hp);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;

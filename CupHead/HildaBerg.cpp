@@ -9,12 +9,19 @@
 #include "ObjectManager.h"
 #include "CollisionManager.h"
 #include "EffectManager.h"
+#include <numeric>
 #include "LevelManager.h"
 
 HildaBerg::HildaBerg()
 	: HildaForm{}, Phase{}, Angle{},
 	ElapsedSpawnTime{}, SpawnCoolTime{ 3.f }
 {
+	HpList[0] = 10;
+	HpList[1] = 15;
+	HpList[2] = 10;
+	HpList[3] = 15;
+	HpList[4] = 10;
+	HpList[5] = 20;
 }
 
 HildaBerg::~HildaBerg()
@@ -109,6 +116,16 @@ void HildaBerg::Render(HDC hdc)
 	if (HildaForm) HildaForm->Render(hdc);
 }
 
+int HildaBerg::GetTotalHp() const
+{
+	return accumulate(HpList, HpList + 6, 0);
+}
+
+int HildaBerg::GetCurrentHp() const
+{
+	return HildaForm ? accumulate(HpList + Phase + 1, HpList + 6, 0) + HildaForm->GetHp() : 0;
+}
+
 void HildaBerg::ChangeForm()
 {
 	switch (Phase)
@@ -116,7 +133,7 @@ void HildaBerg::ChangeForm()
 	case 0:
 	{
 		HildaBlimp* blimp = new HildaBlimp(0);
-		blimp->Init(pos, Angle);
+		blimp->Init(pos, Angle, HpList[Phase]);
 		HildaForm = blimp;
 		SpawnCoolTime = 6.f;
 		break;
@@ -124,7 +141,7 @@ void HildaBerg::ChangeForm()
 	case 1:
 	{
 		Taurus* taurus = new Taurus();
-		taurus->Init(pos, Angle);
+		taurus->Init(pos, Angle, HpList[Phase]);
 		HildaForm = taurus;
 		SpawnCoolTime = 5.f;
 		break;
@@ -132,7 +149,7 @@ void HildaBerg::ChangeForm()
 	case 2:
 	{
 		HildaBlimp* blimp = new HildaBlimp(1);
-		blimp->Init(pos, Angle);
+		blimp->Init(pos, Angle, HpList[Phase]);
 		HildaForm = blimp;
 		SpawnCoolTime = 5.f;
 		break;
@@ -140,7 +157,7 @@ void HildaBerg::ChangeForm()
 	case 3:
 	{
 		Sagittarius* sag = new Sagittarius();
-		sag->Init(pos, Angle);
+		sag->Init(pos, Angle, HpList[Phase]);
 		HildaForm = sag;
 		SpawnCoolTime = 4.f;
 		break;
@@ -148,7 +165,7 @@ void HildaBerg::ChangeForm()
 	case 4:
 	{
 		HildaBlimp* blimp = new HildaBlimp(2);
-		blimp->Init(pos, Angle);
+		blimp->Init(pos, Angle, HpList[Phase]);
 		HildaForm = blimp;
 		SpawnCoolTime = 4.f;
 		break;
@@ -156,7 +173,7 @@ void HildaBerg::ChangeForm()
 	case 5:
 	{
 		Moon* moon = new Moon();
-		moon->Init();
+		moon->Init(HpList[Phase]);
 		HildaForm = moon;
 		SpawnCoolTime = 2.f;
 		break;
