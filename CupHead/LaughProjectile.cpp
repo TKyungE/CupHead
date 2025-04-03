@@ -71,7 +71,7 @@ void LaughProjectile::Move()
 	float PerDirX = -BaseDirY;
 	float PerDirY = BaseDirX;
 
-	float WaveOffset = SinValue * sinf(15.f * MoveValue);
+	float WaveOffset = SinValue * sinf(23.f * MoveValue);
 	//float waveOffset = cosf(float(MoveValue));
 
 	pos.x += (Speed * DeltaTime) * BaseDirX + PerDirX * WaveOffset;

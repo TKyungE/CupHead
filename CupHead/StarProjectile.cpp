@@ -45,28 +45,31 @@ StarProjectile::StarProjectile(StarType _Type) : LookAngle(DEG_TO_RAD(180.f)), M
 		Speed = 800.f;
 		FrameSpeed = 20.f;
 		SinValue = 0.21f;
+		SinValue = 1.51f;
 		image = ImageManager::GetInstance()->AddImage("blimp_star_a", TEXT("Image/CupHead/Hilda Berg/Moon/Attack/blimp_star_a.bmp"), 1632, 108, 16, 1, true, RGB(255, 0, 255));
 		break;
 	case StarType::STARTYPE_B:
 		Speed = 400.f;
 		FrameSpeed = 20.f;
 		SinValue = 0.36f;
+		SinValue = 1.47f;
 		image = ImageManager::GetInstance()->AddImage("blimp_star_b", TEXT("Image/CupHead/Hilda Berg/Moon/Attack/blimp_star_b.bmp"), 819, 117, 7, 1, true, RGB(255, 0, 255));
 		break;
 	case StarType::STARTYPE_C:
 		Speed = 600.f;
 		FrameSpeed = 12.f;
 		SinValue = 0.15f;
+		SinValue = 1.5f;
 		image = ImageManager::GetInstance()->AddImage("blimp_star_c", TEXT("Image/CupHead/Hilda Berg/Moon/Attack/blimp_star_c.bmp"), 1482, 113, 13, 1, true, RGB(255, 0, 255));
 		break;
 	default:
 		break;
 	}
 
-	
+	srand(time(NULL));
 	Speed = 300 * ((rand() % 3) + 1);
-	FrameSpeed = (rand() % 8) + 12.f;
-	SinValue = ((rand() % 25) + 16) / 100.f;
+	FrameSpeed = (rand() % 8) + 15.f;
+	SinValue = ((rand() % 250) + 100) / 100.f;
 
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, 60.f, true, 1.f);
 	collider->Init();
