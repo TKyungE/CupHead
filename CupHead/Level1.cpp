@@ -118,9 +118,9 @@ void Level1::ObjectInit(void* InData)
 		AddObject(knockOut, OBJTYPE::OBJ_UI);*/
 
 		// 테스트 코드 TrumpCardManager 생성
-		TrumpCardManager* trumpCardManager = new TrumpCardManager();
-		trumpCardManager->Init(10, 50);
-		ObjectManager->AddObject(trumpCardManager, OBJTYPE::OBJ_ETC);
+		//TrumpCardManager* trumpCardManager = new TrumpCardManager();
+		//trumpCardManager->Init(10, 50);
+		//ObjectManager->AddObject(trumpCardManager, OBJTYPE::OBJ_ETC);
 
 		// 테스트 코드 KnockOut 생성
 		ReadyWallop* readyWallop = new ReadyWallop();

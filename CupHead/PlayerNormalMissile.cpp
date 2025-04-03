@@ -62,6 +62,7 @@ void PlayerNormalMissile::Move()
 
 void PlayerNormalMissile::TakeDamage(int damage)
 {
+	__super::TakeDamage(damage);
 	EffectManager::GetInstance()->AddEffectDefault("schmup_peashot_hit_spark", pos, 0.3f);
 	bDead = true;
 }

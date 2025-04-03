@@ -16,11 +16,18 @@ public:
 	inline void SetActiveCount(int _Cnt) 
 	{ 
 		CurActiveCnt = _Cnt;
-		CurActiveCnt = max(CurActiveCnt, MaxCardCnt);
+		CurActiveCnt = min(CurActiveCnt, MaxCardCnt);
 	};
 
 	inline int GetActiveCount() const { return CurActiveCnt; };
 
+	inline void SetSkillPoint(float _Point)
+	{
+		SkillPoint = _Point;
+		SkillPoint = min(SkillPoint, MaxSkillPoint);
+	};
+
+	inline int GetSkillPoint() const { return SkillPoint; };
 
 private:
 	vector<TrumpCard*> TrumpCards;
@@ -28,9 +35,9 @@ private:
 	int MaxCardCnt;
 	int CurActiveCnt;
 
-
-	float SkillPoint;
-	float MaxSkillPoint;
+	int GageCount;
+	int SkillPoint;
+	int MaxSkillPoint;
 
 };
 

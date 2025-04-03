@@ -8,7 +8,7 @@
 
 PlayerFallMissile::PlayerFallMissile() : MoveTime(0.f), Gravity(25.8f)
 {
-	Speed = 900.f;
+	Speed = 1000.f;
 	FrameSpeed = 20.f;
 	//IsStayMaxFrame = true;
 	int MaxAnimationFrame = 9;
@@ -66,6 +66,7 @@ void PlayerFallMissile::Move()
 
 void PlayerFallMissile::TakeDamage(int damage)
 {
+	__super::TakeDamage(damage);
 	EffectManager::GetInstance()->AddEffectDefault("LargeExplosion", pos, 0.3f);
 	EffectManager::GetInstance()->AddEffectDefault("LargeFire", pos, 0.3f);
 	bDead = true;

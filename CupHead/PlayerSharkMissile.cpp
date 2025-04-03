@@ -93,6 +93,7 @@ void PlayerSharkMissile::Move()
 
 void PlayerSharkMissile::TakeDamage(int damage)
 {
+	__super::TakeDamage(damage);
 	EffectManager::GetInstance()->AddEffectDefault("LargeSpark", { (pos.x + size.x / 2), pos.y }, 0.2f);
 	StopTime = StopMaxTime;
 }
