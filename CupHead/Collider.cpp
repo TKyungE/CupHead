@@ -1,8 +1,13 @@
 #include "Collider.h"
 #include "GameObject.h"
 
-Collider::Collider(GameObject* owner, COLLIDERTYPE colliderType, FPOINT pivot, FPOINT size, bool bDebugDraw)
-	:Owner(owner),ColliderType(colliderType), PivotPos(pivot), Size(size), bDebugDraw(bDebugDraw), Pos(), bHit(false)
+Collider::Collider(GameObject* owner, COLLIDERTYPE colliderType, FPOINT pivot, FPOINT size, bool debugDraw, float hitDelayTime)
+	:Owner(owner), ColliderType(colliderType), PivotPos(pivot), Size(size), bDebugDraw(debugDraw), HitDelayTime(hitDelayTime), Pos(), bHit(false), bCanHit(true), bDead(false), CurrentDelayTime(0.f)
+{
+}
+
+Collider::Collider(GameObject* owner, COLLIDERTYPE colliderType, FPOINT pivot, float size, bool debugDraw, float hitDelayTime)
+	:Owner(owner), ColliderType(colliderType), PivotPos(pivot), Size({ size,size }), bDebugDraw(debugDraw), HitDelayTime(hitDelayTime), Pos(), bHit(false), bCanHit(true), bDead(false), CurrentDelayTime(0.f)
 {
 }
 
@@ -16,11 +21,25 @@ void Collider::Update()
 	{
 		Pos.x = Owner->GetPos().x + PivotPos.x;
 		Pos.y = Owner->GetPos().y + PivotPos.y;
+		
+		if (!bCanHit)
+		{
+			CurrentDelayTime += TimerManager::GetInstance()->GetDeltaTime();
+
+			if (CurrentDelayTime >= HitDelayTime)
+			{
+				CurrentDelayTime = 0.f;
+				bCanHit = true;
+				bHit = false;
+			}
+		}
 	}
 }
 
 void Collider::Render(HDC hdc)
 {
+#ifdef _DEBUG
+
 	FPOINT HalfSize = { Size.x / 2.f, Size.y / 2.f };
 
 	HPEN hPen;
@@ -46,6 +65,8 @@ void Collider::Render(HDC hdc)
 
 	// 펜 메모리 해제
 	DeleteObject(hPen);
+
+#endif // _DEBUG
 }
 
 void Collider::Release()

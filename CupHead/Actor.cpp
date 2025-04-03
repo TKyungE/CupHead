@@ -1,7 +1,7 @@
 #include "Actor.h"
 #include "Image.h"
 
-Actor::Actor() : image(nullptr), CurFrameIndex(0), FrameSpeed(0.f), FrameTime(0.f), IsFlip(false), IsStayMaxFrame(false)
+Actor::Actor() : image(nullptr), CurFrameIndex(0), CurFrameYIndex(0), FrameSpeed(1.f), FrameTime(0.f), IsFlip(false), IsStayMaxFrame(false)
 {
 }
 
@@ -45,6 +45,6 @@ void Actor::UpdateFrame()
 	}
 }
 
-void Actor::TakeDamage(float damage)
+void Actor::TakeDamage(int damage)
 {
 }

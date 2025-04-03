@@ -14,12 +14,17 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;				
 
-	void UpdateFrame();
-	virtual void TakeDamage(float damage = 0.f) override;
+	virtual void UpdateFrame();
+	virtual void TakeDamage(int damage = 0) override;
 	
+public:
+	inline void SetImage(Image* _Image) { image = _Image; }
+	inline Image* GetImage() const { return image; }
+
 protected:
 	Image* image;
 	int CurFrameIndex;
+	int CurFrameYIndex;
 	float FrameSpeed;
 	float FrameTime;
 	bool IsFlip;

@@ -1,16 +1,9 @@
 #include "MainGame.h"
 #include "CommonFunction.h"
 #include "Image.h"
-#include "EnemyManager.h"
-#include "Timer.h"
-#include "CollisionManager.h"
-#include "ObjectManager.h"
-/*
-	½Ç½À1. ÀÌ¿À¸® Áý¿¡ º¸³»±â
-	½Ç½À2. ¹è°æ ¹Ù²Ù±â (Å·¿ÀÆÄ ¾Ö´Ï¸ÞÀÌ¼Ç ¹è°æ)
-*/
-
-
+#include "BackGround.h"
+#include "ScreenFX.h"
+#include "LevelManager.h"
 
 void MainGame::Init()
 {
@@ -22,43 +15,20 @@ void MainGame::Init()
 	backBuffer = new Image();
 	if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
 	{
-		MessageBox(g_hWnd,
-			TEXT("¹é¹öÆÛ »ý¼º ½ÇÆÐ"), TEXT("°æ°í"), MB_OK);
+		/*MessageBox(g_hWnd,
+			TEXT("ï¿½ï¿½ï¿½ï¿½ï¿? ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½"), TEXT("ï¿½ï¿½ï¿?"), MB_OK);*/
 	}
-	backGround = new Image();
-	if (FAILED(backGround->Init(TEXT("Image/BackGround.bmp"), WINSIZE_X, WINSIZE_Y)))
-	{
-		MessageBox(g_hWnd,
-			TEXT("Image/backGround.bmp »ý¼º ½ÇÆÐ"), TEXT("°æ°í"), MB_OK);
-	}
+	// C:\Programming\Git\CupHead\CupHead\CupHead\Image\CupHead\BackGround
 
-	// ¼±»ý´ÔÀÇ ¿¡³Ê¹Ì¸Å´ÏÀú.. ÁÖ¼®Ç®¸é ¸¯ ¹ß»ý 
-	//enemyManager = new EnemyManager();
-	//enemyManager->Init();
+	LevelManager = LevelManager::GetInstance();
+	LevelManager->Init();
 
-	Objectmanager = ObjectManager::GetInstance();
-	Objectmanager->Init();
-
-	collisionManager = CollisionManager::GetInstance();
-	collisionManager->Init();
+	ScreenFx = new ScreenFX();
+	ScreenFx->Init();
 }
 
 void MainGame::Release()
 {
-	if (enemyManager)
-	{
-		enemyManager->Release();
-		delete enemyManager;
-		enemyManager = nullptr;
-	}
-
-	if (backGround)
-	{
-		backGround->Release();
-		delete backGround;
-		backGround = nullptr;
-	}
-
 	if (backBuffer)
 	{
 		backBuffer->Release();
@@ -66,16 +36,17 @@ void MainGame::Release()
 		backBuffer = nullptr;
 	}
 
-	if (collisionManager)
+	if (ScreenFx)
 	{
-		collisionManager->Release();
-		collisionManager = nullptr;
+		ScreenFx->Release();
+		delete ScreenFx;
+		ScreenFx = nullptr;
 	}
 
-	if (Objectmanager)
+	if (LevelManager)
 	{
-		Objectmanager->Release();
-		Objectmanager = nullptr;
+		LevelManager->Release();
+		LevelManager = nullptr;
 	}
 
 	ReleaseDC(g_hWnd, hdc);
@@ -86,45 +57,38 @@ void MainGame::Release()
 
 void MainGame::Update()
 {
-	if (Objectmanager)
-		Objectmanager->Update();
+	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_ESCAPE))
+		bPause = !bPause;
 
-	if (enemyManager)
-		enemyManager->Update();
-	if (collisionManager)
-	{
-		collisionManager->Update();
+	if (bPause)
+		return;
 
-		//  ·¹ÀÌÄ³½ºÆ® »ç¿ë¹ý		
-		FHitResult HitResult;
-		bool bCheck = collisionManager->LineTraceByObject(HitResult, OBJTYPE::OBJ_MONSTER, { 0.f,0.f }, mousePos, nullptr, true, true, 0.f, 100);
-		if (bCheck)		// ¸Â¾Ò´Ù.
-			HitResult.HitObj->TakeDamage();
-	}
+	if (LevelManager)
+		LevelManager->Update();
+
+	if (ScreenFx)
+		ScreenFx->Update();
 }
 
 void MainGame::Render()
 {
-	// ¹é¹öÆÛ¿¡ ¸ÕÀú º¹»ç
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
-	backGround->Render(hBackBufferDC);
+	BitBlt(hBackBufferDC, 0, 0, WINSIZE_X, WINSIZE_Y, hBackBufferDC, 0, 0, WHITENESS);
 
-	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), mousePos.x, mousePos.y);
+	if (LevelManager)
+		LevelManager->Render(hBackBufferDC);
+
+#ifdef _DEBUG 
+	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), (int)g_MousePos.x, (int)g_MousePos.y);
 	TextOut(hBackBufferDC, 20, 60, szText, (int)wcslen(szText));
-
-
-	if (Objectmanager)
-		Objectmanager->Render(hBackBufferDC);
-
-	if (enemyManager)
-		enemyManager->Render(hBackBufferDC);
-	if (collisionManager)
-		collisionManager->Render(hBackBufferDC);
+#endif 
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 
-	// ¹é¹öÆÛ¿¡ ÀÖ´Â ³»¿ëÀ» ¸ÞÀÎ hdc¿¡ º¹»ç
+	if (ScreenFx && LevelManager->GetLevelState() != ELevelState::Logo)
+		ScreenFx->Render(hBackBufferDC);
+
 	backBuffer->Render(hdc);
 }
 
@@ -133,8 +97,8 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 	switch (iMessage)
 	{
 	case WM_MOUSEMOVE:
-		mousePos.x = LOWORD(lParam);
-		mousePos.y = HIWORD(lParam);
+		g_MousePos.x = LOWORD(lParam);
+		g_MousePos.y = HIWORD(lParam);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -145,6 +109,7 @@ LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 }
 
 MainGame::MainGame()
+	:backBuffer(nullptr), ScreenFx(nullptr), LevelManager(nullptr), bPause(false)
 {
 }
 

@@ -34,6 +34,135 @@
     <Filter Include="2D Framework\GameObject">
       <UniqueIdentifier>{ed8aa66f-8972-4254-b0e8-1744769043ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\Sagittarius">
+      <UniqueIdentifier>{1c9f6f8a-b46f-4eb0-b816-8c395a4b5792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Sagittarius\Star">
+      <UniqueIdentifier>{99e44530-ff94-4759-aed0-e187658010f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Sagittarius\Arrow">
+      <UniqueIdentifier>{b86ab429-09c3-4945-af67-14ee279b735b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Sagittarius\Cloud">
+      <UniqueIdentifier>{50d00f88-f519-4df4-87f0-48bc4b2d320d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\BackGround">
+      <UniqueIdentifier>{3cc5650b-eaac-4d13-9cd1-703e14f33d42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Moon">
+      <UniqueIdentifier>{3a1e8550-902f-43d0-b1ea-4a3d4ae13e22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\BlimpEnemy">
+      <UniqueIdentifier>{07c2a441-a826-4bb3-a953-2089ab90a541}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI">
+      <UniqueIdentifier>{fa26e4c4-0a13-4bf6-b445-a9f582719184}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\PlayerHP">
+      <UniqueIdentifier>{92e1e235-1437-405f-a193-794b1a043a33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\KnockOut">
+      <UniqueIdentifier>{c5ef2cd6-80ed-4fb5-9c48-3a8e7630c71c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\TrumpCard">
+      <UniqueIdentifier>{e79ef24b-b39c-40c8-a8ef-fc1b08536a95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Fade">
+      <UniqueIdentifier>{054e9be4-f2fd-46a2-9d00-5d304f50cc96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\ReadyWallop">
+      <UniqueIdentifier>{a2b8822a-0e45-4f80-bf07-ee843dd9167f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\ScreenFX">
+      <UniqueIdentifier>{8e571a5b-a2ec-4e72-a036-7184509c91ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\BlimpEnemy\Bullet">
+      <UniqueIdentifier>{f4325e91-1cd1-4944-b822-866867221cdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\HildaBlimp">
+      <UniqueIdentifier>{9df35f62-8119-4c5f-a643-4c6d77198ef2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\HildaBlimp\Laugh">
+      <UniqueIdentifier>{bff62b1b-6cea-4bbf-b3da-d91ce8c64590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\HildaBlimp\Tornado">
+      <UniqueIdentifier>{3a18a387-eadb-4cab-9e88-49cc723dd6a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Moon\UFO">
+      <UniqueIdentifier>{ca75984f-dd6e-4d43-8394-f9d6bdafbf35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Moon\UFO\UFOBeam">
+      <UniqueIdentifier>{f44c96b0-9e2d-4250-9a86-d359bbb9f5b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Moon\Star">
+      <UniqueIdentifier>{92969c5f-8b52-42c7-a0c9-8c9cdf03092e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Taurus">
+      <UniqueIdentifier>{b3fd6217-26fb-4869-bf3c-3e40bf1f562b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\HildaBerg">
+      <UniqueIdentifier>{32b271e7-c7da-406f-80e8-0fd878658019}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Level">
+      <UniqueIdentifier>{e52ce03a-6925-4c9d-bf41-46b5d1493a0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Level">
+      <UniqueIdentifier>{ea61fab0-2af6-4482-b034-210473c70405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\MainTitle">
+      <UniqueIdentifier>{22036bb1-a26c-454e-8286-b5daa529ce32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\PressKey">
+      <UniqueIdentifier>{5b081e03-d8d3-419f-94a0-f5a1e95370eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Logo">
+      <UniqueIdentifier>{38b306c5-a117-45e8-b05c-5465dc811f63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Logo\PotenUp">
+      <UniqueIdentifier>{29d5262d-2e5d-4697-9d90-9ccc3bdc1115}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Logo\AlphaBackground">
+      <UniqueIdentifier>{c9b87885-4595-47c2-b9e0-a738e7dc7e75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\BlimpEnemy\Piece">
+      <UniqueIdentifier>{9d9d17d6-39fc-47ba-ba00-d62ca4e2e53a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\UIBackground">
+      <UniqueIdentifier>{d4fe5a5e-20c2-4892-a273-dd2bb3a75e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\SimpleUI">
+      <UniqueIdentifier>{94c6dd7f-338d-4c0e-9aab-d068b4cf3524}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Collision">
+      <UniqueIdentifier>{824877b9-3df2-444c-9531-3b3a8862b409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Effect">
+      <UniqueIdentifier>{ae3a2238-8f11-4bbe-a28a-85ceaf785f4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Image">
+      <UniqueIdentifier>{62c1448e-3331-4b4d-ba95-394fdedfe40e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\Key">
+      <UniqueIdentifier>{b0fb4913-1046-4538-9f17-1ccd3532b693}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Record">
+      <UniqueIdentifier>{1c87280f-c403-41b4-9e8c-0e7cdce69948}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Taurus\BarrageBullet">
+      <UniqueIdentifier>{3852b809-6c04-43e6-88c6-8ef4b0886928}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\DeathCard">
+      <UniqueIdentifier>{8ff143b5-3fe1-4ca7-a714-8cf6e17572e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Button">
+      <UniqueIdentifier>{ff506182-87c6-49fd-b9a6-683f53b72546}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Enemy\Moon\MoonStar">
+      <UniqueIdentifier>{3431677b-2bbe-478b-959c-ac7cc189c9eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Player\Missile">
+      <UniqueIdentifier>{0246a662-d416-436f-981a-671f1574d57d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -42,41 +171,17 @@
     <ClCompile Include="MainGame.cpp">
       <Filter>MainGame</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="KeyManager.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>MainGame\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>MainGame\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="MissileManager.cpp">
       <Filter>MainGame\Missile</Filter>
     </ClCompile>
     <ClCompile Include="Missile.cpp">
       <Filter>MainGame\Missile</Filter>
     </ClCompile>
-    <ClCompile Include="ImageManager.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>2D Framework\Timer</Filter>
     </ClCompile>
     <ClCompile Include="TimerManager.cpp">
       <Filter>2D Framework\Timer</Filter>
-    </ClCompile>
-    <ClCompile Include="CollisionManager.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider.cpp">
-      <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectManager.cpp">
-      <Filter>2D Framework</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>MainGame\Player</Filter>
@@ -93,6 +198,171 @@
     <ClCompile Include="Character.cpp">
       <Filter>2D Framework\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="SagittariusStar.cpp">
+      <Filter>MainGame\Enemy\Sagittarius\Star</Filter>
+    </ClCompile>
+    <ClCompile Include="SagittariusArrow.cpp">
+      <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="UFO.cpp">
+      <Filter>MainGame\Enemy\Moon\UFO</Filter>
+    </ClCompile>
+    <ClCompile Include="UFOBeam.cpp">
+      <Filter>MainGame\Enemy\Moon\UFO\UFOBeam</Filter>
+    </ClCompile>
+    <ClCompile Include="Sagittarius.cpp">
+      <Filter>MainGame\Enemy\Sagittarius</Filter>
+    </ClCompile>
+    <ClCompile Include="SagittariusCloud.cpp">
+      <Filter>MainGame\Enemy\Sagittarius\Cloud</Filter>
+    </ClCompile>
+    <ClCompile Include="BackGround.cpp">
+      <Filter>MainGame\BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="Moon.cpp">
+      <Filter>MainGame\Enemy\Moon</Filter>
+    </ClCompile>
+    <ClCompile Include="BlimpEnemy.cpp">
+      <Filter>MainGame\Enemy\BlimpEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Tornado.cpp">
+      <Filter>MainGame\Enemy\HildaBlimp\Tornado</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>MainGame\Enemy\BlimpEnemy\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="UIBase.cpp">
+      <Filter>MainGame\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHP.cpp">
+      <Filter>MainGame\UI\PlayerHP</Filter>
+    </ClCompile>
+    <ClCompile Include="KnockOut.cpp">
+      <Filter>MainGame\UI\KnockOut</Filter>
+    </ClCompile>
+    <ClCompile Include="LaughProjectile.cpp">
+      <Filter>MainGame\Enemy\HildaBlimp\Laugh</Filter>
+    </ClCompile>
+    <ClCompile Include="StarProjectile.cpp">
+      <Filter>MainGame\Enemy\Moon\Star</Filter>
+    </ClCompile>
+    <ClCompile Include="TrumpCard.cpp">
+      <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClCompile>
+    <ClCompile Include="TrumpCardManager.cpp">
+      <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>MainGame\UI\Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="ReadyWallop.cpp">
+      <Filter>MainGame\UI\ReadyWallop</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenFX.cpp">
+      <Filter>MainGame\UI\ScreenFX</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBlimp.cpp">
+      <Filter>MainGame\Enemy\HildaBlimp</Filter>
+    </ClCompile>
+    <ClCompile Include="HildaBerg.cpp">
+      <Filter>MainGame\Enemy\HildaBerg</Filter>
+    </ClCompile>
+    <ClCompile Include="Taurus.cpp">
+      <Filter>MainGame\Enemy\Taurus</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
+      <Filter>2D Framework\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>2D Framework\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelLogo.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelMain.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Level1.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelResult.cpp">
+      <Filter>MainGame\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="MainTitle.cpp">
+      <Filter>MainGame\UI\MainTitle</Filter>
+    </ClCompile>
+    <ClCompile Include="PressKey.cpp">
+      <Filter>MainGame\UI\PressKey</Filter>
+    </ClCompile>
+    <ClCompile Include="PotenUp.cpp">
+      <Filter>MainGame\UI\Logo\PotenUp</Filter>
+    </ClCompile>
+    <ClCompile Include="AlphaBackground.cpp">
+      <Filter>MainGame\UI\Logo\AlphaBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="BlimpEnemyPiece.cpp">
+      <Filter>MainGame\Enemy\BlimpEnemy\Piece</Filter>
+    </ClCompile>
+    <ClCompile Include="UIBackground.cpp">
+      <Filter>MainGame\UI\UIBackground</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleUI.cpp">
+      <Filter>MainGame\UI\SimpleUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>2D Framework\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>2D Framework\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>2D Framework\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectManager.cpp">
+      <Filter>2D Framework\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>2D Framework\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>2D Framework\Image</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>2D Framework\Key</Filter>
+    </ClCompile>
+    <ClCompile Include="RecordUI.cpp">
+      <Filter>MainGame\UI\Record</Filter>
+    </ClCompile>
+    <ClCompile Include="BarrageBullet.cpp">
+      <Filter>MainGame\Enemy\Taurus\BarrageBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="DeathCard.cpp">
+      <Filter>MainGame\UI\DeathCard</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>MainGame\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="SagittariusStar2.cpp">
+      <Filter>MainGame\Enemy\Moon\MoonStar</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillPointManager.cpp">
+      <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFallMissile.cpp">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMissile.cpp">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerNormalMissile.cpp">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSharkMissile.cpp">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -104,20 +374,8 @@
     <ClInclude Include="MainGame.h">
       <Filter>MainGame</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyManager.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>MainGame\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>MainGame\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="MissileManager.h">
       <Filter>MainGame\Missile</Filter>
@@ -125,23 +383,11 @@
     <ClInclude Include="Missile.h">
       <Filter>MainGame\Missile</Filter>
     </ClInclude>
-    <ClInclude Include="ImageManager.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>2D Framework\Timer</Filter>
     </ClInclude>
     <ClInclude Include="TimerManager.h">
       <Filter>2D Framework\Timer</Filter>
-    </ClInclude>
-    <ClInclude Include="CollisionManager.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjectManager.h">
-      <Filter>2D Framework</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>MainGame\Player</Filter>
@@ -157,6 +403,171 @@
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>2D Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SagittariusStar.h">
+      <Filter>MainGame\Enemy\Sagittarius\Star</Filter>
+    </ClInclude>
+    <ClInclude Include="SagittariusArrow.h">
+      <Filter>MainGame\Enemy\Sagittarius\Arrow</Filter>
+    </ClInclude>
+    <ClInclude Include="UFO.h">
+      <Filter>MainGame\Enemy\Moon\UFO</Filter>
+    </ClInclude>
+    <ClInclude Include="UFOBeam.h">
+      <Filter>MainGame\Enemy\Moon\UFO\UFOBeam</Filter>
+    </ClInclude>
+    <ClInclude Include="Sagittarius.h">
+      <Filter>MainGame\Enemy\Sagittarius</Filter>
+    </ClInclude>
+    <ClInclude Include="SagittariusCloud.h">
+      <Filter>MainGame\Enemy\Sagittarius\Cloud</Filter>
+    </ClInclude>
+    <ClInclude Include="BackGround.h">
+      <Filter>MainGame\BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="Moon.h">
+      <Filter>MainGame\Enemy\Moon</Filter>
+    </ClInclude>
+    <ClInclude Include="BlimpEnemy.h">
+      <Filter>MainGame\Enemy\BlimpEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Tornado.h">
+      <Filter>MainGame\Enemy\HildaBlimp\Tornado</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>MainGame\Enemy\BlimpEnemy\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="UIBase.h">
+      <Filter>MainGame\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHP.h">
+      <Filter>MainGame\UI\PlayerHP</Filter>
+    </ClInclude>
+    <ClInclude Include="KnockOut.h">
+      <Filter>MainGame\UI\KnockOut</Filter>
+    </ClInclude>
+    <ClInclude Include="LaughProjectile.h">
+      <Filter>MainGame\Enemy\HildaBlimp\Laugh</Filter>
+    </ClInclude>
+    <ClInclude Include="StarProjectile.h">
+      <Filter>MainGame\Enemy\Moon\Star</Filter>
+    </ClInclude>
+    <ClInclude Include="TrumpCard.h">
+      <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClInclude>
+    <ClInclude Include="TrumpCardManager.h">
+      <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>MainGame\UI\Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="ReadyWallop.h">
+      <Filter>MainGame\UI\ReadyWallop</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenFX.h">
+      <Filter>MainGame\UI\ScreenFX</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaBlimp.h">
+      <Filter>MainGame\Enemy\HildaBlimp</Filter>
+    </ClInclude>
+    <ClInclude Include="HildaBerg.h">
+      <Filter>MainGame\Enemy\HildaBerg</Filter>
+    </ClInclude>
+    <ClInclude Include="Taurus.h">
+      <Filter>MainGame\Enemy\Taurus</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>2D Framework\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>2D Framework\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelLogo.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelMain.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Level1.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelResult.h">
+      <Filter>MainGame\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="MainTitle.h">
+      <Filter>MainGame\UI\MainTitle</Filter>
+    </ClInclude>
+    <ClInclude Include="PressKey.h">
+      <Filter>MainGame\UI\PressKey</Filter>
+    </ClInclude>
+    <ClInclude Include="PotenUp.h">
+      <Filter>MainGame\UI\Logo\PotenUp</Filter>
+    </ClInclude>
+    <ClInclude Include="AlphaBackground.h">
+      <Filter>MainGame\UI\Logo\AlphaBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="BlimpEnemyPiece.h">
+      <Filter>MainGame\Enemy\BlimpEnemy\Piece</Filter>
+    </ClInclude>
+    <ClInclude Include="UIBackground.h">
+      <Filter>MainGame\UI\UIBackground</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleUI.h">
+      <Filter>MainGame\UI\SimpleUI</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>2D Framework\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>2D Framework\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>2D Framework\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>2D Framework\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="EffectManager.h">
+      <Filter>2D Framework\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>2D Framework\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>2D Framework\Image</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>2D Framework\Key</Filter>
+    </ClInclude>
+    <ClInclude Include="RecordUI.h">
+      <Filter>MainGame\UI\Record</Filter>
+    </ClInclude>
+    <ClInclude Include="BarrageBullet.h">
+      <Filter>MainGame\Enemy\Taurus\BarrageBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="DeathCard.h">
+      <Filter>MainGame\UI\DeathCard</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>MainGame\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillPointManager.h">
+      <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFallMissile.h">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMissile.h">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerNormalMissile.h">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSharkMissile.h">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="SagittariusStar2.h">
+      <Filter>MainGame\Enemy\Moon\MoonStar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

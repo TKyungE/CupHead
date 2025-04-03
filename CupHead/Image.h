@@ -56,6 +56,7 @@ private:
 	IMAGE_INFO* imageInfo;
 	bool isTransparent;
 	COLORREF transColor;
+	FPOINT Scale = {1.f,1.f,};
 
 public:
 	// 빈 비트맵 이미지를 만드는 함수
@@ -75,6 +76,14 @@ public:
 	void Render(HDC hdc, int destX, int destY, int frameIndex, bool isFlip = false);
 	void FrameRender(HDC hdc, int destX, int destY,
 		int frameX, int frameY, bool isFlip = false);
+	void FrameRenderAlpha(HDC hdc, int destX, int destY,
+		int frameX, int frameY, bool _IsOver, int _AlphaValue, COLORREF _AlphaColor = RGB(255, 255, 255), bool isFlip = false);
+	void FrameRenderAlpha(HDC hdc, int destX, int destY,
+		int frameX, int frameY, bool _IsOver, int _AlphaValue, int AlphaY,COLORREF _AlphaColor = RGB(255, 255, 255), bool isFlip = false);
+	void FrameRenderLoop(HDC hdc, int destX, int destY,
+		int frameX, int frameY, bool isFlip = false, bool isLoop = false);
+	void FrameRenderLoopAlpha(HDC hdc, int destX, int destY,
+		int frameX, int frameY, bool _IsOver, int _AlphaValue, COLORREF _AlphaColor = RGB(255, 255, 255), bool isFlip = false, bool isLoop = false);
 
 	// 메모리 해제
 	void Release();
@@ -89,5 +98,16 @@ public:
 
 	inline int GetMaxFrameX() { return imageInfo->maxFrameX; }
 	inline int GetMaxFrameY() { return imageInfo->maxFrameY; }
+
+	inline int GetWidth() const { return imageInfo->width; }
+	inline int GetHeight() const { return imageInfo->height; }
+
+	inline int GetFrameWidth() { return imageInfo->frameWidth; }
+	inline int GetFrameHeight() { return imageInfo->frameHeight; }
+
+	void SetScale(float x = 1.f, float y = 1.f) { 
+		Scale.x = x;
+		Scale.y = y;
+	}
 };
 

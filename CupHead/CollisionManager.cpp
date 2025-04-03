@@ -2,22 +2,31 @@
 #include "Collider.h"
 #include "GameObject.h"
 #include "CommonFunction.h"
+#include "PlayerMissile.h"
 #include <cmath>
 
 void CollisionManager::Init()
 {
+	bReset = false;
 }
 
 void CollisionManager::Update()
 {
+	if (bReset)
+	{
+		Reset();
+		bReset = false;
+	}
+
 	for (int objType= 0; objType < OBJ_END; ++objType)
 	{
 		for (auto iter = CollisionList[objType].begin(); iter != CollisionList[objType].end();)
 		{
-			if (!(*iter)->GetOwner())
+			if ((*iter)->IsDead() || (*iter)->GetOwner() == nullptr || (*iter)->GetOwner()->IsDead())
 			{
 				(*iter)->Release();
 				delete (*iter);
+				(*iter) = nullptr;
 				iter = CollisionList[objType].erase(iter);
 			}
 			else
@@ -34,6 +43,7 @@ void CollisionManager::Update()
 		if (!(*iter)->bDebugDraw)
 		{
 			delete (*iter);
+			(*iter) = nullptr;
 			iter = LineList.erase(iter);
 		}
 		else
@@ -49,6 +59,7 @@ void CollisionManager::Update()
 
 void CollisionManager::Render(HDC hdc)
 {
+#ifdef _DEBUG
 	for (int objType = 0; objType < OBJ_END; ++objType)
 	{
 		for (auto& iter : CollisionList[objType])
@@ -61,6 +72,7 @@ void CollisionManager::Render(HDC hdc)
 	}
 
 	DebugLineRender(hdc);
+#endif
 }
 
 void CollisionManager::DebugLineRender(HDC hdc)
@@ -91,6 +103,7 @@ void CollisionManager::Release()
 		{
 			iter->Release();
 			delete iter;
+			iter = nullptr;
 		}
 		CollisionList[objType].clear();
 	}
@@ -103,12 +116,34 @@ void CollisionManager::Release()
 	ReleaseInstance();
 }
 
+void CollisionManager::Reset()
+{
+	for (int objType = 0; objType < OBJ_END; ++objType)
+	{
+		for (auto& iter : CollisionList[objType])
+		{
+			iter->Release();
+			delete iter;
+			iter = nullptr;
+		}
+		CollisionList[objType].clear();
+	}
+
+	for (auto& iter : LineList)
+		delete iter;
+
+	LineList.clear();
+}
+
 void CollisionManager::PlayerMonsterCollision()
 {
 	for (auto& player : CollisionList[OBJ_PLAYER])
 	{
 		for (auto& monster : CollisionList[OBJ_MONSTER])
 		{
+			if (!player->CanHit() || !monster->CanHit())
+				continue;
+
 			const COLLIDERTYPE colliderType = player->GetColliderType() == monster->GetColliderType() ? player->GetColliderType() : COLLIDERTYPE::Sphere;
 
 			bool bCollision = false;
@@ -126,8 +161,10 @@ void CollisionManager::PlayerMonsterCollision()
 
 			if (bCollision)
 			{
-				player->GetOwner()->TakeDamage();
-				monster->GetOwner()->TakeDamage();
+				player->GetOwner()->TakeDamage(1);
+				monster->GetOwner()->TakeDamage(1);
+				player->SetHit(true);
+				monster->SetHit(true);
 			}
 		}
 	}
@@ -139,6 +176,9 @@ void CollisionManager::PlayerMonsterWeaponCollision()
 	{
 		for (auto& monsterWeapon : CollisionList[OBJ_MONSTER_WEAPON])
 		{
+			if (!player->CanHit() || !monsterWeapon->CanHit())
+				continue;
+
 			const COLLIDERTYPE colliderType = player->GetColliderType() == monsterWeapon->GetColliderType() ? player->GetColliderType() : COLLIDERTYPE::Sphere;
 
 			bool bCollision = false;
@@ -156,8 +196,11 @@ void CollisionManager::PlayerMonsterWeaponCollision()
 
 			if (bCollision)
 			{
-				player->GetOwner()->TakeDamage();
-				monsterWeapon->GetOwner()->TakeDamage();
+				player->GetOwner()->TakeDamage(1);
+				monsterWeapon->GetOwner()->TakeDamage(1);
+
+				player->SetHit(true);
+				monsterWeapon->SetHit(true);
 			}
 		}
 	}
@@ -169,6 +212,9 @@ void CollisionManager::PlayerWeaponMonsterCollision()
 	{
 		for (auto& playerWeapon : CollisionList[OBJ_PLAYER_WEAPON])
 		{
+			if (!monster->CanHit() || !playerWeapon->CanHit())
+				continue;
+
 			const COLLIDERTYPE colliderType = monster->GetColliderType() == playerWeapon->GetColliderType() ? monster->GetColliderType() : COLLIDERTYPE::Sphere;
 
 			bool bCollision = false;
@@ -186,8 +232,11 @@ void CollisionManager::PlayerWeaponMonsterCollision()
 
 			if (bCollision)
 			{
-				playerWeapon->GetOwner()->TakeDamage();
-				monster->GetOwner()->TakeDamage();
+				playerWeapon->GetOwner()->TakeDamage(1);
+				monster->GetOwner()->TakeDamage
+				(static_cast<PlayerMissile*>(playerWeapon->GetOwner())->GetDamage());
+				playerWeapon->SetHit(true);
+				monster->SetHit(true);
 			}
 		}
 	}	
@@ -227,8 +276,6 @@ bool CollisionManager::CollisionSphere(Collider* collider1, Collider* collider2)
 
 bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType, FPOINT start, FPOINT end, GameObject* owner, bool bIgnoreSelf, bool bDebugDraw, float DebugDuration, COLORREF DebugColor)
 {
-	// 네 변을 다 검사해야 한다
-	// ccw 알고리즘 사용
 	if (bDebugDraw)
 	{
 		Line* line = new Line(start, end);
@@ -237,9 +284,13 @@ bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType,
 		line->DebugColor = DebugColor;
 		LineList.push_back(line);
 	}
-
+	// 네 변을 다 검사해야 한다
+	// ccw 알고리즘 사용
 	for (auto& iter : CollisionList[objType])
 	{
+		if (!iter->CanHit())
+			continue;
+
 		const FPOINT collPos = iter->GetPos();
 		const FPOINT collSize = iter->GetSize();
 		const FPOINT collHalfSize = { collSize.x * 0.5f, collSize.y * 0.5f };
@@ -270,8 +321,6 @@ bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType,
 			hitResult.HitObj = iter->GetOwner();
 			return true;
 		}
-		else
-			iter->SetHit(false);
 	}
 
 	return false;

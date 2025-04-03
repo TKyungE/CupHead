@@ -73,6 +73,16 @@ inline bool PointInRect(POINT ptMouse, RECT rc)
 	return true;
 }
 
+inline bool PointInRect(FPOINT ptMouse, RECT rc)
+{
+	if (ptMouse.x < rc.left || ptMouse.x > rc.right
+		|| ptMouse.y < rc.top || ptMouse.y > rc.bottom)
+	{
+		return false;
+	}
+	return true;
+}
+
 inline bool RectInRect(RECT rc1, RECT rc2)
 {
 	if (rc1.right < rc2.left || rc1.left > rc2.right
@@ -115,4 +125,38 @@ inline FPOINT RotatePoint(const FPOINT& p, double angleRad) {
 	rotated.x = float(p.x * std::cos(angleRad) - p.y * std::sin(angleRad));
 	rotated.y = float(p.x * std::sin(angleRad) + p.y * std::cos(angleRad));
 	return rotated;
+}
+
+inline float Lerp(float a, float b, float alpha)
+{
+	return a + (b - a) * alpha;
+}
+
+static bool OutOfScreen(FPOINT pt, float width, float height)
+{
+	if (pt.x + (width / 2) <= 0 || pt.x - (width / 2) >= WINSIZE_X ||
+		pt.y + (height / 2) <= 0 || pt.y - (height / 2) >= WINSIZE_Y)
+		return true;
+
+	return false;
+}
+
+static bool OutOfScreen(FPOINT pt, int width, int height)
+{
+	if (pt.x + (width / 2) <= 0 || pt.x - (width / 2) >= WINSIZE_X ||
+		pt.y + (height / 2) <= 0 || pt.y - (height / 2) >= WINSIZE_Y)
+		return true;
+
+	return false;
+}
+
+template<typename T>
+inline T ClampValue(T val, T low, T high)
+{
+	T result;
+	if (val < low) result = low;
+	else if (val > high) result = high;
+	else result = val;
+
+	return result;
 }

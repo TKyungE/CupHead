@@ -13,12 +13,12 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	virtual void Move() {};
+	virtual void Move() {}; 
+	virtual void TakeDamage(int damage = 0) override;
 
 	inline void SetSpeed(int _Speed) { Speed = _Speed; }
 	inline int GetSpeed() const { return Speed; }
 
 protected:
-	float Speed;
+	int Speed;
 };
-
