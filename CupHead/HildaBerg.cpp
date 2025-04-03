@@ -69,6 +69,31 @@ void HildaBerg::Release()
 
 void HildaBerg::Update()
 {
+	if (KeyManager::GetInstance()->IsOnceKeyDown('Z'))
+	{
+		ChangePhaseByInput(0);
+	}
+	if (KeyManager::GetInstance()->IsOnceKeyDown('X'))
+	{
+		ChangePhaseByInput(1);
+	}
+	if (KeyManager::GetInstance()->IsOnceKeyDown('C'))
+	{
+		ChangePhaseByInput(2);
+	}
+	if (KeyManager::GetInstance()->IsOnceKeyDown('V'))
+	{
+		ChangePhaseByInput(3);
+	}
+	if (KeyManager::GetInstance()->IsOnceKeyDown('B'))
+	{
+		ChangePhaseByInput(4);
+	}
+	if (KeyManager::GetInstance()->IsOnceKeyDown('N'))
+	{
+		ChangePhaseByInput(5);
+	}
+
 	if (Phase < 0) return;
 
 	if (HildaForm)
@@ -133,6 +158,38 @@ int HildaBerg::GetTotalHp() const
 int HildaBerg::GetCurrentHp() const
 {
 	return HildaForm ? accumulate(HpList + Phase + 1, HpList + 6, 0) + HildaForm->GetHp() : 0;
+}
+
+void HildaBerg::ChangePhaseByInput(int _Phase)
+{
+	Phase = _Phase;
+
+	if (HildaForm)
+	{
+		HildaForm->SetDead(true);
+		pos = HildaForm->GetPos();
+		Angle = HildaForm->GetMoveAngle();
+		HildaForm->Update();
+
+		CollisionManager::GetInstance()->Update();
+
+		HildaForm->Release();
+		delete HildaForm;
+		HildaForm = NULL;
+		ElapsedSpawnTime = 0.f;
+	}
+
+	EffectManager::GetInstance()->AddEffect("BigCloudFx", pos, 1.f);
+
+	for (int i = 0; i < 4; ++i)
+	{
+		uniform_int_distribution<int> randX{ int(pos.x - 350.f * 0.5f), int(pos.x + 350.f * 0.5f) };
+		uniform_int_distribution<int> randY{ int(pos.y - 400.f * 0.5f), int(pos.y + 400.f * 0.5f) };
+
+		EffectManager::GetInstance()->AddEffect("SmallCloudFx", { (float)randX(dre), (float)randY(dre) }, 1.f);
+	}
+
+	ChangeForm();
 }
 
 void HildaBerg::ChangeForm()
