@@ -219,7 +219,7 @@ void BlimpEnemy::TakeDamage(int damage)
 {
 	Hp -= damage;
 
-	AlphaTime = MaxAlphaTime;
+	AlphaTime = MaxAlphaTime * 0.5f;
 
 	if (Hp <= 0)
 	{

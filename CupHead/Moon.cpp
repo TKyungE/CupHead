@@ -89,7 +89,7 @@ void Moon::TakeDamage(int damage)
 
 	Hp -= damage;
 
-	AlphaTime = MaxAlphaTime;
+	AlphaTime = MaxAlphaTime * 0.5f;
 	if (Hp <= 0)
 	{
 		CurFrameIndex = 0;

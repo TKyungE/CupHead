@@ -82,9 +82,9 @@ void MainGame::Render()
 #ifdef _DEBUG 
 	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), (int)g_MousePos.x, (int)g_MousePos.y);
 	TextOut(hBackBufferDC, 20, 60, szText, (int)wcslen(szText));
-#endif 
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
+#endif 
 
 	if (ScreenFx && LevelManager->GetLevelState() != ELevelState::Logo)
 		ScreenFx->Render(hBackBufferDC);

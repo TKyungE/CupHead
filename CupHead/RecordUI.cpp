@@ -36,11 +36,11 @@ void RecordUI::Update()
 		if (CurrentFrameCount >= FrameCount)
 		{
 			// 진짜 기록에 따른 CurFrameIndex를 설정 A = 0, B = 1, C = 2, D = 3
-			if (RecordTime < 1.f * 60.f) // 1분
+			if (RecordTime < 2.f * 60.f) // 1분
 				CurFrameIndex = 0;
-			else if (RecordTime < 2.f * 60.f)
-				CurFrameIndex = 1;
 			else if (RecordTime < 3.f * 60.f)
+				CurFrameIndex = 1;
+			else if (RecordTime < 4.f * 60.f)
 				CurFrameIndex = 2;
 			else
 				CurFrameIndex = 3;

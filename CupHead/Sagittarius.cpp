@@ -105,8 +105,9 @@ void Sagittarius::TakeDamage(int damage)
 {
 	// Test. HildaBerg Change Form
 	Hp -= damage;
-	AlphaTime = MaxAlphaTime;
 	if (Hp <= 0) bDead = true;
+
+	AlphaTime = MaxAlphaTime * 0.5f;	
 }
 
 void Sagittarius::Idle()

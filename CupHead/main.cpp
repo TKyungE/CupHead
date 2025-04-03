@@ -5,7 +5,7 @@
 
 HINSTANCE g_hInstance;	// 프로그램 인스턴스 핸들
 HWND g_hWnd;
-LPCWSTR g_lpszClassName = (LPCWSTR)TEXT("윈도우 API 사용하기");
+LPCWSTR g_lpszClassName = (LPCWSTR)TEXT("CupHead");
 MainGame g_mainGame;
 
 // random

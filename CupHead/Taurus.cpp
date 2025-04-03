@@ -149,7 +149,7 @@ void Taurus::TakeDamage(int damage)
 {
 	if (Hp <= 0) return;
 	Hp -= damage;
-	AlphaTime = MaxAlphaTime;
+	AlphaTime = MaxAlphaTime * 0.5f;
 }
 
 void Taurus::UpdateState()
