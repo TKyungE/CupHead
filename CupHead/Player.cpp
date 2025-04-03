@@ -11,6 +11,7 @@
 #include "PlayerSharkMissile.h"
 #include "DeathCard.h"
 #include "SkillPointManager.h"
+#include "BrokenPiece.h"
 
 Player::Player() :
 		IsSharkFire(false),
@@ -909,5 +910,17 @@ void Player::TakeDamage(int damage)
 	{
 		DeathUICoolTime = 3.f;
 		CurState = PLAYER_DEAD;
+		for (char pieceName = 'a'; pieceName <= 'e'; ++pieceName)
+		{
+			BrokenPiece* piece = new BrokenPiece((float)(uid(dre) % 2), (float)(uid(dre) % 4));
+			piece->Init(pos, ("schmup_ch_piece_" + string{ pieceName }));
+			ObjectManager::GetInstance()->AddObject(piece, OBJ_MONSTER);
+		}
+		for (char pieceName = 'a'; pieceName <= 'd'; ++pieceName)
+		{
+			BrokenPiece* piece = new BrokenPiece((float)(uid(dre) % 2), (float)(uid(dre) % 4));
+			piece->Init(pos, ("schmup_gear_" + string{ pieceName }));
+			ObjectManager::GetInstance()->AddObject(piece, OBJ_MONSTER);
+		}
 	}
 }
