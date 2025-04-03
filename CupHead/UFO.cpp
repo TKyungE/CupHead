@@ -71,7 +71,7 @@ void UFO::Attack()
 		GameObject* player = players.front();
 
 		const FPOINT playerPos = player->GetPos();
-		if (abs(playerPos.x - pos.x) <= 200.f)
+		if (abs(playerPos.x - pos.x) <= 300.f)
 		{
 			bAttack = true;
 

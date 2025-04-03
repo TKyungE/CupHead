@@ -16,12 +16,18 @@ HildaBerg::HildaBerg()
 	: HildaForm{}, Phase{}, Angle{},
 	ElapsedSpawnTime{}, SpawnCoolTime{ 3.f }
 {
-	HpList[0] = 200;
+	/*HpList[0] = 200;
 	HpList[1] = 250;
 	HpList[2] = 200;
 	HpList[3] = 250;
 	HpList[4] = 200;
-	HpList[5] = 300;
+	HpList[5] = 300;*/
+	HpList[0] = 20;
+	HpList[1] = 25;
+	HpList[2] = 20;
+	HpList[3] = 25;
+	HpList[4] = 20;
+	HpList[5] = 30;
 
 	ZeroMemory(&HlidaBergData, sizeof(FHildaBergData));	
 }
@@ -241,7 +247,7 @@ void HildaBerg::ChangeForm()
 		Moon* moon = new Moon();
 		moon->Init(HpList[Phase]);
 		HildaForm = moon;
-		SpawnCoolTime = 2.f;
+		SpawnCoolTime = 1.3f;
 		break;
 	}
 	}
@@ -250,6 +256,7 @@ void HildaBerg::ChangeForm()
 void HildaBerg::SpawnEnemy()
 {
 	std::uniform_int_distribution<int> uidY{ 100, WINSIZE_Y - 200 };
+	std::uniform_int_distribution<int> uidY2{ 100, WINSIZE_Y - 50 };
 	switch (Phase)
 	{
 	case 0:	case 1:
@@ -309,7 +316,7 @@ void HildaBerg::SpawnEnemy()
 		// Moon Phase Star Spawn
 		int type = uid(dre) % 3;
 		StarProjectile* star = new StarProjectile(StarType(type));
-		star->Init({ WINSIZE_X, (float)uidY(dre) });
+		star->Init({ WINSIZE_X, (float)uidY2(dre) });
 		ObjectManager::GetInstance()->AddObject(star, OBJ_MONSTER);
 		break;
 	}

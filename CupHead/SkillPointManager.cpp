@@ -2,14 +2,14 @@
 #include "TrumpCard.h"
 #include "ObjectManager.h"
 
-SkillPointManager::SkillPointManager(): PreActiveCnt(0), CurActiveCnt(0), MaxCardCnt(5), SkillPoint(0), MaxSkillPoint(250), GageCount(0)
+SkillPointManager::SkillPointManager(): PreActiveCnt(0), CurActiveCnt(0), MaxCardCnt(5), SkillPoint(0), MaxSkillPoint(50), GageCount(0)
 {
 }
 
 void SkillPointManager::Init(int InBulletCount, int InCardCount)
 {
 	GageCount = InBulletCount;
-	int MaxCount = GageCount * InCardCount;
+	MaxSkillPoint = GageCount * InCardCount;
 
 	TrumpCards.resize(MaxCardCnt);
 
@@ -17,7 +17,7 @@ void SkillPointManager::Init(int InBulletCount, int InCardCount)
 	{
 		// 20과 30은 은 트럼프 이미지의 카드 하나 사이즈다.
 		TrumpCard* trumpCard = new TrumpCard();
-		trumpCard->Init({ float((80 + 20 * 2) + 20 * (i + 1)),(float)WINSIZE_Y }, MaxCount / MaxCardCnt);
+		trumpCard->Init({ float((80 + 20 * 2) + 20 * (i + 1)),(float)WINSIZE_Y }, MaxSkillPoint / MaxCardCnt);
 		/*trumpCard->SetCurrentCount(50);
 		trumpCard->SetbTurn(true);*/
 		ObjectManager::GetInstance()->AddObject(trumpCard, OBJTYPE::OBJ_UI);
