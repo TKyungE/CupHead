@@ -1,33 +1,64 @@
-#include "BlimpEnemyPiece.h"
+#include "BrokenPiece.h"
 #include "Image.h"
 #include "CommonFunction.h"
 
-namespace BlimpEnemyPieceInfo
-{
-	string types[EType::TYPE_END] = {
-		"BlimpEnemyPieceA",
-		"BlimpEnemyPieceB",
-		"BlimpEnemyPieceC",
-		"BlimpEnemyPieceD",
-		"BlimpEnemyPieceE",
-		"BlimpEnemyPieceF",
-	};
-}
-
-BlimpEnemyPiece::BlimpEnemyPiece(float _Dx, float _Dy)
+BrokenPiece::BrokenPiece(float _Dx, float _Dy)
 	: Dx{ _Dx }, Dy{ _Dy }
 {
 }
 
-BlimpEnemyPiece::~BlimpEnemyPiece()
+BrokenPiece::~BrokenPiece()
 {
 }
 
-void BlimpEnemyPiece::Init(FPOINT _pos, BlimpEnemyPieceInfo::EType Type, string Color)
+void BrokenPiece::Init(FPOINT _pos, string ImageName)
+{
+	InitImage();
+	image = ImageManager::GetInstance()->FindImage(ImageName);
+
+	CurFrameIndex = 0;
+	FrameSpeed = 10.f;
+	FrameTime = 0.f;
+
+	Speed = 450.f;
+	IsFlip = false;
+	pos = _pos;
+	size = { 1.f,1.f };
+	bDead = false;
+}
+
+void BrokenPiece::Release()
+{
+}
+
+void BrokenPiece::Update()
+{
+	UpdateFrame();
+	UpdateDy();
+	Move();
+
+	if (OutOfScreen(pos, 10, 10))
+	{
+		bDead = true;
+	}
+}
+
+void BrokenPiece::Render(HDC hdc)
+{
+	if (image) image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, 0);
+}
+
+void BrokenPiece::Move()
+{
+	pos.x += Dx * Speed * TimerManager::GetInstance()->GetDeltaTime();
+	pos.y += Dy * Speed * TimerManager::GetInstance()->GetDeltaTime();
+}
+
+void BrokenPiece::InitImage()
 {
 	string typeStr{};
-#pragma region Image Load
-	typeStr = BlimpEnemyPieceInfo::types[BlimpEnemyPieceInfo::EType::A];
+#pragma region blimp enemy Image Load
+	typeStr = "BlimpEnemyPieceA";
 	ImageManager::GetInstance()->AddImage(
 		typeStr + "GREEN",
 		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\EnemyGreen\\Piece\\a_blimp_enemy_piece_A.bmp"),
@@ -42,7 +73,7 @@ void BlimpEnemyPiece::Init(FPOINT _pos, BlimpEnemyPieceInfo::EType Type, string 
 		8, 1,
 		true, RGB(255, 0, 255));
 
-	typeStr = BlimpEnemyPieceInfo::types[BlimpEnemyPieceInfo::EType::B];
+	typeStr = "BlimpEnemyPieceB";
 	ImageManager::GetInstance()->AddImage(
 		typeStr + "GREEN",
 		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\EnemyGreen\\Piece\\a_blimp_enemy_piece_B.bmp"),
@@ -57,7 +88,7 @@ void BlimpEnemyPiece::Init(FPOINT _pos, BlimpEnemyPieceInfo::EType Type, string 
 		8, 1,
 		true, RGB(255, 0, 255));
 
-	typeStr = BlimpEnemyPieceInfo::types[BlimpEnemyPieceInfo::EType::C];
+	typeStr = "BlimpEnemyPieceC";
 	ImageManager::GetInstance()->AddImage(
 		typeStr + "GREEN",
 		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\EnemyGreen\\Piece\\a_blimp_enemy_piece_C.bmp"),
@@ -72,7 +103,7 @@ void BlimpEnemyPiece::Init(FPOINT _pos, BlimpEnemyPieceInfo::EType Type, string 
 		8, 1,
 		true, RGB(255, 0, 255));
 
-	typeStr = BlimpEnemyPieceInfo::types[BlimpEnemyPieceInfo::EType::D];
+	typeStr = "BlimpEnemyPieceD";
 	ImageManager::GetInstance()->AddImage(
 		typeStr + "GREEN",
 		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\EnemyGreen\\Piece\\a_blimp_enemy_piece_D.bmp"),
@@ -87,7 +118,7 @@ void BlimpEnemyPiece::Init(FPOINT _pos, BlimpEnemyPieceInfo::EType Type, string 
 		8, 1,
 		true, RGB(255, 0, 255));
 
-	typeStr = BlimpEnemyPieceInfo::types[BlimpEnemyPieceInfo::EType::E];
+	typeStr = "BlimpEnemyPieceE";
 	ImageManager::GetInstance()->AddImage(
 		typeStr + "GREEN",
 		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\EnemyGreen\\Piece\\a_blimp_enemy_piece_E.bmp"),
@@ -102,7 +133,7 @@ void BlimpEnemyPiece::Init(FPOINT _pos, BlimpEnemyPieceInfo::EType Type, string 
 		8, 1,
 		true, RGB(255, 0, 255));
 
-	typeStr = BlimpEnemyPieceInfo::types[BlimpEnemyPieceInfo::EType::F];
+	typeStr = "BlimpEnemyPieceF";
 	ImageManager::GetInstance()->AddImage(
 		typeStr + "GREEN",
 		TEXT("Image\\CupHead\\Hilda Berg\\Enemy\\EnemyGreen\\Piece\\a_blimp_enemy_piece_F.bmp"),
@@ -118,48 +149,9 @@ void BlimpEnemyPiece::Init(FPOINT _pos, BlimpEnemyPieceInfo::EType Type, string 
 		true, RGB(255, 0, 255));
 #pragma endregion
 
-	typeStr = BlimpEnemyPieceInfo::types[Type];
-	image = ImageManager::GetInstance()->FindImage(typeStr + Color);
-
-	CurFrameIndex = 0;
-	FrameSpeed = 10.f;
-	FrameTime = 0.f;
-
-	Speed = 450.f;
-	IsFlip = false;
-	pos = _pos;
-	size = { 1.f,1.f };
-	bDead = false;
 }
 
-void BlimpEnemyPiece::Release()
-{
-}
-
-void BlimpEnemyPiece::Update()
-{
-	UpdateFrame();
-	UpdateDy();
-	Move();
-
-	if (OutOfScreen(pos, 10, 10))
-	{
-		bDead = true;
-	}
-}
-
-void BlimpEnemyPiece::Render(HDC hdc)
-{
-	if (image) image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, 0);
-}
-
-void BlimpEnemyPiece::Move()
-{
-	pos.x += Dx * Speed * TimerManager::GetInstance()->GetDeltaTime();
-	pos.y += Dy * Speed * TimerManager::GetInstance()->GetDeltaTime();
-}
-
-void BlimpEnemyPiece::UpdateDy()
+void BrokenPiece::UpdateDy()
 {
 	Dy += 4.f * TimerManager::GetInstance()->GetDeltaTime();
 	Dy = ClampValue(Dy, -10.f, 10.f);

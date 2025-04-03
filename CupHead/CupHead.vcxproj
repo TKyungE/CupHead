@@ -132,7 +132,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BarrageBullet.cpp" />
     <ClCompile Include="BlimpEnemy.cpp" />
-    <ClCompile Include="BlimpEnemyPiece.cpp" />
+    <ClCompile Include="BrokenPiece.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Collider.cpp" />
@@ -196,7 +196,7 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BarrageBullet.h" />
     <ClInclude Include="BlimpEnemy.h" />
-    <ClInclude Include="BlimpEnemyPiece.h" />
+    <ClInclude Include="BrokenPiece.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="Collider.h" />
