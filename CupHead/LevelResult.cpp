@@ -4,9 +4,10 @@
 #include "UIBackground.h"
 #include "SimpleUI.h"
 #include "RecordUI.h"
+#include "Fade.h"
 
 LevelResult::LevelResult()
-	:ObjectManager(nullptr)
+	:ObjectManager(nullptr), CurrentTime(0.f)
 {
 }
 
@@ -29,6 +30,18 @@ void LevelResult::Update()
 
 	if (ObjectManager != nullptr)
 		ObjectManager->Update();
+
+	if (CurrentTime < 11.f)
+	{
+		CurrentTime += TimerManager::GetInstance()->GetDeltaTime();
+
+		if (CurrentTime >= 11.f)
+		{
+			Fade* fadeOut = new Fade();
+			fadeOut->Init(EFadeMode::FadeOut,ELevelState::Main);
+			ObjectManager->AddObject(fadeOut, OBJ_UPPERUI);
+		}
+	}	
 }
 
 void LevelResult::Render(HDC hdc)
@@ -79,6 +92,10 @@ void LevelResult::ObjectInit(void* InData)
 		recordUI->Init("record", WINSIZE_X * 0.6f, WINSIZE_Y * 0.55f, RecordTime);
 		ObjectManager->AddObject(recordUI, OBJ_UI);
 	}
+
+	Fade* fadeIn = new Fade();
+	fadeIn->Init(EFadeMode::FadeIn);
+	ObjectManager->AddObject(fadeIn, OBJ_UPPERUI);
 }
 
 void LevelResult::Release()

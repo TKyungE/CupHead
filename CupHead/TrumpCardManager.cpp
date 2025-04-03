@@ -26,12 +26,14 @@ void TrumpCardManager::Init(int InBulletCount, int InCardCount)
 
 void TrumpCardManager::Update()
 {
+#ifdef _DEBUG
 	if (Owner == nullptr)
 	{
 		list<GameObject*> playerList = ObjectManager::GetInstance()->GetObjectList(OBJ_PLAYER);
 		if (!playerList.empty())
 			Owner = dynamic_cast<Player*>(playerList.front());
 	}
+
 
 	if (KeyManager::GetInstance()->IsStayKeyDown('U'))
 	{
@@ -86,6 +88,7 @@ void TrumpCardManager::Update()
 		//	TrumpCards[i]->SetCurrentCount(CardsCurrentCount % 5 == 0 ? 5 : CardsCurrentCount % 5);*/
 		//}
 	}
+#endif
 }
 
 void TrumpCardManager::Release()

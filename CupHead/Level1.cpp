@@ -99,32 +99,12 @@ void Level1::ObjectInit(void* InData)
 		player->Init({ 100.f,100.f }, { 105.f, 95.f });
 		ObjectManager->AddObject(player, OBJTYPE::OBJ_PLAYER);
 
-		//// 테스트 코드 Sagittarius 생성
-	/*	Sagittarius* sagittarius = new Sagittarius();
-		sagittarius->Init({ WINSIZE_X * 0.8f,300.f });
-		ObjectManager->AddObject(sagittarius, OBJTYPE::OBJ_MONSTER);*/
-
-		// 테스트 코드 Moon 생성
-	/*	Moon* moon = new Moon();
-		moon->Init();
-		ObjectManager->AddObject(moon, OBJTYPE::OBJ_MONSTER);*/
-
 		// 테스트 코드 PlayerHP 생성
 		PlayerHP* playerHP = new PlayerHP();
 		playerHP->Init();
 		ObjectManager->AddObject(playerHP, OBJTYPE::OBJ_UI);
 
-		// 테스트 코드 KnockOut 생성
-	/*	KnockOut* knockOut = new KnockOut();
-		knockOut->Init();
-		AddObject(knockOut, OBJTYPE::OBJ_UI);*/
-
-		// 테스트 코드 TrumpCardManager 생성
-		TrumpCardManager* trumpCardManager = new TrumpCardManager();
-		trumpCardManager->Init(10, 50);
-		ObjectManager->AddObject(trumpCardManager, OBJTYPE::OBJ_ETC);
-
-		// 테스트 코드 KnockOut 생성
+		// 테스트 코드 ReadyWallop 생성
 		ReadyWallop* readyWallop = new ReadyWallop();
 		readyWallop->Init();
 		ObjectManager->AddObject(readyWallop, OBJTYPE::OBJ_UI);
@@ -137,9 +117,7 @@ void Level1::ObjectInit(void* InData)
 	// 테스트 코드 HildaBerg 생성
 	HildaBerg* hilda = new HildaBerg();
 	hilda->Init();
-	ObjectManager->AddObject(hilda, OBJTYPE::OBJ_MONSTER);
-
-	
+	ObjectManager->AddObject(hilda, OBJTYPE::OBJ_MONSTER);	
 }
 
 void Level1::ImageInit()
