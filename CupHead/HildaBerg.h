@@ -32,6 +32,8 @@ public:
 	int GetTotalHp() const;
 	int GetCurrentHp() const;
 
+	void ChangePhaseByInput(int _Phase); // for debug
+
 private:
 	void ChangeForm();
 	void SpawnEnemy();
