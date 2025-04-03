@@ -131,8 +131,6 @@ void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum, FPOINT _Pos
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true, MaxAlphaTime);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER);
-
-	
 }
 
 void BlimpEnemy::Release()
@@ -160,21 +158,21 @@ void BlimpEnemy::Render(HDC hdc)
 	//6. 이펙트
 	//7. 배경오브젝트 front
 
-	if (image) image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
+	//if (image) image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
 
-	//if (image)
-	//{
-	//	if (0.f < AlphaTime)
-	//	{
-	//		image->FrameRenderAlpha(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, false, 135, RGB(255, 255, 255), IsFlip);
-	//	}
+	if (image)
+	{
+		if (0.f < AlphaTime)
+		{
+			image->FrameRenderAlpha(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, true, 30, RGB(255, 255, 255), IsFlip);
+		}
 
-	//	else
-	//	{
-	//		image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
-	//		AlphaTime = 0.f;
-	//	}
-	//}
+		else
+		{
+			image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
+			AlphaTime = 0.f;
+		}
+	}
 }
 
 void BlimpEnemy::UpdateFrame()

@@ -16,16 +16,14 @@ HildaBerg::HildaBerg()
 	: HildaForm{}, Phase{}, Angle{},
 	ElapsedSpawnTime{}, SpawnCoolTime{ 3.f }
 {
-	HpList[0] = 10;
-	HpList[1] = 15;
-	HpList[2] = 10;
-	HpList[3] = 15;
-	HpList[4] = 10;
-	HpList[5] = 20;
+	HpList[0] = 200;
+	HpList[1] = 250;
+	HpList[2] = 200;
+	HpList[3] = 250;
+	HpList[4] = 200;
+	HpList[5] = 300;
 
-	ZeroMemory(&HlidaBergData, sizeof(FHildaBergData));
-
-	
+	ZeroMemory(&HlidaBergData, sizeof(FHildaBergData));	
 }
 
 HildaBerg::~HildaBerg()

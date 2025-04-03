@@ -219,9 +219,8 @@ void HildaBlimp::Render(HDC hdc)
 	{
 		if (0.f < AlphaTime)
 		{
-			image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, false, 135, RGB(255, 255, 255), IsFlip);
+			image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, true, 100, RGB(255, 255, 255), IsFlip);
 		}
-
 		else
 		{
 			image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, IsFlip);
