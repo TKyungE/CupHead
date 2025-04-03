@@ -61,9 +61,9 @@ void LaughProjectile::Move()
 
 	MoveValue += DeltaTime;
 	SinValue += DeltaTime * 0.15f;
-	Speed += DeltaTime * 1200.f;
+	Speed += DeltaTime * 1800.f;
 
-	SinValue = min(0.25f, SinValue);
+	SinValue = min(0.3f, SinValue);
 	Speed = min(2000.f, Speed);
 
 	float BaseDirX = cosf(LookAngle);

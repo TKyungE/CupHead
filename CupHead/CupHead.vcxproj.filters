@@ -157,6 +157,9 @@
     <Filter Include="MainGame\UI\Button">
       <UniqueIdentifier>{ff506182-87c6-49fd-b9a6-683f53b72546}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Player\Missile">
+      <UniqueIdentifier>{0246a662-d416-436f-981a-671f1574d57d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -234,9 +237,6 @@
     <ClCompile Include="KnockOut.cpp">
       <Filter>MainGame\UI\KnockOut</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerMissile.cpp">
-      <Filter>MainGame\Player</Filter>
-    </ClCompile>
     <ClCompile Include="LaughProjectile.cpp">
       <Filter>MainGame\Enemy\HildaBlimp\Laugh</Filter>
     </ClCompile>
@@ -248,12 +248,6 @@
     </ClCompile>
     <ClCompile Include="TrumpCardManager.cpp">
       <Filter>MainGame\UI\TrumpCard</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerFallMissile.cpp">
-      <Filter>MainGame\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerSharkMissile.cpp">
-      <Filter>MainGame\Player</Filter>
     </ClCompile>
     <ClCompile Include="Fade.cpp">
       <Filter>MainGame\UI\Fade</Filter>
@@ -333,9 +327,6 @@
     <ClCompile Include="ImageManager.cpp">
       <Filter>2D Framework\Image</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerNormalMissile.cpp">
-      <Filter>MainGame\Player</Filter>
-    </ClCompile>
     <ClCompile Include="KeyManager.cpp">
       <Filter>2D Framework\Key</Filter>
     </ClCompile>
@@ -350,6 +341,21 @@
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>MainGame\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillPointManager.cpp">
+      <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFallMissile.cpp">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerMissile.cpp">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerNormalMissile.cpp">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSharkMissile.cpp">
+      <Filter>MainGame\Player\Missile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -434,9 +440,6 @@
     <ClInclude Include="KnockOut.h">
       <Filter>MainGame\UI\KnockOut</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerMissile.h">
-      <Filter>MainGame\Player</Filter>
-    </ClInclude>
     <ClInclude Include="LaughProjectile.h">
       <Filter>MainGame\Enemy\HildaBlimp\Laugh</Filter>
     </ClInclude>
@@ -448,12 +451,6 @@
     </ClInclude>
     <ClInclude Include="TrumpCardManager.h">
       <Filter>MainGame\UI\TrumpCard</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerFallMissile.h">
-      <Filter>MainGame\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerSharkMissile.h">
-      <Filter>MainGame\Player</Filter>
     </ClInclude>
     <ClInclude Include="Fade.h">
       <Filter>MainGame\UI\Fade</Filter>
@@ -533,9 +530,6 @@
     <ClInclude Include="Image.h">
       <Filter>2D Framework\Image</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerNormalMissile.h">
-      <Filter>MainGame\Player</Filter>
-    </ClInclude>
     <ClInclude Include="KeyManager.h">
       <Filter>2D Framework\Key</Filter>
     </ClInclude>
@@ -550,6 +544,21 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>MainGame\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillPointManager.h">
+      <Filter>MainGame\UI\TrumpCard</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFallMissile.h">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMissile.h">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerNormalMissile.h">
+      <Filter>MainGame\Player\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSharkMissile.h">
+      <Filter>MainGame\Player\Missile</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

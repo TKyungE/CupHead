@@ -90,7 +90,7 @@ private:
 	float IntroDistance = 0.f;
 	FPOINT InitPos;
 	FPOINT PrePos;
-	int Damage; // 미사일 변신하고 충돌하면 넘길 데미지
+	int Damage;
 	int FrameDir;
 	int FireCnt;
 	float AttackTimes[ATTACK_END];
@@ -99,6 +99,7 @@ private:
 	int DustCnt;
 	float DustTime;
 	float DustCoolTime;
+	float DeathUICoolTime;
 	
 	float AlphaTime;
 	float MaxAlphaTime;
@@ -113,7 +114,5 @@ private:
 	int SkillPoint = 50;
 	int MaxSkillPoint = 50 * 5;
 	int UseSkillGage[ATTACK_END];
-	//float SkillPoint;
-	//float MaxSkillPoint;
 };
 

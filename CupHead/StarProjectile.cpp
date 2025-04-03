@@ -64,7 +64,7 @@ StarProjectile::StarProjectile(StarType _Type) : LookAngle(DEG_TO_RAD(180.f)), M
 	}
 
 	
-	Speed = 200 * ((rand() % 5) + 1);
+	Speed = 300 * ((rand() % 3) + 1);
 	FrameSpeed = (rand() % 8) + 12.f;
 	SinValue = ((rand() % 25) + 16) / 100.f;
 
