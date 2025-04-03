@@ -72,7 +72,8 @@ void Taurus::Init(FPOINT _Pos, float _Angle, int _Hp)
 
 	Hp = _Hp;
 
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f, -20.f }, { sizeX * 0.7f, sizeY * 0.5f }, true, 0.1f);
+	MaxAlphaTime = 0.1f;
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f, -20.f }, { sizeX * 0.7f, sizeY * 0.5f }, true, MaxAlphaTime);
 	collider->Init();
 	AttackCollider = collider;
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER);
@@ -84,6 +85,8 @@ void Taurus::Release()
 
 void Taurus::Update()
 {
+	UpdateAlphaTime();
+
 	UpdateFrame();
 
 	UpdateState();
@@ -91,7 +94,21 @@ void Taurus::Update()
 
 void Taurus::Render(HDC hdc)
 {
-	if (image) image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
+	//if (image) image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
+
+	if (image)
+	{
+		if (0.f < AlphaTime)
+		{
+			image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, true, 135, RGB(255, 255, 255), IsFlip);
+		}
+
+		else
+		{
+			image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, IsFlip);
+			AlphaTime = 0.f;
+		}
+	}
 }
 
 void Taurus::UpdateFrame()
@@ -132,6 +149,7 @@ void Taurus::TakeDamage(int damage)
 {
 	if (Hp <= 0) return;
 	Hp -= damage;
+	AlphaTime = MaxAlphaTime;
 }
 
 void Taurus::UpdateState()

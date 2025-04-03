@@ -22,7 +22,6 @@ Player::Player() :
 		InitPos({0.f,0.f}), PrePos({ 0.f,0.f }),
 		Damage(5), FrameDir(1), FireCnt(0), 
 		DustCnt(0), DustTime(0.f), DustCoolTime(0.15f), DeathUICoolTime(0.f),
-		AlphaTime(0.f), MaxAlphaTime(0.5f), 
 		PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), 
 		PreState(PLAYER_INTRO), CurState(PLAYER_INTRO),
 		NextImage(nullptr), SkillManager(nullptr),
@@ -35,6 +34,8 @@ Player::Player() :
 	UseSkillGage[ATTACK_NORMAL] = 0;
 	UseSkillGage[ATTACK_FALL] = 0;
 	UseSkillGage[ATTACK_SHARK] = 50;
+
+	MaxAlphaTime = 0.5f;
 }				  
 
 Player::~Player()

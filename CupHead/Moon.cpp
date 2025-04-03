@@ -25,7 +25,9 @@ void Moon::Init(int _Hp)
 	State = EMoonState::Idle;
 	image = ImageManager::GetInstance()->AddImage("blimp_moon_idle", L"Image/CupHead/Hilda Berg/Moon/blimp_moon_idle.bmp", 13120, 773, 16, 1, true, RGB(255, 0, 255));
 
-	ColliderComponent = new Collider(this,COLLIDERTYPE::Rect,{ (float)image->GetFrameWidth() * 0.2f,0.f},{(float)image->GetFrameWidth() * 0.25f,(float)image->GetFrameHeight() * 0.5f},true,0.1f);
+	
+	MaxAlphaTime = 0.1f;
+	ColliderComponent = new Collider(this,COLLIDERTYPE::Rect,{ (float)image->GetFrameWidth() * 0.2f,0.f},{(float)image->GetFrameWidth() * 0.25f,(float)image->GetFrameHeight() * 0.5f},true, MaxAlphaTime);
 	ColliderComponent->Init();
 	CollisionManager::GetInstance()->AddCollider(ColliderComponent, OBJ_MONSTER);
 
@@ -37,6 +39,8 @@ void Moon::Init(int _Hp)
 
 void Moon::Update()
 {
+	UpdateAlphaTime();
+
 	UpdateFrame();
 
 	CurrentTime += TimerManager::GetInstance()->GetDeltaTime();
@@ -60,8 +64,21 @@ void Moon::Update()
 
 void Moon::Render(HDC hdc)
 {
+	/*if (image)
+		image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0);*/
 	if (image)
-		image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0);
+	{
+		if (0.f < AlphaTime)
+		{
+			image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, true, 50, RGB(255, 255, 255), IsFlip);
+		}
+
+		else
+		{
+			image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, IsFlip);
+			AlphaTime = 0.f;
+		}
+	}
 }
 
 
@@ -72,6 +89,7 @@ void Moon::TakeDamage(int damage)
 
 	Hp -= damage;
 
+	AlphaTime = MaxAlphaTime;
 	if (Hp <= 0)
 	{
 		CurFrameIndex = 0;

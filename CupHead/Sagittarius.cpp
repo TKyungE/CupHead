@@ -29,7 +29,9 @@ void Sagittarius::Init(FPOINT InPos, float InAngle, int _Hp)
 
 	image = ImageManager::GetInstance()->AddImage("sagg_idle", L"Image/CupHead/Hilda Berg/Sagittarius/Sagittarius/Idle/sagg_idle.bmp", 5580, 362, 12, 1, true, RGB(255, 0, 255));
 
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { (float)image->GetFrameWidth(), (float)image->GetFrameHeight() }, true, 0.1f);
+	MaxAlphaTime = 0.1f;
+
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { (float)image->GetFrameWidth(), (float)image->GetFrameHeight() }, true, MaxAlphaTime);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJ_MONSTER);
 
@@ -41,6 +43,8 @@ void Sagittarius::Init(FPOINT InPos, float InAngle, int _Hp)
 
 void Sagittarius::Update()
 {
+	UpdateAlphaTime();
+
 	switch (State)
 	{
 	case Sagittarius::ESagittariusState::Idle:
@@ -65,13 +69,27 @@ void Sagittarius::Update()
 
 void Sagittarius::Render(HDC hdc)
 {
+	//if (image)
+	//{
+	//	image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0);
+
+	//	// 몬스터는 맞을 때 흰색 덮이는데 플레이어는 맞으면 알파블렌딩으로 그려져서 bool 인자로 분기했습니당.
+	//	//image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, true, 85, RGB(255, 255, 255)); // true면 기존FrameRender하고 그 위에 원하는 컬러값을 AlphaValue값만큼 AlphaBlend해서 그리는 함수.
+	//	//image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, false, 85); // false면 기존 이미지를 AlphaValue값만큼 AlphaBlend해서 그리는 함수.
+	//}
+
 	if (image)
 	{
-		image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0);
+		if (0.f < AlphaTime)
+		{
+			image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, true, 100, RGB(255, 255, 255),IsFlip);
+		}
 
-		// 몬스터는 맞을 때 흰색 덮이는데 플레이어는 맞으면 알파블렌딩으로 그려져서 bool 인자로 분기했습니당.
-		//image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, true, 85, RGB(255, 255, 255)); // true면 기존FrameRender하고 그 위에 원하는 컬러값을 AlphaValue값만큼 AlphaBlend해서 그리는 함수.
-		//image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, false, 85); // false면 기존 이미지를 AlphaValue값만큼 AlphaBlend해서 그리는 함수.
+		else
+		{
+			image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, IsFlip);
+			AlphaTime = 0.f;
+		}
 	}
 }
 
@@ -87,6 +105,7 @@ void Sagittarius::TakeDamage(int damage)
 {
 	// Test. HildaBerg Change Form
 	Hp -= damage;
+	AlphaTime = MaxAlphaTime;
 	if (Hp <= 0) bDead = true;
 }
 

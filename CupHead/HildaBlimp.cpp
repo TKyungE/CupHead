@@ -192,7 +192,8 @@ void HildaBlimp::Init(FPOINT _Pos, float _Angle, int _Hp)
 
 	Hp = _Hp;
 
-	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true, 0.1f);
+	MaxAlphaTime = 0.1f;
+	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, { sizeX * 0.5f, sizeY * 0.5f }, true, MaxAlphaTime);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER);
 }
@@ -203,6 +204,8 @@ void HildaBlimp::Release()
 
 void HildaBlimp::Update()
 {
+	UpdateAlphaTime();
+
 	UpdateFrame();
 
 	UpdateState();
@@ -210,7 +213,20 @@ void HildaBlimp::Update()
 
 void HildaBlimp::Render(HDC hdc)
 {
-	if (image) image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
+	//if (image) image->FrameRender(hdc, (int)pos.x, (int)pos.y, CurFrameIndex, 0, IsFlip);
+
+	if (image)
+	{
+		if (0.f < AlphaTime)
+		{
+			image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, true, 100, RGB(255, 255, 255), IsFlip);
+		}
+		else
+		{
+			image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, IsFlip);
+			AlphaTime = 0.f;
+		}
+	}
 }
 
 void HildaBlimp::UpdateFrame()
@@ -251,6 +267,8 @@ void HildaBlimp::TakeDamage(int damage)
 {
 	if (Hp <= 0) return;
 	Hp -= damage;
+
+	AlphaTime = MaxAlphaTime;
 }
 
 void HildaBlimp::UpdateState()
