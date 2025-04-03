@@ -118,9 +118,9 @@ int HildaBerg::GetTotalHp() const
 	return accumulate(HpList, HpList + 6, 0);
 }
 
-int HildaBerg::GetCurrentFormHp() const
+int HildaBerg::GetCurrentHp() const
 {
-	return HildaForm ? HildaForm->GetHp() : 0;
+	return HildaForm ? accumulate(HpList + Phase + 1, HpList + 6, 0) + HildaForm->GetHp() : 0;
 }
 
 void HildaBerg::ChangeForm()

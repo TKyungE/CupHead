@@ -22,7 +22,7 @@ public:
 	void SetDead(bool bDead) { this->bDead = bDead; }
 
 	int GetTotalHp() const;
-	int GetCurrentFormHp() const;
+	int GetCurrentHp() const;
 
 private:
 	void ChangeForm();
