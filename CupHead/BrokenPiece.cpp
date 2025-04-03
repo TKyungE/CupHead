@@ -57,7 +57,7 @@ void BrokenPiece::Move()
 void BrokenPiece::InitImage()
 {
 	string typeStr{};
-#pragma region blimp enemy Image Load
+#pragma region blimp enemy piece Image Load
 	typeStr = "BlimpEnemyPieceA";
 	ImageManager::GetInstance()->AddImage(
 		typeStr + "GREEN",
@@ -149,6 +149,83 @@ void BrokenPiece::InitImage()
 		true, RGB(255, 0, 255));
 #pragma endregion
 
+#pragma region player plane piece Image Load
+	ImageManager::GetInstance()->AddImage(
+		"schmup_ch_piece_a",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_ch_piece_a.bmp"),
+		424, 55,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_ch_piece_b",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_ch_piece_b.bmp"),
+		416, 55,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_ch_piece_c",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_ch_piece_c.bmp"),
+		280, 36,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_ch_piece_d",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_ch_piece_d.bmp"),
+		288, 36,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_ch_piece_e",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_ch_piece_e.bmp"),
+		504, 62,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_gear_a",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_gear_a.bmp"),
+		512, 64,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_gear_b",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_gear_b.bmp"),
+		264, 36,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_gear_c",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_gear_c.bmp"),
+		504, 68,
+		8, 1,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage(
+		"schmup_gear_d",
+		TEXT("Image\\CupHead\\cuphead_plane\\PlanePiece\\schmup_gear_d.bmp"),
+		448, 55,
+		8, 1,
+		true, RGB(255, 0, 255));
+#pragma endregion
+	// add this code when player turn into death state
+	//for (char pieceName = 'a'; pieceName <= 'e'; ++pieceName)
+	//{
+	//	BrokenPiece* piece = new BrokenPiece((float)(uid(dre) % 2), (float)(uid(dre) % 4));
+	//	piece->Init(pos, ("schmup_ch_piece_" + string{ pieceName }));
+	//	ObjectManager::GetInstance()->AddObject(piece, OBJ_MONSTER);
+	//}
+	//for (char pieceName = 'a'; pieceName <= 'd'; ++pieceName)
+	//{
+	//	BrokenPiece* piece = new BrokenPiece((float)(uid(dre) % 2), (float)(uid(dre) % 4));
+	//	piece->Init(pos, ("schmup_gear_" + string{ pieceName }));
+	//	ObjectManager::GetInstance()->AddObject(piece, OBJ_MONSTER);
+	//}
 }
 
 void BrokenPiece::UpdateDy()
