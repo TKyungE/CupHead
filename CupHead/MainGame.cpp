@@ -79,8 +79,10 @@ void MainGame::Render()
 	if (LevelManager)
 		LevelManager->Render(hBackBufferDC);
 
+#ifdef _DEBUG 
 	wsprintf(szText, TEXT("Mouse X : %d, Y : %d"), (int)g_MousePos.x, (int)g_MousePos.y);
 	TextOut(hBackBufferDC, 20, 60, szText, (int)wcslen(szText));
+#endif 
 
 	TimerManager::GetInstance()->Render(hBackBufferDC);
 

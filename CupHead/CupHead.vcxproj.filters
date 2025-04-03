@@ -151,6 +151,12 @@
     <Filter Include="MainGame\Enemy\Taurus\BarrageBullet">
       <UniqueIdentifier>{3852b809-6c04-43e6-88c6-8ef4b0886928}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\UI\DeathCard">
+      <UniqueIdentifier>{8ff143b5-3fe1-4ca7-a714-8cf6e17572e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\UI\Button">
+      <UniqueIdentifier>{ff506182-87c6-49fd-b9a6-683f53b72546}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -338,6 +344,12 @@
     </ClCompile>
     <ClCompile Include="BarrageBullet.cpp">
       <Filter>MainGame\Enemy\Taurus\BarrageBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="DeathCard.cpp">
+      <Filter>MainGame\UI\DeathCard</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>MainGame\UI\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -532,6 +544,12 @@
     </ClInclude>
     <ClInclude Include="BarrageBullet.h">
       <Filter>MainGame\Enemy\Taurus\BarrageBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="DeathCard.h">
+      <Filter>MainGame\UI\DeathCard</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>MainGame\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

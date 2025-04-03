@@ -10,6 +10,7 @@
 #include "CollisionManager.h"
 #include "EffectManager.h"
 #include <numeric>
+#include "LevelManager.h"
 
 HildaBerg::HildaBerg()
 	: HildaForm{}, Phase{}, Angle{},
@@ -21,6 +22,10 @@ HildaBerg::HildaBerg()
 	HpList[3] = 15;
 	HpList[4] = 10;
 	HpList[5] = 20;
+
+	ZeroMemory(&HlidaBergData, sizeof(FHildaBergData));
+
+	
 }
 
 HildaBerg::~HildaBerg()
@@ -48,6 +53,10 @@ void HildaBerg::Init()
 	pos = { WINSIZE_X - 300.f, WINSIZE_Y / 2.f + 50.f };
 	Phase = 0;
 	ChangeForm();
+
+
+	HlidaBergData.TotalHp = GetTotalHp();
+	memcpy(HlidaBergData.HpList, HpList, sizeof(int) * 6);
 }
 
 void HildaBerg::Release()
@@ -106,6 +115,11 @@ void HildaBerg::Update()
 		SpawnEnemy();
 		ElapsedSpawnTime = 0.f;
 	}
+
+	HlidaBergData.Phase = Phase;
+	HlidaBergData.CurrentHp = GetCurrentHp();
+
+	LevelManager::GetInstance()->SetData(&HlidaBergData);
 }
 
 void HildaBerg::Render(HDC hdc)
@@ -240,7 +254,7 @@ void HildaBerg::SpawnEnemy()
 		// Moon Phase Star Spawn
 		int type = uid(dre) % 3;
 		StarProjectile* star = new StarProjectile(StarType(type));
-		star->Init({ WINSIZE_X, (float)uidY(dre)});
+		star->Init({ WINSIZE_X, (float)uidY(dre) });
 		ObjectManager::GetInstance()->AddObject(star, OBJ_MONSTER);
 		break;
 	}

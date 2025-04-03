@@ -1,6 +1,14 @@
 #pragma once
 #include "GameObject.h"
 
+struct FHildaBergData
+{
+	int Phase;
+	int TotalHp;
+	int CurrentHp;
+	int HpList[6];
+};
+
 class Character;
 class HildaBerg : public GameObject
 {
@@ -37,5 +45,7 @@ private:
 	float SpawnCoolTime;
 
 	int HpList[6];
+
+	FHildaBergData HlidaBergData;
 };
 

@@ -31,11 +31,13 @@ void LevelMain::Update()
 
 	for (int i = 0; i < MAX_KEY_COUNT; ++i)
 	{
+		if (i == 21)
+			continue;
 		if (KeyManager::GetInstance()->IsOnceKeyDown(i))
 		{
 			Fade* fade = new Fade();
 			fade->Init(EFadeMode::FadeOut, ELevelState::Level1);
-			ObjectManager->AddObject(fade, OBJ_UI);
+			ObjectManager->AddObject(fade, OBJ_UPPERUI);
 			break;
 		}			
 	}

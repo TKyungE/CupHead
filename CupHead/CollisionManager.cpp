@@ -2,14 +2,22 @@
 #include "Collider.h"
 #include "GameObject.h"
 #include "CommonFunction.h"
+#include "PlayerMissile.h"
 #include <cmath>
 
 void CollisionManager::Init()
 {
+	bReset = false;
 }
 
 void CollisionManager::Update()
 {
+	if (bReset)
+	{
+		Reset();
+		bReset = false;
+	}
+
 	for (int objType= 0; objType < OBJ_END; ++objType)
 	{
 		for (auto iter = CollisionList[objType].begin(); iter != CollisionList[objType].end();)
@@ -51,6 +59,7 @@ void CollisionManager::Update()
 
 void CollisionManager::Render(HDC hdc)
 {
+#ifdef _DEBUG
 	for (int objType = 0; objType < OBJ_END; ++objType)
 	{
 		for (auto& iter : CollisionList[objType])
@@ -63,6 +72,7 @@ void CollisionManager::Render(HDC hdc)
 	}
 
 	DebugLineRender(hdc);
+#endif
 }
 
 void CollisionManager::DebugLineRender(HDC hdc)
@@ -104,6 +114,25 @@ void CollisionManager::Release()
 	LineList.clear();
 
 	ReleaseInstance();
+}
+
+void CollisionManager::Reset()
+{
+	for (int objType = 0; objType < OBJ_END; ++objType)
+	{
+		for (auto& iter : CollisionList[objType])
+		{
+			iter->Release();
+			delete iter;
+			iter = nullptr;
+		}
+		CollisionList[objType].clear();
+	}
+
+	for (auto& iter : LineList)
+		delete iter;
+
+	LineList.clear();
 }
 
 void CollisionManager::PlayerMonsterCollision()
@@ -204,7 +233,8 @@ void CollisionManager::PlayerWeaponMonsterCollision()
 			if (bCollision)
 			{
 				playerWeapon->GetOwner()->TakeDamage(1);
-				monster->GetOwner()->TakeDamage(1);
+				monster->GetOwner()->TakeDamage
+				(static_cast<PlayerMissile*>(playerWeapon->GetOwner())->GetDamage());
 				playerWeapon->SetHit(true);
 				monster->SetHit(true);
 			}
@@ -246,8 +276,6 @@ bool CollisionManager::CollisionSphere(Collider* collider1, Collider* collider2)
 
 bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType, FPOINT start, FPOINT end, GameObject* owner, bool bIgnoreSelf, bool bDebugDraw, float DebugDuration, COLORREF DebugColor)
 {
-	// 네 변을 다 검사해야 한다
-	// ccw 알고리즘 사용
 	if (bDebugDraw)
 	{
 		Line* line = new Line(start, end);
@@ -256,7 +284,8 @@ bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType,
 		line->DebugColor = DebugColor;
 		LineList.push_back(line);
 	}
-
+	// 네 변을 다 검사해야 한다
+	// ccw 알고리즘 사용
 	for (auto& iter : CollisionList[objType])
 	{
 		if (!iter->CanHit())

@@ -52,6 +52,7 @@ public:
 	void DebugLineRender(HDC hdc);
 	void Release();
 
+	void Reset();
 	void AddCollider(Collider* collider, OBJTYPE objType) { CollisionList[objType].push_back(collider); }
 
 	void PlayerMonsterCollision();
@@ -77,8 +78,11 @@ public:
 	bool LineTraceByObject(FHitResult& hitResult, OBJTYPE objType, FPOINT start, FPOINT end, GameObject* owner, bool bIgnoreSelf, bool bDebugDraw, float DebugDuration, COLORREF DebugColor);
 	bool CheckLineTrace(FPOINT p1, FPOINT p2, FPOINT p3, FPOINT p4);
 	int ccw(FPOINT p1, FPOINT p2, FPOINT p3);
+
+	void SetReset(bool InReset) { bReset = InReset; }
 private:
 	list<Collider*> CollisionList[OBJ_END];
 	list<Line*> LineList;
+	bool bReset;
 };
  

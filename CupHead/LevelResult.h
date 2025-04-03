@@ -18,5 +18,6 @@ protected:
 	virtual void ObjectInit(void* InData = nullptr) override;
 private:
 	ObjectManager* ObjectManager;
+	float CurrentTime;
 };
 

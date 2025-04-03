@@ -9,10 +9,13 @@
 #include "PlayerNormalMissile.h"
 #include "PlayerFallMissile.h"
 #include "PlayerSharkMissile.h"
+#include "DeathCard.h"
+#include "SkillPointManager.h"
 
 Player::Player() :
 		IsSharkFire(false),
 		IsIntroEnd(false),
+		IsIntroStart(false),
 		IntroAngle(0.f),
 		IntroDistance(0.f),
 		InitPos({0.f,0.f}), PrePos({ 0.f,0.f }),
@@ -21,12 +24,17 @@ Player::Player() :
 		AlphaTime(0.f), MaxAlphaTime(0.5f), 
 		PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), 
 		PreState(PLAYER_INTRO), CurState(PLAYER_INTRO),
-		NextImage(nullptr)
+		NextImage(nullptr),
+		SkillPoint(0), MaxSkillPoint(250)
 {
 	AttackCoolTimes[ATTACK_NORMAL] = 0.1f;
 	AttackCoolTimes[ATTACK_FALL] = 0.5f;
 	AttackCoolTimes[ATTACK_SHARK] = 0.5f;
 	memcpy(AttackTimes, AttackCoolTimes, sizeof(AttackTimes));
+
+	UseSkillGage[ATTACK_NORMAL] = 0;
+	UseSkillGage[ATTACK_FALL] = 0;
+	UseSkillGage[ATTACK_SHARK] = 50;
 }				  
 
 Player::~Player()
@@ -47,22 +55,28 @@ void Player::Init(FPOINT pos, FPOINT size)
 	//FrameSpeed = 30.f;
 	FrameSpeed = 25.f;
 	//FrameSpeed = 10.f;
-	Hp = 8;
+	// 원래 8인데 유령 보려고 임시 1
+	//Hp = 8;
+	Hp = 1;
 
-	/*image = ImageManager::GetInstance()->AddImage(
-		"Normal_Enemy", TEXT("Image/Test/blimp_dash.bmp"), 21168, 415, 24, 1,
-		true, RGB(255, 0, 255));*/
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, size, true);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_PLAYER);
 	
 	ImageInit();
 	EffectInit();
+
+	SkillManager = new SkillPointManager();
+	SkillManager->Init(50, 5);
 }
 
 void Player::Release()
 {
-
+	if (nullptr != SkillManager)
+	{
+		delete SkillManager;
+		SkillManager = nullptr;
+	}
 }
 
 void Player::Update()
@@ -70,6 +84,7 @@ void Player::Update()
 	Move();
 	Action();
 	UpdateState();
+	UpdateSkillPoint();
 	UpdateFrame();
 }
 
@@ -209,6 +224,10 @@ void Player::UpdateState()
 			{
 				image = ImageManager::GetInstance()->FindImage("cuphead_plane_ex_down");
 			}
+			ResetFrame();
+			break;
+		case PLAYER_DEAD:
+			image = ImageManager::GetInstance()->FindImage("cuphead_plane_ghost");
 			ResetFrame();
 			break;
 		case PLAYER_END:
@@ -407,6 +426,13 @@ void Player::UpdateToNoneState()
 void Player::Intro()
 {
 	float DeltaTime = TimerManager::GetInstance()->GetDeltaTime();
+
+	if (false == IsIntroStart)
+	{
+		EffectManager::GetInstance()->AddEffect("shmup_smoke", pos, image->GetMaxFrameX() / FrameSpeed, { -20.f, 20.f }, 1, true, this);
+		IsIntroStart = true;
+	}
+
 	if (5 >= CurFrameIndex) // 가라
 	{
 		float Temp = 1000.f * DeltaTime * FrameSpeed / image->GetMaxFrameX();
@@ -475,6 +501,12 @@ void Player::UpdateAttackFrame()
 	}
 }
 
+void Player::UpdateSkillPoint()
+{
+	SkillManager->SetSkillPoint(SkillPoint);
+	SkillManager->Update();
+}
+
 void Player::Attack()
 {
 	if (false == IsSharkFire)
@@ -487,9 +519,18 @@ void Player::Attack()
 	}
 }
 
+void Player::Dead()
+{
+}
+
 void Player::Fire(ATTACKTYPE _Type)
 {
 	if (AttackCoolTimes[_Type] > AttackTimes[_Type])
+	{
+		return;
+	}
+
+	if (ATTACK_SHARK == _Type && UseSkillGage[ATTACK_SHARK] > SkillPoint)
 	{
 		return;
 	}
@@ -504,6 +545,7 @@ void Player::Fire(ATTACKTYPE _Type)
 		break;
 	case ATTACK_SHARK:
 		CurState = PLAYER_ATTACK;
+		SkillPoint -= UseSkillGage[ATTACK_SHARK];
 		//FireShark();
 		break;
 	}
@@ -566,12 +608,14 @@ void Player::FireShark()
 	{
 		FireCnt = 0;
 	}
+
 	//PlayerSharkMissile
 }
 
 void Player::ResetFrame()
 {
 	CurFrameIndex = FrameTime = 0;
+	FrameDir = 1;
 }
 
 void Player::ResetState()
@@ -597,7 +641,6 @@ void Player::Render(HDC hdc)
 			image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0, false);
 			AlphaTime = 0.f;
 		}
-		
 	}
 }
 
@@ -631,6 +674,10 @@ void Player::EffectInit()
 	ImageManager::GetInstance()->AddImage("AirDust2", TEXT("Image/CupHead/cuphead_plane/Idle/AirDust2.bmp"), 275, 26, 11, 1, true, RGB(255, 0, 255));
 	ImageManager::GetInstance()->AddImage("AirDust3", TEXT("Image/CupHead/cuphead_plane/Idle/AirDust3.bmp"), 377, 29, 13, 1, true, RGB(255, 0, 255));
 
+	//Smoke
+	ImageManager::GetInstance()->AddImage("shmup_smoke", TEXT("Image/CupHead/cuphead_plane/Idle/shmup_smoke.bmp"), 11825, 192, 43, 1, true, RGB(255, 0, 255));
+
+	
 }
 
 void Player::Action()
@@ -649,6 +696,9 @@ void Player::Action()
 		break;
 	case PLAYER_ATTACK:
 		Attack();
+		break;
+	case PLAYER_DEAD:
+		Dead();
 		break;
 	case PLAYER_END:
 		break;
@@ -690,6 +740,11 @@ void Player::ImageInit()
 		TEXT("Image/CupHead/cuphead_plane/Idle/cuphead_plane_idle_straight.bmp"),
 		448, 101, 4, 1, true, RGB(255, 0, 255));
 
+	
+	image = ImageManager::GetInstance()->AddImage("cuphead_plane_ghost",
+		TEXT("Image/CupHead/cuphead_plane/Damaged/cuphead_plane_ghost.bmp"),
+		2544, 150, 24, 1, true, RGB(255, 0, 255));
+
 	image = ImageManager::GetInstance()->AddImage("cuphead_plane_intro",
 		TEXT("Image/CupHead/cuphead_plane/cuphead_plane_intro.bmp"),
 		7216, 155, 41, 1, true, RGB(255, 0, 255));
@@ -720,10 +775,17 @@ void Player::Move()
 	if (false == IsIntroEnd)
 	{
 		CurState = PLAYER_INTRO;
+
+		return;
+	}
+	
+	if (PLAYER_DEAD == CurState)
+	{
+		pos.y -= 50.f * TimerManager::GetInstance()->GetDeltaTime(); // 임의값
 		return;
 	}
 
-	if (CurState != PLAYER_ATTACK)
+	if (PLAYER_ATTACK != CurState)
 	{
 		CurState = PLAYER_IDLE;
 	}
@@ -800,13 +862,26 @@ void Player::Move()
 
 void Player::TakeDamage(int damage)
 {
-	if (PLAYER_ATTACK == CurState)
+	if (PLAYER_ATTACK == CurState || PLAYER_DEAD == CurState)
 	{
 		return;
+	}
+
+	// 죽음 UI 띄운다.
+	if (Hp == 1)
+	{
+		DeathCard* deathCard = new DeathCard();
+		deathCard->Init("death_card_bg", WINSIZE_X * 0.5f, WINSIZE_Y * 0.5f);
+		ObjectManager::GetInstance()->AddObject(deathCard, OBJTYPE::OBJ_UI);
 	}
 
 	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx_b", { pos.x , pos.y }, 0.3f); // 값 조정 or 때리는 투사체 쪽에서 위치 조정?
 	EffectManager::GetInstance()->AddEffectDefault("cuphead_plane_hit_fx", pos, 0.3f);
 	AlphaTime = MaxAlphaTime;
 	Hp = max(0, Hp - damage);
+
+	if (0 >= Hp)
+	{
+		CurState = PLAYER_DEAD;
+	}
 }

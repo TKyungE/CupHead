@@ -16,6 +16,7 @@ void LevelManager::Init()
 
 void LevelManager::Update()
 {
+#ifdef _DEBUG
 	if (KeyManager::GetInstance()->IsOnceKeyDown('1'))
 		SetLevelState(ELevelState::Logo);
 	if (KeyManager::GetInstance()->IsOnceKeyDown('2'))
@@ -24,7 +25,7 @@ void LevelManager::Update()
 		SetLevelState(ELevelState::Level1);
 	if (KeyManager::GetInstance()->IsOnceKeyDown('4'))
 		SetLevelState(ELevelState::Result);
-
+#endif // _DEBUG
 	Level->Update();
 }
 
@@ -70,11 +71,6 @@ void LevelManager::SetLevelState(ELevelState InLevelState)
 	Data = nullptr;
 }
 
-void LevelManager::SetNextLevelState(ELevelState InLevelState)
-{
-	NextLevelState = InLevelState;
-}
-
 void LevelManager::Release()
 {
 	if (Level != nullptr)
@@ -84,5 +80,18 @@ void LevelManager::Release()
 		Level = nullptr;
 	}
 
+	if (Data)
+	{
+		delete Data;
+		Data = nullptr;
+	}
+
 	ReleaseInstance();
+}
+
+void LevelManager::ReTry()
+{
+	ELevelState StateTemp = LevelState;
+	LevelState = ELevelState::End;
+	SetNextLevelState(StateTemp);	
 }

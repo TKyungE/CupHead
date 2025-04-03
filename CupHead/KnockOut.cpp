@@ -2,6 +2,8 @@
 #include "Image.h"
 #include "ImageManager.h"
 #include "LevelManager.h"
+#include "Fade.h"
+#include "ObjectManager.h"
 
 KnockOut::KnockOut()
 {
@@ -25,8 +27,11 @@ void KnockOut::Update()
 
 	if (CurFrameIndex == image->GetMaxFrameX() - 1)
 	{
+		Fade* fadeOut = new Fade();
+		fadeOut->Init(EFadeMode::FadeOut, ELevelState::Result);
+		ObjectManager::GetInstance()->AddObject(fadeOut, OBJ_UPPERUI);
+
 		bDead = true;
-		LevelManager::GetInstance()->SetNextLevelState(ELevelState::Result);
 	}		
 }
 

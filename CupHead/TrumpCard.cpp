@@ -27,7 +27,7 @@ void TrumpCard::Update()
 
 	UpdateFrame();
 
-	const float dY = DefaultPos.y - float((image->GetFrameHeight() / MaxCount) * CurrentCount);
+	const float dY = DefaultPos.y - float(float(image->GetFrameHeight() / float(MaxCount)) * CurrentCount);
 	pos.y = Lerp(pos.y, dY, 0.1f);
 
 	if (bTurn && MaxCount == CurrentCount)
