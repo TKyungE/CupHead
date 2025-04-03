@@ -75,30 +75,7 @@ void HildaBerg::Release()
 
 void HildaBerg::Update()
 {
-	if (KeyManager::GetInstance()->IsOnceKeyDown('Z'))
-	{
-		ChangePhaseByInput(0);
-	}
-	if (KeyManager::GetInstance()->IsOnceKeyDown('X'))
-	{
-		ChangePhaseByInput(1);
-	}
-	if (KeyManager::GetInstance()->IsOnceKeyDown('C'))
-	{
-		ChangePhaseByInput(2);
-	}
-	if (KeyManager::GetInstance()->IsOnceKeyDown('V'))
-	{
-		ChangePhaseByInput(3);
-	}
-	if (KeyManager::GetInstance()->IsOnceKeyDown('B'))
-	{
-		ChangePhaseByInput(4);
-	}
-	if (KeyManager::GetInstance()->IsOnceKeyDown('N'))
-	{
-		ChangePhaseByInput(5);
-	}
+	ProcessInput();
 
 	if (Phase < 0) return;
 
@@ -320,5 +297,33 @@ void HildaBerg::SpawnEnemy()
 		ObjectManager::GetInstance()->AddObject(star, OBJ_MONSTER);
 		break;
 	}
+	}
+}
+
+void HildaBerg::ProcessInput()
+{
+	if (KeyManager::GetInstance()->IsOnceKeyDown('Z'))
+	{
+		ChangePhaseByInput(0);
+	}
+	if (KeyManager::GetInstance()->IsOnceKeyDown('X'))
+	{
+		ChangePhaseByInput(1);
+	}
+	if (KeyManager::GetInstance()->IsOnceKeyDown('C'))
+	{
+		ChangePhaseByInput(2);
+	}
+	if (KeyManager::GetInstance()->IsOnceKeyDown('V'))
+	{
+		ChangePhaseByInput(3);
+	}
+	if (KeyManager::GetInstance()->IsOnceKeyDown('B'))
+	{
+		ChangePhaseByInput(4);
+	}
+	if (KeyManager::GetInstance()->IsOnceKeyDown('N'))
+	{
+		ChangePhaseByInput(5);
 	}
 }

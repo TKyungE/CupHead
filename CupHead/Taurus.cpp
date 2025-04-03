@@ -158,63 +158,73 @@ void Taurus::UpdateState()
 	{
 	case TaurusInfo::EState::IDLE:
 	{
-		if (Hp <= 0)
-		{
-			// after finish attack
-			bDead = true;
-
-		}
-
-		Move();
-
-		ElapsedAttackTime += TimerManager::GetInstance()->GetDeltaTime();
-		if (ElapsedAttackTime >= AttackCoolTime)
-		{
-			ElapsedAttackTime = 0.f;
-			PosBefore = pos;
-			SetState(TaurusInfo::EState::ATTACK);
-		}
+		IDLE();
 		break;
 	}
 	case TaurusInfo::EState::ATTACK:
 	{
-		float sizeX = GetWidth();
-		float sizeY = GetHeight();
-		if (CurFrameIndex >= 11 and CurFrameIndex <= 13 )
-		{
-			AttackCollider->SetSize({ sizeX, sizeY * 0.5f });
-			AnimData[TaurusInfo::EState::ATTACK].second = 20.f;
-			Speed = 600;
-			Dash();
-		}
-		else if (CurFrameIndex >= 18)
-		{
-			AnimData[TaurusInfo::EState::ATTACK].second = 5.f;
-			Speed = 150;
-			Recover();
-		}
-
-
-		if (IsAnimEnd)
-		{
-			Speed = 150;
-			AnimData[TaurusInfo::EState::ATTACK].second = 15.f;
-			pos = PosBefore;
-			SetState(TaurusInfo::EState::IDLE);
-
-			sizeX = GetWidth();
-			sizeY = GetHeight();
-			AttackCollider->SetSize({ sizeX * 0.7f, sizeY * 0.5f });
-		}
-
-		ElapsedBarrageTime += TimerManager::GetInstance()->GetDeltaTime();
-		if (ElapsedBarrageTime >= BarrageCoolTime)
-		{
-			ElapsedBarrageTime = 0.f;
-			BarrageFire();
-		}
+		ATTACK();
 		break;
 	}
+	}
+}
+
+void Taurus::IDLE()
+{
+	if (Hp <= 0)
+	{
+		// after finish attack
+		bDead = true;
+
+	}
+
+	Move();
+
+	ElapsedAttackTime += TimerManager::GetInstance()->GetDeltaTime();
+	if (ElapsedAttackTime >= AttackCoolTime)
+	{
+		ElapsedAttackTime = 0.f;
+		PosBefore = pos;
+		SetState(TaurusInfo::EState::ATTACK);
+	}
+}
+
+void Taurus::ATTACK()
+{
+	float sizeX = GetWidth();
+	float sizeY = GetHeight();
+	if (CurFrameIndex >= 11 and CurFrameIndex <= 13)
+	{
+		AttackCollider->SetSize({ sizeX, sizeY * 0.5f });
+		AnimData[TaurusInfo::EState::ATTACK].second = 20.f;
+		Speed = 600;
+		Dash();
+	}
+	else if (CurFrameIndex >= 18)
+	{
+		AnimData[TaurusInfo::EState::ATTACK].second = 5.f;
+		Speed = 150;
+		Recover();
+	}
+
+
+	if (IsAnimEnd)
+	{
+		Speed = 150;
+		AnimData[TaurusInfo::EState::ATTACK].second = 15.f;
+		pos = PosBefore;
+		SetState(TaurusInfo::EState::IDLE);
+
+		sizeX = GetWidth();
+		sizeY = GetHeight();
+		AttackCollider->SetSize({ sizeX * 0.7f, sizeY * 0.5f });
+	}
+
+	ElapsedBarrageTime += TimerManager::GetInstance()->GetDeltaTime();
+	if (ElapsedBarrageTime >= BarrageCoolTime)
+	{
+		ElapsedBarrageTime = 0.f;
+		BarrageFire();
 	}
 }
 

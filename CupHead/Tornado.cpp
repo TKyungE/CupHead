@@ -123,58 +123,68 @@ void Tornado::UpdateState()
 	{
 	case TornadoInfo::EState::INTRO:
 	{
-		if (IsAnimEnd)
-		{
-			SetState(TornadoInfo::EState::ATTACK, false);
-
-			float sizeX = GetWidth();
-			float sizeY = GetHeight();
-
-			Collider* collider1 = new Collider(this, COLLIDERTYPE::Rect, { 0.f,-sizeY * 0.2f }, { sizeX * 0.7f, sizeY * 0.5f }, true);
-			collider1->Init();
-			CollisionManager::GetInstance()->AddCollider(collider1, OBJTYPE::OBJ_MONSTER_WEAPON);
-
-			Collider* collider2 = new Collider(this, COLLIDERTYPE::Rect, { 0.f, sizeY * 0.25f }, { sizeX * 0.3f, sizeY * 0.4f }, true);
-			collider2->Init();
-			CollisionManager::GetInstance()->AddCollider(collider2, OBJTYPE::OBJ_MONSTER_WEAPON);
-		}
+		INTRO();
 		break;
 	}
 	case TornadoInfo::EState::ATTACK:
 	{
-		Dx += -1.f * TimerManager::GetInstance()->GetDeltaTime();
-		Dx = ClampValue(Dx, -1.f, 0.f);
-
-		if (OutOfScreen(pos, GetWidth(), GetHeight()))
-		{
-			bDead = true;
-		}
-		else
-		{
-			GameObject* target{};
-			list<GameObject*> playerList = ObjectManager::GetInstance()->GetObjectList(OBJTYPE::OBJ_PLAYER);
-			if (!playerList.empty())
-			{
-				target = playerList.front();
-			}
-
-			if (target)
-			{
-				if (pos.x - GetWidth() / 2 > target->GetPos().x + MaxChaseDistance)
-				{
-					float deltaAngle = (float)RAD_TO_DEG(GetAngle(pos, target->GetPos()));
-					// [-180, 180] -> [0, 360]
-					deltaAngle = fmod((deltaAngle + 360.f), 360.f);
-
-					Angle = Lerp(deltaAngle, Angle, 0.6f);
-				}
-			}
-		}
-
-		Move();
+		ATTACK();
 		break;
 	}
 	}
+}
+
+void Tornado::INTRO()
+{
+	if (IsAnimEnd)
+	{
+		SetState(TornadoInfo::EState::ATTACK, false);
+
+		float sizeX = GetWidth();
+		float sizeY = GetHeight();
+
+		Collider* collider1 = new Collider(this, COLLIDERTYPE::Rect, { 0.f,-sizeY * 0.2f }, { sizeX * 0.7f, sizeY * 0.5f }, true);
+		collider1->Init();
+		CollisionManager::GetInstance()->AddCollider(collider1, OBJTYPE::OBJ_MONSTER_WEAPON);
+
+		Collider* collider2 = new Collider(this, COLLIDERTYPE::Rect, { 0.f, sizeY * 0.25f }, { sizeX * 0.3f, sizeY * 0.4f }, true);
+		collider2->Init();
+		CollisionManager::GetInstance()->AddCollider(collider2, OBJTYPE::OBJ_MONSTER_WEAPON);
+	}
+}
+
+void Tornado::ATTACK()
+{
+	Dx += -1.f * TimerManager::GetInstance()->GetDeltaTime();
+	Dx = ClampValue(Dx, -1.f, 0.f);
+
+	if (OutOfScreen(pos, GetWidth(), GetHeight()))
+	{
+		bDead = true;
+	}
+	else
+	{
+		GameObject* target{};
+		list<GameObject*> playerList = ObjectManager::GetInstance()->GetObjectList(OBJTYPE::OBJ_PLAYER);
+		if (!playerList.empty())
+		{
+			target = playerList.front();
+		}
+
+		if (target)
+		{
+			if (pos.x - GetWidth() / 2 > target->GetPos().x + MaxChaseDistance)
+			{
+				float deltaAngle = (float)RAD_TO_DEG(GetAngle(pos, target->GetPos()));
+				// [-180, 180] -> [0, 360]
+				deltaAngle = fmod((deltaAngle + 360.f), 360.f);
+
+				Angle = Lerp(deltaAngle, Angle, 0.6f);
+			}
+		}
+	}
+
+	Move();
 }
 
 void Tornado::SetState(TornadoInfo::EState NewState, bool AnimReverse)

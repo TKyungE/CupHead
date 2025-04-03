@@ -43,6 +43,19 @@ public:
 
 private:
 	void UpdateState();
+
+	void INTRO();
+	void IDLE();
+	void SHOOT();
+	void TORNADO();
+	void DASH();
+	void SUMMON();
+	void SUMMONRECOVER();
+	void MORPH1();
+	void MORPH2();
+	void MORPH3();
+	void MORPH4();
+
 	void SetState(HildaBlimpInfo::EState NewState);
 	
 	void ShootPaternByPhase();

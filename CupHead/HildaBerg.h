@@ -37,6 +37,7 @@ public:
 private:
 	void ChangeForm();
 	void SpawnEnemy();
+	void ProcessInput();
 
 private:
 	Character* HildaForm;

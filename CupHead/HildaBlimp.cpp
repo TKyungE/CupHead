@@ -277,174 +277,229 @@ void HildaBlimp::UpdateState()
 	{
 	case HildaBlimpInfo::EState::INTRO:
 	{
-		if (IsAnimEnd)
-		{
-			SetState(HildaBlimpInfo::EState::IDLE);
-		}
+		INTRO();
 		break;
 	}
 	case HildaBlimpInfo::EState::IDLE:
 	{
-		if (Hp <= 0)
-		{
-			if (Phase != 2)
-			{
-				SetState(HildaBlimpInfo::EState::DASH);
-			}
-			else
-			{
-				SetState(HildaBlimpInfo::EState::MORPH1);
-			}
-			return;
-		}
-
-		Move();
-
-		ElapsedShootTime += TimerManager::GetInstance()->GetDeltaTime();
-		if (ElapsedShootTime >= ShootCoolTime)
-		{
-			ShootPaternByPhase();
-		}
+		IDLE();
 		break;
 	}
 	case HildaBlimpInfo::EState::SHOOT:
 	{
-		if (CurFrameIndex >= 5)
-		{
-			ShootHa();
-			ElapsedShootTime = 0.f;
-		}
-
-		if (IsAnimEnd)
-		{
-			SetState(HildaBlimpInfo::EState::IDLE);
-		}
+		SHOOT();
 		break;
 	}
 	case HildaBlimpInfo::EState::TORNADO:
 	{
-		ShootTornado();
-		ElapsedShootTime = 0.f;
-
-		if (IsAnimEnd)
-		{
-			SetState(HildaBlimpInfo::EState::IDLE);
-		}
+		TORNADO();
 		break;
 	}
 	case HildaBlimpInfo::EState::DASH:
 	{
-		if (CurFrameIndex >= 18)
-		{	
-			if (!DashSmokeEffect)
-			{
-				EffectManager::GetInstance()->AddEffect("BlimpDashFxSmoke", pos, 1.f, { GetWidth() * 0.6f, 20.f }, 3, true, this);
-				DashSmokeEffect = true;
-			}
-			
-			Dash();
-
-			if (pos.x < WINSIZE_X * 0.5f and DashExplodeCnt == 0)
-			{
-				EffectManager::GetInstance()->AddEffect("BlimpDashFxExplode", pos, 1.f);
-				DashExplodeCnt++;
-			}
-			if (pos.x < 10.f and DashExplodeCnt == 1)
-			{
-				EffectManager::GetInstance()->AddEffect("BlimpDashFxExplode", pos, 1.f);
-				DashExplodeCnt++;
-			}
-		}
-		if (IsAnimEnd)
-		{
-			FrameTime = CurFrameIndex = 21;
-			IsAnimEnd = false;
-		}
-		if (pos.x <= -GetWidth()/2.f)
-		{
-			SetState(HildaBlimpInfo::EState::SUMMON);
-		}
+		DASH();
 		break;
 	}
 	case HildaBlimpInfo::EState::SUMMON:
 	{
-		DashRecover();
-		if (pos.x > WINSIZE_X * 0.5f)
-		{
-			SmallCloudEffect();
-		}
-		if (pos.x > WINSIZE_X - 200.f)
-		{
-			SetState(HildaBlimpInfo::EState::SUMMONRECOVER);
-		}
+		SUMMON();
 		break;
 	}
 	case HildaBlimpInfo::EState::SUMMONRECOVER:
 	{
-		if (IsAnimEnd)
-		{
-			bDead = true;
-		}
+		SUMMONRECOVER();
 		break;
 	}
 	case HildaBlimpInfo::EState::MORPH1:
 	{
-		ElapsedAnimTime += TimerManager::GetInstance()->GetDeltaTime();
-		if (IsAnimEnd)
-		{
-			if (ElapsedAnimTime > 3.f)
-			{
-				SetState(HildaBlimpInfo::EState::MORPH2);
-				ElapsedAnimTime = 0.f;
-			}
-			else
-			{
-				FrameTime = CurFrameIndex = 1;
-				IsAnimEnd = false;
-			}
-		}
+		MORPH1();
 		break;
 	}
 	case HildaBlimpInfo::EState::MORPH2:
 	{
-		IsAnimEnd = false;
-		ElapsedAnimTime += TimerManager::GetInstance()->GetDeltaTime();
-
-		if (ElapsedAnimTime > 2.f)
-		{
-			SetState(HildaBlimpInfo::EState::MORPH3);
-			ElapsedAnimTime = 0.f;
-		}
+		MORPH2();
 		break;
 	}
 	case HildaBlimpInfo::EState::MORPH3:
 	{
-		if (IsAnimEnd)
-		{
-			SetState(HildaBlimpInfo::EState::MORPH4);
-			IsStayMaxFrame = true;
-		}
+		MORPH3();
 		break;
 	}
 	case HildaBlimpInfo::EState::MORPH4:
 	{
-		float deltaX = (WINSIZE_X - 310.f) - pos.x;
-		float deltaY = (WINSIZE_Y * 0.5f) - pos.y;
-		pos.x += deltaX * 5.f * TimerManager::GetInstance()->GetDeltaTime();
-		pos.y += deltaY * 5.f * TimerManager::GetInstance()->GetDeltaTime();
-
-		if (IsAnimEnd)
-		{
-			FrameTime = CurFrameIndex = 6;
-			IsAnimEnd = false;
-		}
-
-		if (GetDistance({ 0,0 }, { deltaX, deltaY }) <= 1.f)
-		{
-			bDead = true;
-		}
+		MORPH4();
 		break;
 	}
+	}
+}
+
+void HildaBlimp::INTRO()
+{
+	if (IsAnimEnd)
+	{
+		SetState(HildaBlimpInfo::EState::IDLE);
+	}
+}
+
+void HildaBlimp::IDLE()
+{
+	if (Hp <= 0)
+	{
+		if (Phase != 2)
+		{
+			SetState(HildaBlimpInfo::EState::DASH);
+		}
+		else
+		{
+			SetState(HildaBlimpInfo::EState::MORPH1);
+		}
+		return;
+	}
+
+	Move();
+
+	ElapsedShootTime += TimerManager::GetInstance()->GetDeltaTime();
+	if (ElapsedShootTime >= ShootCoolTime)
+	{
+		ShootPaternByPhase();
+	}
+}
+
+void HildaBlimp::SHOOT()
+{
+	if (CurFrameIndex >= 5)
+	{
+		ShootHa();
+		ElapsedShootTime = 0.f;
+	}
+
+	if (IsAnimEnd)
+	{
+		SetState(HildaBlimpInfo::EState::IDLE);
+	}
+}
+
+void HildaBlimp::TORNADO()
+{
+	ShootTornado();
+	ElapsedShootTime = 0.f;
+
+	if (IsAnimEnd)
+	{
+		SetState(HildaBlimpInfo::EState::IDLE);
+	}
+}
+
+void HildaBlimp::DASH()
+{
+	if (CurFrameIndex >= 18)
+	{
+		if (!DashSmokeEffect)
+		{
+			EffectManager::GetInstance()->AddEffect("BlimpDashFxSmoke", pos, 1.f, { GetWidth() * 0.6f, 20.f }, 3, true, this);
+			DashSmokeEffect = true;
+		}
+
+		Dash();
+
+		if (pos.x < WINSIZE_X * 0.5f and DashExplodeCnt == 0)
+		{
+			EffectManager::GetInstance()->AddEffect("BlimpDashFxExplode", pos, 1.f);
+			DashExplodeCnt++;
+		}
+		if (pos.x < 10.f and DashExplodeCnt == 1)
+		{
+			EffectManager::GetInstance()->AddEffect("BlimpDashFxExplode", pos, 1.f);
+			DashExplodeCnt++;
+		}
+	}
+	if (IsAnimEnd)
+	{
+		FrameTime = CurFrameIndex = 21;
+		IsAnimEnd = false;
+	}
+	if (pos.x <= -GetWidth() / 2.f)
+	{
+		SetState(HildaBlimpInfo::EState::SUMMON);
+	}
+}
+
+void HildaBlimp::SUMMON()
+{
+	DashRecover();
+	if (pos.x > WINSIZE_X * 0.5f)
+	{
+		SmallCloudEffect();
+	}
+	if (pos.x > WINSIZE_X - 200.f)
+	{
+		SetState(HildaBlimpInfo::EState::SUMMONRECOVER);
+	}
+}
+
+void HildaBlimp::SUMMONRECOVER()
+{
+	if (IsAnimEnd)
+	{
+		bDead = true;
+	}
+}
+
+void HildaBlimp::MORPH1()
+{
+	ElapsedAnimTime += TimerManager::GetInstance()->GetDeltaTime();
+	if (IsAnimEnd)
+	{
+		if (ElapsedAnimTime > 3.f)
+		{
+			SetState(HildaBlimpInfo::EState::MORPH2);
+			ElapsedAnimTime = 0.f;
+		}
+		else
+		{
+			FrameTime = CurFrameIndex = 1;
+			IsAnimEnd = false;
+		}
+	}
+}
+
+void HildaBlimp::MORPH2()
+{
+	IsAnimEnd = false;
+	ElapsedAnimTime += TimerManager::GetInstance()->GetDeltaTime();
+
+	if (ElapsedAnimTime > 2.f)
+	{
+		SetState(HildaBlimpInfo::EState::MORPH3);
+		ElapsedAnimTime = 0.f;
+	}
+}
+
+void HildaBlimp::MORPH3()
+{
+	if (IsAnimEnd)
+	{
+		SetState(HildaBlimpInfo::EState::MORPH4);
+		IsStayMaxFrame = true;
+	}
+}
+
+void HildaBlimp::MORPH4()
+{
+	float deltaX = (WINSIZE_X - 310.f) - pos.x;
+	float deltaY = (WINSIZE_Y * 0.5f) - pos.y;
+	pos.x += deltaX * 5.f * TimerManager::GetInstance()->GetDeltaTime();
+	pos.y += deltaY * 5.f * TimerManager::GetInstance()->GetDeltaTime();
+
+	if (IsAnimEnd)
+	{
+		FrameTime = CurFrameIndex = 6;
+		IsAnimEnd = false;
+	}
+
+	if (GetDistance({ 0,0 }, { deltaX, deltaY }) <= 1.f)
+	{
+		bDead = true;
 	}
 }
 

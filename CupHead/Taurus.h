@@ -35,6 +35,10 @@ public:
 
 private:
 	void UpdateState();
+
+	void IDLE();
+	void ATTACK();
+
 	void SetState(TaurusInfo::EState NewState);
 
 	void Dash();

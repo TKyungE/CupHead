@@ -42,6 +42,10 @@ public:
 private:
 	void UpdateState();
 
+	void IDLE();
+	void ATTACK();
+	void TURN();
+
 	void FireBullet();
 
 	void SetState(BlimpEnemyInfo::EState NewState, bool AnimReverse);

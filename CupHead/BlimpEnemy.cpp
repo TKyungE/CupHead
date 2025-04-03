@@ -242,46 +242,75 @@ void BlimpEnemy::UpdateState()
 	{
 	case BlimpEnemyInfo::EState::IDLE:
 	{
-		if (!IsFired)
-		{
-			if (pos.x <= WINSIZE_X / 2)
-			{
-				Dx = 0.f;
-				SetState(BlimpEnemyInfo::EState::ATTACK, false);
-			}
-		}
-		else
-		{
-			if (OutOfScreen(pos, GetWidth(), GetHeight()))
-			{
-				bDead = true;
-			}
-		}
+		IDLE();
 		break;
 	}
 	case BlimpEnemyInfo::EState::ATTACK:
 	{
-		if (!IsAnimEnd) return;
-		if (!IsAnimReverse)
-		{
-			FireBullet();
-			SetState(BlimpEnemyInfo::EState::ATTACK, true);
-		}
-		else
-		{
-			SetState(BlimpEnemyInfo::EState::TURN, false);
-		}
+		ATTACK();
 		break;
 	}
 	case BlimpEnemyInfo::EState::TURN:
 	{
-		if (!IsAnimEnd) return;
-		IsFlip = true;
-		Dx = 1.f;
-		SetState(BlimpEnemyInfo::EState::IDLE, false);
+		TURN();
 		break;
 	}
 	}
+}
+
+void BlimpEnemy::IDLE()
+{
+	if (!IsFired)
+	{
+		if (pos.x <= WINSIZE_X / 2)
+		{
+			Dx = 0.f;
+			SetState(BlimpEnemyInfo::EState::ATTACK, false);
+		}
+	}
+	else
+	{
+		if (OutOfScreen(pos, GetWidth(), GetHeight()))
+		{
+			bDead = true;
+		}
+	}if (!IsFired)
+	{
+		if (pos.x <= WINSIZE_X / 2)
+		{
+			Dx = 0.f;
+			SetState(BlimpEnemyInfo::EState::ATTACK, false);
+		}
+	}
+	else
+	{
+		if (OutOfScreen(pos, GetWidth(), GetHeight()))
+		{
+			bDead = true;
+		}
+	}
+}
+
+void BlimpEnemy::ATTACK()
+{
+	if (!IsAnimEnd) return;
+	if (!IsAnimReverse)
+	{
+		FireBullet();
+		SetState(BlimpEnemyInfo::EState::ATTACK, true);
+	}
+	else
+	{
+		SetState(BlimpEnemyInfo::EState::TURN, false);
+	}
+}
+
+void BlimpEnemy::TURN()
+{
+	if (!IsAnimEnd) return;
+	IsFlip = true;
+	Dx = 1.f;
+	SetState(BlimpEnemyInfo::EState::IDLE, false);
 }
 
 void BlimpEnemy::FireBullet()

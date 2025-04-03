@@ -28,7 +28,12 @@ public:
 
 	virtual void Move() override;
 
+private:
 	void UpdateState();
+
+	void INTRO();
+	void ATTACK();
+
 	void SetState(TornadoInfo::EState NewState, bool AnimReverse);
 
 	// 나중에 옮기든지..
