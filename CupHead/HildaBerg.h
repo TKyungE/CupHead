@@ -1,6 +1,14 @@
 #pragma once
 #include "GameObject.h"
 
+struct FHildaBergData
+{
+	int Phase;
+	int TotalHp;
+	int CurrentHp;
+	int HpList[6];
+};
+
 class Character;
 class HildaBerg : public GameObject
 {
@@ -21,6 +29,9 @@ public:
 
 	void SetDead(bool bDead) { this->bDead = bDead; }
 
+	int GetTotalHp() const;
+	int GetCurrentHp() const;
+
 private:
 	void ChangeForm();
 	void SpawnEnemy();
@@ -32,5 +43,9 @@ private:
 
 	float ElapsedSpawnTime;
 	float SpawnCoolTime;
+
+	int HpList[6];
+
+	FHildaBergData HlidaBergData;
 };
 

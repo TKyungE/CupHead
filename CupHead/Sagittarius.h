@@ -16,7 +16,7 @@ public:
 	Sagittarius();
 	virtual ~Sagittarius() = default;
 
-	void Init(FPOINT InPos, float InAngle);
+	void Init(FPOINT InPos, float InAngle, int _Hp);
 	virtual void Release() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;

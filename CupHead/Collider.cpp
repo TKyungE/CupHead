@@ -38,6 +38,8 @@ void Collider::Update()
 
 void Collider::Render(HDC hdc)
 {
+#ifdef _DEBUG
+
 	FPOINT HalfSize = { Size.x / 2.f, Size.y / 2.f };
 
 	HPEN hPen;
@@ -64,7 +66,7 @@ void Collider::Render(HDC hdc)
 	// 펜 메모리 해제
 	DeleteObject(hPen);
 
-	
+#endif // _DEBUG
 }
 
 void Collider::Release()

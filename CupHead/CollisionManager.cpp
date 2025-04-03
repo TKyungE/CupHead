@@ -52,6 +52,7 @@ void CollisionManager::Update()
 
 void CollisionManager::Render(HDC hdc)
 {
+#ifdef _DEBUG
 	for (int objType = 0; objType < OBJ_END; ++objType)
 	{
 		for (auto& iter : CollisionList[objType])
@@ -64,6 +65,7 @@ void CollisionManager::Render(HDC hdc)
 	}
 
 	DebugLineRender(hdc);
+#endif
 }
 
 void CollisionManager::DebugLineRender(HDC hdc)
@@ -248,8 +250,6 @@ bool CollisionManager::CollisionSphere(Collider* collider1, Collider* collider2)
 
 bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType, FPOINT start, FPOINT end, GameObject* owner, bool bIgnoreSelf, bool bDebugDraw, float DebugDuration, COLORREF DebugColor)
 {
-	// 네 변을 다 검사해야 한다
-	// ccw 알고리즘 사용
 	if (bDebugDraw)
 	{
 		Line* line = new Line(start, end);
@@ -258,7 +258,8 @@ bool CollisionManager::LineTraceByObject(FHitResult& hitResult, OBJTYPE objType,
 		line->DebugColor = DebugColor;
 		LineList.push_back(line);
 	}
-
+	// 네 변을 다 검사해야 한다
+	// ccw 알고리즘 사용
 	for (auto& iter : CollisionList[objType])
 	{
 		if (!iter->CanHit())

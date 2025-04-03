@@ -38,28 +38,31 @@ void SimpleUI::Render(HDC hdc)
 
 void SimpleUI::UpdateFrame()
 {
-	FrameTime += (FrameSpeed * TimerManager::GetInstance()->GetDeltaTime()) * FrameDir;
-	CurFrameIndex = (int)FrameTime;
-
-	if (CurFrameIndex >= image->GetMaxFrameX())
+	if (FrameSpeed > 0.f)
 	{
-		if (!bRepeat)
-			CurFrameIndex = FrameTime = image->GetMaxFrameX() - 1;
-		else if (bPingPong)
+		FrameTime += (FrameSpeed * TimerManager::GetInstance()->GetDeltaTime()) * FrameDir;
+		CurFrameIndex = (int)FrameTime;
+
+		if (CurFrameIndex >= image->GetMaxFrameX())
 		{
-			FrameDir = -1;
-			CurFrameIndex = FrameTime = image->GetMaxFrameX() - 1;
-		}
-		else
-			CurFrameIndex = FrameTime = 0.f;
+			if (!bRepeat)
+				CurFrameIndex = FrameTime = image->GetMaxFrameX() - 1;
+			else if (bPingPong)
+			{
+				FrameDir = -1;
+				CurFrameIndex = FrameTime = image->GetMaxFrameX() - 1;
+			}
+			else
+				CurFrameIndex = FrameTime = 0.f;
 
-		++CurrentLifeCount;
-	}
-	else if (bPingPong && CurFrameIndex < 0)
-	{
-		CurFrameIndex = FrameTime = 0.f;
-		FrameDir = 1;
-		++CurrentLifeCount;
+			++CurrentLifeCount;
+		}
+		else if (bPingPong && CurFrameIndex < 0)
+		{
+			CurFrameIndex = FrameTime = 0.f;
+			FrameDir = 1;
+			++CurrentLifeCount;
+		}
 	}
 }
 
