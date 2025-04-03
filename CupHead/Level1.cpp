@@ -54,7 +54,9 @@ void Level1::Update()
 		return;
 	}
 
+#ifdef _DEBUG
 	TestCode();
+#endif // _DEBUG
 
 	if (BackgroundManager != nullptr)
 		BackgroundManager->Update();
