@@ -34,10 +34,10 @@ void SagittariusStar::Init()
 	maxAngularVelocity = 0.9f;
 	friction = 0.9f;*/
 
-	image = ImageManager::GetInstance()->AddImage("sagg_star", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/sagg_star.bmp", 1157, 90, 13, 1, true, RGB(255, 0, 255));
+	image = ImageManager::GetInstance()->FindImage("sagg_star");
 	ImageSize = sqrtf(powf(image->GetFrameWidth(), 2) + powf(image->GetFrameHeight(), 2));
 
-	Collider* collider = new Collider(this, COLLIDERTYPE::Sphere, { 0.f,0.f }, 30.f, true, 1.f);
+	Collider* collider = new Collider(this, COLLIDERTYPE::Sphere, { 0.f,0.f }, 30.f, true, 0.5f);
 	collider->Init();
 	CollisionManager::GetInstance()->AddCollider(collider, OBJTYPE::OBJ_MONSTER);
 
@@ -164,11 +164,6 @@ float SagittariusStar::NoramlizeAngle(float angle)
 
 void SagittariusStar::EffectInit()
 {
-	ImageManager::GetInstance()->AddImage("sagg_star_death", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Death/sagg_star_death.bmp", 3870, 249, 15, 1, true, RGB(255, 0, 255));
-
-	ImageManager::GetInstance()->AddImage("a_sagg_star_trail", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Trail/a_sagg_star_trail.bmp", 552, 46, 12, 1, true, RGB(255, 0, 255));
-	ImageManager::GetInstance()->AddImage("b_sagg_star_trail", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Trail/b_sagg_star_trail.bmp", 564, 46, 12, 1, true, RGB(255, 0, 255));
-	ImageManager::GetInstance()->AddImage("c_sagg_star_trail", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Trail/c_sagg_star_trail.bmp", 528, 45, 12, 1, true, RGB(255, 0, 255));
 	TrailImages[0] = "a_sagg_star_trail";
 	TrailImages[1] = "b_sagg_star_trail";
 	TrailImages[2] = "c_sagg_star_trail";

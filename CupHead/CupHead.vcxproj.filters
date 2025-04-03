@@ -157,6 +157,9 @@
     <Filter Include="MainGame\UI\Button">
       <UniqueIdentifier>{ff506182-87c6-49fd-b9a6-683f53b72546}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\Moon\MoonStar">
+      <UniqueIdentifier>{3431677b-2bbe-478b-959c-ac7cc189c9eb}</UniqueIdentifier>
+    </Filter>
     <Filter Include="MainGame\Player\Missile">
       <UniqueIdentifier>{0246a662-d416-436f-981a-671f1574d57d}</UniqueIdentifier>
     </Filter>
@@ -341,6 +344,9 @@
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>MainGame\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="SagittariusStar2.cpp">
+      <Filter>MainGame\Enemy\Moon\MoonStar</Filter>
     </ClCompile>
     <ClCompile Include="SkillPointManager.cpp">
       <Filter>MainGame\UI\TrumpCard</Filter>
@@ -559,6 +565,9 @@
     </ClInclude>
     <ClInclude Include="PlayerSharkMissile.h">
       <Filter>MainGame\Player\Missile</Filter>
+    </ClInclude>
+    <ClInclude Include="SagittariusStar2.h">
+      <Filter>MainGame\Enemy\Moon\MoonStar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

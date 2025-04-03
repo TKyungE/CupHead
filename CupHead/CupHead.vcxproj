@@ -132,7 +132,7 @@
     <ClCompile Include="BackGround.cpp" />
     <ClCompile Include="BarrageBullet.cpp" />
     <ClCompile Include="BlimpEnemy.cpp" />
-    <ClCompile Include="BlimpEnemyPiece.cpp" />
+    <ClCompile Include="BrokenPiece.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -156,6 +156,7 @@
     <ClCompile Include="LevelMain.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LevelResult.cpp" />
+    <ClCompile Include="SagittariusStar2.cpp" />
     <ClCompile Include="RecordUI.cpp" />
     <ClCompile Include="SimpleUI.cpp" />
     <ClCompile Include="SkillPointManager.cpp" />
@@ -199,7 +200,7 @@
     <ClInclude Include="BackGround.h" />
     <ClInclude Include="BarrageBullet.h" />
     <ClInclude Include="BlimpEnemy.h" />
-    <ClInclude Include="BlimpEnemyPiece.h" />
+    <ClInclude Include="BrokenPiece.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Character.h" />
@@ -225,6 +226,7 @@
     <ClInclude Include="LevelMain.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LevelResult.h" />
+    <ClInclude Include="SagittariusStar2.h" />
     <ClInclude Include="RecordUI.h" />
     <ClInclude Include="SimpleUI.h" />
     <ClInclude Include="SkillPointManager.h" />

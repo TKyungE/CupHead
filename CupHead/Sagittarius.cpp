@@ -7,6 +7,7 @@
 #include "SagittariusStar.h"
 #include "ObjectManager.h"
 #include "SagittariusCloud.h"
+#include "SagittariusStar2.h"
 
 Sagittarius::Sagittarius()
 	:Angle(0.f), AngleSpeed(0.f), CurrnetTime(0.f), AttackTime(0.f), bAttack(false), Cloud(nullptr)
@@ -67,7 +68,7 @@ void Sagittarius::Render(HDC hdc)
 	if (image)
 	{
 		image->FrameRender(hdc, pos.x, pos.y, CurFrameIndex, 0);
-		
+
 		// 몬스터는 맞을 때 흰색 덮이는데 플레이어는 맞으면 알파블렌딩으로 그려져서 bool 인자로 분기했습니당.
 		//image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, true, 85, RGB(255, 255, 255)); // true면 기존FrameRender하고 그 위에 원하는 컬러값을 AlphaValue값만큼 AlphaBlend해서 그리는 함수.
 		//image->FrameRenderAlpha(hdc, pos.x, pos.y, CurFrameIndex, 0, false, 85); // false면 기존 이미지를 AlphaValue값만큼 AlphaBlend해서 그리는 함수.
@@ -111,7 +112,7 @@ void Sagittarius::Attack()
 	{
 		bAttack = true;
 
-		FPOINT StarPos = { pos.x - image->GetFrameHeight() * 0.5f, pos.y - 40.f};
+		FPOINT StarPos = { pos.x - image->GetFrameHeight() * 0.5f, pos.y - 40.f };
 		FPOINT ArrowPos = { pos.x, pos.y - 40.f };
 
 		SagittariusStar* star = new SagittariusStar(StarPos, 10.f, 180.f);
@@ -129,6 +130,15 @@ void Sagittarius::Attack()
 		SagittariusArrow* arrow = new SagittariusArrow(ArrowPos, { 50.f,50.f });
 		arrow->Init();
 		ObjectManager::GetInstance()->AddObject(arrow, OBJTYPE::OBJ_MONSTER_WEAPON);
+
+
+		for (int i = 0; i < WINSIZE_Y / 90.f; ++i)
+		{
+			SagittariusStar2* sagittariusStar2 = new SagittariusStar2();
+			sagittariusStar2->Init("sagg_star", WINSIZE_X, i * 90.f, 400.f);
+			ObjectManager::GetInstance()->AddObject(sagittariusStar2, OBJTYPE::OBJ_MONSTER_WEAPON);
+		}
+
 	}
 	else if (bAttack && CurFrameIndex == image->GetMaxFrameX() - 1)
 	{

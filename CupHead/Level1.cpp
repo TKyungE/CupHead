@@ -156,6 +156,14 @@ void Level1::ImageInit()
 	image = ImageManager::GetInstance()->AddImage("phaseIndex", L"Image/CupHead/UI/Menu/phaseIndex.bmp", 7, 27, 1, 1, true, RGB(255, 0, 255));
 	image = ImageManager::GetInstance()->AddImage("death_card_run", L"Image/CupHead/UI/Menu/death_card_run.bmp", 864, 62, 16, 1, true, RGB(255, 0, 255));
 	image = ImageManager::GetInstance()->AddImage("phaseIndex", L"Image/CupHead/UI/Menu/phaseIndex.bmp", 7, 27, 1, 1, true, RGB(255, 0, 255));
+
+	image = ImageManager::GetInstance()->AddImage("sagg_star", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/sagg_star.bmp", 1157, 90, 13, 1, true, RGB(255, 0, 255));
+	
+	ImageManager::GetInstance()->AddImage("sagg_star_death", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Death/sagg_star_death.bmp", 3870, 249, 15, 1, true, RGB(255, 0, 255));
+
+	ImageManager::GetInstance()->AddImage("a_sagg_star_trail", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Trail/a_sagg_star_trail.bmp", 552, 46, 12, 1, true, RGB(255, 0, 255));
+	ImageManager::GetInstance()->AddImage("b_sagg_star_trail", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Trail/b_sagg_star_trail.bmp", 564, 46, 12, 1, true, RGB(255, 0, 255));
+	ImageManager::GetInstance()->AddImage("c_sagg_star_trail", L"Image/CupHead/Hilda Berg/Sagittarius/Arrow/Star/Trail/c_sagg_star_trail.bmp", 528, 45, 12, 1, true, RGB(255, 0, 255));
 }
 
 void Level1::TestCode()
