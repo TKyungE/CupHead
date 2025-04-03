@@ -104,6 +104,16 @@ void Level1::ObjectInit(void* InData)
 		playerHP->Init();
 		ObjectManager->AddObject(playerHP, OBJTYPE::OBJ_UI);
 
+		// 테스트 코드 KnockOut 생성
+	/*	KnockOut* knockOut = new KnockOut();
+		knockOut->Init();
+		AddObject(knockOut, OBJTYPE::OBJ_UI);*/
+
+		// 테스트 코드 TrumpCardManager 생성
+		//TrumpCardManager* trumpCardManager = new TrumpCardManager();
+		//trumpCardManager->Init(10, 50);
+		//ObjectManager->AddObject(trumpCardManager, OBJTYPE::OBJ_ETC);
+
 		// 테스트 코드 ReadyWallop 생성
 		ReadyWallop* readyWallop = new ReadyWallop();
 		readyWallop->Init();

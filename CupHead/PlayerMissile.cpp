@@ -5,6 +5,8 @@
 #include "CommonFunction.h"
 #include "Collider.h"
 #include "CollisionManager.h"
+#include "ObjectManager.h"
+#include "Player.h"
 
 PlayerMissile::PlayerMissile() : Damage(1)
 {
@@ -47,6 +49,10 @@ void PlayerMissile::Move()
 
 void PlayerMissile::TakeDamage(int damage)
 {
+	list<GameObject*> playerList = ObjectManager::GetInstance()->GetObjectList(OBJ_PLAYER);
 
-
+	if (!playerList.empty())
+	{
+		dynamic_cast<Player*>(playerList.front())->PlusSkillPoint(Damage);
+	}
 }

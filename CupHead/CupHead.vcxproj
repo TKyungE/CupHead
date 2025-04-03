@@ -158,6 +158,7 @@
     <ClCompile Include="LevelResult.cpp" />
     <ClCompile Include="RecordUI.cpp" />
     <ClCompile Include="SimpleUI.cpp" />
+    <ClCompile Include="SkillPointManager.cpp" />
     <ClCompile Include="UIBackground.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -226,6 +227,7 @@
     <ClInclude Include="LevelResult.h" />
     <ClInclude Include="RecordUI.h" />
     <ClInclude Include="SimpleUI.h" />
+    <ClInclude Include="SkillPointManager.h" />
     <ClInclude Include="UIBackground.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="MainTitle.h" />
