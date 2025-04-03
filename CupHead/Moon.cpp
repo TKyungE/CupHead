@@ -13,10 +13,10 @@ Moon::Moon()
 {
 }
 
-void Moon::Init()
+void Moon::Init(int _Hp)
 {
 	FrameSpeed = 25.f;
-	Hp = 100;
+	Hp = _Hp;
 
 	AttackTime = 5.f;
 	UFOSpawnTime = 2.f;
