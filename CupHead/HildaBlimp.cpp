@@ -249,6 +249,7 @@ void HildaBlimp::Move()
 
 void HildaBlimp::TakeDamage(int damage)
 {
+	if (Hp <= 0) return;
 	Hp -= damage;
 }
 
