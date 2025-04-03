@@ -156,6 +156,7 @@
     <ClCompile Include="LevelMain.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LevelResult.cpp" />
+    <ClCompile Include="SagittariusStar2.cpp" />
     <ClCompile Include="RecordUI.cpp" />
     <ClCompile Include="SimpleUI.cpp" />
     <ClCompile Include="SkillPointManager.cpp" />
@@ -225,6 +226,7 @@
     <ClInclude Include="LevelMain.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LevelResult.h" />
+    <ClInclude Include="SagittariusStar2.h" />
     <ClInclude Include="RecordUI.h" />
     <ClInclude Include="SimpleUI.h" />
     <ClInclude Include="SkillPointManager.h" />

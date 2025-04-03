@@ -157,6 +157,9 @@
     <Filter Include="MainGame\UI\Button">
       <UniqueIdentifier>{ff506182-87c6-49fd-b9a6-683f53b72546}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Enemy\Moon\MoonStar">
+      <UniqueIdentifier>{3431677b-2bbe-478b-959c-ac7cc189c9eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -350,6 +353,12 @@
     </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>MainGame\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillPointManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="SagittariusStar2.cpp">
+      <Filter>MainGame\Enemy\Moon\MoonStar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -550,6 +559,12 @@
     </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>MainGame\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillPointManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SagittariusStar2.h">
+      <Filter>MainGame\Enemy\Moon\MoonStar</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

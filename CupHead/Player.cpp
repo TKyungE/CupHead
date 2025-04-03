@@ -57,7 +57,7 @@ void Player::Init(FPOINT pos, FPOINT size)
 	//FrameSpeed = 10.f;
 	// 원래 8인데 유령 보려고 임시 1
 	//Hp = 8;
-	Hp = 1;
+	Hp = 8;
 
 	Collider* collider = new Collider(this, COLLIDERTYPE::Rect, { 0.f,0.f }, size, true);
 	collider->Init();
