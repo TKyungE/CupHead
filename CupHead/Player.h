@@ -101,8 +101,6 @@ private:
 	float DustCoolTime;
 	float DeathUICoolTime;
 	
-	float AlphaTime;
-	float MaxAlphaTime;
 	UPDOWN PreUpDownState;
 	UPDOWN CurUpDownState;
 	PLAYERSTATE PreState;

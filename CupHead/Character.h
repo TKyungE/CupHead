@@ -24,8 +24,11 @@ public:
 	inline int GetMaxHp() const { return MaxHp; }
 
 protected:
+	virtual void UpdateAlphaTime();
+protected:
 	int Hp;
 	int MaxHp;
-	
+	float AlphaTime;
+	float MaxAlphaTime;
 };
 
