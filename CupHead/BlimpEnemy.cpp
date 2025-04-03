@@ -122,7 +122,7 @@ void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum, FPOINT _Pos
 	size = { 1.f,1.f };
 	bDead = false;
 
-	Hp = 6;
+	Hp = 4;
 
 	float sizeX = GetWidth();
 	float sizeY = GetHeight();
@@ -141,11 +141,11 @@ void BlimpEnemy::Update()
 {
 	UpdateAlphaTime();
 
+	UpdateFrame();
+
 	UpdateState();
 
 	Move();
-
-	UpdateFrame();
 }
 
 void BlimpEnemy::Render(HDC hdc)
