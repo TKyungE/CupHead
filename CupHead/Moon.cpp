@@ -81,7 +81,7 @@ void Moon::TakeDamage(int damage)
 		State = EMoonState::Dead;
 		image = ImageManager::GetInstance()->AddImage("blimp_moon_death", L"Image/CupHead/Hilda Berg/Moon/blimp_moon_death.bmp", 10144, 810, 16, 1, true, RGB(255, 0, 255));
 
-		ColliderComponent->SetDead(true);
+		CollisionManager::GetInstance()->SetReset(true);
 
 		KnockOut* knockOut = new KnockOut();
 		knockOut->Init();

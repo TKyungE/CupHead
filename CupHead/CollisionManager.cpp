@@ -6,10 +6,17 @@
 
 void CollisionManager::Init()
 {
+	bReset = false;
 }
 
 void CollisionManager::Update()
 {
+	if (bReset)
+	{
+		Reset();
+		bReset = false;
+	}
+
 	for (int objType= 0; objType < OBJ_END; ++objType)
 	{
 		for (auto iter = CollisionList[objType].begin(); iter != CollisionList[objType].end();)
@@ -106,6 +113,25 @@ void CollisionManager::Release()
 	LineList.clear();
 
 	ReleaseInstance();
+}
+
+void CollisionManager::Reset()
+{
+	for (int objType = 0; objType < OBJ_END; ++objType)
+	{
+		for (auto& iter : CollisionList[objType])
+		{
+			iter->Release();
+			delete iter;
+			iter = nullptr;
+		}
+		CollisionList[objType].clear();
+	}
+
+	for (auto& iter : LineList)
+		delete iter;
+
+	LineList.clear();
 }
 
 void CollisionManager::PlayerMonsterCollision()
