@@ -130,8 +130,8 @@ void Taurus::Move()
 
 void Taurus::TakeDamage(int damage)
 {
+	if (Hp <= 0) return;
 	Hp -= damage;
-
 }
 
 void Taurus::UpdateState()
