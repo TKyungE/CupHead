@@ -1,7 +1,7 @@
 #include "BlimpEnemy.h"
 #include "Image.h"
 #include "Bullet.h"
-#include "BlimpEnemyPiece.h"
+#include "BrokenPiece.h"
 
 #include "CommonFunction.h"
 #include "ObjectManager.h"
@@ -122,7 +122,7 @@ void BlimpEnemy::Init(BlimpEnemyInfo::EColor _Color, int _BulletNum, FPOINT _Pos
 	size = { 1.f,1.f };
 	bDead = false;
 
-	Hp = 10;
+	Hp = 6;
 
 	float sizeX = GetWidth();
 	float sizeY = GetHeight();
@@ -206,10 +206,10 @@ void BlimpEnemy::TakeDamage(int damage)
 		EffectManager::GetInstance()->AddEffect("BlimpEnemySpark", pos, 1.f);
 		EffectManager::GetInstance()->AddEffect("BlimpEnemyExplode", pos, 1.f);
 
-		for (int i = 0; i < BlimpEnemyPieceInfo::EType::TYPE_END; ++i)
+		for (char pieceName = 'A'; pieceName <= 'F'; ++pieceName)
 		{
-			BlimpEnemyPiece* piece = new BlimpEnemyPiece((float)(uid(dre) % 2), (float)(uid(dre) % 4));
-			piece->Init(pos, (BlimpEnemyPieceInfo::EType)i, Color);
+			BrokenPiece* piece = new BrokenPiece((float)(uid(dre) % 2), (float)(uid(dre) % 4));
+			piece->Init(pos, ("BlimpEnemyPiece" + string{pieceName} + Color));
 			ObjectManager::GetInstance()->AddObject(piece, OBJ_MONSTER);
 		}
 	}
