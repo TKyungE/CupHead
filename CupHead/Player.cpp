@@ -33,7 +33,7 @@ Player::Player() :
 	memcpy(AttackTimes, AttackCoolTimes, sizeof(AttackTimes));
 	UseSkillGage[ATTACK_NORMAL] = 0;
 	UseSkillGage[ATTACK_FALL] = 0;
-	UseSkillGage[ATTACK_SHARK] = 10;
+	UseSkillGage[ATTACK_SHARK] = 50;
 
 	MaxAlphaTime = 0.5f;
 }				  
@@ -64,7 +64,7 @@ void Player::Init(FPOINT pos, FPOINT size)
 	EffectInit();
 
 	SkillManager = new SkillPointManager();
-	SkillManager->Init(10, 5);
+	SkillManager->Init(50, 5);
 }
 
 void Player::Release()
@@ -566,7 +566,7 @@ void Player::FireFall()
 	AttackTimes[ATTACK_FALL] = 0.f;
 	FPOINT FirePos = { pos.x + OffsetPos.x , pos.y + OffsetPos.y };
 	PlayerFallMissile* Missile = new PlayerFallMissile();
-	Missile->Init(FirePos, 2);
+	Missile->Init(FirePos, 5);
 	ObjectManager::GetInstance()->AddObject(Missile, OBJTYPE::OBJ_PLAYER_WEAPON);
 
 	if (4 <= FireCnt)
@@ -584,7 +584,7 @@ void Player::FireShark()
 	AttackTimes[ATTACK_SHARK] = 0.f;
 	FPOINT FirePos = { pos.x + OffsetPos.x , pos.y + OffsetPos.y };
 	PlayerSharkMissile* Missile = new PlayerSharkMissile();
-	Missile->Init(FirePos, 1);
+	Missile->Init(FirePos, 3);
 	ObjectManager::GetInstance()->AddObject(Missile, OBJTYPE::OBJ_PLAYER_WEAPON);
 
 	if (4 <= FireCnt)
