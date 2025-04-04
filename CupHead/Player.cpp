@@ -25,7 +25,7 @@ Player::Player() :
 		PreUpDownState(UPDOWN_NONE), CurUpDownState(UPDOWN_NONE), 
 		PreState(PLAYER_INTRO), CurState(PLAYER_INTRO),
 		NextImage(nullptr), SkillManager(nullptr),
-		SkillPoint(0), MaxSkillPoint(50)
+		SkillPoint(0), MaxSkillPoint(250)
 {
 	AttackCoolTimes[ATTACK_NORMAL] = 0.1f;
 	AttackCoolTimes[ATTACK_FALL] = 0.5f;
