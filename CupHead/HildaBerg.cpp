@@ -16,18 +16,18 @@ HildaBerg::HildaBerg()
 	: HildaForm{}, Phase{}, Angle{},
 	ElapsedSpawnTime{}, SpawnCoolTime{ 3.f }
 {
-	/*HpList[0] = 200;
+	HpList[0] = 200;
 	HpList[1] = 250;
 	HpList[2] = 200;
 	HpList[3] = 250;
 	HpList[4] = 200;
-	HpList[5] = 300;*/
-	HpList[0] = 20;
+	HpList[5] = 300;
+	/*HpList[0] = 20;
 	HpList[1] = 25;
 	HpList[2] = 20;
 	HpList[3] = 25;
 	HpList[4] = 20;
-	HpList[5] = 30;
+	HpList[5] = 30;*/
 
 	ZeroMemory(&HlidaBergData, sizeof(FHildaBergData));	
 }
@@ -75,7 +75,9 @@ void HildaBerg::Release()
 
 void HildaBerg::Update()
 {
+#ifdef _DEBUG
 	ProcessInput();
+#endif // _DEBUG
 
 	if (Phase < 0) return;
 

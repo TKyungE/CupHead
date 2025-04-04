@@ -2,7 +2,7 @@
 #include "TrumpCard.h"
 #include "ObjectManager.h"
 
-SkillPointManager::SkillPointManager(): PreActiveCnt(0), CurActiveCnt(0), MaxCardCnt(5), SkillPoint(0), MaxSkillPoint(50), GageCount(0)
+SkillPointManager::SkillPointManager(): PreActiveCnt(0), CurActiveCnt(0), MaxCardCnt(5), SkillPoint(0), MaxSkillPoint(250), GageCount(0)
 {
 }
 
