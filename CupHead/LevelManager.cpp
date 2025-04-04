@@ -16,6 +16,7 @@ void LevelManager::Init()
 
 void LevelManager::Update()
 {
+#ifdef _DEBUG
 	if (KeyManager::GetInstance()->IsOnceKeyDown('1'))
 		SetLevelState(ELevelState::Logo);
 	if (KeyManager::GetInstance()->IsOnceKeyDown('2'))
@@ -24,6 +25,8 @@ void LevelManager::Update()
 		SetLevelState(ELevelState::Level1);
 	if (KeyManager::GetInstance()->IsOnceKeyDown('4'))
 		SetLevelState(ELevelState::Result);
+#endif // _DEBUG
+	
 	Level->Update();
 }
 

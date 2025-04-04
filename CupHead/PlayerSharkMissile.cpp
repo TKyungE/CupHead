@@ -25,7 +25,7 @@ PlayerSharkMissile::~PlayerSharkMissile()
 }
 
 void PlayerSharkMissile::Init(FPOINT _Pos, int _Damage)
-{
+{ 
 	__super::Init(_Pos, _Damage);
 }
 
